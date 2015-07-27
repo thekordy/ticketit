@@ -1,0 +1,29 @@
+{
+    "name": "kordy/ticketit",
+    "description": "A simple helpdesk tickets system",
+    "type": "laravel-package",
+    "require": {
+        "illuminate/support": "5.1.8",
+        "illuminate/auth": "5.1.8",
+        "illuminate/config": "5.1.8",
+        "illuminate/routing": "5.1.8",
+        "illuminate/mail": "5.1.8",
+        "illuminate/pagination": "5.1.8",
+        "illuminate/view": "5.1.8",
+        "illuminate/validation": "5.1.8",
+        "laravelcollective/html": "^5.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmed Kordy",
+            "email": "ahmed@kordy.info"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kordy\\Ticketit\\": "vendor/kordy/ticketit/src"
+        }
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,14 @@
+1. composer require kordy/ticketit
+        "autoload": {
+                ...
+                "psr-4": {
+                    ...,
+                    "Kordy\\Ticketit\\": "vendor/kordy/ticketit/src"
+                }
+
+2. edit config/app.php
+        providers => Kordy\Ticketit\TicketitServiceProvider::class,
+
+3. php artisan vendor:publish
+
+4. composer dumpautoload -o

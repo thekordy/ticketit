@@ -2,22 +2,21 @@
 A simple helpdesk support tickets system for Laravel 5.1
 
 ### Installation Guide
+First Make sure you have got all dependents working (Laravel 5.1, Users table, Auth, LaravelCollective HTML)
 
 To install this package, you can run this code via your terminal
 ```shell
 	composer require kordy/ticket dev-master
 ```
-Or update your `composer.json` by adding this line
-```json
-	"kordy/ticket":"dev-master"
-```
-Then, run this code
-```shell
-	composer update
-```
-After install it, you have to add this line on your `app/config/app.php` on Service Providers lines.
+
+After install it, you have to add this line on your `config/app.php` on Service Providers lines.
 ```php
 	Kordy\Ticketit\TicketitServiceProvider::class
+```
+
+Install database tables by running the migrate artisan command 
+```php
+	php artisan migrate --path=vendor/kordy/ticketit/src/migrations
 ```
 
 ### Configuration

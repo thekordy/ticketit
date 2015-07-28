@@ -22,7 +22,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Kordy\\Ticketit\\": "vendor/kordy/ticketit/src"
+            "Kordy\\Ticketit\\": "src/"
         }
     },
     "minimum-stability": "dev"

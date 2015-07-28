@@ -44,7 +44,7 @@ Publish the views (It will generate views files at `resources/views/vendor/kordy
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
 ```
 
-**After publishing the config file __config/ticketit.php__ , edit it for your settings.**
+**After publishing the config file config/ticketit.php , edit it for your settings.**
 
 **Be sure to implement these views sections in your master template in order to integrate with the ticketit views:**
 

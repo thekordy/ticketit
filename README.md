@@ -21,15 +21,21 @@ After install it, you have to add this line on your `app/config/app.php` on Serv
 ```
 
 ### Configuration
-
-Now you may publish the views
+You may publish all files at once 
 ```shell
-	php artisan vendor:publish --provider="kordy\Ticketit\TicketitServiceProvider" --tag="config"
+	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider"
+```
+
+Or you may publish by tags
+
+Publish the config file
+```shell
+	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="config"
 ```
 It will generate new file at `config/ticketit.php`. Edit necessary lines.
 
-Now you may publish the views
+Publish the views
 ```shell
-	php artisan vendor:publish --provider="kordy\Ticketit\TicketitServiceProvider" --tag="views"
+	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
 ```
 It will generate views files at `resources/views/vendor/kordy/ticketit/`. Edit necessary lines.

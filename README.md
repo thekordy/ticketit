@@ -43,7 +43,10 @@ Publish the views (It will generate views files at `resources/views/vendor/kordy
 ```shell
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
 ```
-**Be sure to offer the views sections to integrate with the ticketit views:**
+
+**After publishing the config file __config/ticketit.php__ , edit it for your settings.**
+
+**Be sure to implement these views sections in your master template in order to integrate with the ticketit views:**
 
 Page section for passing the current page title
 ```blade

@@ -61,6 +61,8 @@
             {!! Form::close() !!}
         @endif
     </div>
+@stop
+@section('footer')
     <script>
         $( ".deleteit" ).click(function( event ) {
             event.preventDefault();

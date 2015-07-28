@@ -9,7 +9,7 @@ To install this package, you can run this code via your terminal
 ```
 Or update your `composer.json` by adding this line
 ```json
-	"kordy/ticket":"dev"
+	"kordy/ticket":"dev-master"
 ```
 Then, run this code
 ```shell

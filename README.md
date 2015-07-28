@@ -3,12 +3,14 @@ A simple helpdesk support tickets system for Laravel 5.1
 
 ### Installation Guide
 **First Make sure you have got all dependents working:**
+
 1. Laravel 5.1
 2. Users table
 3. Auth
 4. LaravelCollective HTML
 
 **To install this package:**
+
 1. you can run this code via your terminal
 ```shell
 	composer require kordy/ticket dev-master
@@ -26,11 +28,13 @@ A simple helpdesk support tickets system for Laravel 5.1
 
 ### Configuration
 **You may publish all files at once**
+
 ```shell
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider"
 ```
 
 **Or you may publish by tags**
+
 1. Publish the config file (It will generate new file at `config/ticketit.php`. Edit necessary lines.)
 ```shell
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="config"
@@ -40,6 +44,7 @@ A simple helpdesk support tickets system for Laravel 5.1
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
 ```
 **Be sure to offer the views sections to integrate with the ticketit views:**
+
 1. Page section for passing the current page title
 ```blade
 <header> ...

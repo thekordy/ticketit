@@ -3,7 +3,7 @@
 Route::resource(config('ticketit.main_route'), 'Kordy\Ticketit\Controllers\TicketsController');
 
 //Ticket admin index route (ex. http://url/tickets-admin/)
-Route::get(config('ticketit.admin_route'), 'Kordy\Ticketit\Controllers\PagesController@index');
+Route::get(config('ticketit.admin_route'), 'Kordy\Ticketit\Controllers\AdminController@index');
 
 //Ticket statuses admin routes (ex. http://url/tickets-admin/status)
 Route::resource(config('ticketit.admin_route').'/status', 'Kordy\Ticketit\Controllers\StatusesController');

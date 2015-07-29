@@ -10,6 +10,9 @@
             <li role="presentation"  class="{!! Request::is(config('ticketit.admin_route')."/priority*") ? "active" : "" !!}">
                 <a href="/{{ config('ticketit.admin_route') }}/priority"> Priorities </a>
             </li>
+            <li role="presentation"  class="{!! Request::is(config('ticketit.admin_route')."/agent*") ? "active" : "" !!}">
+                <a href="/{{ config('ticketit.admin_route') }}/agent"> Agents </a>
+            </li>
         </ul>
     </div>
 </div>

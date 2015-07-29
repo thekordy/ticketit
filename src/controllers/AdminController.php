@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PagesController extends Controller {
+class AdminController extends Controller {
 
     public function __construct() {
         $this->middleware('auth');
@@ -16,4 +16,5 @@ class PagesController extends Controller {
     {
         return view('Ticketit::admin.index');
     }
+
 }

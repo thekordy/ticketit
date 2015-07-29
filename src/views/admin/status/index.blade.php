@@ -6,7 +6,7 @@
 
 @section('content')
     @include('Ticketit::admin.nav')
-    <div class="panel panel-info">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Manage Statuses
                 {!! link_to_route(

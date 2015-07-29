@@ -5,6 +5,7 @@
 @stop
 
 @section('content')
+    @include('Ticketit::admin.nav')
     <div class="panel panel-info">
         <div class="panel-heading">
             <h2> Manage Priorities

@@ -33,6 +33,31 @@
                             {{ $agent->name }}
                         </td>
                         <td>
+                            @foreach($agent->categories as $category)
+                                <span style="color: {{ $category->color }}">
+                                    {{  $category->name }}
+                                </span>
+                            @endforeach
+                        </td>
+                        <td>
+                            {!! Form::open([
+                                            'method' => 'PATCH',
+                                            'route' => [
+                                                        config('ticketit.admin_route').'.agent.update',
+                                                        $agent->id
+                                                        ],
+                                            ]) !!}
+                            @foreach(\Kordy\Ticketit\Models\Category::all() as $agent_cat)
+                                <input name="agent_cats[]"
+                                       type="checkbox"
+                                       value="{{ $agent_cat->id }}"
+                                       {!! ($agent_cat->agents()->where("id", $agent->id)->count() > 0) ? "checked" : ""  !!}
+                                       > {{ $agent_cat->name }}
+                            @endforeach
+                            {!! Form::submit('Join', ['class' => 'btn btn-info btn-sm']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                        <td>
                             {!! Form::open([
                             'method' => 'DELETE',
                             'route' => [

@@ -13,3 +13,6 @@ Route::resource(config('ticketit.admin_route').'/priority', 'Kordy\Ticketit\Cont
 
 //Agents management routes (ex. http://url/tickets-admin/agent)
 Route::resource(config('ticketit.admin_route').'/agent', 'Kordy\Ticketit\Controllers\AgentsController');
+
+//Agents management routes (ex. http://url/tickets-admin/agent)
+Route::resource(config('ticketit.admin_route').'/category', 'Kordy\Ticketit\Controllers\CategoriesController');

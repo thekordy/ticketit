@@ -45,9 +45,9 @@ class PrioritiesController extends Controller {
         $priority = new Priority;
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
-        $priorities = Priority::all();
-        $status = "The priority $request->name has been created!";
-        return view('Ticketit::admin.priority.index', compact('priorities', 'status'));
+        Session::flash('status', "The priority $request->name has been created!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 
     /**
@@ -85,7 +85,9 @@ class PrioritiesController extends Controller {
         $priority = Priority::findOrFail($id);
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 
-        return back()->with('status', 'The priority has been modified!');
+        Session::flash('status', "The priority $request->name has been modified!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 
     /**
@@ -100,8 +102,8 @@ class PrioritiesController extends Controller {
         $name = $priority->name;
         $priority->delete();
 
-        $priorities = Priority::all();
-        $status = "The priority $name has been deleted!";
-        return view('Ticketit::admin.priority.index', compact('priorities', 'status'));
+        Session::flash('status', "The priority $name has been modified!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 }

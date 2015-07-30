@@ -36,8 +36,8 @@ class AgentsController extends Controller {
             $users_list[] = $user->name;
         }
         $users_list = implode(',', $users_list);
-        Session::set('status', "Users $users_list are added to agents");
-        return $this->index();
+        Session::flash('status', "Users $users_list are added to agents");
+        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
     }
 
     public function destroy($id)
@@ -46,9 +46,9 @@ class AgentsController extends Controller {
         $agent->ticketit_agent = false;
         $agent->save();
 
-        Session::set('status', "Users $agent->name is removed from agents team");
+        Session::flash('status', "Users $agent->name is removed from agents team");
 
-        return $this->index();
+        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
     }
 
 }

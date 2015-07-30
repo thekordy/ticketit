@@ -45,9 +45,9 @@ class StatusesController extends Controller {
         $status = new Status;
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-        $statuses = Status::all();
-        $status = "The status $request->name has been created!";
-        return view('Ticketit::admin.status.index', compact('statuses', 'status'));
+        Session::flash('status', "The status $request->name has been created!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 
     /**
@@ -85,7 +85,9 @@ class StatusesController extends Controller {
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 
-        return back()->with('status', 'The status has been modified!');
+        Session::flash('status', "The status $request->name has been modified!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 
     /**
@@ -100,8 +102,8 @@ class StatusesController extends Controller {
         $name = $status->name;
         $status->delete();
 
-        $statuses = Status::all();
-        $status = "The status $name has been deleted!";
-        return view('Ticketit::admin.status.index', compact('statuses', 'status'));
+        Session::flash('status', "The status $name has been modified!");
+
+        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 }

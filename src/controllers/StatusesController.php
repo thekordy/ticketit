@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Status;
+use Illuminate\Support\Facades\Session;
 
 class StatusesController extends Controller {
 

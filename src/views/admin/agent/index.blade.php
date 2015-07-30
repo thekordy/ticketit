@@ -17,6 +17,7 @@
             </h2>
         </div>
         @include('Ticketit::shared.flash')
+        @include('Ticketit::shared.flash_error')
 
         @if ($agents->isEmpty())
             <h3 class="text-center"> There are no agents,

@@ -1,6 +1,6 @@
 {
     "name": "kordy/ticketit",
-    "description": "A simple helpdesk tickets system for Laravel 5.1",
+    "description": "A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system",
     "type": "laravel-package",
     "require": {
         "illuminate/support": "5.1.8",

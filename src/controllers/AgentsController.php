@@ -77,6 +77,7 @@ class AgentsController extends Controller {
 	}
 
 	/**
+	 * Sync Agent categories with the selected categories got from update form
 	 * @param $id
 	 * @param Request $request
 	 */

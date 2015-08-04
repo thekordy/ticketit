@@ -1,9 +1,14 @@
 @extends($master)
 
 @section('page')
-    Helpdesk page
+    Helpdesk main page
 @stop
 
 @section('content')
-    Tickets index
+    <h2>Tickets index</h2>
+    <div class="row">
+    @include('Ticketit::nav')
+        @include('Ticketit::tickets.index')
+    </div>
+
 @stop

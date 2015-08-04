@@ -18,5 +18,11 @@ return [
     * Template adherence: The master blade template to be extended
     * Default: resources/views/master.blade.php
     */
-    'master_template' => 'master'
+    'master_template' => 'master',
+
+    /*
+    * The default status for new created tickets
+    * Default: 1
+    */
+    'default_status_id' => 1
 ];

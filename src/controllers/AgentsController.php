@@ -32,9 +32,7 @@ class AgentsController extends Controller {
 	}
 
 	public function update($id, Request $request) {
-		$form_cats = ($request->input('agent_cats') == null) ? [] : $request->input('agent_cats');
-		$agent = Agent::find($id);
-		$agent->categories()->sync($form_cats);
+		$this->syncAgentCategories($id, $request);
 
 		Session::flash('status', "Joint categories successfully");
 
@@ -76,6 +74,17 @@ class AgentsController extends Controller {
 		$agent->save();
 
 		return $agent;
+	}
+
+	/**
+	 * @param $id
+	 * @param Request $request
+	 */
+	public function syncAgentCategories($id, Request $request)
+	{
+		$form_cats = ($request->input('agent_cats') == null) ? [] : $request->input('agent_cats');
+		$agent = Agent::find($id);
+		$agent->categories()->sync($form_cats);
 	}
 
 }

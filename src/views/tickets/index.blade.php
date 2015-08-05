@@ -15,6 +15,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <td>#</td>
                     <td>Subject</td>
                     <td>Update</td>
                     <td>priority</td>
@@ -25,6 +26,7 @@
             <tbody>
             @foreach($tickets as $ticket)
                 <tr class="ticket-tr small">
+                    <td>{{ $ticket->id }}</td>
                     <td>
                         {!!  link_to_route(
                                         'tickets.show',

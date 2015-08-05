@@ -40,7 +40,7 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <div class="pull-right">
+                        <div class="col-lg-10 col-lg-offset-2">
                             {!! link_to_route('tickets.index', 'Back', null, ['class' => 'btn btn-default']) !!}
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>

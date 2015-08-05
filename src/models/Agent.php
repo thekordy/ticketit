@@ -27,24 +27,6 @@ class Agent extends User
         return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
     }
 
-    public function ticketsCount()
-    {
-        return $this->hasOne('Kordy\Ticketit\Models\Ticket')
-            ->selectRaw('agent_id, count(*) as aggregate')
-            ->groupBy('agent_id');
-    }
-
-    public function getTicketsCountAttribute()
-    {
-        // if relation is not loaded already, let's do it first
-        if ($this->relationLoaded('ticketsCount')) $this->load('ticketsCount');
-
-        $related = $this->getRelation('ticketsCount');
-
-        // then return the count directly
-        return ($related) ? (int) $related->aggregate : 0;
-    }
-
     /**
      * Get related user tickets
      *

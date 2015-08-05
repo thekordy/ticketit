@@ -56,7 +56,7 @@ class Ticket extends Model {
      */
     public function agent()
     {
-        return $this->belongsTo('App\Agent', 'agent_id');
+        return $this->belongsTo('Kordy\Ticketit\Models\Agent', 'agent_id');
     }
 
 //    /**

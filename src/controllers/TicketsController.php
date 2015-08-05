@@ -22,7 +22,7 @@ class TicketsController extends Controller {
     public function index()
     {
         $tickets = Models\Ticket::all();
-        return view('Ticketit::index');
+        return view('Ticketit::index', compact('tickets'));
     }
 
     /**
@@ -38,10 +38,10 @@ class TicketsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created ticket and auto assign an agent for it
      *
      * @param  Request  $request
-     * @return Response
+     * @return Response redirect to index
      */
     public function store(Request $request)
     {
@@ -106,20 +106,26 @@ class TicketsController extends Controller {
         //
     }
 
+    /**
+     * Get the agent with the lowest tickets assigned in specific category
+     * @param integer $cat_id
+     * @return integer $selected_agent_id
+     */
     public function chooseAgent($cat_id)
     {
-        $category = Models\Category::find($cat_id);
-        $agents = $category->agents;
+        $cat_id = strval($cat_id);
+        $agents = Models\Agent::all();
         $count = 0;
+        $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
             if ($count == 0) {
-                $lowest_tickets = ($agent->ticketsCount != null) ? $agent->ticketsCount : 0;
+                $lowest_tickets = $agent->agentTickets->where('category_id', $cat_id)->count();
                 $selected_agent_id = $agent->id;
             }
             else {
-                $agent_tickets = ($agent->ticketsCount != null) ? $agent->ticketsCount : 0;
-                if ($agent_tickets < $lowest_tickets) {
-                    $lowest_tickets = $agent_tickets;
+                $tickets_count = $agent->agentTickets->where('category_id', $cat_id)->count();
+                if ($tickets_count < $lowest_tickets) {
+                    $lowest_tickets = $tickets_count;
                     $selected_agent_id = $agent->id;
                 }
             }

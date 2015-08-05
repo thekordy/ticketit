@@ -59,6 +59,15 @@ class Ticket extends Model {
         return $this->belongsTo('Kordy\Ticketit\Models\Agent', 'agent_id');
     }
 
+    /**
+     * Get Ticket comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
+    }
 //    /**
 //     * Get Ticket audits
 //     *
@@ -69,14 +78,5 @@ class Ticket extends Model {
 //        return $this->hasMany('Kordy\Ticketit\Models\Audit', 'ticket_id');
 //    }
 //
-//
-//    /**
-//     * Get Ticket comments
-//     *
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function comments()
-//    {
-//        return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
-//    }
+
 }

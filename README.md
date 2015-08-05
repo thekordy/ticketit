@@ -92,3 +92,28 @@ Footer section for passing the jquery scripts, so make sure it is called after y
 @yield('footer')
 </body>
 ```
+
+## Screenshots
+Views integrated in the master view
+![ticketit-main](https://cloud.githubusercontent.com/assets/11343048/9098039/ab3fea18-3bc7-11e5-87e5-5655e8b86f9c.png)
+
+My Tickets main user screen
+![ticketit-main2](https://cloud.githubusercontent.com/assets/11343048/9098040/ab5705ea-3bc7-11e5-86fd-094572c946cd.png)
+
+Ticket screen with comments (new comments update the ticket)
+![ticketit-show](https://cloud.githubusercontent.com/assets/11343048/9098041/ab5c6abc-3bc7-11e5-9808-ba6511fbb259.png)
+
+Admin and assign agents to categories
+![ticketit-admin-agents](https://cloud.githubusercontent.com/assets/11343048/9098034/ab354ebe-3bc7-11e5-99d6-31b39228861b.png)
+
+Admin custom categories
+![ticketit-admin-category](https://cloud.githubusercontent.com/assets/11343048/9098035/ab37628a-3bc7-11e5-9185-9ced8a47d73e.png)
+
+Admin custom priorities
+![ticketit-admin-priority](https://cloud.githubusercontent.com/assets/11343048/9098036/ab3b6b00-3bc7-11e5-8d3e-35c43507b8a2.png)
+
+Create custom status (same in creating custom categories and priorities)
+![ticketit-admin-status-create](https://cloud.githubusercontent.com/assets/11343048/9098037/ab3e6db4-3bc7-11e5-9c60-1c9204dff69f.png)
+
+Admin custom statuses
+![ticketit-admin-status](https://cloud.githubusercontent.com/assets/11343048/9098038/ab3fd898-3bc7-11e5-958c-fb5c21505cc2.png)

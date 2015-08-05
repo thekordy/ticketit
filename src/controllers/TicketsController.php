@@ -69,7 +69,8 @@ class TicketsController extends Controller {
      */
     public function show($id)
     {
-        //
+        $ticket = Models\Ticket::find($id);
+        return view('Ticketit::tickets.show', compact('ticket'));
     }
 
     /**

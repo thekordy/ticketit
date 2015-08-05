@@ -1,9 +1,9 @@
 @extends('master')
-@section('title', 'View a ticket')
+@section('page', 'Ticket: '. $ticket->subject)
 @section('content')
-
-        @include('partials.ticket_body')
-        @include('partials.comments')
-        @include('partials.comment_form')
+        @include('Ticketit::nav')
+        @include('Ticketit::tickets.partials.ticket_body')
+        {{--@include('Ticketit::tickets.partials.comments')--}}
+        {{--@include('Ticketit::tickets.partials.comment_form')--}}
 
 @endsection

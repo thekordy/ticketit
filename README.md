@@ -1,6 +1,26 @@
 ## Laravel Ticketit Package
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
+## Notice:
+**The package still in development and not ready yet.**
+
+## Current fetures:
+1. Ticket front end
+2. Backend dashboard
+2. Ticket custom statuses
+3. Ticket custom priorities
+4. Ticket custom categories
+5. Assign Agents to categories
+5. Auto agent assignement to new tickets (Search the ticket category agents and choose the agent with the lowest assigned tickets)
+6. Ticket comments
+7. Set the master view in ticketit config file, and the tickets system will integrate with it.
+8. Views are using the bootstrap
+
+## To Do:
+1. Authorization for users, agents, administrators
+2. Agents dashboard
+3. Users email notifications
+
 ### Installation Guide
 **First Make sure you have got all dependents working:**
 

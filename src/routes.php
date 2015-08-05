@@ -2,6 +2,9 @@
 //Ticket public route
 Route::resource(config('ticketit.main_route'), 'Kordy\Ticketit\Controllers\TicketsController');
 
+//Ticket Comments public route
+Route::resource(config('ticketit.main_route').'/comment', 'Kordy\Ticketit\Controllers\CommentsController');
+
 //Ticket admin index route (ex. http://url/tickets-admin/)
 Route::get(config('ticketit.admin_route'), 'Kordy\Ticketit\Controllers\AdminController@index');
 

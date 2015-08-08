@@ -10,18 +10,29 @@ use Kordy\Ticketit\Models;
 
 class TicketsController extends Controller {
 
-    public function __construct() {
-        $this->middleware('auth');
+    public function __construct()
+    {
+        $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit']]);
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of tickets related to user.
      *
      * @return Response
      */
     public function index()
     {
-        $tickets = Models\Ticket::all();
+        if(Models\Agent::isAdmin()) {
+            $tickets = Models\Ticket::orderBy('updated_at', 'desc')->get();
+        }
+        elseif (Models\Agent::isAgent()) {
+            $agent = Models\Agent::find(\Auth::user()->id);
+            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->get();
+        }
+        else {
+            $user = Models\Agent::find(\Auth::user()->id);
+            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->get();
+        }
         return view('Ticketit::index', compact('tickets'));
     }
 
@@ -81,7 +92,8 @@ class TicketsController extends Controller {
      */
     public function edit($id)
     {
-        //
+        $ticket = Models\Ticket::findOrFail($id);
+        return view('Ticketit::tickets.edit', compact('ticket'));
     }
 
     /**

@@ -14,7 +14,6 @@
                 </div>
 
                 <div class="text-right col-md-12">
-                    <button type="reset" class="btn btn-default">Cancel</button>
                     {!! Form::submit('Submit Reply', ['class' => 'btn btn-primary']) !!}
                 </div>
 

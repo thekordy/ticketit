@@ -11,11 +11,6 @@
                 <div class="content">
                     <p> {!! nl2br(e($comment->content)) !!} </p>
                 </div>
-                @if(Auth::user()->tickets_role == 'admin')
-                    {!! Form::open(['method' => 'DELETE', 'route' => [config('ticketit.main_route').'-comment.destroy', $comment->id], 'class' => 'pull-right']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-link text-danger', 'onclick'=>'return confirm("Are you sure?")']) !!}
-                    {!! Form::close() !!}
-                @endif
             </div>
         </div>
     @endforeach

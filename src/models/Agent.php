@@ -7,6 +7,41 @@ use App\User;
 
 class Agent extends User
 {
+
+    /**
+     * list of all agents
+     * @param integer $cat
+     * @return bool
+     */
+    public static function agentsList($cat = null)
+    {
+        if (!is_null($cat)) {
+            return Category::find($cat)->agents->lists('name', 'id');
+        }
+        return User::where('ticketit_agent', '1')->lists('name', 'id');
+    }
+
+    /**
+     * Check if user is agent
+     * @return boolean
+     */
+    public static function isAgent()
+    {
+        if (Auth::check()) {
+            if (\Auth::user()->ticketit_agent) return true;
+        }
+    }
+
+    /**
+     * Check if user is admin
+     * @return boolean
+     */
+    public static function isAdmin()
+    {
+        if (Auth::check()) {
+            if (in_array(\Auth::user()->id, config('ticketit.admin_ids'))) return true;
+        }
+    }
     /**
      * Get related categories
      *

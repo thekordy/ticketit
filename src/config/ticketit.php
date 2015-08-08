@@ -24,5 +24,11 @@ return [
     * The default status for new created tickets
     * Default: 1
     */
-    'default_status_id' => 1
+    'default_status_id' => 1,
+
+    /*
+    * User ids who are members of admin role
+    * Default: 1
+    */
+    'admin_ids' => [2]
 ];

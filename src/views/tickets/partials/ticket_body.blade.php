@@ -3,7 +3,16 @@
         @include('Ticketit::shared.flash')
         @include('Ticketit::shared.flash_error')
         <div class="content">
-            <h2 class="header">{{ $ticket->subject }}</h2>
+            <h2 class="header">
+                {{ $ticket->subject }}
+                <span class="pull-right">
+                    @if(Kordy\Ticketit\Models\Agent::isAgent())
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
+                            Edit Ticket
+                        </button>
+                    @endif
+                </span>
+            </h2>
             <hr>
             <div class="col-md-12">
                 <div class="col-md-6">
@@ -41,3 +50,16 @@
         </div>
     </div>
 </div>
+
+    @if(Kordy\Ticketit\Models\Agent::isAgent())
+        @include('Ticketit::tickets.edit')
+    @endif
+
+@section('footer')
+    <script>
+        $('#category_id').change(function(){
+            var loadpage = "{!! route(config('ticketit.main_route').'agentslist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
+           $('#agent_id').load(loadpage);
+        });
+    </script>
+@stop

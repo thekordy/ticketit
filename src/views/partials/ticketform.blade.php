@@ -12,11 +12,11 @@
     </div>
 </div>
 @if($ticket_status['show'])
-    <div class="checkbox">
-        <label>
-            {!! Form::checkbox('status', $ticket_status['value'], $ticket_status['value'] ? 1 : null) !!} Ticket is resolved?
-        </label>
-    </div>
+<div class="checkbox">
+    <label>
+        {!! Form::checkbox('status', $ticket_status['value'], $ticket_status['value'] ? 1 : null) !!} Ticket is resolved?
+    </label>
+</div>
 @endif
 <div class="form-group">
     <div class="col-lg-10 col-lg-offset-2">

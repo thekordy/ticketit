@@ -5,12 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Ticket;
 
 class AgentsController extends Controller {
-
-	public function __construct() {
-		$this->middleware('auth');
-	}
 
 	public function index() {
 		$agents = Agent::where('ticketit_agent', 1)->get();
@@ -87,5 +84,18 @@ class AgentsController extends Controller {
 		$agent = Agent::find($id);
 		$agent->categories()->sync($form_cats);
 	}
+
+    public function agentsSelectList($category_id,$ticket_id)
+    {
+        $agents = Agent::agentsList($category_id);
+        $selected_Agent = Ticket::find($ticket_id)->agent->id;
+        $select = '<select class="form-control" id="agent_id" name="agent_id">';
+        foreach ($agents as $id => $name) {
+            $selected = ($id == $selected_Agent) ? "selected" : "";
+            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
+        }
+        $select .= '</select>';
+        return $select;
+    }
 
 }

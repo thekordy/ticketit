@@ -81,7 +81,12 @@ class TicketsController extends Controller {
     public function show($id)
     {
         $ticket = Models\Ticket::find($id);
-        return view('Ticketit::tickets.show', compact('ticket'));
+        $status_lists = Models\Status::lists('name', 'id');
+        $priority_lists = Models\Priority::lists('name', 'id');
+        $category_lists = Models\Category::lists('name', 'id');
+        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsList($ticket->category_id)->toArray());
+        return view('Ticketit::tickets.show',
+            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists'));
     }
 
     /**
@@ -92,8 +97,7 @@ class TicketsController extends Controller {
      */
     public function edit($id)
     {
-        $ticket = Models\Ticket::findOrFail($id);
-        return view('Ticketit::tickets.edit', compact('ticket'));
+        //
     }
 
     /**
@@ -147,3 +151,4 @@ class TicketsController extends Controller {
         return $selected_agent_id;
     }
 }
+

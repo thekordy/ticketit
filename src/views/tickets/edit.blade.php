@@ -24,13 +24,13 @@
                     <div class="form-group col-lg-6">
                         {!! Form::label('status_id', 'Status:', ['class' => 'col-lg-6 control-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('status_id', Kordy\Ticketit\Models\Status::lists('name', 'id'), $ticket->status_id, ['class' => 'form-control']) !!}
+                            {!! Form::select('status_id', $status_lists, $ticket->status_id, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
                         {!! Form::label('priority_id', 'Priority:', ['class' => 'col-lg-6 control-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('priority_id', Kordy\Ticketit\Models\Priority::lists('name', 'id'), $ticket->priority_id, ['class' => 'form-control']) !!}
+                            {!! Form::select('priority_id', $priority_lists, $ticket->priority_id, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <div class="col-lg-6">
                             {!! Form::select(
                                     'category_id',
-                                    Kordy\Ticketit\Models\Category::lists('name', 'id'),
+                                    $category_lists,
                                     $ticket->category_id,
                                     ['class' => 'form-control']) !!}
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-lg-6">
                             {!! Form::select(
                                     'agent_id',
-                                    Kordy\Ticketit\Models\Agent::agentsList($ticket->category_id),
+                                    $agent_lists,
                                     $ticket->agent_id,
                                     ['class' => 'form-control']) !!}
                         </div>

@@ -9,11 +9,24 @@ class Agent extends User
 {
 
     /**
-     * list of all agents
+     * list of all agents and returning collection
+     * @param integer $cat_id
+     * @return bool
+     */
+    public static function allAgents($cat_id = null)
+    {
+        if ($cat_id == null)
+            return Agent::where('ticketit_agent', '1')->get();
+
+        return Category::find($cat_id)->agents;
+    }
+
+    /**
+     * list of all agents using "lists" method
      * @param integer $cat
      * @return bool
      */
-    public static function agentsList($cat = null)
+    public static function agentsLists($cat = null)
     {
         if (!is_null($cat)) {
             return Category::find($cat)->agents->lists('name', 'id');

@@ -10,7 +10,7 @@ use Kordy\Ticketit\Models\Ticket;
 class AgentsController extends Controller {
 
 	public function index() {
-		$agents = Agent::where('ticketit_agent', 1)->get();
+		$agents = Agent::allAgents();
 		return view('Ticketit::admin.agent.index', compact('agents'));
 	}
 
@@ -87,7 +87,7 @@ class AgentsController extends Controller {
 
     public function agentsSelectList($category_id,$ticket_id)
     {
-        $agents = Agent::agentsList($category_id);
+        $agents = Agent::agentsLists($category_id);
         $selected_Agent = Ticket::find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {

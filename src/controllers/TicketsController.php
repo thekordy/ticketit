@@ -1,9 +1,7 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -84,7 +82,7 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($ticket->category_id)->toArray());
+        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($ticket->category_id));
         return view('Ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists'));
     }
@@ -130,7 +128,7 @@ class TicketsController extends Controller {
      */
     public function autoSelectAgent($cat_id)
     {
-        $agents = Models\Agent::allAgents($cat_id);
+        $agents = Models\Agent::agents($cat_id);
         $count = 0;
         $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
@@ -148,6 +146,19 @@ class TicketsController extends Controller {
             $count++;
         }
         return $selected_agent_id;
+    }
+
+    public function agentSelectList($category_id,$ticket_id)
+    {
+        $agents = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($category_id));
+        $selected_Agent = Models\Ticket::find($ticket_id)->agent->id;
+        $select = '<select class="form-control" id="agent_id" name="agent_id">';
+        foreach ($agents as $id => $name) {
+            $selected = ($id == $selected_Agent) ? "selected" : "";
+            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
+        }
+        $select .= '</select>';
+        return $select;
     }
 }
 

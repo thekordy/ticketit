@@ -10,8 +10,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () {
     //API return list of agents in particular category
     Route::get(config('ticketit.main_route').'/agents/list/{category_id?}/{ticket_id?}', [
-        'as' => config('ticketit.main_route').'agentslist',
-        'uses' => 'Kordy\Ticketit\Controllers\AgentsController@agentsSelectList'
+        'as' => config('ticketit.main_route').'agentselectlist',
+        'uses' => 'Kordy\Ticketit\Controllers\TicketsController@agentSelectList'
     ]);
 });
 

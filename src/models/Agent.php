@@ -13,25 +13,25 @@ class Agent extends User
      * @param integer $cat_id
      * @return bool
      */
-    public static function allAgents($cat_id = null)
+    public function scopeAgents($query, $cat_id = null)
     {
         if ($cat_id == null)
-            return Agent::where('ticketit_agent', '1')->get();
+            return $query->where('ticketit_agent', '1')->get();
 
         return Category::find($cat_id)->agents;
     }
 
     /**
-     * list of all agents using "lists" method
-     * @param integer $cat
+     * list of all agents and returning lists array of id and name
+     * @param integer $cat_id
      * @return bool
      */
-    public static function agentsLists($cat = null)
+    public function scopeAgentsLists($query, $cat_id = null)
     {
-        if (!is_null($cat)) {
-            return Category::find($cat)->agents->lists('name', 'id');
-        }
-        return User::where('ticketit_agent', '1')->lists('name', 'id');
+        if ($cat_id == null)
+            return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
+
+        return Category::find($cat_id)->agents->lists('name', 'id')->toArray();
     }
 
     /**

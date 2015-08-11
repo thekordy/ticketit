@@ -54,12 +54,3 @@
     @if(Kordy\Ticketit\Models\Agent::isAgent())
         @include('Ticketit::tickets.edit')
     @endif
-
-@section('footer')
-    <script>
-        $('#category_id').change(function(){
-            var loadpage = "{!! route(config('ticketit.main_route').'agentslist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
-           $('#agent_id').load(loadpage);
-        });
-    </script>
-@stop

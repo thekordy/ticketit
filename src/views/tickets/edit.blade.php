@@ -66,3 +66,15 @@
         </div>
     </div>
 </div>
+
+@section('footer')
+    <script>
+        $(document).ready(function() {
+            $('#category_id').change(function(){
+                var loadpage = "{!! route(config('ticketit.main_route').'agentselectlist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
+                $('#agent_id').load(loadpage);
+            });
+        });
+
+    </script>
+@stop

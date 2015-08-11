@@ -5,12 +5,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Agent;
-use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Models;
 
 class AgentsController extends Controller {
 
 	public function index() {
-		$agents = Agent::allAgents();
+		$agents = Agent::agents();
 		return view('Ticketit::admin.agent.index', compact('agents'));
 	}
 
@@ -84,18 +84,5 @@ class AgentsController extends Controller {
 		$agent = Agent::find($id);
 		$agent->categories()->sync($form_cats);
 	}
-
-    public function agentsSelectList($category_id,$ticket_id)
-    {
-        $agents = Agent::agentsLists($category_id);
-        $selected_Agent = Ticket::find($ticket_id)->agent->id;
-        $select = '<select class="form-control" id="agent_id" name="agent_id">';
-        foreach ($agents as $id => $name) {
-            $selected = ($id == $selected_Agent) ? "selected" : "";
-            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
-        }
-        $select .= '</select>';
-        return $select;
-    }
 
 }

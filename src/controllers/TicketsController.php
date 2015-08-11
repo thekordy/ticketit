@@ -1,6 +1,7 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -63,8 +64,7 @@ class TicketsController extends Controller {
         $ticket->category_id = $request->input('category_id');
         $ticket->status_id = config('ticketit.default_status_id');
         $ticket->user_id = \Auth::user()->id;
-        $ticket->agent_id = $this->chooseAgent($request->input('category_id'));
-
+        $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
         $ticket->save();
 
         Session::flash('status', "The ticket has been created!");
@@ -84,7 +84,7 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsList($ticket->category_id)->toArray());
+        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($ticket->category_id)->toArray());
         return view('Ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists'));
     }
@@ -128,19 +128,18 @@ class TicketsController extends Controller {
      * @param integer $cat_id
      * @return integer $selected_agent_id
      */
-    public function chooseAgent($cat_id)
+    public function autoSelectAgent($cat_id)
     {
-        $cat_id = strval($cat_id);
-        $agents = Models\Agent::all();
+        $agents = Models\Agent::allAgents($cat_id);
         $count = 0;
         $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
             if ($count == 0) {
-                $lowest_tickets = $agent->agentTickets->where('category_id', $cat_id)->count();
+                $lowest_tickets = $agent->agentTickets->count();
                 $selected_agent_id = $agent->id;
             }
             else {
-                $tickets_count = $agent->agentTickets->where('category_id', $cat_id)->count();
+                $tickets_count = $agent->agentTickets->count();
                 if ($tickets_count < $lowest_tickets) {
                     $lowest_tickets = $tickets_count;
                     $selected_agent_id = $agent->id;

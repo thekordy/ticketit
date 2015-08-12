@@ -11,7 +11,8 @@ class TicketsController extends Controller {
 
     public function __construct()
     {
-        $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit']]);
+        $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
+        $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
     }
 
     /**
@@ -82,7 +83,7 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-        $agent_lists = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($ticket->category_id));
+        $agent_lists = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($ticket->category_id);
         return view('Ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists'));
     }
@@ -107,7 +108,19 @@ class TicketsController extends Controller {
      */
     public function update(Request $request, $id)
     {
-        //
+        $ticket = Models\Ticket::findOrFail($id);
+        $ticket->subject = $request->subject;
+        $ticket->content = $request->content;
+        $ticket->status_id = $request->status_id;
+        $ticket->category_id = $request->category_id;
+        $ticket->priority_id = $request->priority_id;
+        $ticket->agent_id = $request->agent_id;
+
+        $ticket->save();
+
+        Session::flash('status', "Ticket has been modified!");
+
+        return redirect()->route(config('ticketit.main_route').'.show', $id);
     }
 
     /**
@@ -150,7 +163,7 @@ class TicketsController extends Controller {
 
     public function agentSelectList($category_id,$ticket_id)
     {
-        $agents = array_merge(['auto' => 'Auto Select'], Models\Agent::agentsLists($category_id));
+        $agents = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($category_id);
         $selected_Agent = Models\Ticket::find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {

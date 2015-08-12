@@ -1,9 +1,6 @@
 ## Laravel Ticketit Package
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
-## Notice:
-**The package still in development and not ready yet.**
-
 ## Current features:
 1. Ticket front end
 2. Backend dashboard
@@ -18,9 +15,8 @@ A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with L
 9. Authorization for users (create, view own tickets, comment), agents (view and edit assigned tickets), administrators (Agent features + delete, ticketit settings dashboard)
 
 ## To Do:
-1. Pagination
-2. Forms validation
-3. Users email notifications
+1. Forms validation
+2. Users email notifications
 
 ### Installation Guide
 **First Make sure you have got all dependents working:**
@@ -103,6 +99,19 @@ My Tickets main user screen
 
 Ticket screen with comments (new comments update the ticket)
 ![ticketit-show](https://cloud.githubusercontent.com/assets/11343048/9098041/ab5c6abc-3bc7-11e5-9808-ba6511fbb259.png)
+
+Agent can view only his own assigned tickets
+![ticketit - agent 1 screen](https://cloud.githubusercontent.com/assets/11343048/9225105/8f182d9c-4107-11e5-9cad-878d8a11050b.png)
+
+The ticket screen as shown to agent (the edit button is shown to agents conditionally)
+![ticketit - agent 1 show](https://cloud.githubusercontent.com/assets/11343048/9225104/8f14e5ba-4107-11e5-8758-ec05b672fbcb.png)
+
+Agent edit screen
+![ticketit - agent 1 edit](https://cloud.githubusercontent.com/assets/11343048/9225103/8f13cd60-4107-11e5-9e3a-fbdf7ff7bbce.png)
+
+Admin edit screen with more features as he can delete the ticket, edit subject and content where are not available for agents.
+![ticketit - admin edit](https://cloud.githubusercontent.com/assets/11343048/9225102/8f13d6b6-4107-11e5-9378-f4689b72cb6c.png)
+In Edit screen, assign the ticket to another agent, or to use "Auto Select" which will automatically assign the ticket to the agent with least assign tickets within the category selected.
 
 Admin and assign agents to categories
 ![ticketit-admin-agents](https://cloud.githubusercontent.com/assets/11343048/9098034/ab354ebe-3bc7-11e5-99d6-31b39228861b.png)

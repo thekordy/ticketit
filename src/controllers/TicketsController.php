@@ -111,8 +111,10 @@ class TicketsController extends Controller {
     public function update(Request $request, $id)
     {
         $ticket = Models\Ticket::findOrFail($id);
-        $ticket->subject = $request->input('subject');
-        $ticket->content = $request->input('content');
+        if(!empty($request->input('subject')))
+            $ticket->subject = $request->input('subject');
+        if(!empty($request->input('content')))
+            $ticket->content = $request->input('content');
         $ticket->status_id = $request->input('status_id');
         $ticket->category_id = $request->input('category_id');
         $ticket->priority_id = $request->input('priority_id');

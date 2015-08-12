@@ -131,7 +131,13 @@ class TicketsController extends Controller {
      */
     public function destroy($id)
     {
-        //
+        $ticket = Models\Ticket::findOrFail($id);
+        $name = $ticket->subject;
+        $ticket->delete();
+
+        Session::flash('status', "The ticket $name has been deleted!");
+
+        return redirect()->route(config('ticketit.main_route').'.index');
     }
 
     /**

@@ -99,7 +99,7 @@ class CategoriesController extends Controller {
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', "The category $name has been modified!");
+        Session::flash('status', "The category $name has been deleted!");
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }

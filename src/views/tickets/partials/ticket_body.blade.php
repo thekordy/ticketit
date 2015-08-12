@@ -11,6 +11,16 @@
                             Edit Ticket
                         </button>
                     @endif
+                    @if(Kordy\Ticketit\Models\Agent::isAdmin())
+                            {!! link_to_route(
+                                            config('ticketit.main_route').'.destroy', 'Delete', $ticket->id,
+                                            [
+                                            'class' => 'btn btn-danger deleteit',
+                                            'form' => "delete-ticket-$ticket->id",
+                                            "node" => $ticket->subject
+                                            ])
+                            !!}
+                    @endif
                 </span>
             </h2>
             <div class="panel well well-sm">
@@ -50,6 +60,16 @@
                 <p> {!! nl2br(e($ticket->content))  !!} </p>
             </div>
         </div>
+        {!! Form::open([
+                        'method' => 'DELETE',
+                        'route' => [
+                                    config('ticketit.main_route').'.destroy',
+                                    $ticket->id
+                                    ],
+                        'id' => "delete-ticket-$ticket->id"
+                        ])
+        !!}
+        {!! Form::close() !!}
     </div>
 </div>
 

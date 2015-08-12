@@ -8,4 +8,24 @@
         @include('Ticketit::tickets.partials.comments')
         @include('Ticketit::tickets.partials.comment_form')
 
-@endsection
+@stop
+
+@section('footer')
+    <script>
+        $(document).ready(function() {
+            $( ".deleteit" ).click(function( event ) {
+                event.preventDefault();
+                if (confirm("Are you sure you want to delete: " + $(this).attr("node") + " ?"))
+                {
+                    var form = $(this).attr("form");
+                    $("#" + form).submit();
+                }
+
+            });
+            $('#category_id').change(function(){
+                var loadpage = "{!! route(config('ticketit.main_route').'agentselectlist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
+                $('#agent_id').load(loadpage);
+            });
+        });
+    </script>
+@stop

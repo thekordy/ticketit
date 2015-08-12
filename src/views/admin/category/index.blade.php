@@ -69,8 +69,8 @@
             event.preventDefault();
             if (confirm("Are you sure you want to delete the category: " + $(this).attr("node") + " ?"))
             {
-                $form = $(this).attr("form");
-                $("#" + $form).submit();
+                var form = $(this).attr("form");
+                $("#" + form).submit();
             }
 
         });

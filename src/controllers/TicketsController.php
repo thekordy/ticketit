@@ -22,16 +22,17 @@ class TicketsController extends Controller {
      */
     public function index()
     {
+        $items = config('ticketit.paginate_items');
         if(Models\Agent::isAdmin()) {
-            $tickets = Models\Ticket::orderBy('updated_at', 'desc')->get();
+            $tickets = Models\Ticket::orderBy('updated_at', 'desc')->paginate($items);
         }
         elseif (Models\Agent::isAgent()) {
             $agent = Models\Agent::find(\Auth::user()->id);
-            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->get();
+            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
         else {
             $user = Models\Agent::find(\Auth::user()->id);
-            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->get();
+            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
         return view('Ticketit::index', compact('tickets'));
     }
@@ -84,8 +85,9 @@ class TicketsController extends Controller {
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
         $agent_lists = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($ticket->category_id);
+        $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('Ticketit::tickets.show',
-            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists'));
+            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));
     }
 
     /**

@@ -1,5 +1,5 @@
-@if(!$ticket->comments->isEmpty())
-    @foreach($ticket->comments as $comment)
+@if(!$comments->isEmpty())
+    @foreach($comments as $comment)
         <div class="panel {!! $comment->user->tickets_role ? "panel-info" : "panel-default" !!}">
             <div class="panel-heading">
                 <h3 class="panel-title">

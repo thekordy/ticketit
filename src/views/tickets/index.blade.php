@@ -52,3 +52,4 @@
         </table>
     @endif
 </div>
+{!! $tickets->render() !!}

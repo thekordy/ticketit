@@ -6,6 +6,7 @@
         <br>
         <h2>Comments</h2>
         @include('Ticketit::tickets.partials.comments')
+        {!! $comments->render() !!}
         @include('Ticketit::tickets.partials.comment_form')
 
 @stop

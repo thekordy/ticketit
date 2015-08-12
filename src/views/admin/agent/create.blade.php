@@ -38,4 +38,5 @@
             {!! Form::close() !!}
         @endif
     </div>
+    {!! $users->render() !!}
 @stop

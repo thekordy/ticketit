@@ -15,7 +15,7 @@ class AgentsController extends Controller {
 	}
 
 	public function create() {
-		$users = Agent::all();
+		$users = Agent::paginate(2);
 		return view('Ticketit::admin.agent.create', compact('users'));
 	}
 

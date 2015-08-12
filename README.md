@@ -15,11 +15,12 @@ A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with L
 6. Ticket comments
 7. Set the master view in ticketit config file, and the tickets system will integrate with it.
 8. Views are using the bootstrap
-9. Authorization for users, agents, administrators
+9. Authorization for users (create, view own tickets, comment), agents (view and edit assigned tickets), administrators (Agent features + delete, ticketit settings dashboard)
 
 ## To Do:
-1. Agents dashboard
-2. Users email notifications
+1. Pagination
+2. Forms validation
+3. Users email notifications
 
 ### Installation Guide
 **First Make sure you have got all dependents working:**

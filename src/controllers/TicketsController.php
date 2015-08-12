@@ -109,12 +109,19 @@ class TicketsController extends Controller {
     public function update(Request $request, $id)
     {
         $ticket = Models\Ticket::findOrFail($id);
-        $ticket->subject = $request->subject;
-        $ticket->content = $request->content;
-        $ticket->status_id = $request->status_id;
-        $ticket->category_id = $request->category_id;
-        $ticket->priority_id = $request->priority_id;
-        $ticket->agent_id = $request->agent_id;
+        $ticket->subject = $request->input('subject');
+        $ticket->content = $request->input('content');
+        $ticket->status_id = $request->input('status_id');
+        $ticket->category_id = $request->input('category_id');
+        $ticket->priority_id = $request->input('priority_id');
+
+        if ($request->input('agent_id') == 'auto') {
+            $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
+        }
+        else {
+            $ticket->agent_id = $request->input('agent_id');
+        }
+
 
         $ticket->save();
 

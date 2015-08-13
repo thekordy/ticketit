@@ -23,8 +23,7 @@ A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with L
 
 1. Laravel 5.1
 2. Users table
-3. Auth
-4. LaravelCollective HTML
+3. LaravelCollective HTML
 
 **To install this package:**
 

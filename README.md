@@ -21,9 +21,9 @@ A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with L
 ### Installation Guide
 **First Make sure you have got all dependents working:**
 
-1. Laravel 5.1
-2. Users table
-3. LaravelCollective HTML
+1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
+2. [Users table](http://laravel.com/docs/5.1/authentication)
+3. [LaravelCollective HTML](http://laravelcollective.com/docs/5.1/html#installation)
 
 **To install this package:**
 

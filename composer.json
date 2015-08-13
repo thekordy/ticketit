@@ -4,14 +4,7 @@
     "type": "laravel-package",
     "keywords": ["laravel","helpdesk", "ticket", "support"],
     "require": {
-        "illuminate/support": "5.1.8",
-        "illuminate/auth": "5.1.8",
-        "illuminate/config": "5.1.8",
-        "illuminate/routing": "5.1.8",
-        "illuminate/mail": "5.1.8",
-        "illuminate/pagination": "5.1.8",
-        "illuminate/view": "5.1.8",
-        "illuminate/validation": "5.1.8",
+        "laravel/framework": "^5.1.10",
         "laravelcollective/html": "^5.1"
     },
     "license": "MIT",

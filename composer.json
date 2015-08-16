@@ -18,6 +18,5 @@
         "psr-4": {
             "Kordy\\Ticketit\\": "src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

@@ -27,7 +27,7 @@ Also very simple configurations where administrators can add agents, create cust
 
 Run this code via your terminal
 ```shell
-	composer require kordy/ticketit dev-master
+	composer require kordy/ticketit
 ```
 
 After install it, you have to add this line on your `config/app.php` on Service Providers lines.

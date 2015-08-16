@@ -1,4 +1,4 @@
-## Laravel Ticketit Package
+## Support tickets system package for Laravel
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
 ### Current status:

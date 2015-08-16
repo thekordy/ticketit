@@ -1,7 +1,7 @@
 ## Laravel Ticketit Package
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
-## Current status:
+### Current status:
 A simple support tickets system as a laravel package with three main users roles users, agents, and admins.
 Laravel users can create tickets (in which ticket will be auto assigned to an agent) and keep track of their tickets status.
 
@@ -10,13 +10,13 @@ Agents can view and modify their own assigned tickets and communicate with ticke
 Also very simple configurations where administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
 
 
-## To Do:
+### To Do:
 1. Forms validation
 2. Tickets filters and search
 3. Dashboard stats and graphs
 3. Users email notifications
 
-### Installation Guide
+## Installation
 **First Make sure you have got all dependents working:**
 
 1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
@@ -40,7 +40,7 @@ Install database tables by running the migrate artisan command
 	php artisan migrate --path=vendor/kordy/ticketit/src/migrations
 ```
 
-### Configuration
+## Configuration
 **You may publish all files at once**
 
 ```shell
@@ -87,5 +87,5 @@ Footer section for passing the jquery scripts, so make sure it is called after y
 </body>
 ```
 
-## Screenshots
+### Screenshots
 [Screenshots of current features](https://github.com/thekordy/ticketit/issues/3)

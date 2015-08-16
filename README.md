@@ -16,7 +16,9 @@ A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with L
 
 ## To Do:
 1. Forms validation
-2. Users email notifications
+2. Tickets filters and search
+3. Dashboard stats and graphs
+3. Users email notifications
 
 ### Installation Guide
 **First Make sure you have got all dependents working:**

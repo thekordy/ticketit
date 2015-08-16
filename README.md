@@ -1,18 +1,14 @@
 ## Laravel Ticketit Package
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
-## Current features:
-1. Ticket front end
-2. Backend dashboard
-2. Ticket custom statuses
-3. Ticket custom priorities
-4. Ticket custom categories
-5. Assign Agents to categories
-5. Auto agent assignement to new tickets (Search the ticket category agents and choose the agent with the lowest assigned tickets)
-6. Ticket comments
-7. Set the master view in ticketit config file, and the tickets system will integrate with it.
-8. Views are using the bootstrap
-9. Authorization for users (create, view own tickets, comment), agents (view and edit assigned tickets), administrators (Agent features + delete, ticketit settings dashboard)
+## Current status:
+A simple support tickets system as a laravel package with three main users roles users, agents, and admins.
+Laravel users can create tickets (in which ticket will be auto assigned to an agent) and keep track of their tickets status.
+
+Agents can view and modify their own assigned tickets and communicate with ticket issuers throught ticket comments.
+
+Also very simple configurations where administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
+
 
 ## To Do:
 1. Forms validation
@@ -92,39 +88,4 @@ Footer section for passing the jquery scripts, so make sure it is called after y
 ```
 
 ## Screenshots
-Views integrated in the master view
-![ticketit-main](https://cloud.githubusercontent.com/assets/11343048/9098039/ab3fea18-3bc7-11e5-87e5-5655e8b86f9c.png)
-
-My Tickets main user screen
-![ticketit-main2](https://cloud.githubusercontent.com/assets/11343048/9098040/ab5705ea-3bc7-11e5-86fd-094572c946cd.png)
-
-Ticket screen with comments (new comments update the ticket)
-![ticketit-show](https://cloud.githubusercontent.com/assets/11343048/9098041/ab5c6abc-3bc7-11e5-9808-ba6511fbb259.png)
-
-Agent can view only his own assigned tickets
-![ticketit - agent 1 screen](https://cloud.githubusercontent.com/assets/11343048/9225105/8f182d9c-4107-11e5-9cad-878d8a11050b.png)
-
-The ticket screen as shown to agent (the edit button is shown to agents conditionally)
-![ticketit - agent 1 show](https://cloud.githubusercontent.com/assets/11343048/9225104/8f14e5ba-4107-11e5-8758-ec05b672fbcb.png)
-
-Agent edit screen
-![ticketit - agent 1 edit](https://cloud.githubusercontent.com/assets/11343048/9225103/8f13cd60-4107-11e5-9e3a-fbdf7ff7bbce.png)
-
-Admin edit screen with more features as he can delete the ticket, edit subject and content where are not available for agents.
-![ticketit - admin edit](https://cloud.githubusercontent.com/assets/11343048/9225102/8f13d6b6-4107-11e5-9378-f4689b72cb6c.png)
-In Edit screen, assign the ticket to another agent, or to use "Auto Select" which will automatically assign the ticket to the agent with least assign tickets within the category selected.
-
-Admin and assign agents to categories
-![ticketit-admin-agents](https://cloud.githubusercontent.com/assets/11343048/9098034/ab354ebe-3bc7-11e5-99d6-31b39228861b.png)
-
-Admin custom categories
-![ticketit-admin-category](https://cloud.githubusercontent.com/assets/11343048/9098035/ab37628a-3bc7-11e5-9185-9ced8a47d73e.png)
-
-Admin custom priorities
-![ticketit-admin-priority](https://cloud.githubusercontent.com/assets/11343048/9098036/ab3b6b00-3bc7-11e5-8d3e-35c43507b8a2.png)
-
-Create custom status (same in creating custom categories and priorities)
-![ticketit-admin-status-create](https://cloud.githubusercontent.com/assets/11343048/9098037/ab3e6db4-3bc7-11e5-9c60-1c9204dff69f.png)
-
-Admin custom statuses
-![ticketit-admin-status](https://cloud.githubusercontent.com/assets/11343048/9098038/ab3fd898-3bc7-11e5-958c-fb5c21505cc2.png)
+[Screenshots of current features](https://github.com/thekordy/ticketit/issues/3)

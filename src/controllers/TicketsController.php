@@ -34,7 +34,7 @@ class TicketsController extends Controller {
             $user = Models\Agent::find(\Auth::user()->id);
             $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
-        return view('Ticketit::index', compact('tickets'));
+        return view('ticketit::index', compact('tickets'));
     }
 
     /**
@@ -46,7 +46,7 @@ class TicketsController extends Controller {
     {
         $priorities = Models\Priority::lists('name', 'id');
         $categories = Models\Category::lists('name', 'id');
-        return view('Ticketit::tickets.create', compact('priorities', 'categories'));
+        return view('ticketit::tickets.create', compact('priorities', 'categories'));
     }
 
     /**
@@ -86,7 +86,7 @@ class TicketsController extends Controller {
         $category_lists = Models\Category::lists('name', 'id');
         $agent_lists = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($ticket->category_id);
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
-        return view('Ticketit::tickets.show',
+        return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));
     }
 

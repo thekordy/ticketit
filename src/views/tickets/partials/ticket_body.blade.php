@@ -1,7 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        @include('Ticketit::shared.flash')
-        @include('Ticketit::shared.flash_error')
+        @include('ticketit::shared.flash')
+        @include('ticketit::shared.flash_error')
         <div class="content">
             <h2 class="header">
                 {{ $ticket->subject }}
@@ -74,5 +74,5 @@
 </div>
 
     @if(Kordy\Ticketit\Models\Agent::isAgent())
-        @include('Ticketit::tickets.edit')
+        @include('ticketit::tickets.edit')
     @endif

@@ -18,7 +18,7 @@ class StatusesController extends Controller {
     public function index()
     {
         $statuses = Status::all();
-        return view('Ticketit::admin.status.index', compact('statuses'));
+        return view('ticketit::admin.status.index', compact('statuses'));
     }
 
     /**
@@ -28,7 +28,7 @@ class StatusesController extends Controller {
      */
     public function create()
     {
-        return view('Ticketit::admin.status.create');
+        return view('ticketit::admin.status.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class StatusesController extends Controller {
     public function edit($id)
     {
         $status = Status::findOrFail($id);
-        return view('Ticketit::admin.status.edit', compact('status'));
+        return view('ticketit::admin.status.edit', compact('status'));
     }
 
     /**

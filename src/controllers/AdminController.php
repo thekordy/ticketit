@@ -10,7 +10,7 @@ class AdminController extends Controller {
 
     public function index()
     {
-        return view('Ticketit::admin.index');
+        return view('ticketit::admin.index');
     }
 
 }

@@ -11,12 +11,12 @@ class AgentsController extends Controller {
 
 	public function index() {
 		$agents = Agent::agents();
-		return view('Ticketit::admin.agent.index', compact('agents'));
+		return view('ticketit::admin.agent.index', compact('agents'));
 	}
 
 	public function create() {
 		$users = Agent::paginate(config('ticketit.paginate_items'));
-		return view('Ticketit::admin.agent.create', compact('users'));
+		return view('ticketit::admin.agent.create', compact('users'));
 	}
 
 	public function store(Request $request) {

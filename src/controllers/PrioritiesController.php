@@ -18,7 +18,7 @@ class PrioritiesController extends Controller {
     public function index()
     {
         $priorities = Priority::all();
-        return view('Ticketit::admin.priority.index', compact('priorities'));
+        return view('ticketit::admin.priority.index', compact('priorities'));
     }
 
     /**
@@ -28,7 +28,7 @@ class PrioritiesController extends Controller {
      */
     public function create()
     {
-        return view('Ticketit::admin.priority.create');
+        return view('ticketit::admin.priority.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class PrioritiesController extends Controller {
     public function edit($id)
     {
         $priority = Priority::findOrFail($id);
-        return view('Ticketit::admin.priority.edit', compact('priority'));
+        return view('ticketit::admin.priority.edit', compact('priority'));
     }
 
     /**

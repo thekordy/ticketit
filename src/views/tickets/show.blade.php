@@ -1,13 +1,13 @@
 @extends($master)
 @section('page', 'Ticket: '. $ticket->subject)
 @section('content')
-        @include('Ticketit::nav')
-        @include('Ticketit::tickets.partials.ticket_body')
+        @include('ticketit::nav')
+        @include('ticketit::tickets.partials.ticket_body')
         <br>
         <h2>Comments</h2>
-        @include('Ticketit::tickets.partials.comments')
+        @include('ticketit::tickets.partials.comments')
         {!! $comments->render() !!}
-        @include('Ticketit::tickets.partials.comment_form')
+        @include('ticketit::tickets.partials.comment_form')
 
 @stop
 

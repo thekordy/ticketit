@@ -18,7 +18,7 @@ class CategoriesController extends Controller {
     public function index()
     {
         $categories = Category::all();
-        return view('Ticketit::admin.category.index', compact('categories'));
+        return view('ticketit::admin.category.index', compact('categories'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CategoriesController extends Controller {
      */
     public function create()
     {
-        return view('Ticketit::admin.category.create');
+        return view('ticketit::admin.category.create');
     }
 
     /**
@@ -67,7 +67,7 @@ class CategoriesController extends Controller {
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return view('Ticketit::admin.category.edit', compact('category'));
+        return view('ticketit::admin.category.edit', compact('category'));
     }
 
     /**

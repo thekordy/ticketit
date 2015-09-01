@@ -6,7 +6,7 @@
         <div class="panel-heading">
             <h2>Add agents</h2>
         </div>
-            @include('Ticketit::shared.flash_error')
+            @include('ticketit::shared.flash_error')
         @if ($users->isEmpty())
             <h3 class="text-center"> There are no user accounts, create user accounts first.</h3>
         @else

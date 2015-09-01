@@ -3,15 +3,15 @@
 
 @section('content')
     <div class="well bs-component">
-        @include('Ticketit::shared.flash')
-        @include('Ticketit::shared.flash_error')
+        @include('ticketit::shared.flash')
+        @include('ticketit::shared.flash_error')
         {!! Form::model($category, [
                                     'route' => [config('ticketit.admin_route').'.category.update', $category->id],
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}
         <legend>Edit {{ $category->name }}: </legend>
-        @include('Ticketit::admin.category.form', ['update', true])
+        @include('ticketit::admin.category.form', ['update', true])
         {!! Form::close() !!}
     </div>
 @stop

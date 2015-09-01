@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    @include('Ticketit::admin.nav')
+    @include('ticketit::admin.nav')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Manage Agents
@@ -16,8 +16,8 @@
                 !!}
             </h2>
         </div>
-        @include('Ticketit::shared.flash')
-        @include('Ticketit::shared.flash_error')
+        @include('ticketit::shared.flash')
+        @include('ticketit::shared.flash_error')
 
         @if ($agents->isEmpty())
             <h3 class="text-center"> There are no agents,

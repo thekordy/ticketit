@@ -19,12 +19,12 @@ class TicketitServiceProvider extends ServiceProvider
             return $field;
         });
 
-        view()->composer('Ticketit::*', function ($view) {
+        view()->composer('ticketit::*', function ($view) {
             $master = config('ticketit.master_template');
             $view->with(compact('master'));
         });
 
-        $this->loadViewsFrom(__DIR__.'/views', 'Ticketit');
+        $this->loadViewsFrom(__DIR__.'/views', 'ticketit');
         
         $this->publishes([__DIR__.'/views' => base_path('resources/views/vendor/ticketit')], 'views');
         $this->publishes([__DIR__.'/config/ticketit.php' => config_path('ticketit.php')], 'config');

@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="row">
-    @include('Ticketit::nav')
-        @include('Ticketit::tickets.index')
+    @include('ticketit::nav')
+        @include('ticketit::tickets.index')
     </div>
 
 @stop

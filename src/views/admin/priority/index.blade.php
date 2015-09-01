@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    @include('Ticketit::admin.nav')
+    @include('ticketit::admin.nav')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2> Manage Priorities
@@ -16,7 +16,7 @@
                 !!}
             </h2>
         </div>
-        @include('Ticketit::shared.flash')
+        @include('ticketit::shared.flash')
 
         @if ($priorities->isEmpty())
             <h3 class="text-center"> There are no priorities,

@@ -3,10 +3,10 @@
 
 @section('content')
     <div class="well bs-component">
-        @include('Ticketit::shared.flash_error')
+        @include('ticketit::shared.flash_error')
         {!! Form::open(['route'=> config('ticketit.admin_route').'.status.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
             <legend>Create New Status</legend>
-            @include('Ticketit::admin.status.form')
+            @include('ticketit::admin.status.form')
         {!! Form::close() !!}
     </div>
 @stop

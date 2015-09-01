@@ -1,4 +1,4 @@
-@extends('master')
+@extends($master)
 @section('page', 'Ticket: '. $ticket->subject)
 @section('content')
         @include('Ticketit::nav')

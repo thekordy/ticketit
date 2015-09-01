@@ -1,14 +1,14 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <h2> My Tickets
-            {!! link_to_route('tickets.create', 'New Ticket', null, ['class' => 'btn btn-primary pull-right']) !!}
+            {!! link_to_route(config('ticketit.main_route').'.create', 'New Ticket', null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>
     @include('Ticketit::shared.flash')
 
     @if ($tickets->isEmpty())
         <h3 class="text-center"> There are no tickets,
-            {!! link_to_route('tickets.create', 'create new ticket') !!}
+            {!! link_to_route(config('ticketit.main_route').'.create', 'create new ticket') !!}
         </h3>
     @else
         <div id="message"></div>
@@ -29,7 +29,7 @@
                     <td>{{ $ticket->id }}</td>
                     <td>
                         {!!  link_to_route(
-                                        'tickets.show',
+                                        config('ticketit.main_route').'.show',
                                         $ticket->subject,
                                         $ticket->id,
                                         ['style' => 'color: '.$ticket->status->color]) !!}

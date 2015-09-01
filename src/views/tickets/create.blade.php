@@ -5,7 +5,7 @@
             <div class="well bs-component">
                 @include('Ticketit::shared.flash_error')
                 {!! Form::open([
-                                'route'=>'tickets.store',
+                                'route'=>config('ticketit.main_route').'.store',
                                 'method' => 'POST',
                                 'class' => 'form-horizontal'
                                 ]) !!}
@@ -41,7 +41,7 @@
                     <br>
                     <div class="form-group">
                         <div class="col-lg-10 col-lg-offset-2">
-                            {!! link_to_route('tickets.index', 'Back', null, ['class' => 'btn btn-default']) !!}
+                            {!! link_to_route(config('ticketit.main_route').'.index', 'Back', null, ['class' => 'btn btn-default']) !!}
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>

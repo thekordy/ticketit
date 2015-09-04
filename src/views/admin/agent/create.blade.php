@@ -18,7 +18,8 @@
                 <tfoot>
                     <tr>
                         <td class="text-center">
-                                {!! Form::submit('Submit', ['class' => 'btn btn-primary btn-lg btn-block']) !!}
+                            {!! link_to_route(config('ticketit.admin_route').'.agent.index', 'Back', null, ['class' => 'btn btn-default']) !!}
+                            {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </td>
                     </tr>
                 <tbody>

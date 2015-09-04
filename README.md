@@ -11,10 +11,11 @@ Also very simple configurations where administrators can add agents, create cust
 
 
 ### To Do:
-1. Forms validation
+1. Users email notifications
 2. Tickets filters and search
 3. Dashboard stats and graphs
-3. Users email notifications
+4. Configurable Start and Close statuses (From admin panel)
+5. Forms validation
 
 ## Installation
 **First Make sure you have got all dependents working:**

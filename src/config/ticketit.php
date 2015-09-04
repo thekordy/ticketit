@@ -36,5 +36,27 @@ return [
     * Pagination length: number of items shown per page
     * Default: 1
     */
-    'paginate_items' => 10
+    'paginate_items' => 10,
+
+    /*
+    * Status notification: send email notification to ticket owner/Agent when ticket status is changed
+    * Default is send notification: 'yes'
+    * Do not send notification: 'no'
+    */
+    'status_notification' => 'yes',
+
+    /*
+    * Comment notification: Send notification when new comment is posted
+    * Default is send notification: 'yes'
+    * Do not send notification: 'no'
+    */
+    'comment_notification' => 'yes',
+
+    /*
+    * Use Queue method when sending emails (Mail::queue instead of Mail::send). Note that Mail::queue needs to be
+    * configured first http://laravel.com/docs/5.1/queues
+    * Default is to not use queue: 'no'
+    * use queue: 'yes'
+    */
+    'queue_emails' => 'no'
 ];

@@ -16,7 +16,7 @@ class NotificationsController extends Controller {
         $data = ['comment' => serialize($comment), 'ticket' => serialize($ticket)];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            'New comment from ' . $notification_owner->name . ' on ' . $ticket->subject);
+            'New comment from ' . $notification_owner->name . ' on ' . $ticket->subject, 'comment');
     }
 
     public function ticketStatusUpdated(Ticket $ticket, Ticket $original_ticket)
@@ -30,7 +30,7 @@ class NotificationsController extends Controller {
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' updated ' . $ticket->subject.' status to '.$ticket->status->name);
+            $notification_owner->name . ' updated ' . $ticket->subject.' status to '.$ticket->status->name, 'status');
     }
 
     public function ticketAgentUpdated(Ticket $ticket, Ticket $original_ticket)
@@ -44,7 +44,7 @@ class NotificationsController extends Controller {
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' transferred ' . $ticket->subject.' to you');
+            $notification_owner->name . ' transferred ' . $ticket->subject.' to you', 'agent');
     }
 
     public function newTicketNotifyAgent(Ticket $ticket)
@@ -57,7 +57,7 @@ class NotificationsController extends Controller {
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' created ticket ' . $ticket->subject);
+            $notification_owner->name . ' created ticket ' . $ticket->subject, 'agent');
     }
 
     /**
@@ -67,18 +67,22 @@ class NotificationsController extends Controller {
      * @param object $ticket
      * @param object $notification_owner
      */
-    public function sendNotification($template, $data, $ticket, $notification_owner, $subject)
+    public function sendNotification($template, $data, $ticket, $notification_owner, $subject, $type)
     {
         if (config('ticketit.queue_emails') == 'yes') {
             Mail::queue($template, $data,
-                function ($m) use ($ticket, $notification_owner, $subject) {
+                function ($m) use ($ticket, $notification_owner, $subject, $type) {
 
-                    if ($ticket->user->email != $notification_owner->email)
-                        $m->to($ticket->user->email, $ticket->user->name);
+                    if ($type != 'agent') {
+                        if ($ticket->user->email != $notification_owner->email)
+                            $m->to($ticket->user->email, $ticket->user->name);
 
-                    if ($ticket->agent->email != $notification_owner->email)
+                        if ($ticket->agent->email != $notification_owner->email)
+                            $m->to($ticket->agent->email, $ticket->agent->name);
+                    }
+                    else {
                         $m->to($ticket->agent->email, $ticket->agent->name);
-
+                    }
 
                     $m->from($notification_owner->email, $notification_owner->name);
 
@@ -87,13 +91,18 @@ class NotificationsController extends Controller {
         }
         else {
             Mail::send($template, $data,
-                function ($m) use ($ticket, $notification_owner, $subject) {
+                function ($m) use ($ticket, $notification_owner, $subject, $type) {
 
-                    if ($ticket->user->email != $notification_owner->email)
-                        $m->to($ticket->user->email, $ticket->user->name);
+                    if ($type != 'agent') {
+                        if ($ticket->user->email != $notification_owner->email)
+                            $m->to($ticket->user->email, $ticket->user->name);
 
-                    if ($ticket->agent->email != $notification_owner->email)
+                        if ($ticket->agent->email != $notification_owner->email)
+                            $m->to($ticket->agent->email, $ticket->agent->name);
+                    }
+                    else {
                         $m->to($ticket->agent->email, $ticket->agent->name);
+                    }
 
 
                     $m->from($notification_owner->email, $notification_owner->name);

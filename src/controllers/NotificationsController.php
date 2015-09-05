@@ -13,7 +13,7 @@ class NotificationsController extends Controller {
         $ticket = $comment->ticket;
         $notification_owner = $comment->user;
         $template = "ticketit::emails.comment_notification";
-        $data = ['comment' => $comment, 'ticket' => $ticket];
+        $data = ['comment' => serialize($comment), 'ticket' => serialize($ticket)];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
             'New comment from ' . $notification_owner->name . ' on ' . $ticket->subject);
@@ -24,9 +24,9 @@ class NotificationsController extends Controller {
         $notification_owner = \Auth::user();
         $template = "ticketit::emails.status_notification";
         $data = [
-            'ticket' => $ticket,
-            'notification_owner' => $notification_owner,
-            'original_ticket' => $original_ticket
+            'ticket' => serialize($ticket),
+            'notification_owner' => serialize($notification_owner),
+            'original_ticket' => serialize($original_ticket)
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,

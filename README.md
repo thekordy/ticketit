@@ -12,11 +12,12 @@ Also very simple configurations where administrators can add agents, create cust
 The system sends email notifications to ticket participants (ticket owner, assigned agent) with ticket updates and new comments
 
 ### To Do:
-1. Tickets access restriction (Only ticket owner, an agent, or an admin whom has access to the ticket)
-2. Tickets filters and search
-3. Dashboard stats and graphs
-4. Configurable Start and Close statuses (From admin panel)
-5. Forms validation
+1. Localization
+2. Tickets access restriction (Only ticket owner, an agent, or an admin whom has access to the ticket)
+3. Tickets filters and search
+4. Dashboard stats and graphs
+5. Configurable Start and Close statuses (From admin panel)
+6. Forms validation
 
 ## Installation
 **First Make sure you have got all dependents working:**

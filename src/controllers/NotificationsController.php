@@ -33,6 +33,33 @@ class NotificationsController extends Controller {
             $notification_owner->name . ' updated ' . $ticket->subject.' status to '.$ticket->status->name);
     }
 
+    public function ticketAgentUpdated(Ticket $ticket, Ticket $original_ticket)
+    {
+        $notification_owner = \Auth::user();
+        $template = "ticketit::emails.transfer_notification";
+        $data = [
+            'ticket' => serialize($ticket),
+            'notification_owner' => serialize($notification_owner),
+            'original_ticket' => serialize($original_ticket)
+        ];
+
+        $this->sendNotification($template, $data, $ticket, $notification_owner,
+            $notification_owner->name . ' transferred ' . $ticket->subject.' to you');
+    }
+
+    public function newTicketNotifyAgent(Ticket $ticket)
+    {
+        $notification_owner = \Auth::user();
+        $template = "ticketit::emails.assigned_notification";
+        $data = [
+            'ticket' => serialize($ticket),
+            'notification_owner' => serialize($notification_owner)
+        ];
+
+        $this->sendNotification($template, $data, $ticket, $notification_owner,
+            $notification_owner->name . ' created ticket ' . $ticket->subject);
+    }
+
     /**
      * Send email notifications from the action owner to other involved users
      * @param string $template

@@ -47,6 +47,22 @@ class TicketitServiceProvider extends ServiceProvider
                     $notification->ticketStatusUpdated($modified_ticket, $original_ticket);
                 }
             }
+            if (config('ticketit.assigned_notification') == 'yes') {
+                $original_ticket = Ticket::find($modified_ticket->id);
+                if ($original_ticket->agent->id != $modified_ticket->agent->id) {
+                    $notification = new NotificationsController();
+                    $notification->ticketAgentUpdated($modified_ticket, $original_ticket);
+                }
+            }
+            return true;
+        });
+
+        // Send notification when ticket status is modified
+        Ticket::created(function ($ticket) {
+            if (config('ticketit.assigned_notification') == 'yes') {
+                $notification = new NotificationsController();
+                $notification->newTicketNotifyAgent($ticket);
+            }
             return true;
         });
 

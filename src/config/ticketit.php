@@ -58,5 +58,12 @@ return [
     * Default is to not use queue: 'no'
     * use queue: 'yes'
     */
-    'queue_emails' => 'no'
+    'queue_emails' => 'no',
+
+    /*
+    * Agent notify: To notify assigned agent (either auto or manual assignment) of new assigned or transferred tickets
+    * Default: 'yes'
+    * not to notify agent: 'no'
+    */
+    'assigned_notification' => 'yes'
 ];

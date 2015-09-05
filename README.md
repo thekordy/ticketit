@@ -1,15 +1,16 @@
 ## Support tickets system package for Laravel
 A simple helpdesk tickets system for Laravel 5.1 which integrats smoothly with Laravel default users and auth system
 
-### Current status:
-A simple support tickets system as a laravel package with three main users roles users, agents, and admins.
-Laravel users can create tickets (in which ticket will be auto assigned to an agent) and keep track of their tickets status.
-
-Agents can view and modify their own assigned tickets and communicate with ticket issuers throught ticket comments.
-
-Also very simple configurations where administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
-
-The system sends email notifications to ticket participants (ticket owner, assigned agent) with ticket updates and new comments
+### Features:
+1. Three main users roles users, agents, and admins
+2. Users can create tickets 
+3. Users can keep track of their tickets status
+4. Auto assigning to agents, the system searchs for agents in specific department and auto select the agent with lowest queue
+5. Agents can view and modify their own assigned tickets 
+6. Agents can communicate with ticket issuers throught ticket comments
+7. Auto email notifications to ticket participants (ticket owner, assigned agent) when ticket is updated or there is a new comment
+8. Simple admin panel 
+9. Administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
 
 ### To Do:
 1. Localization

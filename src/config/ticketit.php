@@ -65,5 +65,13 @@ return [
     * Default: 'yes'
     * not to notify agent: 'no'
     */
-    'assigned_notification' => 'yes'
+    'assigned_notification' => 'yes',
+
+    /*
+    * Agent restrict: Restrict agents access to only their assigned tickets
+    * Default: 'no'
+    * Agent access only assigned tickets: 'yes'
+    */
+    'agent_restrict' => 'no'
+
 ];

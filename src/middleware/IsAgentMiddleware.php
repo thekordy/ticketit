@@ -19,7 +19,8 @@ class IsAgentMiddleware
         if (Agent::isAgent() || Agent::isAdmin()) {
             return $next($request);
         }
-        return back()->with('warning', 'You are not permitted to access this page!');
+        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
+            ->with('warning', 'You are not permitted to access this page!');
     }
 
 }

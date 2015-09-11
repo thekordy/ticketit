@@ -16,11 +16,11 @@ class IsAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (! Agent::isAdmin()) {
-            return back()->with('warning', 'You are not permitted to access this page!');
-        }
+        if (Agent::isAdmin())
+            return $next($request);
 
-        return $next($request);
+        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
+            ->with('warning', 'You are not permitted to access this page!');
     }
 
 }

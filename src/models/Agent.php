@@ -55,6 +55,31 @@ class Agent extends User
             if (in_array(\Auth::user()->id, config('ticketit.admin_ids'))) return true;
         }
     }
+
+    /**
+     * Check if user is the assigned agent for a ticket
+     * @param integer $id ticket id
+     * @return boolean
+     */
+    public static function isAssignedAgent($id)
+    {
+        if (Auth::check() && Auth::user()->ticketit_agent) {
+            if (Auth::user()->id == Ticket::find($id)->agent->id) return true;
+        }
+    }
+
+    /**
+     * Check if user is the owner for a ticket
+     * @param integer $id ticket id
+     * @return boolean
+     */
+    public static function isTicketOwner($id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->id == Ticket::find($id)->user->id) return true;
+        }
+    }
+
     /**
      * Get related categories
      *

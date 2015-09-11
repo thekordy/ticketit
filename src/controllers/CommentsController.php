@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Mail;
 class CommentsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['edit', 'update', 'destroy']]);
+        $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *

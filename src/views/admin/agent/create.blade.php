@@ -2,11 +2,11 @@
 @section('page', 'Add users')
 
 @section('content')
+    @include('ticketit::shared.admin-header')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>Add agents</h2>
         </div>
-            @include('ticketit::shared.flash_error')
         @if ($users->isEmpty())
             <h3 class="text-center"> There are no user accounts, create user accounts first.</h3>
         @else

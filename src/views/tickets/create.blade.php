@@ -2,8 +2,8 @@
 @section('page', 'New Ticket Form')
 
 @section('content')
+    @include('ticketit::shared.header')
             <div class="well bs-component">
-                @include('ticketit::shared.flash_error')
                 {!! Form::open([
                                 'route'=>config('ticketit.main_route').'.store',
                                 'method' => 'POST',

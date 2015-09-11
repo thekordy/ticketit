@@ -1,7 +1,5 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        @include('ticketit::shared.flash')
-        @include('ticketit::shared.flash_error')
         <div class="content">
             <h2 class="header">
                 {{ $ticket->subject }}

@@ -2,9 +2,8 @@
 @section('page', 'Edit '.$category->name.' category')
 
 @section('content')
+    @include('ticketit::shared.admin-header')
     <div class="well bs-component">
-        @include('ticketit::shared.flash')
-        @include('ticketit::shared.flash_error')
         {!! Form::model($category, [
                                     'route' => [config('ticketit.admin_route').'.category.update', $category->id],
                                     'method' => 'PATCH',

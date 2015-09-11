@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-    @include('ticketit::nav')
+        @include('ticketit::shared.header')
         @include('ticketit::tickets.index')
     </div>
 

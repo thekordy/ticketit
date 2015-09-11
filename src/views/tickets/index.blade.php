@@ -4,7 +4,6 @@
             {!! link_to_route(config('ticketit.main_route').'.create', 'New Ticket', null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>
-    @include('ticketit::shared.flash')
 
     @if ($tickets->isEmpty())
         <h3 class="text-center"> There are no tickets,

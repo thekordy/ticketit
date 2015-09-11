@@ -1,7 +1,7 @@
 @extends($master)
 @section('page', 'Ticket: '. $ticket->subject)
 @section('content')
-        @include('ticketit::nav')
+        @include('ticketit::shared.header')
         @include('ticketit::tickets.partials.ticket_body')
         <br>
         <h2>Comments</h2>

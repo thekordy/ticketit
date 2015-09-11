@@ -5,5 +5,5 @@
 @stop
 
 @section('content')
-    @include('ticketit::admin.nav')
+    @include('ticketit::shared.admin-header')
 @stop

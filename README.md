@@ -11,14 +11,15 @@ A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with 
 7. Auto email notifications to ticket participants (ticket owner, assigned agent) when ticket is updated or there is a new comment
 8. Simple admin panel 
 9. Administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
+10. Tickets access restrictions (Only ticket owner, an agent, or an admin whom has access to the ticket)
+11. Settings option to allow agents access to all tickets or to restrict agents access to only their assigned tickets
 
 ### To Do:
 1. Localization
-2. Tickets access restriction (Only ticket owner, an agent, or an admin whom has access to the ticket)
-3. Tickets filters and search
-4. Dashboard stats and graphs
-5. Configurable Start and Close statuses (From admin panel)
-6. Forms validation
+2. Tickets filters and search
+3. Dashboard stats and graphs
+4. Configurable Start and Close statuses (From admin panel)
+5. Forms validation
 
 ## Installation
 **First Make sure you have got all dependents working:**

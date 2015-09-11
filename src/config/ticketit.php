@@ -30,7 +30,7 @@ return [
     * User ids who are members of admin role
     * Default: 1
     */
-    'admin_ids' => [2],
+    'admin_ids' => [1],
 
     /*
     * Pagination length: number of items shown per page

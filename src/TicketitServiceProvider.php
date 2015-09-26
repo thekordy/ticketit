@@ -66,10 +66,10 @@ class TicketitServiceProvider extends ServiceProvider
             return true;
         });
 
-        $this->loadViewsFrom(__DIR__.'/views', 'ticketit');
+        $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
         
-        $this->publishes([__DIR__.'/views' => base_path('resources/views/vendor/ticketit')], 'views');
-        $this->publishes([__DIR__.'/config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
+        $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
     }
 
     /**

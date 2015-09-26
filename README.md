@@ -43,7 +43,7 @@ After install it, you have to add this line on your `config/app.php` on Service 
 
 Install database tables by running the migrate artisan command 
 ```php
-	php artisan migrate --path=vendor/kordy/ticketit/src/migrations
+	php artisan migrate --path=vendor/kordy/ticketit/src/Migrations
 ```
 
 ## Configuration

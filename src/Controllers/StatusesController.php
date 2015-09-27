@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\PrepareStatusRequest;
+use Kordy\Ticketit\Requests\PrepareStatusRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Status;
 use Illuminate\Support\Facades\Session;

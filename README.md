@@ -63,10 +63,6 @@ Publish the views (It will generate views files at `resources/views/vendor/kordy
 ```shell
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
 ```
-Publish the validation requests (It will generate request files at `app/Http/Requests/`. Edit necessary lines.)
-```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="requests"
-```
 
 **After publishing the config file config/ticketit.php , edit it for your settings.**
 

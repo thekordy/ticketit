@@ -70,7 +70,6 @@ class TicketitServiceProvider extends ServiceProvider
         
         $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
         $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
-        $this->publishes([__DIR__.'/Requests' => base_path('app/Http/Requests')], 'requests');
 
     }
 

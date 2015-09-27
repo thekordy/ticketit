@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
 

@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\PrepareCategoryRequest;
+use Kordy\Ticketit\Requests\PrepareCategoryRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Category;
 use Illuminate\Support\Facades\Session;

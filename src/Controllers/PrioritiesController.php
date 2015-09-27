@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\PreparePriorityRequest;
+use Kordy\Ticketit\Requests\PreparePriorityRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Priority;
 use Illuminate\Support\Facades\Session;

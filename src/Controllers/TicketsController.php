@@ -3,7 +3,7 @@ namespace Kordy\Ticketit\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Requests\PrepareTicketRequest;
+use Kordy\Ticketit\Requests\PrepareTicketRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models;

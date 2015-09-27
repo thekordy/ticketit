@@ -3,6 +3,7 @@ namespace Kordy\Ticketit\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Kordy\Ticketit\Requests\PrepareTicketRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models;
@@ -56,16 +57,19 @@ class TicketsController extends Controller {
      * @param  Request  $request
      * @return Response redirect to index
      */
-    public function store(Request $request)
+    public function store(PrepareTicketRequest $request)
     {
         $ticket = new Models\Ticket;
-        $ticket->subject = $request->input('subject');
-        $ticket->content = $request->input('content');
-        $ticket->priority_id = $request->input('priority_id');
-        $ticket->category_id = $request->input('category_id');
+
+        $ticket->subject = $request->subject;
+        $ticket->content = $request->content;
+        $ticket->priority_id = $request->priority_id;
+        $ticket->category_id = $request->category_id;
+
         $ticket->status_id = config('ticketit.default_status_id');
         $ticket->user_id = \Auth::user()->id;
         $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
+        
         $ticket->save();
 
         Session::flash('status', "The ticket has been created!");
@@ -109,16 +113,15 @@ class TicketsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PrepareTicketRequest $request, $id)
     {
         $ticket = Models\Ticket::findOrFail($id);
-        if(!empty($request->input('subject')))
-            $ticket->subject = $request->input('subject');
-        if(!empty($request->input('content')))
-            $ticket->content = $request->input('content');
-        $ticket->status_id = $request->input('status_id');
-        $ticket->category_id = $request->input('category_id');
-        $ticket->priority_id = $request->input('priority_id');
+
+        $ticket->subject = $request->subject;
+        $ticket->content = $request->content;
+        $ticket->status_id = $request->status_id;
+        $ticket->category_id = $request->category_id;
+        $ticket->priority_id = $request->priority_id;
 
         if ($request->input('agent_id') == 'auto') {
             $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));

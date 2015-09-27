@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Kordy\Ticketit\Requests\PrepareStatusRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Status;
 use Illuminate\Support\Facades\Session;
@@ -37,7 +38,7 @@ class StatusesController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PrepareStatusRequest $request)
     {
         $status = new Status;
         $status->create(['name' => $request->name, 'color' => $request->color]);
@@ -77,7 +78,7 @@ class StatusesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PrepareStatusRequest $request, $id)
     {
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);

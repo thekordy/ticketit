@@ -8,7 +8,6 @@
         @include('ticketit::tickets.partials.comments')
         {!! $comments->render() !!}
         @include('ticketit::tickets.partials.comment_form')
-
 @stop
 
 @section('footer')

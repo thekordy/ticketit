@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\PrepareCategoryRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Category;
 use Illuminate\Support\Facades\Session;
@@ -37,7 +38,7 @@ class CategoriesController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PrepareCategoryRequest $request)
     {
         $category = new Category;
         $category->create(['name' => $request->name, 'color' => $request->color]);
@@ -77,7 +78,7 @@ class CategoriesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PrepareCategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);

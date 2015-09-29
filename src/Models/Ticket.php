@@ -2,22 +2,53 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
-class Ticket extends Model {
+class Ticket extends Model
+{
 
     protected $table = 'ticketit';
+    protected $dates = ['completed_at'];
+
+    /**
+     * List of completed tickets.
+     *
+     * @return bool
+     */
+    public function hasComments()
+    {
+        return (bool) count($this->comments);
+    }
+
+    /**
+     * List of completed tickets.
+     *
+     * @return Collection
+     */
+    public function scopeComplete()
+    {
+        return $this->whereNotNull('completed_at');
+    }
+
+    /**
+     * List of active tickets.
+     *
+     * @return Collection
+     */
+    public function scopeActive()
+    {
+        return $this->whereNull('completed_at');
+    }
 
     /**
      * Get Ticket status
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function status() {
+    public function status()
+    {
         return $this->belongsTo('Kordy\Ticketit\Models\Status', 'status_id');
     }
-
 
     /**
      * Get Ticket priority
@@ -68,15 +99,16 @@ class Ticket extends Model {
     {
         return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
     }
+
 //    /**
-//     * Get Ticket audits
-//     *
-//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-//     */
-//    public function audits()
-//    {
-//        return $this->hasMany('Kordy\Ticketit\Models\Audit', 'ticket_id');
-//    }
-//
+    //     * Get Ticket audits
+    //     *
+    //     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    //     */
+    //    public function audits()
+    //    {
+    //        return $this->hasMany('Kordy\Ticketit\Models\Audit', 'ticket_id');
+    //    }
+    //
 
 }

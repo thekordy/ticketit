@@ -2,13 +2,13 @@
 @section('page', 'New Ticket Form')
 
 @section('content')
-    @include('ticketit::shared.header')
+@include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::open([
-                        'route'=>config('ticketit.main_route').'.store',
-                        'method' => 'POST',
-                        'class' => 'form-horizontal'
-                        ]) !!}
+            'route'=>config('ticketit.main_route').'.store',
+            'method' => 'POST',
+            'class' => 'form-horizontal'
+        ]) !!}
             <legend>Create New Ticket</legend>
             <div class="form-group">
                 {!! Form::label('subject', 'Subject:', ['class' => 'col-lg-2 control-label']) !!}

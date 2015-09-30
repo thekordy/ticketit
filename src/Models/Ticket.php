@@ -20,6 +20,11 @@ class Ticket extends Model
         return (bool) count($this->comments);
     }
 
+    public function isComplete()
+    {
+        return (bool) $this->completed_at;
+    }
+
     /**
      * List of completed tickets.
      *

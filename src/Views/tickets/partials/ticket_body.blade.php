@@ -28,9 +28,13 @@
                             <p> <strong>Owner</strong>: {{ $ticket->user->name }}</p>
                             <p>
                                 <strong>Status</strong>:
-                                <span style="color: {{ $ticket->status->color }}">
-                                    {{ $ticket->status->name }}
-                                </span>
+
+                                @if( $ticket->isComplete() )
+                                    <span style="color: blue">Complete</span>
+                                @else
+                                    <span style="color: {{ $ticket->status->color }}">{{ $ticket->status->name }}</span>
+                                @endif
+
                             </p>
                             <p>
                                 <strong>Priority</strong>:

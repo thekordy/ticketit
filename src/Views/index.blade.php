@@ -9,5 +9,4 @@
         @include('ticketit::shared.header')
         @include('ticketit::tickets.index')
     </div>
-
 @stop

@@ -179,6 +179,7 @@ class TicketsController extends Controller {
             }
             $count++;
         }
+        isset($selected_agent_id) ? true : $selected_agent_id = config('ticketit.admin_ids')[0];
         return $selected_agent_id;
     }
 

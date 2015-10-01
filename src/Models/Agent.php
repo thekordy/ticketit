@@ -31,15 +31,20 @@ class Agent extends User
         if ($cat_id == null)
             return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
 
-        return Category::find($cat_id)->agents->lists('name', 'id')->toArray();
+        return Category::find($cat_id)->agents->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
     }
 
     /**
      * Check if user is agent
      * @return boolean
      */
-    public static function isAgent()
+    public static function isAgent($id = null)
     {
+        if (isset($id)) {
+            $user = User::find($id);
+            if ($user->ticketit_agent) return true;
+            return false;
+        }
         if (Auth::check()) {
             if (\Auth::user()->ticketit_agent) return true;
         }

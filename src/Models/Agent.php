@@ -2,8 +2,8 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Auth;
 use App\User;
+use Auth;
 
 class Agent extends User
 {
@@ -15,8 +15,9 @@ class Agent extends User
      */
     public function scopeAgents($query, $cat_id = null)
     {
-        if ($cat_id == null)
+        if ($cat_id == null) {
             return $query->where('ticketit_agent', '1')->get();
+        }
 
         return Category::find($cat_id)->agents;
     }
@@ -28,8 +29,9 @@ class Agent extends User
      */
     public function scopeAgentsLists($query, $cat_id = null)
     {
-        if ($cat_id == null)
+        if ($cat_id == null) {
             return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
+        }
 
         return Category::find($cat_id)->agents->lists('name', 'id')->toArray();
     }
@@ -41,7 +43,10 @@ class Agent extends User
     public static function isAgent()
     {
         if (Auth::check()) {
-            if (\Auth::user()->ticketit_agent) return true;
+            if (\Auth::user()->ticketit_agent) {
+                return true;
+            }
+
         }
     }
 
@@ -52,7 +57,10 @@ class Agent extends User
     public static function isAdmin()
     {
         if (Auth::check()) {
-            if (in_array(\Auth::user()->id, config('ticketit.admin_ids'))) return true;
+            if (in_array(\Auth::user()->id, config('ticketit.admin_ids'))) {
+                return true;
+            }
+
         }
     }
 
@@ -64,7 +72,10 @@ class Agent extends User
     public static function isAssignedAgent($id)
     {
         if (Auth::check() && Auth::user()->ticketit_agent) {
-            if (Auth::user()->id == Ticket::find($id)->agent->id) return true;
+            if (Auth::user()->id == Ticket::find($id)->agent->id) {
+                return true;
+            }
+
         }
     }
 
@@ -76,7 +87,10 @@ class Agent extends User
     public static function isTicketOwner($id)
     {
         if (Auth::check()) {
-            if (Auth::user()->id == Ticket::find($id)->user->id) return true;
+            if (Auth::user()->id == Ticket::find($id)->user->id) {
+                return true;
+            }
+
         }
     }
 
@@ -93,11 +107,14 @@ class Agent extends User
     /**
      * Get related agent tickets
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function agentTickets()
+    public function agentTickets($complete = false)
     {
-        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
+        if ($complete) {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
+        } else {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
+        }
     }
 
     /**
@@ -105,9 +122,13 @@ class Agent extends User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userTickets()
+    public function userTickets($complete = false)
     {
-        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id');
+        if ($complete) {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+        } else {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+        }
     }
 
 }

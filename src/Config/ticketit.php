@@ -72,6 +72,18 @@ return [
     * Default: 'no'
     * Agent access only assigned tickets: 'yes'
     */
-    'agent_restrict' => 'no'
+    'agent_restrict' => 'no',
+
+    /*
+    * Close Ticket Perm: Whose has a permission to close tickets
+    * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
+    */
+    'close_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
+
+    /*
+    * Reopen Ticket Perm: Whose has a permission to reopen tickets
+    * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
+    */
+    'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
 
 ];

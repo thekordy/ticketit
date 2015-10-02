@@ -4,6 +4,17 @@
             <h2 class="header">
                 {{ $ticket->subject }}
                 <span class="pull-right">
+                    @if(! $ticket->completed_at)
+                        @if($close_perm == 'yes')
+                            {!! link_to_route(config('ticketit.main_route').'.complete', 'Mark Complete', $ticket->id,
+                                                ['class' => 'btn btn-success']) !!}
+                        @endif
+                    @else
+                        @if($reopen_perm == 'yes')
+                            {!! link_to_route(config('ticketit.main_route').'.reopen', 'Reopen Ticket', $ticket->id,
+                                                ['class' => 'btn btn-success']) !!}
+                        @endif
+                    @endif
                     @if(Kordy\Ticketit\Models\Agent::isAgent())
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
                             Edit Ticket

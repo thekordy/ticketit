@@ -6,9 +6,7 @@
     </div>
 
     @if ($tickets->isEmpty() && Request::is(config('ticketit.main_route').'/complete'))
-        <h3 class="text-center"> There are no complete tickets,
-            {!! link_to_route(config('ticketit.main_route').'.create', 'create new ticket') !!}
-        </h3>
+        <h3 class="text-center"> There are no complete tickets</h3>
         <br>
         <h4 class="text-center">
             <small>Be sure to check Active Tickets if you cannot find your ticket.</small>
@@ -23,52 +21,11 @@
         </h4>
     @else
         <div id="message"></div>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <td>#</td>
-                    <td>Subject</td>
-                    <td>Update</td>
-                    <td>Priority</td>
-                    <td>Agent</td>
-                    <td>Last Response</td>
-                    <td>Category</td>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($tickets as $ticket)
-                <tr class="ticket-tr small">
-                    <td>{{ $ticket->id }}</td>
-                    <td>
-                        {!!  link_to_route(
-                                        config('ticketit.main_route').'.show',
-                                        $ticket->subject,
-                                        $ticket->id,
-                                        ['style' => 'color: '.$ticket->status->color]) !!}
-                    </td>
-                    <td>
-                        {{ $ticket->updated_at->diffForHumans() }}
-                    </td>
-                    <td style="color: {{ $ticket->priority->color }}">
-                        {{ $ticket->priority->name }}
-                    </td>
-                    <td>
-                        {{ $ticket->agent->name }}
-                    </td>
-                    <td>
-                        @if($ticket->hasComments())
-                            {{ $ticket->comments->last()->user->name }}
-                        @else
-                            No replies.
-                        @endif
-                    </td>
-                    <td style="color: {{ $ticket->category->color }}">
-                        {{ $ticket->category->name }}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        @if(Kordy\Ticketit\Models\Agent::isAdmin() || Kordy\Ticketit\Models\Agent::isAgent())
+            @include('ticketit::tickets.partials.index_agent')
+        @else
+            @include('ticketit::tickets.partials.index_user')
+        @endif
     @endif
 </div>
 {!! $tickets->render() !!}

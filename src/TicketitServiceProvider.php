@@ -17,7 +17,8 @@ class TicketitServiceProvider extends ServiceProvider
     public function boot()
     {
         // Adding HTML5 color picker to form elements
-        Form::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
+        Form::macro('custom', function($type, $name, $value = "#000000", $options = [])
+        {
             $field = $this->input($type, $name, $value, $options);
             return $field;
         });
@@ -65,10 +66,13 @@ class TicketitServiceProvider extends ServiceProvider
             return true;
         });
 
-        $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
+        $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
 
-        $this->publishes([__DIR__ . '/Views' => base_path('resources/views/vendor/ticketit')], 'views');
-        $this->publishes([__DIR__ . '/Config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+
+        $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
+        $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
 
     }
 

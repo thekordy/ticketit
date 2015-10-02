@@ -67,11 +67,6 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        @if(Kordy\Ticketit\Models\Agent::isAdmin() && ! $ticket->completed_at)
-                            {!! link_to_route(config('ticketit.main_route').'.complete', 'Mark Complete', $ticket->id, ['class' => 'btn btn-success']) !!}
-                        @elseif(Kordy\Ticketit\Models\Agent::isAdmin())
-                            {!! link_to_route(config('ticketit.main_route').'.reopen', 'Reopen Ticket', $ticket->id, ['class' => 'btn btn-success']) !!}
-                        @endif
                         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                     </div>
                     {!! Form::close() !!}

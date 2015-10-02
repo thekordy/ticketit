@@ -17,8 +17,7 @@ class TicketitServiceProvider extends ServiceProvider
     public function boot()
     {
         // Adding HTML5 color picker to form elements
-        Form::macro('custom', function($type, $name, $value = "#000000", $options = [])
-        {
+        Form::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
             $field = $this->input($type, $name, $value, $options);
             return $field;
         });
@@ -42,7 +41,7 @@ class TicketitServiceProvider extends ServiceProvider
         Ticket::updating(function ($modified_ticket) {
             if (config('ticketit.status_notification') == 'yes') {
                 $original_ticket = Ticket::find($modified_ticket->id);
-                if ($original_ticket->status->id != $modified_ticket->status->id) {
+                if ($original_ticket->status->id != $modified_ticket->status->id || $original_ticket->completed_at != $modified_ticket->completed_at) {
                     $notification = new NotificationsController();
                     $notification->ticketStatusUpdated($modified_ticket, $original_ticket);
                 }
@@ -66,10 +65,10 @@ class TicketitServiceProvider extends ServiceProvider
             return true;
         });
 
-        $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
-        
-        $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
-        $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
+
+        $this->publishes([__DIR__ . '/Views' => base_path('resources/views/vendor/ticketit')], 'views');
+        $this->publishes([__DIR__ . '/Config/ticketit.php' => config_path('ticketit.php')], 'config');
 
     }
 

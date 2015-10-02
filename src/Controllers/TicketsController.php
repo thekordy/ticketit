@@ -1,40 +1,68 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Kordy\Ticketit\Requests\PrepareTicketRequest;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models;
+use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Requests\PrepareTicketRequest;
 
-class TicketsController extends Controller {
+class TicketsController extends Controller
+{
 
-    public function __construct()
+    protected $tickets;
+    protected $agent;
+
+    public function __construct(Ticket $tickets, Agent $agent)
     {
         $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => ['show']]);
         $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
         $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
+
+        $this->tickets = $tickets;
+        $this->agent = $agent;
     }
 
     /**
-     * Display a listing of tickets related to user.
+     * Display a listing of active tickets related to user.
      *
      * @return Response
      */
     public function index()
     {
         $items = config('ticketit.paginate_items');
-        if(Models\Agent::isAdmin()) {
-            $tickets = Models\Ticket::orderBy('updated_at', 'desc')->paginate($items);
-        }
-        elseif (Models\Agent::isAgent()) {
-            $agent = Models\Agent::find(\Auth::user()->id);
+        if ($this->agent->isAdmin()) {
+            $tickets = $this->tickets->active()->orderBy('updated_at', 'desc')->paginate($items);
+        } elseif ($this->agent->isAgent()) {
+            $agent = $this->agent->find(auth()->user()->id);
             $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->paginate($items);
-        }
-        else {
-            $user = Models\Agent::find(\Auth::user()->id);
+        } else {
+            $user = $this->agent->find(auth()->user()->id);
             $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
+        }
+        return view('ticketit::index', compact('tickets'));
+    }
+
+    /**
+     * Display a listing of completed tickets related to user.
+     *
+     * @return Response
+     */
+    public function indexComplete()
+    {
+        $items = config('ticketit.paginate_items');
+        if ($this->agent->isAdmin()) {
+            $tickets = $this->tickets->complete()->orderBy('updated_at', 'desc')->paginate($items);
+        } elseif ($this->agent->isAgent()) {
+            $agent = $this->agent->find(auth()->user()->id);
+            $tickets = $agent->agentTickets(true)->orderBy('updated_at', 'desc')->paginate($items);
+        } else {
+            $user = $this->agent->find(auth()->user()->id);
+            $tickets = $user->userTickets(true)->orderBy('updated_at', 'desc')->paginate($items);
         }
         return view('ticketit::index', compact('tickets'));
     }
@@ -59,7 +87,7 @@ class TicketsController extends Controller {
      */
     public function store(PrepareTicketRequest $request)
     {
-        $ticket = new Models\Ticket;
+        $ticket = new Ticket;
 
         $ticket->subject = $request->subject;
         $ticket->content = $request->content;
@@ -67,12 +95,12 @@ class TicketsController extends Controller {
         $ticket->category_id = $request->category_id;
 
         $ticket->status_id = config('ticketit.default_status_id');
-        $ticket->user_id = \Auth::user()->id;
+        $ticket->user_id = auth()->user()->id;
         $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
-        
+
         $ticket->save();
 
-        Session::flash('status', "The ticket has been created!");
+        session()->flash('status', "The ticket has been created!");
 
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
@@ -85,25 +113,20 @@ class TicketsController extends Controller {
      */
     public function show($id)
     {
-        $ticket = Models\Ticket::find($id);
+        $ticket = $this->tickets->find($id);
+
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-        $agent_lists = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($ticket->category_id);
+
+        $close_perm = $this->permToClose($id);
+        $reopen_perm = $this->permToReopen($id);
+
+        $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
-            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
+                'close_perm', 'reopen_perm'));
     }
 
     /**
@@ -115,7 +138,7 @@ class TicketsController extends Controller {
      */
     public function update(PrepareTicketRequest $request, $id)
     {
-        $ticket = Models\Ticket::findOrFail($id);
+        $ticket = $this->tickets->findOrFail($id);
 
         $ticket->subject = $request->subject;
         $ticket->content = $request->content;
@@ -125,17 +148,15 @@ class TicketsController extends Controller {
 
         if ($request->input('agent_id') == 'auto') {
             $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
-        }
-        else {
+        } else {
             $ticket->agent_id = $request->input('agent_id');
         }
 
-
         $ticket->save();
 
-        Session::flash('status', "Ticket has been modified!");
+        session()->flash('status', "Ticket has been modified!");
 
-        return redirect()->route(config('ticketit.main_route').'.show', $id);
+        return redirect()->route(config('ticketit.main_route') . '.show', $id);
     }
 
     /**
@@ -146,13 +167,71 @@ class TicketsController extends Controller {
      */
     public function destroy($id)
     {
-        $ticket = Models\Ticket::findOrFail($id);
-        $name = $ticket->subject;
+        $ticket = $this->tickets->findOrFail($id);
+        $subject = $ticket->subject;
         $ticket->delete();
 
-        Session::flash('status', "The ticket $name has been deleted!");
+        session()->flash('status', "The ticket $subject has been deleted!");
 
-        return redirect()->route(config('ticketit.main_route').'.index');
+        return redirect()->route(config('ticketit.main_route') . '.index');
+    }
+
+    /**
+     * Mark ticket as complete.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function complete($id)
+    {
+        if ($this->permToClose($id) == 'yes') {
+
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->completed_at = Carbon::now();
+
+            if(config('ticketit.default_close_status_id')) {
+                $ticket->status_id = config('ticketit.default_close_status_id');
+            }
+
+            $subject = $ticket->subject;
+            $ticket->save();
+
+            session()->flash('status', "The ticket $subject has been completed.");
+
+            return redirect()->route(config('ticketit.main_route') . '.index');
+        }
+
+        return redirect()->route(config('ticketit.main_route') . '.index')
+                            ->with('warning', 'You are not permitted to do this action!');
+    }
+
+    /**
+     * Reopen ticket from complete status.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function reopen($id)
+    {
+        if ($this->permToReopen($id) == 'yes') {
+
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->completed_at = null;
+
+            if(config('ticketit.default_reopen_status_id')) {
+                $ticket->status_id = config('ticketit.default_reopen_status_id');
+            }
+
+            $subject = $ticket->subject;
+            $ticket->save();
+
+            session()->flash('status', "The ticket $subject has been reopened!");
+
+            return redirect()->route(config('ticketit.main_route') . '.index');
+        }
+
+        return redirect()->route(config('ticketit.main_route') . '.index')
+                            ->with('warning', 'You are not permitted to do this action!');
     }
 
     /**
@@ -162,7 +241,7 @@ class TicketsController extends Controller {
      */
     public function autoSelectAgent($cat_id)
     {
-        $agents = Models\Agent::agents($cat_id);
+        $agents = $this->agent->agents($cat_id);
         $count = 0;
         $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
@@ -179,24 +258,60 @@ class TicketsController extends Controller {
                     }
                 }
             }
-
             $count++;
         }
         isset($selected_agent_id) ? true : $selected_agent_id = config('ticketit.admin_ids')[0];
         return $selected_agent_id;
     }
 
-    public function agentSelectList($category_id,$ticket_id)
+    public function agentSelectList($category_id, $ticket_id)
     {
-        $agents = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($category_id);
-        $selected_Agent = Models\Ticket::find($ticket_id)->agent->id;
+        $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        $selected_Agent = $this->tickets->find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {
             $selected = ($id == $selected_Agent) ? "selected" : "";
-            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
+            $select .= '<option value="' . $id . '" ' . $selected . '>' . $name . '</option>';
         }
         $select .= '</select>';
         return $select;
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function permToClose($id)
+    {
+        $close_ticket_perm = config('ticketit.close_ticket_perm');
+
+        if ($this->agent->isAdmin() && $close_ticket_perm['admin'] == 'yes') {
+            return 'yes';
+        }
+        if ($this->agent->isAgent() && $close_ticket_perm['agent'] == 'yes') {
+            return 'yes';
+        }
+        if ($this->agent->isTicketOwner($id) && $close_ticket_perm['owner'] == 'yes') {
+            return 'yes';
+        }
+        return 'no';
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function permToReopen($id)
+    {
+        $reopen_ticket_perm = config('ticketit.reopen_ticket_perm');
+        if ($this->agent->isAdmin() && $reopen_ticket_perm['admin'] == 'yes') {
+            return 'yes';
+        } elseif ($this->agent->isAgent() && $reopen_ticket_perm['agent'] == 'yes') {
+            return 'yes';
+        } elseif ($this->agent->isTicketOwner($id) && $reopen_ticket_perm['owner'] == 'yes') {
+            return 'yes';
+        }
+        return 'no';
     }
 }
 

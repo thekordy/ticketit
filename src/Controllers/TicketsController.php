@@ -245,7 +245,7 @@ class TicketsController extends Controller
         $count = 0;
         $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
-            if (Models\Agent::isAgent($agent->id)) {
+            if ($this->agent->isAgent()) {
                 if ($count == 0) {
                     $lowest_tickets = $agent->agentTickets->count();
                     $selected_agent_id = $agent->id;

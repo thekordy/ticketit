@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Mail;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Ticket;
 
-class NotificationsController extends Controller {
+class NotificationsController extends Controller
+{
 
     public function newComment(Comment $comment)
     {
@@ -26,11 +27,16 @@ class NotificationsController extends Controller {
         $data = [
             'ticket' => serialize($ticket),
             'notification_owner' => serialize($notification_owner),
-            'original_ticket' => serialize($original_ticket)
+            'original_ticket' => serialize($original_ticket),
         ];
 
-        $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' updated ' . $ticket->subject.' status to '.$ticket->status->name, 'status');
+        if (strtotime($ticket->completed_at)) {
+            $this->sendNotification($template, $data, $ticket, $notification_owner,
+                $notification_owner->name . ' updated ' . $ticket->subject . ' status to Complete', 'status');
+        } else {
+            $this->sendNotification($template, $data, $ticket, $notification_owner,
+                $notification_owner->name . ' updated ' . $ticket->subject . ' status to ' . $ticket->status->name, 'status');
+        }
     }
 
     public function ticketAgentUpdated(Ticket $ticket, Ticket $original_ticket)
@@ -40,11 +46,11 @@ class NotificationsController extends Controller {
         $data = [
             'ticket' => serialize($ticket),
             'notification_owner' => serialize($notification_owner),
-            'original_ticket' => serialize($original_ticket)
+            'original_ticket' => serialize($original_ticket),
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' transferred ' . $ticket->subject.' to you', 'agent');
+            $notification_owner->name . ' transferred ' . $ticket->subject . ' to you', 'agent');
     }
 
     public function newTicketNotifyAgent(Ticket $ticket)
@@ -53,7 +59,7 @@ class NotificationsController extends Controller {
         $template = "ticketit::emails.assigned_notification";
         $data = [
             'ticket' => serialize($ticket),
-            'notification_owner' => serialize($notification_owner)
+            'notification_owner' => serialize($notification_owner),
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
@@ -74,13 +80,15 @@ class NotificationsController extends Controller {
                 function ($m) use ($ticket, $notification_owner, $subject, $type) {
 
                     if ($type != 'agent') {
-                        if ($ticket->user->email != $notification_owner->email)
+                        if ($ticket->user->email != $notification_owner->email) {
                             $m->to($ticket->user->email, $ticket->user->name);
+                        }
 
-                        if ($ticket->agent->email != $notification_owner->email)
+                        if ($ticket->agent->email != $notification_owner->email) {
                             $m->to($ticket->agent->email, $ticket->agent->name);
-                    }
-                    else {
+                        }
+
+                    } else {
                         $m->to($ticket->agent->email, $ticket->agent->name);
                     }
 
@@ -88,22 +96,22 @@ class NotificationsController extends Controller {
 
                     $m->subject($subject);
                 });
-        }
-        else {
+        } else {
             Mail::send($template, $data,
                 function ($m) use ($ticket, $notification_owner, $subject, $type) {
 
                     if ($type != 'agent') {
-                        if ($ticket->user->email != $notification_owner->email)
+                        if ($ticket->user->email != $notification_owner->email) {
                             $m->to($ticket->user->email, $ticket->user->name);
+                        }
 
-                        if ($ticket->agent->email != $notification_owner->email)
+                        if ($ticket->agent->email != $notification_owner->email) {
                             $m->to($ticket->agent->email, $ticket->agent->name);
-                    }
-                    else {
+                        }
+
+                    } else {
                         $m->to($ticket->agent->email, $ticket->agent->name);
                     }
-
 
                     $m->from($notification_owner->email, $notification_owner->name);
 

@@ -1,33 +1,46 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function () {
+$router = $this->app['router'];
+
+$router->group(['middleware' => 'auth'], function () {
     //Ticket public route
-    Route::resource(config('ticketit.main_route'), 'Kordy\Ticketit\Controllers\TicketsController');
+    get(config('ticketit.main_route') . '/complete', 'Kordy\Ticketit\Controllers\TicketsController@indexComplete')
+        ->name(config('ticketit.main_route') . '-complete');
+    resource(config('ticketit.main_route'), 'Kordy\Ticketit\Controllers\TicketsController');
 
     //Ticket Comments public route
-    Route::resource(config('ticketit.main_route').'-comment', 'Kordy\Ticketit\Controllers\CommentsController');
+    resource(config('ticketit.main_route') . '-comment', 'Kordy\Ticketit\Controllers\CommentsController');
 });
-Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () {
+
+$router->group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () {
+    //Ticket complete route for agents.
+    get(config('ticketit.main_route') . '/{id}/complete', 'Kordy\Ticketit\Controllers\TicketsController@complete')
+        ->name(config('ticketit.main_route') . '.complete');
+
+    //Ticket reopen route for agents.
+    get(config('ticketit.main_route') . '/{id}/reopen', 'Kordy\Ticketit\Controllers\TicketsController@reopen')
+        ->name(config('ticketit.main_route') . '.reopen');
+
     //API return list of agents in particular category
-    Route::get(config('ticketit.main_route').'/agents/list/{category_id?}/{ticket_id?}', [
-        'as' => config('ticketit.main_route').'agentselectlist',
-        'uses' => 'Kordy\Ticketit\Controllers\TicketsController@agentSelectList'
+    get(config('ticketit.main_route') . '/agents/list/{category_id?}/{ticket_id?}', [
+        'as' => config('ticketit.main_route') . 'agentselectlist',
+        'uses' => 'Kordy\Ticketit\Controllers\TicketsController@agentSelectList',
     ]);
 });
 
-Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () {
+$router->group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () {
     //Ticket admin index route (ex. http://url/tickets-admin/)
-    Route::get(config('ticketit.admin_route'), 'Kordy\Ticketit\Controllers\AdminController@index');
+    get(config('ticketit.admin_route'), 'Kordy\Ticketit\Controllers\AdminController@index');
 
     //Ticket statuses admin routes (ex. http://url/tickets-admin/status)
-    Route::resource(config('ticketit.admin_route') . '/status', 'Kordy\Ticketit\Controllers\StatusesController');
+    resource(config('ticketit.admin_route') . '/status', 'Kordy\Ticketit\Controllers\StatusesController');
 
     //Ticket priorities admin routes (ex. http://url/tickets-admin/priority)
-    Route::resource(config('ticketit.admin_route') . '/priority', 'Kordy\Ticketit\Controllers\PrioritiesController');
+    resource(config('ticketit.admin_route') . '/priority', 'Kordy\Ticketit\Controllers\PrioritiesController');
 
     //Agents management routes (ex. http://url/tickets-admin/agent)
-    Route::resource(config('ticketit.admin_route') . '/agent', 'Kordy\Ticketit\Controllers\AgentsController');
+    resource(config('ticketit.admin_route') . '/agent', 'Kordy\Ticketit\Controllers\AgentsController');
 
     //Agents management routes (ex. http://url/tickets-admin/agent)
-    Route::resource(config('ticketit.admin_route') . '/category', 'Kordy\Ticketit\Controllers\CategoriesController');
+    resource(config('ticketit.admin_route') . '/category', 'Kordy\Ticketit\Controllers\CategoriesController');
 });

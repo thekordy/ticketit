@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
@@ -19,7 +20,7 @@ class TicketsController extends Controller
     public function __construct(Ticket $tickets, Agent $agent)
     {
         $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => ['show']]);
-        $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update', 'complete']]);
+        $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
         $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
 
         $this->tickets = $tickets;
@@ -118,10 +119,14 @@ class TicketsController extends Controller
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
 
+        $close_perm = $this->permToClose($id);
+        $reopen_perm = $this->permToReopen($id);
+
         $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
-            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));
+            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
+                'close_perm', 'reopen_perm'));
     }
 
     /**
@@ -179,15 +184,20 @@ class TicketsController extends Controller
      */
     public function complete($id)
     {
-        $ticket = $this->tickets->findOrFail($id);
-        $ticket->completed_at = Carbon::now();
-        $subject = $ticket->subject;
-        $ticket->save();
+        if ($this->permToClose($id) == 'yes') {
 
-        session()->flash('status', "The ticket $subject has been completed.");
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->completed_at = Carbon::now();
+            $subject = $ticket->subject;
+            $ticket->save();
 
-        return redirect()->route(config('ticketit.main_route') . '.index');
+            session()->flash('status', "The ticket $subject has been completed.");
 
+            return redirect()->route(config('ticketit.main_route') . '.index');
+        }
+
+        return redirect()->route(config('ticketit.main_route') . '.index')
+                            ->with('warning', 'You are not permitted to do this action!');
     }
 
     /**
@@ -198,15 +208,20 @@ class TicketsController extends Controller
      */
     public function reopen($id)
     {
-        $ticket = $this->tickets->findOrFail($id);
-        $ticket->completed_at = null;
-        $subject = $ticket->subject;
-        $ticket->save();
+        if ($this->permToReopen($id) == 'yes') {
 
-        session()->flash('status', "The ticket $subject has been reopened!");
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->completed_at = null;
+            $subject = $ticket->subject;
+            $ticket->save();
 
-        return redirect()->route(config('ticketit.main_route') . '.index');
+            session()->flash('status', "The ticket $subject has been reopened!");
 
+            return redirect()->route(config('ticketit.main_route') . '.index');
+        }
+
+        return redirect()->route(config('ticketit.main_route') . '.index')
+                            ->with('warning', 'You are not permitted to do this action!');
     }
 
     /**
@@ -250,6 +265,43 @@ class TicketsController extends Controller
         }
         $select .= '</select>';
         return $select;
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function permToClose($id)
+    {
+        $close_ticket_perm = config('ticketit.close_ticket_perm');
+
+        if ($this->agent->isAdmin() && $close_ticket_perm['admin'] == 'yes') {
+            return 'yes';
+        }
+        if ($this->agent->isAgent() && $close_ticket_perm['agent'] == 'yes') {
+            return 'yes';
+        }
+        if ($this->agent->isTicketOwner($id) && $close_ticket_perm['owner'] == 'yes') {
+            return 'yes';
+        }
+        return 'no';
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function permToReopen($id)
+    {
+        $reopen_ticket_perm = config('ticketit.reopen_ticket_perm');
+        if ($this->agent->isAdmin() && $reopen_ticket_perm['admin'] == 'yes') {
+            return 'yes';
+        } elseif ($this->agent->isAgent() && $reopen_ticket_perm['agent'] == 'yes') {
+            return 'yes';
+        } elseif ($this->agent->isTicketOwner($id) && $reopen_ticket_perm['owner'] == 'yes') {
+            return 'yes';
+        }
+        return 'no';
     }
 }
 

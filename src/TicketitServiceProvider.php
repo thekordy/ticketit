@@ -66,10 +66,13 @@ class TicketitServiceProvider extends ServiceProvider
             return true;
         });
 
+        $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
+
         $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
         
         $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
         $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
 
     }
 

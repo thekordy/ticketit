@@ -80,6 +80,11 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merging config files, no need for to publish the config file at update, only if needed to override configs
+        $this->mergeConfigFrom(
+            __DIR__.'/Config/ticketit.php', 'ticketit'
+        );
+
         include __DIR__.'/routes.php';
     }
 }

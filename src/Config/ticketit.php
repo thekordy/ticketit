@@ -27,6 +27,18 @@ return [
     'default_status_id' => 1,
 
     /*
+    * The default closing status
+    * Default: false
+    */
+    'default_close_status_id' => false,
+
+    /*
+    * The default reopening status
+    * Default: false
+    */
+    'default_reopen_status_id' => false,
+
+    /*
     * User ids who are members of admin role
     * Default: 1
     */

@@ -40,7 +40,7 @@
                             <p>
                                 <strong>Status</strong>:
 
-                                @if( $ticket->isComplete() )
+                                @if( $ticket->isComplete() && ! config('ticketit.default_close_status_id') )
                                     <span style="color: blue">Complete</span>
                                 @else
                                     <span style="color: {{ $ticket->status->color }}">{{ $ticket->status->name }}</span>

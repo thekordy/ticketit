@@ -188,6 +188,11 @@ class TicketsController extends Controller
 
             $ticket = $this->tickets->findOrFail($id);
             $ticket->completed_at = Carbon::now();
+
+            if(config('ticketit.default_close_status_id')) {
+                $ticket->status_id = config('ticketit.default_close_status_id');
+            }
+
             $subject = $ticket->subject;
             $ticket->save();
 
@@ -212,6 +217,11 @@ class TicketsController extends Controller
 
             $ticket = $this->tickets->findOrFail($id);
             $ticket->completed_at = null;
+
+            if(config('ticketit.default_reopen_status_id')) {
+                $ticket->status_id = config('ticketit.default_reopen_status_id');
+            }
+
             $subject = $ticket->subject;
             $ticket->save();
 

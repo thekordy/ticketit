@@ -24,9 +24,21 @@
         @else
             <div id="message"></div>
             <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Categories</td>
+                        <td>Join Categories</td>
+                        <td>Remove from agents</td>
+                    </tr>
+                </thead>
                 <tbody>
                 @foreach($agents as $agent)
                     <tr>
+                        <td>
+                            {{ $agent->id }}
+                        </td>
                         <td>
                             {{ $agent->name }}
                         </td>

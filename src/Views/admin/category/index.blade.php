@@ -24,9 +24,19 @@
         @else
             <div id="message"></div>
             <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
                 <tbody>
                 @foreach($categories as $category)
                     <tr>
+                        <td style="vertical-align: middle">
+                            {{ $category->id }}
+                        </td>
                         <td style="color: {{ $category->color }}; vertical-align: middle">
                             {{ $category->name }}
                         </td>

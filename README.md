@@ -92,6 +92,9 @@ Footer section for passing the jquery scripts, so make sure it is called after y
 @yield('footer')
 </body>
 ```
+### Documentation
+[Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
+
 ### Live Demo
 A live demo is hosted by fusion design at http://ticketit.fusiondesign.me
 

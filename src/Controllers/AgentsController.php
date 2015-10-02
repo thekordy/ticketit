@@ -70,6 +70,11 @@ class AgentsController extends Controller {
 		$agent->ticketit_agent = false;
 		$agent->save();
 
+		// Remove him from tickets categories as well
+
+        $agent_cats = $agent->categories->lists('id')->toArray();
+        $agent->categories()->detach($agent_cats);
+
 		return $agent;
 	}
 

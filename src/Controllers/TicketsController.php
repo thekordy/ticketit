@@ -166,19 +166,23 @@ class TicketsController extends Controller {
         $count = 0;
         $lowest_tickets = 1000000;
         foreach ($agents as $agent) {
-            if ($count == 0) {
-                $lowest_tickets = $agent->agentTickets->count();
-                $selected_agent_id = $agent->id;
-            }
-            else {
-                $tickets_count = $agent->agentTickets->count();
-                if ($tickets_count < $lowest_tickets) {
-                    $lowest_tickets = $tickets_count;
+            if (Models\Agent::isAgent($agent->id)) {
+                if ($count == 0) {
+                    $lowest_tickets = $agent->agentTickets->count();
                     $selected_agent_id = $agent->id;
                 }
+                else {
+                    $tickets_count = $agent->agentTickets->count();
+                    if ($tickets_count < $lowest_tickets) {
+                        $lowest_tickets = $tickets_count;
+                        $selected_agent_id = $agent->id;
+                    }
+                }
             }
+
             $count++;
         }
+        isset($selected_agent_id) ? true : $selected_agent_id = config('ticketit.admin_ids')[0];
         return $selected_agent_id;
     }
 

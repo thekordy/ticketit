@@ -10,16 +10,17 @@ $router->group(['middleware' => 'auth'], function () {
 
     //Ticket Comments public route
     resource(config('ticketit.main_route') . '-comment', 'Kordy\Ticketit\Controllers\CommentsController');
-});
 
-$router->group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () {
-    //Ticket complete route for agents.
+    //Ticket complete route for permitted user.
     get(config('ticketit.main_route') . '/{id}/complete', 'Kordy\Ticketit\Controllers\TicketsController@complete')
         ->name(config('ticketit.main_route') . '.complete');
 
-    //Ticket reopen route for agents.
+    //Ticket reopen route for permitted user.
     get(config('ticketit.main_route') . '/{id}/reopen', 'Kordy\Ticketit\Controllers\TicketsController@reopen')
         ->name(config('ticketit.main_route') . '.reopen');
+});
+
+$router->group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () {
 
     //API return list of agents in particular category
     get(config('ticketit.main_route') . '/agents/list/{category_id?}/{ticket_id?}', [

@@ -31,7 +31,24 @@ class TicketsController extends Controller
     public function data($complete = false)
     {
         $user = $this->agent->find( auth()->user()->id );
-        $tickets = Datatables::of( $user->getTickets() )->make(true);
+
+        if($complete) {
+            $collection = $user->getTickets()->complete();
+        } else {
+            $collection = $user->getTickets();
+        }
+
+        $tickets = Datatables::of( 
+                $collection->get([
+                    'id', 
+                    'subject',
+                    'status_id',
+                    'updated_at',
+                    'priority_id',
+                    'agent_id',
+                    'category_id'
+                ]))
+            ->make(true);
 
         return $tickets;
     }
@@ -43,7 +60,8 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        return view('ticketit::index');
+        $complete = false;
+        return view('ticketit::index', compact('complete'));
     }
 
     /**

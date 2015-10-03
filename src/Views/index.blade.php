@@ -16,26 +16,17 @@
 	<script src="https://cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script>
 	    $('.table').DataTable({
-	        processing: true,
+	        processing: false,
 	        serverSide: true,
-		    "ajax": {
-		        "dataType": "json",
-		        "contentType": "application/json; charset=utf-8",
-		        "type": "POST",
-		        "url": "Default.aspx/GetSearchResults",
-		        "data": function (d) {
-		           return JSON.stringify(d);
-		        },
-		        "dataSrc": function(json){
-		           json = $.parseJSON(json.d);
-
-		           return json.data;
-		        },
-		    },
-
+	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
 	        columns: [
 	            { data: 'id', name: 'id' },
 	            { data: 'subject', name: 'subject' },
+	            { data: 'status_id', name: 'status_id' },
+	            { data: 'updated_at', name: 'updated_at' },
+	            { data: 'priority_id', name: 'priority_id' },
+	            { data: 'agent_id', name: 'agent_id' },
+	            { data: 'category_id', name: 'category_id' }
 	        ]
 	    });
 	</script>

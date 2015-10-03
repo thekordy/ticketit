@@ -130,7 +130,7 @@ class TicketsController extends Controller
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
 
-        $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
+        $agent_lists = array_merge(['auto' => 'Auto Select'], $this->agent->agentsLists($ticket->category_id));
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',

@@ -89,7 +89,7 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-        $agent_lists = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($ticket->category_id);
+        $agent_lists = array_merge(['auto' => 'Auto Select'], $this->agent->agentsLists($ticket->category_id));
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));

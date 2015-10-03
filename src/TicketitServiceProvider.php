@@ -42,7 +42,7 @@ class TicketitServiceProvider extends ServiceProvider
         Ticket::updating(function ($modified_ticket) {
             if (config('ticketit.status_notification') == 'yes') {
                 $original_ticket = Ticket::find($modified_ticket->id);
-                if ($original_ticket->status->id != $modified_ticket->status->id) {
+                if ($original_ticket->status->id != $modified_ticket->status->id || $original_ticket->completed_at != $modified_ticket->completed_at) {
                     $notification = new NotificationsController();
                     $notification->ticketStatusUpdated($modified_ticket, $original_ticket);
                 }
@@ -66,10 +66,13 @@ class TicketitServiceProvider extends ServiceProvider
             return true;
         });
 
+        $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
+
         $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
-        
+
         $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
         $this->publishes([__DIR__.'/Config/ticketit.php' => config_path('ticketit.php')], 'config');
+        $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
 
     }
 
@@ -80,6 +83,11 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Merging config files, no need for to publish the config file at update, only if needed to override configs
+        $this->mergeConfigFrom(
+            __DIR__.'/Config/ticketit.php', 'ticketit'
+        );
+
         include __DIR__.'/routes.php';
     }
 }

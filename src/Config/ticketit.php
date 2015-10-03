@@ -27,6 +27,18 @@ return [
     'default_status_id' => 1,
 
     /*
+    * The default closing status
+    * Default: false
+    */
+    'default_close_status_id' => false,
+
+    /*
+    * The default reopening status
+    * Default: false
+    */
+    'default_reopen_status_id' => false,
+
+    /*
     * User ids who are members of admin role
     * Default: 1
     */
@@ -72,6 +84,18 @@ return [
     * Default: 'no'
     * Agent access only assigned tickets: 'yes'
     */
-    'agent_restrict' => 'no'
+    'agent_restrict' => 'no',
+
+    /*
+    * Close Ticket Perm: Whose has a permission to close tickets
+    * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
+    */
+    'close_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
+
+    /*
+    * Reopen Ticket Perm: Whose has a permission to reopen tickets
+    * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
+    */
+    'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
 
 ];

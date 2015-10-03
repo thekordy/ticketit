@@ -136,4 +136,26 @@ class Agent extends User
         }
     }
 
+    public function tickets($complete = false)
+    {
+        if ($complete) {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+        } else {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+        }
+    }
+
+    public function getTickets()
+    {
+        if ($this->isAdmin()) {
+            $tickets = $this->tickets()->active()->orderBy('updated_at', 'desc');
+        } elseif ($this->isAgent()) {
+            $tickets = $this->agentTickets()->orderBy('updated_at', 'desc');
+        } else {
+            $tickets = $this->userTickets()->orderBy('updated_at', 'desc');
+        }
+
+        return $tickets;
+    }
+
 }

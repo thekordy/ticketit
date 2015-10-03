@@ -1,6 +1,7 @@
 <?php
 namespace Kordy\Ticketit;
 
+use Kordy\Ticketit\Models\Agent;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Controllers\NotificationsController;
@@ -16,6 +17,14 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Send the Agent User model to the view under $u
+        view()->composer('*', function($view) {
+            if( auth()->check() )
+            {
+                $u = Agent::find( auth()->user()->id );
+                $view->with( 'u', $u );
+            }
+        });
         // Adding HTML5 color picker to form elements
         Form::macro('custom', function($type, $name, $value = "#000000", $options = [])
         {

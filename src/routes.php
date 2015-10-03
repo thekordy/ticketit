@@ -6,6 +6,8 @@ $router->group(['middleware' => 'auth'], function () {
     //Ticket public route
     get(config('ticketit.main_route') . '/complete', 'Kordy\Ticketit\Controllers\TicketsController@indexComplete')
         ->name(config('ticketit.main_route') . '-complete');
+    get(config('ticketit.main_route') . '/data', 'Kordy\Ticketit\Controllers\TicketsController@data')
+        ->name(config('ticketit.main_route') . '.data');
     resource(config('ticketit.main_route'), 'Kordy\Ticketit\Controllers\TicketsController');
 
     //Ticket Comments public route

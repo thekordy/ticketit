@@ -1,6 +1,7 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
+use yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +28,14 @@ class TicketsController extends Controller
         $this->agent = $agent;
     }
 
+    public function data($complete = false)
+    {
+        $user = $this->agent->find( auth()->user()->id );
+        $tickets = Datatables::of( $user->getTickets() )->make(true);
+
+        return $tickets;
+    }
+
     /**
      * Display a listing of active tickets related to user.
      *
@@ -34,17 +43,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $items = config('ticketit.paginate_items');
-        if ($this->agent->isAdmin()) {
-            $tickets = $this->tickets->active()->orderBy('updated_at', 'desc')->get();
-        } elseif ($this->agent->isAgent()) {
-            $agent = $this->agent->find(auth()->user()->id);
-            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->get();
-        } else {
-            $user = $this->agent->find(auth()->user()->id);
-            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->get();
-        }
-        return view('ticketit::index', compact('tickets'));
+        return view('ticketit::index');
     }
 
     /**
@@ -54,17 +53,8 @@ class TicketsController extends Controller
      */
     public function indexComplete()
     {
-        $items = config('ticketit.paginate_items');
-        if ($this->agent->isAdmin()) {
-            $tickets = $this->tickets->complete()->orderBy('updated_at', 'desc')->paginate($items);
-        } elseif ($this->agent->isAgent()) {
-            $agent = $this->agent->find(auth()->user()->id);
-            $tickets = $agent->agentTickets(true)->orderBy('updated_at', 'desc')->paginate($items);
-        } else {
-            $user = $this->agent->find(auth()->user()->id);
-            $tickets = $user->userTickets(true)->orderBy('updated_at', 'desc')->paginate($items);
-        }
-        return view('ticketit::index', compact('tickets'));
+        $complete = true;
+        return view('ticketit::index', compact('complete'));
     }
 
     /**

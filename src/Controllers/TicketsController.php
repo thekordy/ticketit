@@ -1,6 +1,9 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
+use Kordy\Ticketit\Transformers\TicketTransformer;
+use League\Fractal;
+use Illuminate\Database\Eloquent\Builder;
 use yajra\Datatables\Datatables;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -28,7 +31,7 @@ class TicketsController extends Controller
         $this->agent = $agent;
     }
 
-    public function data($complete = false)
+    public function data(Datatables $datatables, $complete = false)
     {
         $user = $this->agent->find( auth()->user()->id );
 
@@ -38,19 +41,7 @@ class TicketsController extends Controller
             $collection = $user->getTickets();
         }
 
-        $tickets = Datatables::of( 
-                $collection->get([
-                    'id', 
-                    'subject',
-                    'status_id',
-                    'updated_at',
-                    'priority_id',
-                    'agent_id',
-                    'category_id'
-                ]))
-            ->make(true);
-
-        return $tickets;
+        return $datatables->of( $collection )->setTransformer(TicketTransformer::class)->make(true);
     }
 
     /**

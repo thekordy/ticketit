@@ -47,8 +47,8 @@ class Agent extends User
             if ($user->ticketit_agent) return true;
             return false;
         }
-        if (Auth::check()) {
-            if (\Auth::user()->ticketit_agent) {
+        if (auth()->check()) {
+            if (auth()->user()->ticketit_agent) {
                 return true;
             }
 
@@ -61,8 +61,8 @@ class Agent extends User
      */
     public static function isAdmin()
     {
-        if (Auth::check()) {
-            if (in_array(\Auth::user()->id, config('ticketit.admin_ids'))) {
+        if (auth()->check()) {
+            if (in_array(auth()->user()->id, config('ticketit.admin_ids'))) {
                 return true;
             }
 
@@ -76,7 +76,7 @@ class Agent extends User
      */
     public static function isAssignedAgent($id)
     {
-        if (Auth::check() && Auth::user()->ticketit_agent) {
+        if (auth()->check() && Auth::user()->ticketit_agent) {
             if (Auth::user()->id == Ticket::find($id)->agent->id) {
                 return true;
             }
@@ -91,8 +91,8 @@ class Agent extends User
      */
     public static function isTicketOwner($id)
     {
-        if (Auth::check()) {
-            if (Auth::user()->id == Ticket::find($id)->user->id) {
+        if (auth()->check()) {
+            if (auth()->user()->id == Ticket::find($id)->user->id) {
                 return true;
             }
 
@@ -147,12 +147,14 @@ class Agent extends User
 
     public function getTickets()
     {
-        if ($this->isAdmin()) {
-            $tickets = $this->tickets()->active()->orderBy('updated_at', 'desc');
-        } elseif ($this->isAgent()) {
-            $tickets = $this->agentTickets()->orderBy('updated_at', 'desc');
+        $check = Agent::find( auth()->user()->id );
+
+        if ($check->isAdmin()) {
+            $tickets = $check->tickets()->active()->orderBy('updated_at', 'desc');
+        } elseif ($check->isAgent()) {
+            $tickets = $check->agentTickets()->orderBy('updated_at', 'desc');
         } else {
-            $tickets = $this->userTickets()->orderBy('updated_at', 'desc');
+            $tickets = $check->userTickets()->orderBy('updated_at', 'desc');
         }
 
         return $tickets;

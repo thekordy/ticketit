@@ -16,7 +16,7 @@
 	<script src="https://cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script>
 	    $('.table').DataTable({
-	        processing: false,
+	        processing: true,
 	        serverSide: true,
 	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
 	        columns: [

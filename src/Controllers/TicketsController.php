@@ -36,13 +36,13 @@ class TicketsController extends Controller
     {
         $items = config('ticketit.paginate_items');
         if ($this->agent->isAdmin()) {
-            $tickets = $this->tickets->active()->orderBy('updated_at', 'desc')->paginate($items);
+            $tickets = $this->tickets->active()->orderBy('updated_at', 'desc')->get();
         } elseif ($this->agent->isAgent()) {
             $agent = $this->agent->find(auth()->user()->id);
-            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->paginate($items);
+            $tickets = $agent->agentTickets()->orderBy('updated_at', 'desc')->get();
         } else {
             $user = $this->agent->find(auth()->user()->id);
-            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
+            $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->get();
         }
         return view('ticketit::index', compact('tickets'));
     }

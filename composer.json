@@ -5,7 +5,8 @@
     "keywords": ["laravel","helpdesk", "ticket", "support"],
     "require": {
         "laravel/framework": "^5.1",
-        "laravelcollective/html": "^5.1"
+        "laravelcollective/html": "^5.1",
+        "yajra/laravel-datatables-oracle": "~5.0"
     },
     "license": "MIT",
     "authors": [

@@ -1,34 +1,34 @@
 @extends($master)
 
 @section('page')
-    Statuses Management
+    {{ trans('ticketit::admin.status_index_title') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.admin-header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2> Manage Statuses
+            <h2>{{ trans('ticketit::admin.status_index_title') }}
                 {!! link_to_route(
                                     config('ticketit.admin_route').'.status.create',
-                                    'Create new status', null,
+                                    trans('ticketit::admin.btn-create-new-status'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($statuses->isEmpty())
-            <h3 class="text-center"> There are no statues,
-                {!! link_to_route(config('ticketit.admin_route').'.status.create', 'create new status') !!}
+            <h3 class="text-center">{{ trans('ticketit::admin.status_index_no_statuses') }}
+                {!! link_to_route(config('ticketit.admin_route').'.status.create', trans('ticketit::admin.status_index_create_new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Action</td>
+                        <td>{{ trans('ticketit::admin.table-id') }}</td>
+                        <td>{{ trans('ticketit::admin.table-name') }}</td>
+                        <td>{{ trans('ticketit::admin.table-action') }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.edit', 'Edit', $status->id,
+                                                    config('ticketit.admin_route').'.status.edit', trans('ticketit::admin.btn-edit'), $status->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.destroy', 'Delete', $status->id,
+                                                    config('ticketit.admin_route').'.status.destroy', trans('ticketit::admin.btn-delete'), $status->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$status->id",
@@ -76,7 +76,7 @@
     <script>
         $( ".deleteit" ).click(function( event ) {
             event.preventDefault();
-            if (confirm("Are you sure you want to delete the status: " + $(this).attr("node") + " ?"))
+            if (confirm("{!! trans('ticketit::admin.status_index_js_delete') !!}" + $(this).attr("node") + " ?"))
             {
                 $form = $(this).attr("form");
                 $("#" + $form).submit();

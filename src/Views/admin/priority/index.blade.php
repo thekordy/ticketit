@@ -1,34 +1,34 @@
 @extends($master)
 
 @section('page')
-    Priorities Management
+    {{ trans('ticketit::admin.priority_index_title') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.admin-header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2> Manage Priorities
+            <h2>{{ trans('ticketit::admin.priority_index_title') }}
                 {!! link_to_route(
                                     config('ticketit.admin_route').'.priority.create',
-                                    'Create new priority', null,
+                                    trans('ticketit::admin.btn-create-new-priority'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($priorities->isEmpty())
-            <h3 class="text-center"> There are no priorities,
-                {!! link_to_route(config('ticketit.admin_route').'.priority.create', 'create new priority') !!}
+            <h3 class="text-center">{{ trans('ticketit::admin.priority_index_no_priorities') }}
+                {!! link_to_route(config('ticketit.admin_route').'.priority.create', trans('ticketit::admin.priority_index_create_new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Action</td>
+                        <td>{{ trans('ticketit::admin.table-id') }}</td>
+                        <td>{{ trans('ticketit::admin.table-name') }}</td>
+                        <td>{{ trans('ticketit::admin.table-action') }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.edit', 'Edit', $priority->id,
+                                                    config('ticketit.admin_route').'.priority.edit', trans('ticketit::admin.btn-edit'), $priority->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.destroy', 'Delete', $priority->id,
+                                                    config('ticketit.admin_route').'.priority.destroy', trans('ticketit::admin.btn-delete'), $priority->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$priority->id",
@@ -76,7 +76,7 @@
     <script>
         $( ".deleteit" ).click(function( event ) {
             event.preventDefault();
-            if (confirm("Are you sure you want to delete the priority: " + $(this).attr("node") + " ?"))
+            if (confirm("{!! trans('ticketit::admin.priority_index_js_delete') !!}" + $(this).attr("node") + " ?"))
             {
                 $form = $(this).attr("form");
                 $("#" + $form).submit();

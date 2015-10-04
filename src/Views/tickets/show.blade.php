@@ -1,10 +1,10 @@
 @extends($master)
-@section('page', 'Ticket: '. $ticket->subject)
+@section('page', trans('ticketit::lang.show-ticket-title') . trans('ticketit::lang.colon') . $ticket->subject)
 @section('content')
         @include('ticketit::shared.header')
         @include('ticketit::tickets.partials.ticket_body')
         <br>
-        <h2>Comments</h2>
+        <h2>{{ trans('ticketit::lang.comments') }}</h2>
         @include('ticketit::tickets.partials.comments')
         {!! $comments->render() !!}
         @include('ticketit::tickets.partials.comment_form')
@@ -15,7 +15,7 @@
         $(document).ready(function() {
             $( ".deleteit" ).click(function( event ) {
                 event.preventDefault();
-                if (confirm("Are you sure you want to delete: " + $(this).attr("node") + " ?"))
+                if (confirm("{!! trans('ticketit::lang.show_ticket_js_delete') !!}" + $(this).attr("node") + " ?"))
                 {
                     var form = $(this).attr("form");
                     $("#" + form).submit();

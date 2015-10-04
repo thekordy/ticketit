@@ -1,5 +1,5 @@
 @extends($master)
-@section('page', 'Edit '.$status->name.' status')
+@section('page', trans('ticketit::admin.status_edit_title', ['name' => ucwords($status->name)]))
 
 @section('content')
     @include('ticketit::shared.admin-header')
@@ -9,7 +9,7 @@
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}
-        <legend>Edit {{ $status->name }}: </legend>
+        <legend>{{ trans('ticketit::admin.status_edit_title', ['name' => ucwords($status->name)]) }}</legend>
         @include('ticketit::admin.status.form', ['update', true])
         {!! Form::close() !!}
     </div>

@@ -2,8 +2,13 @@
 <?php $ticket = unserialize($ticket); ?>
 <?php $original_ticket = unserialize($original_ticket); ?>
 
-<b>{{ $notification_owner->name }}</b> has transferred the ticket <b>{{ $ticket->subject }}</b> ({{ $ticket->status->name }})
-from {{ $original_ticket->agent->name }} in {{ $original_ticket->category->name }} to you in {{ $ticket->category->name }}
-<br>
-<hr>
-Go to {!! link_to_route(config('ticketit.main_route').'.show', $ticket->subject, $ticket->id) !!}
+{!! trans('lang::email/transfer_notification.data', [
+    'name'          =>  $notification_owner->name,
+    'subject'       =>  $ticket->subject,
+    'status'        =>  $ticket->status->name,
+    'agent'         =>  $original_ticket->agent->name,
+    'old_category'  =>  $original_ticket->category->name, 
+    'new_category'  =>  $ticket->category->name
+]) !!}
+
+{!! link_to_route(config('ticketit.main_route').'.show', $ticket->subject, $ticket->id) !!}

@@ -7,7 +7,7 @@
                  'class' => 'form-horizontal'
              ]) !!}
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">{{ trans('ticketit::lang.flash-x') }}</span></button>
                 <h4 class="modal-title" id="ticket-edit-modal-Label">{{ $ticket->subject }}</h4>
             </div>
             <div class="modal-body">
@@ -24,13 +24,13 @@
                     @endif
 
                     <div class="form-group col-lg-6">
-                        {!! Form::label('priority_id', 'Priority:', ['class' => 'col-lg-4 control-label']) !!}
+                        {!! Form::label('priority_id', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => 'col-lg-4 control-label']) !!}
                         <div class="col-lg-8">
                             {!! Form::select('priority_id', $priority_lists, $ticket->priority_id, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                     <div class="form-group col-lg-6">
-                        {!! Form::label('agent_id', 'Agent:', [
+                        {!! Form::label('agent_id', trans('ticketit::lang.agent') . trans('ticketit::lang.colon'), [
                             'class' => 'col-lg-4 control-label'
                         ]) !!}
                         <div class="col-lg-8">
@@ -46,7 +46,7 @@
                     <div class="clearfix"></div>
 
                     <div class="form-group col-lg-12">
-                        {!! Form::label('category_id', 'Category:', [
+                        {!! Form::label('category_id',  trans('ticketit::lang.category') . trans('ticketit::lang.colon'), [
                             'class' => 'col-lg-6 control-label'
                         ]) !!}
                         <div class="col-lg-6">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="form-group col-lg-12">
-                        {!! Form::label('status_id', 'Status:', [
+                        {!! Form::label('status_id', trans('ticketit::lang.status') . trans('ticketit::lang.colon'), [
                             'class' => 'col-lg-6 control-label'
                         ]) !!}
                         <div class="col-lg-6">
@@ -66,8 +66,8 @@
                     <div class="clearfix"></div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('ticketit::lang.btn-close') }}</button>
+                        {!! Form::submit(trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
                     </div>
                     {!! Form::close() !!}
                 </div>

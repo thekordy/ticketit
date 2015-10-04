@@ -1,34 +1,34 @@
 @extends($master)
 
 @section('page')
-    Categories Management
+    {{ trans('ticketit::admin.category_index_title') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.admin-header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2> Manage Categories
+            <h2>{{ trans('ticketit::admin.category_index_title') }}
                 {!! link_to_route(
                                     config('ticketit.admin_route').'.category.create',
-                                    'Create new category', null,
+                                    trans('ticketit::admin.btn-create-new-category'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($categories->isEmpty())
-            <h3 class="text-center"> There are no categories,
-                {!! link_to_route(config('ticketit.admin_route').'.category.create', 'create new category') !!}
+            <h3 class="text-center">{{ trans('ticketit::admin.category_index_no_categories') }}
+                {!! link_to_route(config('ticketit.admin_route').'.category.create', trans('ticketit::admin.category_index_create_new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Action</td>
+                        <td>{{ trans('ticketit::admin.table-id') }}</td>
+                        <td>{{ trans('ticketit::admin.table-name') }}</td>
+                        <td>{{ trans('ticketit::admin.table-action') }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.edit', 'Edit', $category->id,
+                                                    config('ticketit.admin_route').'.category.edit', trans('ticketit::admin.btn-edit'), $category->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.destroy', 'Delete', $category->id,
+                                                    config('ticketit.admin_route').'.category.destroy', trans('ticketit::admin.btn-delete'), $category->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$category->id",
@@ -76,7 +76,7 @@
     <script>
         $( ".deleteit" ).click(function( event ) {
             event.preventDefault();
-            if (confirm("Are you sure you want to delete the category: " + $(this).attr("node") + " ?"))
+            if (confirm("{!! trans('ticketit::admin.category_index_js_delete') !!}" + $(this).attr("node") + " ?"))
             {
                 var form = $(this).attr("form");
                 $("#" + form).submit();

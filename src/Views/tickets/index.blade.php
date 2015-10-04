@@ -1,23 +1,23 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 style="margin:0;padding:0"> My Tickets
-            {!! link_to_route(config('ticketit.main_route').'.create', 'New Ticket', null, ['class' => 'btn btn-primary pull-right']) !!}
+        <h2>{{ trans('ticketit::lang.index-my-tickets') }}
+            {!! link_to_route(config('ticketit.main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>
 
     @if ($tickets->isEmpty() && Request::is(config('ticketit.main_route').'/complete'))
-        <h3 class="text-center"> There are no complete tickets</h3>
+        <h3 class="text-center">{{ trans('ticketit::lang.index-complete-none') }}	</h3>
         <br>
         <h4 class="text-center">
-            <small>Be sure to check Active Tickets if you cannot find your ticket.</small>
+            <small>{{ trans('ticketit::lang.index-active-check') }}	</small>
         </h4>
     @elseif($tickets->isEmpty())
-        <h3 class="text-center"> There are no active tickets,
-            {!! link_to_route(config('ticketit.main_route').'.create', 'create new ticket') !!}
+        <h3 class="text-center">{{ trans('ticketit::lang.index-active-none') }}	
+            {!! link_to_route(config('ticketit.main_route').'.create', trans('ticketit::lang.index-create-new-ticket')) !!}
         </h3>
         <br>
         <h4 class="text-center">
-            <small>Be sure to check Complete Tickets if you cannot find your ticket.</small>
+            <small>{{ trans('ticketit::lang.index-complete-check') }}	</small>
         </h4>
     @else
         <div id="message"></div>

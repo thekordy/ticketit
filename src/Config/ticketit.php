@@ -96,6 +96,13 @@ return [
     * Reopen Ticket Perm: Whose has a permission to reopen tickets
     * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
     */
-    'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
+    'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
+
+    /*
+     * Delete Confirmation: Choose which confirmation message type to use when confirming a deleting
+     * Default: builtin
+     * Options: builtin, modal
+     */
+    'delete_modal_type' => 'modal',
 
 ];

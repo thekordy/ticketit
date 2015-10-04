@@ -18,6 +18,7 @@
                     @endif
                     @if(Kordy\Ticketit\Models\Agent::isAdmin())
 {{-- // Existing: JS Prompt: --}}
+                        @if(config('ticketit.delete_modal_type') == 'builtin')
                             {!! link_to_route(
                                             config('ticketit.main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id,
                                             [
@@ -26,22 +27,24 @@
                                             "node" => $ticket->subject
                                             ])
                             !!}
-{{-- // OR; Modal Window: 1/2 --}}
+                        @elseif(config('ticketit.delete_modal_type') == 'modal')
+                            {{-- // OR; Modal Window: 1/2 --}}
                             {!! Form::open(array(
                                     'route' => array(config('ticketit.main_route').'.destroy', $ticket->id),
                                     'method' => 'delete',
                                     'style' => 'display:inline'
                                ))
                             !!}
-                            <button type="button" 
-                                    class="btn btn-danger" 
-                                    data-toggle="modal" 
-                                    data-target="#confirmDelete" 
-                                    data-title="{!! trans('ticketit::lang.show-ticket-modal-delete-title', ['id' => $ticket->id]) !!}" 
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#confirmDelete"
+                                    data-title="{!! trans('ticketit::lang.show-ticket-modal-delete-title', ['id' => $ticket->id]) !!}"
                                     data-message="{!! trans('ticketit::lang.show-ticket-modal-delete-message', ['subject' => $ticket->subject]) !!}"
-                             >
-                              {{ trans('ticketit::lang.btn-delete') }}(m)
+                            >
+                                {{ trans('ticketit::lang.btn-delete') }}
                             </button>
+                        @endif
                             {!! Form::close() !!}  
 {{-- // END Modal Window: 1/2 --}}                            
                     @endif     

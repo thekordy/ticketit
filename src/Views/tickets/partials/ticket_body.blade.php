@@ -32,7 +32,7 @@
                             !!}
 {{-- // OR; Modal Window: 1/2 --}}
                             {!! Form::open(array(
-                                    'route' => array(config('ticketit.main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id),
+                                    'route' => array(config('ticketit.main_route').'.destroy', $ticket->id),
                                     'method' => 'delete',
                                     'style' => 'display:inline'
                                ))

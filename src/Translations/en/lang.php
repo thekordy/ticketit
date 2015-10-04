@@ -11,6 +11,7 @@ return [
 
   'table-id'                         => 'ID',
   'table-subject'                    => 'Subject',
+  'table-owner'                      => 'Owner',
   'table-status'                     => 'Status',
   'table-last-updated'               => 'Last Updated',
   'table-last-response'              => 'Last Response',  

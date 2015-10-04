@@ -3,6 +3,7 @@
     <tr>
         <td>{{ trans('ticketit::lang.table-id') }}</td>
         <td>{{ trans('ticketit::lang.table-subject') }}</td>
+        <td>{{ trans('ticketit::lang.table-owner') }}</td>
         <td>{{ trans('ticketit::lang.table-status') }}</td>
         <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
         <td>{{ trans('ticketit::lang.table-last-response') }}</td>
@@ -20,6 +21,9 @@
                                 config('ticketit.main_route').'.show',
                                 $ticket->subject,
                                 $ticket->id) !!}
+            </td>
+            <td>
+                {{ $ticket->user->name }}
             </td>
             <td style="color: {{ $ticket->status->color }}">
                 {{ $ticket->status->name }}

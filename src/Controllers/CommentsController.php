@@ -57,7 +57,7 @@ class CommentsController extends Controller
         $ticket->updated_at = $comment->created_at;
         $ticket->save();
 
-        return back()->with('status', 'Comment has been added successfully');
+        return back()->with('status', trans('ticketit::lang.comment-has-been-added-ok'));
     }
 
     /**

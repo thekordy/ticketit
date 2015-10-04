@@ -1,36 +1,36 @@
 @extends($master)
 
 @section('page')
-    Agents Management
+    {{ trans('ticketit::admin.agent-index-title') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.admin-header')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2> Manage Agents
+            <h2>{{ trans('ticketit::admin.agent-index-title') }}
                 {!! link_to_route(
                                     config('ticketit.admin_route').'.agent.create',
-                                    'Add agents', null,
+                                    trans('ticketit::admin.btn-create-new-agent'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
             </h2>
         </div>
 
         @if ($agents->isEmpty())
-            <h3 class="text-center"> There are no agents,
-                {!! link_to_route(config('ticketit.admin_route').'.agent.create', 'Add agents') !!}
+            <h3 class="text-center">{{ trans('ticketit::admin.agent-index-no-agents') }}
+                {!! link_to_route(config('ticketit.admin_route').'.agent.create', trans('ticketit::admin.agent-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Categories</td>
-                        <td>Join Categories</td>
-                        <td>Remove from agents</td>
+                        <td>{{ trans('ticketit::admin.table-id') }}</td>
+                        <td>{{ trans('ticketit::admin.table-name') }}</td>
+                        <td>{{ trans('ticketit::admin.table-categories') }}</td>
+                        <td>{{ trans('ticketit::admin.table-join-category') }}</td>
+                        <td>{{ trans('ticketit::admin.table-remove-agent') }}</td>																											
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
                                        {!! ($agent_cat->agents()->where("id", $agent->id)->count() > 0) ? "checked" : ""  !!}
                                        > {{ $agent_cat->name }}
                             @endforeach
-                            {!! Form::submit('Join', ['class' => 'btn btn-info btn-sm']) !!}
+                            {!! Form::submit(trans('ticketit::admin.btn-join'), ['class' => 'btn btn-info btn-sm']) !!}
                             {!! Form::close() !!}
                         </td>
                         <td>
@@ -76,7 +76,7 @@
                                         ],
                             'id' => "delete-$agent->id"
                             ]) !!}
-                            {!! Form::submit('Remove', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>

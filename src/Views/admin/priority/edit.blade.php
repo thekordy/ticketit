@@ -1,5 +1,5 @@
 @extends($master)
-@section('page', 'Edit '.$priority->name.' priority')
+@section('page', trans('ticketit::admin.priority-edit-title', ['name' => ucwords($priority->name)]))
 
 @section('content')
     @include('ticketit::shared.admin-header')
@@ -9,7 +9,7 @@
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}
-        <legend>Edit {{ $priority->name }}: </legend>
+        <legend>{{ trans('ticketit::admin.priority-edit-title', ['name' => ucwords($priority->name)]) }}</legend>
         @include('ticketit::admin.priority.form', ['update', true])
         {!! Form::close() !!}
     </div>

@@ -1,14 +1,14 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <td>#</td>
-        <td>Subject</td>
-        <td>Status</td>
-        <td>Update</td>
-        <td>Last Response</td>
-        <td>Priority</td>
-        <td>Agent</td>
-        <td>Category</td>
+        <td>{{ trans('ticketit::lang.table-id') }}</td>
+        <td>{{ trans('ticketit::lang.table-subject') }}</td>
+        <td>{{ trans('ticketit::lang.table-status') }}</td>
+        <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
+        <td>{{ trans('ticketit::lang.table-last-response') }}</td>
+        <td>{{ trans('ticketit::lang.table-priority') }}</td>
+        <td>{{ trans('ticketit::lang.table-agent') }}</td>
+        <td>{{ trans('ticketit::lang.table-category') }}</td>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
                 @if($ticket->hasComments())
                     {{ $ticket->comments->last()->user->name }}
                 @else
-                    No replies.
+                    {{ trans('ticketit::lang.no-replies') }}
                 @endif
             </td>
             <td style="color: {{ $ticket->priority->color }}">

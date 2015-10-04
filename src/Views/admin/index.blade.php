@@ -1,7 +1,7 @@
 @extends($master)
 
 @section('page')
-    Tickets system Dashboard
+    {{ trans('ticketit::admin.index-title') }}	
 @stop
 
 @section('content')

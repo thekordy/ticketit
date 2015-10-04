@@ -17,7 +17,7 @@ class NotificationsController extends Controller
         $data = ['comment' => serialize($comment), 'ticket' => serialize($ticket)];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            'New comment from ' . $notification_owner->name . ' on ' . $ticket->subject, 'comment');
+            trans('ticketit::lang.notify-new-comment-from') . $notification_owner->name . trans('ticketit::lang.notify-on') . $ticket->subject, 'comment');
     }
 
     public function ticketStatusUpdated(Ticket $ticket, Ticket $original_ticket)
@@ -32,10 +32,10 @@ class NotificationsController extends Controller
 
         if (strtotime($ticket->completed_at)) {
             $this->sendNotification($template, $data, $ticket, $notification_owner,
-                $notification_owner->name . ' updated ' . $ticket->subject . ' status to Complete', 'status');
+                $notification_owner->name . trans('ticketit::lang.notify-updated') . $ticket->subject . trans('ticketit::lang.notify-status-to-complete'), 'status');
         } else {
             $this->sendNotification($template, $data, $ticket, $notification_owner,
-                $notification_owner->name . ' updated ' . $ticket->subject . ' status to ' . $ticket->status->name, 'status');
+                $notification_owner->name . trans('ticketit::lang.notify-updated') . $ticket->subject . trans('ticketit::lang.notify-status-to') . $ticket->status->name, 'status');
         }
     }
 
@@ -50,7 +50,7 @@ class NotificationsController extends Controller
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' transferred ' . $ticket->subject . ' to you', 'agent');
+            $notification_owner->name . trans('ticketit::lang.notify-transferred') . $ticket->subject . trans('ticketit::lang.notify-to-you'), 'agent');
     }
 
     public function newTicketNotifyAgent(Ticket $ticket)
@@ -63,7 +63,7 @@ class NotificationsController extends Controller
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name . ' created ticket ' . $ticket->subject, 'agent');
+            $notification_owner->name . trans('ticketit::lang.notify-created-ticket') . $ticket->subject, 'agent');
     }
 
     /**

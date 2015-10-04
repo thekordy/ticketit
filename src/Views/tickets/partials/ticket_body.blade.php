@@ -11,13 +11,12 @@
                             {!! link_to_route(config('ticketit.main_route').'.reopen', trans('ticketit::lang.reopen-ticket'), $ticket->id,
                                                 ['class' => 'btn btn-success']) !!}
                     @endif
-                    @if(Kordy\Ticketit\Models\Agent::isAgent())
+                    @if($u->isAgent())
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
                             {{ trans('ticketit::lang.btn-edit')  }}
                         </button>
                     @endif
-                    @if(Kordy\Ticketit\Models\Agent::isAdmin())
-{{-- // Existing: JS Prompt: --}}
+                    @if($u->isAdmin())
                             {!! link_to_route(
                                             config('ticketit.main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id,
                                             [
@@ -33,18 +32,18 @@
                                     'style' => 'display:inline'
                                ))
                             !!}
-                            <button type="button" 
-                                    class="btn btn-danger" 
-                                    data-toggle="modal" 
-                                    data-target="#confirmDelete" 
-                                    data-title="{!! trans('ticketit::lang.show-ticket-modal-delete-title', ['id' => $ticket->id]) !!}" 
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    data-toggle="modal"
+                                    data-target="#confirmDelete"
+                                    data-title="{!! trans('ticketit::lang.show-ticket-modal-delete-title', ['id' => $ticket->id]) !!}"
                                     data-message="{!! trans('ticketit::lang.show-ticket-modal-delete-message', ['subject' => $ticket->subject]) !!}"
                              >
                               {{ trans('ticketit::lang.btn-delete') }}(m)
                             </button>
-                            {!! Form::close() !!}  
-{{-- // END Modal Window: 1/2 --}}                            
-                    @endif     
+                            {!! Form::close() !!}
+{{-- // END Modal Window: 1/2 --}}
+                    @endif
                 </span>
             </h2>
             <div class="panel well well-sm">
@@ -100,12 +99,12 @@
     </div>
 </div>
 
-    @if(Kordy\Ticketit\Models\Agent::isAgent())
+    @if($u->isAgent())
         @include('ticketit::tickets.edit')
     @endif
 
-{{-- // OR; Modal Window: 2/2 --}}    
-    @if(Kordy\Ticketit\Models\Agent::isAdmin())
+{{-- // OR; Modal Window: 2/2 --}}
+    @if($u->isAdmin())
         @include('ticketit::tickets.partials.modal-delete-confirm')
     @endif
-{{-- // END Modal Window: 2/2 --}}     
+{{-- // END Modal Window: 2/2 --}}

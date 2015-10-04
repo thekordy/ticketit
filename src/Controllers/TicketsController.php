@@ -122,7 +122,7 @@ class TicketsController extends Controller
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
         if(is_array($this->agent->agentsLists($ticket->category_id))) {
-            $agent_lists = array_merge(['auto' => 'Auto Select'], $this->agent->agentsLists($ticket->category_id));
+            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
         }
         else {
             $agent_lists = [];
@@ -270,7 +270,14 @@ class TicketsController extends Controller
 
     public function agentSelectList($category_id, $ticket_id)
     {
-        $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        //check first if category has agents
+        if(is_array($this->agent->agentsLists($category_id))) {
+            $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        }
+        else {
+            $agents = [];
+        }
+
         $selected_Agent = $this->tickets->find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {

@@ -23,7 +23,7 @@ class AgentsController extends Controller {
 		$agents_list = $this->addAgents($request->input('agents'));
 		$agents_names = implode(',', $agents_list);
 
-		Session::flash('status', "Agents $agents_names are added to agents");
+		Session::flash('status', trans('ticketit::lang.agents-are-added-to-agents', ['names' => $agents_names]));
 
 		return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
 	}
@@ -31,7 +31,7 @@ class AgentsController extends Controller {
 	public function update($id, Request $request) {
 		$this->syncAgentCategories($id, $request);
 
-		Session::flash('status', "Joint categories successfully");
+    Session::flash('status', trans('ticketit::lang.agents-joined-categories-ok'));
 
 		return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
 	}
@@ -39,7 +39,7 @@ class AgentsController extends Controller {
 	public function destroy($id) {
 		$agent = $this->removeAgent($id);
 
-		Session::flash('status', "Agents $agent->name is removed from agents team");
+    Session::flash('status', trans('ticketit::lang.agents-is-removed-from-team', ['name' => $agent->name]));
 
 		return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
 	}

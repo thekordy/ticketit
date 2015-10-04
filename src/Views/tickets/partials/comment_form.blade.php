@@ -6,7 +6,7 @@
             {!! Form::hidden('ticket_id', $ticket->id ) !!}
 
             <fieldset>
-                <legend>Reply</legend>
+                <legend>{!! trans('ticketit::lang.reply') !!}</legend>
                 <div class="form-group">
                     <div class="col-lg-12">
                         {!! Form::textarea('content', null, ['class' => 'form-control', 'rows' => "3"]) !!}
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="text-right col-md-12">
-                    {!! Form::submit('Submit Reply', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
                 </div>
 
             </fieldset>

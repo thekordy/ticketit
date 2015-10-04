@@ -43,7 +43,7 @@ class PrioritiesController extends Controller {
         $priority = new Priority;
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The priority $request->name has been created!");
+        Session::flash('status', trans('ticketit::lang.priority-name-has-been-created', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
@@ -56,7 +56,8 @@ class PrioritiesController extends Controller {
      */
     public function show($id)
     {
-        return "All priority related tickets here";
+        return trans('ticketit::lang.priority-all-tickets-here');
+        
     }
 
     /**
@@ -83,7 +84,8 @@ class PrioritiesController extends Controller {
         $priority = Priority::findOrFail($id);
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The priority $request->name has been modified!");
+        Session::flash('status', trans('ticketit::lang.priority-name-has-been-modified', ['name' => $request->name]));
+        
 
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
@@ -100,8 +102,8 @@ class PrioritiesController extends Controller {
         $name = $priority->name;
         $priority->delete();
 
-        Session::flash('status', "The priority $name has been modified!");
-
+        Session::flash('status', trans('ticketit::lang.priority-name-has-been-deleted', ['name' => $name]));
+        
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 }

@@ -1,7 +1,7 @@
 @extends($master)
 
 @section('page')
-    Helpdesk main page
+    {{ trans('ticketit::lang.index-title') }}
 @stop
 
 @section('content')

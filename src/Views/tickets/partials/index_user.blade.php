@@ -1,11 +1,11 @@
 <table class="table table-hover">
     <thead>
     <tr>
-        <td>#</td>
-        <td>Subject</td>
-        <td>Status</td>
-        <td>Update</td>
-        <td>Last Response</td>
+        <td>{{ trans('ticketit::lang.table-id') }}</td>
+        <td>{{ trans('ticketit::lang.table-subject') }}</td>
+        <td>{{ trans('ticketit::lang.table-status') }}</td>
+        <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
+        <td>{{ trans('ticketit::lang.table-last-response') }}</td>				      
     </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                 @if($ticket->hasComments())
                     {{ $ticket->comments->last()->user->name }}
                 @else
-                    No replies.
+                    {{ trans('ticketit::lang.no-replies') }}
                 @endif
             </td>
         </tr>

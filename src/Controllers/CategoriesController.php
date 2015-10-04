@@ -43,7 +43,7 @@ class CategoriesController extends Controller {
         $category = new Category;
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The category $request->name has been created!");
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));     
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }
@@ -83,7 +83,7 @@ class CategoriesController extends Controller {
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The category $request->name has been modified!");
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));     
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }
@@ -100,7 +100,7 @@ class CategoriesController extends Controller {
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', "The category $name has been deleted!");
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));        
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }

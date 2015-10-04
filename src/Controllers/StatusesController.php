@@ -43,7 +43,7 @@ class StatusesController extends Controller {
         $status = new Status;
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The status $request->name has been created!");
+         Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
@@ -56,7 +56,7 @@ class StatusesController extends Controller {
      */
     public function show($id)
     {
-        return "All status related tickets here";
+        return trans('ticketit::lang.status-all-tickets-here');
     }
 
     /**
@@ -83,7 +83,7 @@ class StatusesController extends Controller {
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', "The status $request->name has been modified!");
+        Session::flash('status', trans('ticketit::lang.status-name-has-been-modified', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
@@ -100,8 +100,8 @@ class StatusesController extends Controller {
         $name = $status->name;
         $status->delete();
 
-        Session::flash('status', "The status $name has been modified!");
-
+        Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
+        
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 }

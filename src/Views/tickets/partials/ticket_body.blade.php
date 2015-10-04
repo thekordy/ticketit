@@ -15,12 +15,12 @@
                                                 ['class' => 'btn btn-success']) !!}
                         @endif
                     @endif
-                    @if(Kordy\Ticketit\Models\Agent::isAgent())
+                    @if($u->isAgent())
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
                             Edit Ticket
                         </button>
                     @endif
-                    @if(Kordy\Ticketit\Models\Agent::isAdmin())
+                    @if($u->isAdmin())
                             {!! link_to_route(
                                             config('ticketit.main_route').'.destroy', 'Delete', $ticket->id,
                                             [

@@ -20,15 +20,15 @@
 	        serverSide: true,
 	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
 	        columns: [
-	            { data: 'id', name: 'id' },
-	            { data: 'subject', name: 'subject' },
-	            { data: 'status', name: 'status' },
-	            { data: 'updated_at', name: 'updated_at' },
-	            { data: 'last_responder', name: 'last_responder' },
+	            { data: 'id', name: 'ticketit.id' },
+	            { data: 'subject', name: 'ticketit.subject' },
+	            { data: 'status', name: 'ticketit_statuses.name' },
+	            { data: 'updated_at', name: 'ticketit.updated_at' },
+	            { data: 'last_responder', name: 'users.name' },
 	            @if( $u->isAgent() || $u->isAdmin() )
-		            { data: 'priority', name: 'priority' },
-		            { data: 'name', name: 'name' },
-		            { data: 'category', name: 'category' }
+		            { data: 'priority', name: 'ticketit_priorities.name' },
+		            { data: 'name', name: 'users.name' },
+		            { data: 'category', name: 'ticketit_categories.name' }
 	            @endif
 	        ]
 	    });

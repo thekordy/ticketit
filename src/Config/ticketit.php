@@ -104,4 +104,11 @@ return [
 	 */
 	'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
 
+	/*
+	 * Delete Confirmation: Choose which confirmation message type to use when confirming a deleting
+	 * Default: builtin
+	 * Options: builtin, modal
+	 */
+		'delete_modal_type' => 'modal',
+
 ];

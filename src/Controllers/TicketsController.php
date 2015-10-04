@@ -10,11 +10,14 @@ use Kordy\Ticketit\Models;
 
 class TicketsController extends Controller {
 
-    public function __construct()
+    public function __construct(Models\Ticket $ticket, Models\Agent $agent)
     {
         $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => ['show']]);
         $this->middleware('Kordy\Ticketit\Middleware\IsAgentMiddleware', ['only' => ['edit', 'update']]);
         $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['destroy']]);
+
+        $this->ticket = $ticket;
+        $this->agent = $agent;
     }
 
     /**
@@ -89,8 +92,9 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
+        //check first if category has agents
         if(is_array($this->agent->agentsLists($ticket->category_id))) {
-            $agent_lists = array_merge(['auto' => 'Auto Select'], $this->agent->agentsLists($ticket->category_id));
+            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
         }
         else {
             $agent_lists = [];
@@ -193,7 +197,13 @@ class TicketsController extends Controller {
 
     public function agentSelectList($category_id,$ticket_id)
     {
-        $agents = ['auto' => 'Auto Select'] + Models\Agent::agentsLists($category_id);
+        //check first if category has agents
+        if(is_array($this->agent->agentsLists($category_id))) {
+            $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        }
+        else {
+            $agents = [];
+        }
         $selected_Agent = Models\Ticket::find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {

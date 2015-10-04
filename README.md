@@ -22,7 +22,7 @@ A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with 
 4. Configurable Start and Close statuses (From admin panel)
 
 ## Installation
-** Please **make sure** you've got all dependencies installed and working in config\app.php:**
+** Please make sure you've got all dependencies installed and working in config\app.php:**
 
 1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
 2. [Users table](http://laravel.com/docs/5.1/authentication)

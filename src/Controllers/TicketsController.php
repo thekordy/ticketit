@@ -320,4 +320,3 @@ class TicketsController extends Controller {
 		}
 		return 'no';
 	}
-}

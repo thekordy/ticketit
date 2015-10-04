@@ -45,10 +45,16 @@ return [
 	'admin_ids' => [1],
 
 	/*
-	 * Pagination length: number of items shown per page
+	 * Pagination length: For standard pagination.
 	 * Default: 1
 	 */
-	'paginate_items' => [[10, 50, 100], [10, 50, 100]],
+	'paginate_items' => 10,
+
+	/*
+	 * Pagination length: For tickets table.
+	 * Default: 1
+	 */
+	'length_menu' => [[10, 50, 100], [10, 50, 100]],
 
 	/*
 	 * Status notification: send email notification to ticket owner/Agent when ticket status is changed

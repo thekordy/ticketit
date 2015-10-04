@@ -53,7 +53,6 @@ class TicketitServiceProvider extends ServiceProvider {
 				}
 			}
 			if (config('ticketit.assigned_notification') == 'yes') {
-				dd($original_ticket);
 				$original_ticket = Ticket::find($modified_ticket->id);
 				if ($original_ticket->agent->id != $modified_ticket->agent->id) {
 					$notification = new NotificationsController();

@@ -86,6 +86,6 @@
     </div>
 </div>
 
-    @if(Kordy\Ticketit\Models\Agent::isAgent())
+    @if($u->isAgent())
         @include('ticketit::tickets.edit')
     @endif

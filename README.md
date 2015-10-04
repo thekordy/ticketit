@@ -11,9 +11,6 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 [Full features list (12+)](https://github.com/thekordy/ticketit/wiki/v0.1.0-features)
 
-### Support:
-[Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
-
 ## Installation
 **First Make sure you have got all dependents working:**
 
@@ -44,6 +41,9 @@ Install database tables by running the migrate artisan command
 
 ### Documentation
 [Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
+
+### Support:
+[Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
 
 ### Live Demo
 A live demo is hosted by fusion design at http://ticketit.fusiondesign.me

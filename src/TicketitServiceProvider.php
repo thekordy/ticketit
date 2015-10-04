@@ -47,7 +47,7 @@ class TicketitServiceProvider extends ServiceProvider {
 		Ticket::updating(function ($modified_ticket) {
 			if (config('ticketit.status_notification') == 'yes') {
 				$original_ticket = Ticket::find($modified_ticket->id);
-				if ($original_ticket->status->id != $modified_ticket->status->id || $original_ticket->completed_at != $modified_ticket->completed_at) {
+				if ($original_ticket->status_id != $modified_ticket->status_id || $original_ticket->completed_at != $modified_ticket->completed_at) {
 					$notification = new NotificationsController();
 					$notification->ticketStatusUpdated($modified_ticket, $original_ticket);
 				}

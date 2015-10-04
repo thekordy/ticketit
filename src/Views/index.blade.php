@@ -18,6 +18,7 @@
 	    $('.table').DataTable({
 	        processing: false,
 	        serverSide: true,
+        	lengthMenu: {{ json_encode(config('ticketit.paginate_items')) }},
 	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
 	        columns: [
 	            { data: 'id', name: 'ticketit.id' },

@@ -24,6 +24,7 @@
 	            { data: 'subject', name: 'subject' },
 	            { data: 'status', name: 'status' },
 	            { data: 'updated_at', name: 'updated_at' },
+	            { data: 'last_responder', name: 'last_responder' },
 	            @if( $u->isAgent() || $u->isAdmin() )
 		            { data: 'priority', name: 'priority' },
 		            { data: 'name', name: 'name' },

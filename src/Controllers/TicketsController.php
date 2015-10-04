@@ -11,6 +11,7 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\Requests\PrepareTicketRequest;
 use yajra\Datatables\Datatables;
+use yajra\Datatables\Engines\EloquentEngine;
 
 class TicketsController extends Controller {
 
@@ -42,16 +43,29 @@ class TicketsController extends Controller {
 			->join('ticketit_categories', 'ticketit_categories.id', '=', 'ticketit.category_id')
 			->select([
 				'ticketit.id',
-				'ticketit.subject as subject',
-				'ticketit_statuses.name as status',
-				'ticketit.updated_at as updated_at',
-				'ticketit_priorities.name as priority',
+				'ticketit.subject AS subject',
+				'ticketit_statuses.name AS status',
+				'ticketit_statuses.color AS color_status',
+				'ticketit_priorities.color AS color_priority',
+				'ticketit_categories.color AS color_category',
+				'ticketit.id AS last_responder',
+				'ticketit.updated_at AS updated_at',
+				'ticketit_priorities.name AS priority',
 				'users.name',
 				'ticketit.agent_id',
-				'ticketit_categories.name as category',
+				'ticketit_categories.name AS category',
 			]);
 
 		$collection = $datatables->of($collection);
+
+		$this->renderTicketTable($collection);
+
+		$collection->editColumn('updated_at', '{{ $updated_at->diffForHumans() }}');
+
+		return $collection->make(true);
+	}
+
+	public function renderTicketTable(EloquentEngine $collection) {
 
 		$collection->editColumn('subject', function ($ticket) {
 			return link_to_route(
@@ -61,9 +75,34 @@ class TicketsController extends Controller {
 			);
 		});
 
-		$collection->editColumn('updated_at', '{{ $updated_at->diffForHumans() }}');
+		$collection->editColumn('status', function ($ticket) {
+			$color = $ticket->color_status;
+			$status = $ticket->status;
+			return "<div style='color: $color'>$status</div>";
+		});
 
-		return $collection->make(true);
+		$collection->editColumn('priority', function ($ticket) {
+			$color = $ticket->color_priority;
+			$priority = $ticket->priority;
+			return "<div style='color: $color'>$priority</div>";
+		});
+
+		$collection->editColumn('category', function ($ticket) {
+			$color = $ticket->color_category;
+			$category = $ticket->category;
+			return "<div style='color: $color'>$category</div>";
+		});
+
+		$collection->editColumn('last_responder', function ($ticket) {
+			$ticket = $this->tickets->find($ticket->id);
+			if ($ticket->hasComments()) {
+				return $ticket->comments->last()->user->name;
+			} else {
+				return 'No replies';
+			}
+		});
+
+		return $collection;
 	}
 
 	/**
@@ -320,3 +359,5 @@ class TicketsController extends Controller {
 		}
 		return 'no';
 	}
+
+}

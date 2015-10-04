@@ -2,7 +2,7 @@
 <?php $ticket = unserialize($ticket); ?>
 <?php $original_ticket = unserialize($original_ticket); ?>
 
-{!! trans('lang::email/status_notification.data', [
+{!! trans('ticketit::email/status_notification.data', [
     'name'        =>  $notification_owner->name,
     'subject'     =>  $ticket->subject,
     'old_status'  =>  $original_ticket->status->name,

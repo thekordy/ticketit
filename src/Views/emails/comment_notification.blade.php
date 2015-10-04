@@ -1,7 +1,7 @@
 <?php $comment = unserialize($comment); ?>
 <?php $ticket = unserialize($ticket); ?>
 
-{!! trans('lang::email/comment_notification.data', [
+{!! trans('ticketit::email/comment_notification.data', [
     'name'      =>  $comment->user->name,
     'subject'   =>  $ticket->subject,
     'status'    =>  $ticket->status->name,

@@ -1,25 +1,18 @@
 ## Support tickets system package for Laravel
-A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system
+A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system. 
+It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice support ticket system. 
 
 ### Features:
 1. Three main users roles users, agents, and admins
-2. Users can create tickets 
-3. Users can keep track of their tickets status
-4. Auto assigning to agents, the system searches for agents in specific department and auto select the agent with lowest queue
-5. Agents can view and modify their own assigned tickets 
-6. Agents can communicate with ticket issuers through ticket comments
-7. Auto email notifications to ticket participants (ticket owner, assigned agent) when ticket is updated or there is a new comment
-8. Simple admin panel 
-9. Administrators can add agents, create custom statuses, categories/departments, priorities, and manage tickets and comments.
-10. Tickets access restrictions (Only ticket owner, an agent, or an admin whom has access to the ticket)
-11. Settings option to allow agents access to all tickets or to restrict agents access to only their assigned tickets
-12. Forms validation
+2. Users can create tickets, keep track of their tickets status, giving comments, and even close their own tickets (configurable)
+3. Auto assigning to agents, the system searches for agents in specific department and auto select the agent with lowest queue
+4. Simple admin panel 
+5. Localization
 
-### To Do:
-1. Localization
-2. Tickets filters and search
-3. Dashboard stats and graphs
-4. Configurable Start and Close statuses (From admin panel)
+[Full features list (12+)](https://github.com/thekordy/ticketit/wiki/v0.1.0-features)
+
+### Support:
+[Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
 
 ## Installation
 **First Make sure you have got all dependents working:**
@@ -47,51 +40,8 @@ Install database tables by running the migrate artisan command
 ```
 
 ## Configuration
-**You may publish all files at once**
+[Initial configurations and settings](https://github.com/thekordy/ticketit/wiki/Ticketit-initial-configuration)
 
-```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider"
-```
-
-**Or you may publish by tags**
-
-Publish the config file (It will generate new file at `config/ticketit.php`. Edit necessary lines.)
-```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="config"
-```
-Publish the views (It will generate views files at `resources/views/vendor/kordy/ticketit/`. Edit necessary lines.)
-```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
-```
-
-**After publishing the config file config/ticketit.php , edit it for your settings.**
-
-**Be sure to implement these views sections in your master template in order to integrate with the ticketit views:**
-
-Page section for passing the current page title
-```blade
-<header> ...
-<title>My website - @yield('page')</title>
-</header>
-```
-Content section for the content
-```blade
-<body> ...
-@yield('content')
-...
-</body>
-```
-
-Footer section for passing the jquery scripts, so make sure it is called after you call the jquery
-```blade
-<body> ...
-@yield('content')
-...
-<script src="/js/jquery.min.js"></script>
-..
-@yield('footer')
-</body>
-```
 ### Documentation
 [Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
 

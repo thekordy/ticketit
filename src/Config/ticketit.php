@@ -109,6 +109,6 @@ return [
 	 * Default: builtin
 	 * Options: builtin, modal
 	 */
-		'delete_modal_type' => 'modal',
+		'delete_modal_type' => 'builtin',
 
 ];

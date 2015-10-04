@@ -33,7 +33,7 @@ return [
   'description'                      => 'Description',
   'flash-x'                          => '×', // &times;
   'last_update'                      => 'Last Update',  
-  'no_replies'                       => 'No replies.',
+  'no-replies'                       => 'No replies.',
   'owner'                            => 'Owner',  
   'priority'                         => 'Priority',  
   'reopen-ticket'                    => 'Reopen Ticket',

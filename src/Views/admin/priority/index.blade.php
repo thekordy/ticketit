@@ -32,24 +32,20 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.edit', 'Edit', $priority->id,
-                                                    ['class' => 'btn btn-info'] )
-                                !!}
+                                config('ticketit.admin_route').'.priority.edit', 'Edit', $priority->id, ['class' => 'btn btn-info'] )
+                            !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.destroy', 'Delete', $priority->id,
-                                                    [
-                                                    'class' => 'btn btn-danger deleteit',
-                                                    'form' => "delete-$priority->id",
-                                                    "node" => $priority->name
-                                                    ])
+                                    config('ticketit.admin_route').'.priority.destroy', 'Delete', $priority->id,
+                                    [
+                                        'class' => 'btn btn-danger deleteit',
+                                        'form' => "delete-$priority->id",
+                                        "node" => $priority->name
+                                    ])
                                 !!}
                         </td>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
-            {!! Form::open([
+                    {!! Form::open([
                             'method' => 'DELETE',
                             'route' => [
                                         config('ticketit.admin_route').'.priority.destroy',
@@ -57,8 +53,11 @@
                                         ],
                             'id' => "delete-$priority->id"
                             ])
-            !!}
-            {!! Form::close() !!}
+                    !!}
+                    {!! Form::close() !!}
+                @endforeach
+                </tbody>
+            </table>
         @endif
     </div>
 @stop

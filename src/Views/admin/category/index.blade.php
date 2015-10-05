@@ -32,33 +32,32 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.edit', 'Edit', $category->id,
-                                                    ['class' => 'btn btn-info'] )
-                                !!}
+                                config('ticketit.admin_route').'.category.edit', 'Edit', $category->id, ['class' => 'btn btn-info'] )
+                            !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.destroy', 'Delete', $category->id,
-                                                    [
-                                                    'class' => 'btn btn-danger deleteit',
-                                                    'form' => "delete-$category->id",
-                                                    "node" => $category->name
-                                                    ])
+                                        config('ticketit.admin_route').'.category.destroy', 'Delete', $category->id,
+                                        [
+                                            'class' => 'btn btn-danger deleteit',
+                                            'form' => "delete-$category->id",
+                                            "node" => $category->name
+                                        ])
                                 !!}
                         </td>
                     </tr>
+                    {!! Form::open([
+                            'method' => 'DELETE',
+                            'route' => [
+                                config('ticketit.admin_route').'.category.destroy',
+                                $category->id
+                            ],
+                            'id' => "delete-$category->id"
+                            ])
+                    !!}
+                    {!! Form::close() !!}
                 @endforeach
                 </tbody>
             </table>
-            {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.category.destroy',
-                                        $category->id
-                                        ],
-                            'id' => "delete-$category->id"
-                            ])
-            !!}
-            {!! Form::close() !!}
         @endif
     </div>
 @stop

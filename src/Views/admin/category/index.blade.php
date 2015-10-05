@@ -54,21 +54,21 @@
                                                     "node" => $category->name
                                                     ])
                                 !!}
+                            {!! Form::open([
+                                            'method' => 'DELETE',
+                                            'route' => [
+                                                        config('ticketit.admin_route').'.category.destroy',
+                                                        $category->id
+                                                        ],
+                                            'id' => "delete-$category->id"
+                                            ])
+                            !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.category.destroy',
-                                        $category->id
-                                        ],
-                            'id' => "delete-$category->id"
-                            ])
-            !!}
-            {!! Form::close() !!}
         @endif
     </div>
 @stop

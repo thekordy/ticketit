@@ -54,21 +54,21 @@
                                                     "node" => $status->name
                                                     ])
                                 !!}
+                            {!! Form::open([
+                                            'method' => 'DELETE',
+                                            'route' => [
+                                                        config('ticketit.admin_route').'.status.destroy',
+                                                        $status->id
+                                                        ],
+                                            'id' => "delete-$status->id"
+                                            ])
+                            !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.status.destroy',
-                                        $status->id
-                                        ],
-                            'id' => "delete-$status->id"
-                            ])
-            !!}
-            {!! Form::close() !!}
         @endif
     </div>
 @stop

@@ -37,6 +37,7 @@
                         {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
+                {!! Form::hidden('agent_id', 'auto') !!}
             </div>
             <br>
             <div class="form-group">

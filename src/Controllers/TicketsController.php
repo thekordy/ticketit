@@ -99,7 +99,7 @@ class TicketsController extends Controller {
 			if ($ticket->hasComments()) {
 				return $ticket->comments->last()->user->name;
 			} else {
-				return 'No replies';
+				return trans('ticketit::lang.no-replies');
 			}
 		});
 
@@ -259,7 +259,7 @@ class TicketsController extends Controller {
 		}
 
 		return redirect()->route(config('ticketit.main_route') . '.index')
-			->with('warning', 'You are not permitted to do this action!');
+			->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
 	}
 
 	/**
@@ -287,7 +287,7 @@ class TicketsController extends Controller {
 		}
 
 		return redirect()->route(config('ticketit.main_route') . '.index')
-			->with('warning', 'You are not permitted to do this action!');
+			->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
 	}
 
 	/**

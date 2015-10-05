@@ -320,7 +320,7 @@ class TicketsController extends Controller {
     public function agentSelectList($category_id, $ticket_id)
     {
         //check first if category has agents
-        if(is_array($this->agent->agentsLists($category_id))) {
+        if(is_array($this->agent->agentsLists($category_id)->all())) {
             $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
         }
         else {

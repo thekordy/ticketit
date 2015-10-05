@@ -52,7 +52,7 @@ return [
   'index-title'                      => 'Helpdesk main page',
 
 // tickets/____
-  'index-my-tickets'                 => 'My tickets',
+  'index-my-tickets'                 => 'My Tickets',
   'btn-create-new-ticket'            => 'Create new ticket',
   'index-complete-none'              => 'There are no complete tickets', 
   'index-active-check'               => 'Be sure to check Active Tickets if you cannot find your ticket.',

@@ -1,4 +1,4 @@
-<table class="table table-condensed table-striped" class="ticketit-table">
+<table class="table table-condensed table-stripe ddt-responsive" class="ticketit-table">
     <thead>
         <tr>
 	        <td>#</td>

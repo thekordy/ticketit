@@ -56,19 +56,19 @@
                                 !!}
                         </td>
                     </tr>
+                    {!! Form::open([
+                                    'method' => 'DELETE',
+                                    'route' => [
+                                                config('ticketit.admin_route').'.priority.destroy',
+                                                $priority->id
+                                                ],
+                                    'id' => "delete-$priority->id"
+                                    ])
+                    !!}
+                    {!! Form::close() !!}
                 @endforeach
                 </tbody>
             </table>
-            {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.priority.destroy',
-                                        $priority->id
-                                        ],
-                            'id' => "delete-$priority->id"
-                            ])
-            !!}
-            {!! Form::close() !!}
         @endif
     </div>
 @stop

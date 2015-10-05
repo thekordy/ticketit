@@ -32,33 +32,32 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.edit', 'Edit', $status->id,
-                                                    ['class' => 'btn btn-info'] )
-                                !!}
+                                config('ticketit.admin_route').'.status.edit', 'Edit', $status->id, ['class' => 'btn btn-info'] )
+                            !!}
 
-                                {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.destroy', 'Delete', $status->id,
-                                                    [
-                                                    'class' => 'btn btn-danger deleteit',
-                                                    'form' => "delete-$status->id",
-                                                    "node" => $status->name
-                                                    ])
-                                !!}
+                            {!! link_to_route(
+                                config('ticketit.admin_route').'.status.destroy', 'Delete', $status->id,
+                                [
+                                    'class' => 'btn btn-danger deleteit',
+                                    'form' => "delete-$status->id",
+                                    "node" => $status->name
+                                ])
+                            !!}
+                            {!! Form::open([
+                                    'method' => 'DELETE',
+                                    'route' => [
+                                                config('ticketit.admin_route').'.status.destroy',
+                                                $status->id
+                                                ],
+                                    'id' => "delete-$status->id"
+                                    ])
+                            !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
-            {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.status.destroy',
-                                        $status->id
-                                        ],
-                            'id' => "delete-$status->id"
-                            ])
-            !!}
-            {!! Form::close() !!}
         @endif
     </div>
 @stop

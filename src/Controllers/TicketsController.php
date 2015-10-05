@@ -176,8 +176,8 @@ class TicketsController extends Controller {
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
-        if(is_array($this->agent->agentsLists($ticket->category_id))) {
-            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
+        if(is_array($this->agent->agentsLists($ticket->category_id)->all())) {
+            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id)->all();
         }
         else {
             $agent_lists = [];

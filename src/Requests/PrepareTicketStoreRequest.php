@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
 
-class PrepareTicketRequest extends Request
+class PrepareTicketStoreRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +27,7 @@ class PrepareTicketRequest extends Request
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
-            'agent_id' => 'required'
+            'category_id' => 'required|numeric'
         ];
     }
 }

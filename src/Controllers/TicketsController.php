@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Requests\PrepareTicketRequest;
+use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
+use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use yajra\Datatables\Datatables;
 use yajra\Datatables\Engines\EloquentEngine;
 
@@ -142,7 +143,7 @@ class TicketsController extends Controller {
 	 * @param  Request  $request
 	 * @return Response redirect to index
 	 */
-	public function store(PrepareTicketRequest $request) {
+	public function store(PrepareTicketStoreRequest $request) {
 		$ticket = new Ticket;
 
 		$ticket->subject = $request->subject;
@@ -195,7 +196,7 @@ class TicketsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(PrepareTicketRequest $request, $id) {
+	public function update(PrepareTicketUpdateRequest $request, $id) {
 		$ticket = $this->tickets->findOrFail($id);
 
 		$ticket->subject = $request->subject;

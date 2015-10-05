@@ -35,26 +35,26 @@
                                 config('ticketit.admin_route').'.priority.edit', 'Edit', $priority->id, ['class' => 'btn btn-info'] )
                             !!}
 
-                                {!! link_to_route(
-                                    config('ticketit.admin_route').'.priority.destroy', 'Delete', $priority->id,
-                                    [
-                                        'class' => 'btn btn-danger deleteit',
-                                        'form' => "delete-$priority->id",
-                                        "node" => $priority->name
+                            {!! link_to_route(
+                                config('ticketit.admin_route').'.priority.destroy', 'Delete', $priority->id,
+                                [
+                                    'class' => 'btn btn-danger deleteit',
+                                    'form' => "delete-$priority->id",
+                                    "node" => $priority->name
+                                ])
+                            !!}
+                            {!! Form::open([
+                                    'method' => 'DELETE',
+                                    'route' => [
+                                                config('ticketit.admin_route').'.priority.destroy',
+                                                $priority->id
+                                                ],
+                                    'id' => "delete-$priority->id"
                                     ])
-                                !!}
+                            !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
-                    {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                        config('ticketit.admin_route').'.priority.destroy',
-                                        $priority->id
-                                        ],
-                            'id' => "delete-$priority->id"
-                            ])
-                    !!}
-                    {!! Form::close() !!}
                 @endforeach
                 </tbody>
             </table>

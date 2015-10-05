@@ -35,26 +35,26 @@
                                 config('ticketit.admin_route').'.category.edit', 'Edit', $category->id, ['class' => 'btn btn-info'] )
                             !!}
 
-                                {!! link_to_route(
-                                        config('ticketit.admin_route').'.category.destroy', 'Delete', $category->id,
-                                        [
-                                            'class' => 'btn btn-danger deleteit',
-                                            'form' => "delete-$category->id",
-                                            "node" => $category->name
-                                        ])
-                                !!}
+                            {!! link_to_route(
+                                    config('ticketit.admin_route').'.category.destroy', 'Delete', $category->id,
+                                    [
+                                        'class' => 'btn btn-danger deleteit',
+                                        'form' => "delete-$category->id",
+                                        "node" => $category->name
+                                    ])
+                            !!}
+                            {!! Form::open([
+                                    'method' => 'DELETE',
+                                    'route' => [
+                                        config('ticketit.admin_route').'.category.destroy',
+                                        $category->id
+                                    ],
+                                    'id' => "delete-$category->id"
+                                    ])
+                            !!}
+                            {!! Form::close() !!}
                         </td>
                     </tr>
-                    {!! Form::open([
-                            'method' => 'DELETE',
-                            'route' => [
-                                config('ticketit.admin_route').'.category.destroy',
-                                $category->id
-                            ],
-                            'id' => "delete-$category->id"
-                            ])
-                    !!}
-                    {!! Form::close() !!}
                 @endforeach
                 </tbody>
             </table>

@@ -9,7 +9,7 @@ return [
   'nav-active-tickets'               => 'Active Tickets',
   'nav-completed-tickets'            => 'Completed Tickets',
 
-  'table-id'                         => 'ID',
+  'table-id'                         => '#',
   'table-subject'                    => 'Subject',
   'table-owner'                      => 'Owner',
   'table-status'                     => 'Status',
@@ -20,6 +20,7 @@ return [
   'table-category'                   => 'Category', 
 
   'btn-back'                         => 'Back',
+  'btn-cancel'                       => 'Cancel', // NEW  
   'btn-close'                        => 'Close',  
   'btn-delete'                       => 'Delete',  
   'btn-edit'                         => 'Edit',  
@@ -66,7 +67,7 @@ return [
   
   'show-ticket-title'                => 'Ticket',   
   'show-ticket-js-delete'            => 'Are you sure you want to delete: ',
-  'show-ticket-modal-delete-title'   => 'ID:id. Delete ticket?',  
+  'show-ticket-modal-delete-title'   => 'Delete Ticket',  
   'show-ticket-modal-delete-message' => 'Are you sure you want to delete ticket: :subject?',
 
  /*  
@@ -114,5 +115,6 @@ return [
   'the-ticket-has-been-deleted'      => 'The ticket :name has been deleted!',  
   'the-ticket-has-been-completed'    => 'The ticket :name has been completed!', 
   'the-ticket-has-been-reopened'     => 'The ticket :name has been reopened!',
+  'you-are-not-permitted-to-do-this' => 'You are not permitted to do this action!',
 
 ];

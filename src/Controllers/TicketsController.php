@@ -122,8 +122,13 @@ class TicketsController extends Controller
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
 
-        $cat_agents = $this->agent->agentsLists($ticket->category_id);
-        $agent_lists = ['auto' => 'Auto Select'] + $cat_agents->all();
+        $cat_agents = Models\Category::find($ticket->category_id)->agents()->agentsLists();
+        if (is_array($cat_agents)) {
+            $agent_lists = ['auto' => 'Auto Select'] + $cat_agents;
+        }
+        else {
+            $agent_lists = ['auto' => 'Auto Select'];
+        }
 
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
@@ -271,8 +276,13 @@ class TicketsController extends Controller
 
     public function agentSelectList($category_id, $ticket_id)
     {
-        $cat_agents = $this->agent->agentsLists($category_id);
-        $agents = ['auto' => 'Auto Select'] + $cat_agents->all();
+        $cat_agents = Models\Category::find($category_id)->agents()->agentsLists();
+        if (is_array($cat_agents)) {
+            $agents = ['auto' => 'Auto Select'] + $cat_agents;
+        }
+        else {
+            $agents = ['auto' => 'Auto Select'];
+        }
 
         $selected_Agent = $this->tickets->find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';

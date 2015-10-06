@@ -2,7 +2,7 @@
 @section('page', trans('ticketit::admin.agent-create-title'))
 
 @section('content')
-    @include('ticketit::shared.admin-header')
+    @include('ticketit::shared.header')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2>{{ trans('ticketit::admin.agent-create-title') }}</h2>

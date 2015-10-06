@@ -2,7 +2,7 @@
 @section('page', trans('ticketit::admin.category-edit-title', ['name' => ucwords($category->name)]))
 
 @section('content')
-    @include('ticketit::shared.admin-header')
+    @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::model($category, [
                                     'route' => [config('ticketit.admin_route').'.category.update', $category->id],

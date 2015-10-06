@@ -2,7 +2,7 @@
 @section('page', trans('ticketit::admin.status-edit-title', ['name' => ucwords($status->name)]))
 
 @section('content')
-    @include('ticketit::shared.admin-header')
+    @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::model($status, [
                                     'route' => [config('ticketit.admin_route').'.status.update', $status->id],

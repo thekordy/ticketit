@@ -246,6 +246,10 @@ class TicketsController extends Controller
         $agents = $this->agent->agents($cat_id);
         $count = 0;
         $lowest_tickets = 1000000;
+
+        // If no agent is selected, select admin
+        $selected_agent_id = config('ticketit.admin_ids')[0];
+
         foreach ($agents as $agent) {
             if ($this->agent->isAgent()) {
                 if ($count == 0) {
@@ -262,7 +266,6 @@ class TicketsController extends Controller
             }
             $count++;
         }
-        isset($selected_agent_id) ? true : $selected_agent_id = config('ticketit.admin_ids')[0];
         return $selected_agent_id;
     }
 

@@ -23,7 +23,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 Run this code via your terminal
 ```shell
-	composer require kordy/ticketit
+	composer require kordy/ticketit:0.*
 ```
 
 After install it, you have to add this line on your `config/app.php` on Service Providers lines.

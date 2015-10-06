@@ -34,7 +34,7 @@ A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with 
 
 Run this code via your terminal
 ```shell
-	composer require kordy/ticketit
+	composer require kordy/ticketit:0.*
 ```
 
 After install it, you have to add this line on your `config/app.php` on Service Providers lines.

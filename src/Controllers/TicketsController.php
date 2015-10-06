@@ -10,9 +10,6 @@ use Kordy\Ticketit\Models;
 
 class TicketsController extends Controller {
 
-    protected $agent;
-    protected $ticket;
-
     public function __construct(Models\Ticket $ticket, Models\Agent $agent)
     {
         $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => ['show']]);
@@ -42,7 +39,6 @@ class TicketsController extends Controller {
             $user = Models\Agent::find(\Auth::user()->id);
             $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
-        
         return view('ticketit::index', compact('tickets'));
     }
 
@@ -96,10 +92,13 @@ class TicketsController extends Controller {
         $status_lists = Models\Status::lists('name', 'id');
         $priority_lists = Models\Priority::lists('name', 'id');
         $category_lists = Models\Category::lists('name', 'id');
-
-        $agents = $this->agent->agentsLists($ticket->category_id);
-        $agent_lists = ['auto' => 'Auto Select'] + $agents->all();
-        
+        //check first if category has agents
+        if(is_array($this->agent->agentsLists($ticket->category_id))) {
+            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id);
+        }
+        else {
+            $agent_lists = [];
+        }
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments'));
@@ -198,9 +197,13 @@ class TicketsController extends Controller {
 
     public function agentSelectList($category_id,$ticket_id)
     {
-        $agents = $this->agent->agentsLists($category_id);
-        $agents = ['auto' => 'Auto Select'] + $agents->all();
-
+        //check first if category has agents
+        if(is_array($this->agent->agentsLists($category_id))) {
+            $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        }
+        else {
+            $agents = [];
+        }
         $selected_Agent = Models\Ticket::find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {

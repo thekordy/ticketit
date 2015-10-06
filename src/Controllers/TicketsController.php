@@ -39,6 +39,8 @@ class TicketsController extends Controller {
             $user = Models\Agent::find(\Auth::user()->id);
             $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
+        
+            dd($tickets);
         return view('ticketit::index', compact('tickets'));
     }
 

@@ -12,14 +12,14 @@
             </div>
             <div class="modal-body">
                 <div class="col-sm-12">
-                    @if(Kordy\Ticketit\Models\Agent::isAdmin())
-                        <div class="form-group">
-                            {!! Form::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::textarea('content', $ticket->content, ['class' => 'form-control', 'rows' => '5', 'required']) !!}
-                        </div>
-                    @endif
+                    {{--@if(Kordy\Ticketit\Models\Agent::isAdmin())--}}
+                    <div class="form-group">
+                        {!! Form::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::textarea('content', $ticket->content, ['class' => 'form-control', 'rows' => '5', 'required']) !!}
+                    </div>
+                    {{--@endif--}}
                     <div class="form-inline row">
                     
                         <div class="form-group col-lg-6">

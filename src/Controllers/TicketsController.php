@@ -248,7 +248,7 @@ class TicketsController extends Controller
      */
     public function autoSelectAgent($cat_id)
     {
-        $agents = $this->agent->agents($cat_id);
+        $agents = Models\Category::find($cat_id)->agents()->agents();
         $count = 0;
         $lowest_tickets = 1000000;
 
@@ -256,17 +256,15 @@ class TicketsController extends Controller
         $selected_agent_id = config('ticketit.admin_ids')[0];
 
         foreach ($agents as $agent) {
-            if ($this->agent->isAgent()) {
-                if ($count == 0) {
-                    $lowest_tickets = $agent->agentTickets->count();
+            if ($count == 0) {
+                $lowest_tickets = $agent->agentTickets->count();
+                $selected_agent_id = $agent->id;
+            }
+            else {
+                $tickets_count = $agent->agentTickets->count();
+                if ($tickets_count < $lowest_tickets) {
+                    $lowest_tickets = $tickets_count;
                     $selected_agent_id = $agent->id;
-                }
-                else {
-                    $tickets_count = $agent->agentTickets->count();
-                    if ($tickets_count < $lowest_tickets) {
-                        $lowest_tickets = $tickets_count;
-                        $selected_agent_id = $agent->id;
-                    }
                 }
             }
             $count++;

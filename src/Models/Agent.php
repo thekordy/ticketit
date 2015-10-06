@@ -13,13 +13,9 @@ class Agent extends User
      * @param integer $cat_id
      * @return bool
      */
-    public function scopeAgents($query, $cat_id = null)
+    public function scopeAgents($query)
     {
-        if ($cat_id == null) {
-            return $query->where('ticketit_agent', '1')->get();
-        }
-
-        return Category::find($cat_id)->agents;
+        return $query->where('ticketit_agent', '1')->get();
     }
 
     /**

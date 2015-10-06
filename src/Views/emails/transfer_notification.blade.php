@@ -2,13 +2,25 @@
 <?php $ticket = unserialize($ticket); ?>		
 <?php $original_ticket = unserialize($original_ticket); ?>
 
-{!! trans('ticketit::email/transfer_notification.data', [
-    'name'          =>  $notification_owner->name,
-    'subject'       =>  $ticket->subject,
-    'status'        =>  $ticket->status->name,
-    'agent'         =>  $original_ticket->agent->name,
-    'old_category'  =>  $original_ticket->category->name, 
-    'new_category'  =>  $ticket->category->name
-]) !!}
+@extends($email)
 
-{!! link_to_route(config('ticketit.main_route').'.show', $ticket->subject, $ticket->id) !!}
+@section('subject')
+	{{ trans('ticketit::email/template.transfer') }}
+@stop
+
+@section('link')
+	<a style="color:#ffffff" href="{{ route(config('ticketit.main_route').'.show', $ticket->id) }}">
+		{{ trans('ticketit::email/template.view-ticket') }}
+	</a>
+@stop
+
+@section('content')
+	{!! trans('ticketit::email/transfer_notification.data', [
+	    'name'          =>  $notification_owner->name,
+	    'subject'       =>  $ticket->subject,
+	    'status'        =>  $ticket->status->name,
+	    'agent'         =>  $original_ticket->agent->name,
+	    'old_category'  =>  $original_ticket->category->name, 
+	    'new_category'  =>  $ticket->category->name
+	]) !!}
+@stop

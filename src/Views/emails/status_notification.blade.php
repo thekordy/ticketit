@@ -1,12 +1,24 @@
-<?php $notification_owner = unserialize($notification_owner); ?>		
-<?php $ticket = unserialize($ticket); ?>		
-<?php $original_ticket = unserialize($original_ticket); ?>
+<!-- Removing the unserialize methods on this template resolves errors. No known issues.
+Outbound status works fine even with unserialize removed. The other views need them for some
+reason -->
 
-{!! trans('ticketit::email/status_notification.data', [
-    'name'        =>  $notification_owner->name,
-    'subject'     =>  $ticket->subject,
-    'old_status'  =>  $original_ticket->status->name,
-    'new_status'  =>  $ticket->status->name
-]) !!}
+@extends($email)
 
-{!! link_to_route(config('ticketit.main_route').'.show', $ticket->subject, $ticket->id) !!}
+@section('subject')
+	{{ trans('ticketit::email/template.status') }}
+@stop
+
+@section('link')
+	<a style="color:#ffffff" href="{{ route(config('ticketit.main_route').'.show', $ticket->id) }}">
+		{{ trans('ticketit::email/template.view-ticket') }}
+	</a>
+@stop
+
+@section('content')
+	{!! trans('ticketit::email/status_notification.data', [
+	    'name'        =>  $notification_owner->name,
+	    'subject'     =>  $ticket->subject,
+	    'old_status'  =>  $original_ticket->status->name,
+	    'new_status'  =>  $ticket->status->name
+	]) !!}
+@stop

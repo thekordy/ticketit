@@ -31,7 +31,8 @@ class TicketitServiceProvider extends ServiceProvider {
 		// Passing to views the master view value from the setting file
 		view()->composer('ticketit::*', function ($view) {
 			$master = config('ticketit.master_template');
-			$view->with(compact('master'));
+			$email = config('ticketit.email_template');
+			$view->with(compact('master', 'email'));
 		});
 
 		// Send notification when new comment is added

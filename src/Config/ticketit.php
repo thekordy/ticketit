@@ -21,6 +21,26 @@ return [
 	'master_template' => 'master',
 
 	/*
+	 * Template adherence: The email blade template to be extended
+	 * Default: ticketit::emails.templates.ticketit
+	 */
+	'email_template' => 'ticketit::emails.templates.ticketit',
+    // resources/views/emails/templates/ticketit.blade.php
+	'email' => [
+		'header'           => 'Ticket Update',
+		'signoff'          => 'Thank you for your patience!',
+		'signature'        => 'Your friends',
+		'dashboard'        => 'My Dashboard',
+		'google_plus_link' => '#',
+		'facebook_link'    => '#',
+		'twitter_link'     => '#',
+		'footer'           => 'Powered by Ticketit',
+		'footer_link'      => 'https://github.com/thekordy/ticketit',
+		'color_header_bg'  => '#44B7B7',
+		'color_body_bg'    => '#F46B45',
+	],
+
+	/*
 	 * The default status for new created tickets
 	 * Default: 1
 	 */
@@ -109,6 +129,6 @@ return [
 	 * Default: builtin
 	 * Options: builtin, modal
 	 */
-		'delete_modal_type' => 'builtin',
+	'delete_modal_type' => 'builtin',
 
 ];

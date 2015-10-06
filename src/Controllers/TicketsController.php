@@ -40,7 +40,6 @@ class TicketsController extends Controller {
             $tickets = $user->userTickets()->orderBy('updated_at', 'desc')->paginate($items);
         }
         
-            dd($tickets);
         return view('ticketit::index', compact('tickets'));
     }
 

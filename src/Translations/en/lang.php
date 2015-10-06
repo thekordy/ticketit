@@ -9,6 +9,7 @@ return [
   'nav-active-tickets'               => 'Active Tickets',
   'nav-completed-tickets'            => 'Completed Tickets',
 
+  // Tables
   'table-id'                         => '#',
   'table-subject'                    => 'Subject',
   'table-owner'                      => 'Owner',
@@ -18,6 +19,26 @@ return [
   'table-priority'                   => 'Priority',
   'table-agent'                      => 'Agent',  
   'table-category'                   => 'Category', 
+
+  // Datatables
+  'table-decimal'                    => '',
+  'table-empty'                      => 'No data available in table',
+  'table-info'                       => 'Showing _START_ to _END_ of _TOTAL_ entries',
+  'table-info-empty'                 => 'Showing 0 to 0 of 0 entries',
+  'table-info-filtered'              => '(filtered from _MAX_ total entries)',
+  'table-info-postfix'          => '',  
+  'table-thousands'                  => ',',
+  'table-length-menu'                => 'Show _MENU_ entries',  
+  'table-loading-results'            => 'Loading...', 
+  'table-processing'                 => 'Processing...', 
+  'table-search'                     => 'Search:', 
+  'table-zero-records'               => 'No matching records found', 
+  'table-paginate-first'             => 'First', 
+  'table-paginate-last'              => 'Last', 
+  'table-paginate-next'              => 'Next', 
+  'table-paginate-prev'              => 'Previous', 
+  'table-aria-sort-asc'              => ': activate to sort column ascending', 
+  'table-aria-sort-desc'             => ': activate to sort column descending', 
 
   'btn-back'                         => 'Back',
   'btn-cancel'                       => 'Cancel', // NEW  

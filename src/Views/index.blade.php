@@ -23,27 +23,27 @@
         	lengthMenu: {{ json_encode(config('ticketit.length_menu')) }},
 	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
 	        language: {
-				decimal:        "",
-				emptyTable:     "No data available in table",
-				info:           "Showing _START_ to _END_ of _TOTAL_ entries",
-				infoEmpty:      "Showing 0 to 0 of 0 entries",
-				infoFiltered:   "(filtered from _MAX_ total entries)",
-				infoPostFix:    "",
-				thousands:      ",",
-				lengthMenu:     "Show _MENU_ entries",
-				loadingRecords: "Loading...",
-				processing:     "Processing...",
-				search:         "Search:",
-				zeroRecords:    "No matching records found",
+				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
+				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
+				info:           "{{ trans('ticketit::lang.table-info') }}",
+				infoEmpty:      "{{ trans('ticketit::lang.table-info-empty') }}",
+				infoFiltered:   "{{ trans('ticketit::lang.table-info-filtered') }}",
+				infoPostFix:    "{{ trans('ticketit::lang.table-info-postfix') }}",
+				thousands:      "{{ trans('ticketit::lang.table-thousands') }}",
+				lengthMenu:     "{{ trans('ticketit::lang.table-length-menu') }}",
+				loadingRecords: "{{ trans('ticketit::lang.table-loading-results') }}",
+				processing:     "{{ trans('ticketit::lang.table-processing') }}",
+				search:         "{{ trans('ticketit::lang.table-search') }}",
+				zeroRecords:    "{{ trans('ticketit::lang.table-zero-records') }}",
 				paginate: {
-					first:      "First",
-					last:       "Last",
-					next:       "Next",
-					previous:   "Previous"
+					first:      "{{ trans('ticketit::lang.table-paginate-first') }}",
+					last:       "{{ trans('ticketit::lang.table-paginate-last') }}",
+					next:       "{{ trans('ticketit::lang.table-paginate-next') }}",
+					previous:   "{{ trans('ticketit::lang.table-paginate-prev') }}"
 				},
 				aria: {
-					sortAscending:  ": activate to sort column ascending",
-					sortDescending: ": activate to sort column descending"
+					sortAscending:  "{{ trans('ticketit::lang.table-aria-sort-asc') }}",
+					sortDescending: "{{ trans('ticketit::lang.table-aria-sort-desc') }}"
 				},
 			},
 	        columns: [

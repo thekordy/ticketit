@@ -12,16 +12,16 @@
             </div>
             <div class="modal-body">
                 <div class="col-sm-12">
-                    @if($u->isAdmin())
-                        <div class="form-group">
-                            {!! Form::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::textarea('content', $ticket->content, [
-                                'class' => 'form-control', 'rows' => '5', 'required'
-                            ]) !!}
-                        </div>
-                    @endif
+                    {{--@if($u->isAdmin())--}}
+                    <div class="form-group">
+                        {!! Form::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::textarea('content', $ticket->content, [
+                            'class' => 'form-control', 'rows' => '5', 'required'
+                        ]) !!}
+                    </div>
+                    {{--@endif--}}
 
                     <div class="form-group col-lg-6">
                         {!! Form::label('priority_id', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => 'col-lg-4 control-label']) !!}

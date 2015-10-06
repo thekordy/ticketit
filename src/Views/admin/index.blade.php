@@ -4,6 +4,6 @@
     {{ trans('ticketit::admin.index-title') }}	
 @stop
 
-@section('content')
-    @include('ticketit::shared.admin-header')
-@stop
+@push('content')
+    @include('ticketit::shared.header')
+@endpush

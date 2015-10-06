@@ -33,7 +33,7 @@ class Agent extends User
             return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
         }
 
-        return Category::find($cat_id)->agents->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
+        return Category::find($cat_id)->agents->where('ticketit_agent', '1')->lists('name', 'id');
     }
 
     /**

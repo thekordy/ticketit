@@ -31,8 +31,10 @@ class CreateTicketitTables extends Migration
         });
 
         Schema::create('ticketit_categories_users', function (Blueprint $table) {
-            $table->integer('category_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('ticketit_categories');
+            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
         Schema::create('ticketit', function (Blueprint $table) {
@@ -40,9 +42,13 @@ class CreateTicketitTables extends Migration
             $table->string('subject');
             $table->longText('content');
             $table->integer('status_id')->unsigned();
+            $table->foreign('status_id')->references('id')->on('ticketit_statuses');
             $table->integer('priority_id')->unsigned();
+            $table->foreign('priority_id')->references('id')->on('ticketit_priorities');
             $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('agent_id')->unsigned();
+            $table->foreign('agent_id')->references('id')->on('users');
             $table->integer('category_id')->unsigned();
             $table->timestamps();
         });
@@ -51,7 +57,9 @@ class CreateTicketitTables extends Migration
             $table->increments('id');
             $table->text('content');
             $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('ticket_id')->unsigned();
+            $table->foreign('ticket_id')->references('id')->on('ticketit')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -59,7 +67,9 @@ class CreateTicketitTables extends Migration
             $table->increments('id');
             $table->text('operation');
             $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('ticket_id')->unsigned();
+            $table->foreign('ticket_id')->references('id')->on('ticketit')->onDelete('cascade');
             $table->timestamps();
         });
     }

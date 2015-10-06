@@ -177,12 +177,15 @@ class TicketsController extends Controller {
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
-        if(is_array($this->agent->agentsLists($ticket->category_id)->all())) {
-            $agent_lists = ['auto' => 'Auto Select'] + $this->agent->agentsLists($ticket->category_id)->all();
+
+        $cat_agents = Models\Category::find($ticket->category_id)->agents()->agentsLists();
+        if (is_array($cat_agents)) {
+            $agent_lists = ['auto' => 'Auto Select'] + $cat_agents;
         }
         else {
-            $agent_lists = [];
+            $agent_lists = ['auto' => 'Auto Select'];
         }
+
         $comments = $ticket->comments()->paginate(config('ticketit.paginate_items'));
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
@@ -296,36 +299,37 @@ class TicketsController extends Controller {
 	 * @return integer $selected_agent_id
 	 */
 	public function autoSelectAgent($cat_id) {
-		$agents = $this->agent->agents($cat_id);
+		$agents =$agents = Models\Category::find($cat_id)->agents()->agents();
 		$count = 0;
 		$lowest_tickets = 1000000;
+
+        // If no agent selected, select the admin
+        $selected_agent_id = config('ticketit.admin_ids')[0];
+
 		foreach ($agents as $agent) {
-			if ($this->agent->isAgent()) {
-				if ($count == 0) {
-					$lowest_tickets = $agent->agentTickets->count();
-					$selected_agent_id = $agent->id;
-				} else {
-					$tickets_count = $agent->agentTickets->count();
-					if ($tickets_count < $lowest_tickets) {
-						$lowest_tickets = $tickets_count;
-						$selected_agent_id = $agent->id;
-					}
-				}
-			}
+            if ($count == 0) {
+                $lowest_tickets = $agent->agentTickets->count();
+                $selected_agent_id = $agent->id;
+            } else {
+                $tickets_count = $agent->agentTickets->count();
+                if ($tickets_count < $lowest_tickets) {
+                    $lowest_tickets = $tickets_count;
+                    $selected_agent_id = $agent->id;
+                }
+            }
 			$count++;
 		}
-		isset($selected_agent_id) ? true : $selected_agent_id = config('ticketit.admin_ids')[0];
 		return $selected_agent_id;
 	}
 
     public function agentSelectList($category_id, $ticket_id)
     {
-        //check first if category has agents
-        if(is_array($this->agent->agentsLists($category_id)->all())) {
-            $agents = ['auto' => 'Auto Select'] + $this->agent->agentsLists($category_id);
+        $cat_agents = Models\Category::find($category_id)->agents()->agentsLists();
+        if (is_array($cat_agents)) {
+            $agents = ['auto' => 'Auto Select'] + $cat_agents;
         }
         else {
-            $agents = [];
+            $agents = ['auto' => 'Auto Select'];
         }
 
         $selected_Agent = $this->tickets->find($ticket_id)->agent->id;

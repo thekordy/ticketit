@@ -12,12 +12,8 @@ class Agent extends User {
 	 * @param integer $cat_id
 	 * @return bool
 	 */
-	public function scopeAgents($query, $cat_id = null) {
-		if ($cat_id == null) {
-			return $query->where('ticketit_agent', '1')->get();
-		}
-
-		return Category::find($cat_id)->agents;
+	public function scopeAgents($query) {
+        return $query->where('ticketit_agent', '1')->get();
 	}
 
 	/**
@@ -25,12 +21,8 @@ class Agent extends User {
 	 * @param integer $cat_id
 	 * @return bool
 	 */
-	public function scopeAgentsLists($query, $cat_id = null) {
-		if ($cat_id == null) {
-			return $query->where('ticketit_agent', '1')->lists('name', 'id');
-		}
-
-		return Category::find($cat_id)->agents->where('ticketit_agent', '1')->lists('name', 'id');
+	public function scopeAgentsLists($query) {
+        return $query->where('ticketit_agent', '1')->lists('name', 'id');
 	}
 
 	/**

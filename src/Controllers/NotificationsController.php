@@ -22,9 +22,9 @@ class NotificationsController extends Controller {
 		$notification_owner = auth()->user();
 		$template = "ticketit::emails.status_notification";
 		$data = [
-			'ticket' => $ticket,
-			'notification_owner' => $notification_owner,
-			'original_ticket' => $original_ticket,
+            'ticket' => serialize($ticket),
+            'notification_owner' => serialize($notification_owner),
+            'original_ticket' => serialize($original_ticket),
 		];
 
         if (strtotime($ticket->completed_at)) {

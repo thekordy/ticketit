@@ -22,7 +22,7 @@ class Agent extends User {
 	 * @return bool
 	 */
 	public function scopeAgentsLists($query) {
-        return $query->where('ticketit_agent', '1')->lists('name', 'id');
+        return $query->where('ticketit_agent', '1')->lists('name', 'id')->toArray();
 	}
 
 	/**

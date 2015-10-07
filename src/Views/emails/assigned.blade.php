@@ -4,17 +4,17 @@
 @extends($email)
 
 @section('subject')
-	{{ trans('ticketit::email/template.assigned') }}
+	{{ trans('ticketit::email/globals.assigned') }}
 @stop
 
 @section('link')
 	<a style="color:#ffffff" href="{{ route(config('ticketit.main_route').'.show', $ticket->id) }}">
-		{{ trans('ticketit::email/template.view-ticket') }}
+		{{ trans('ticketit::email/globals.view-ticket') }}
 	</a>
 @stop
 
 @section('content')
-	{!! trans('ticketit::email/assigned_notification.data', [
+	{!! trans('ticketit::email/assigned.data', [
 		'name'      =>  $notification_owner->name,
 		'subject'   =>  $ticket->subject,
 		'status'    =>  $ticket->status->name,

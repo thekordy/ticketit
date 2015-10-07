@@ -38,7 +38,7 @@
         -webkit-text-size-adjust:none;
         width: 100%;
         height: 100%;
-        color: #37302d;
+        color: {{ config('ticketit.email.color_body_bg') }};
         background: #ffffff;
         font-size: 16px;
     }
@@ -75,11 +75,11 @@
 }
 </style>
 </head>
-<body class="body" style="padding:0; margin:0; display:block; background:#ffffff; -webkit-text-size-adjust:none" bgcolor="#ffffff">
+<body class="body" style="padding:0; margin:0; display:block; background:#fff; -webkit-text-size-adjust:none" bgcolor="#fff">
     <br>
     <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%" >
       <tr>
-        <td align="center" valign="top" bgcolor="#ffffff"  width="100%">
+        <td align="center" valign="top" bgcolor="#fff"  width="100%">
           <center>
             <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="600" class="w320">
               <tr>
@@ -112,7 +112,7 @@
     </tr>
 </table>
 
-<table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%" bgcolor="{{ config('ticketit.email.color_body_bg') }}">
+<table style="margin: 0 auto;" cellpadding="0" cellspacing="0" width="100%" bgcolor="{{ config('ticketit.email.color_content_bg') }}">
 <tr>
     <td>
 
@@ -140,12 +140,12 @@
 <tr>
     <td>
                       <div><!--[if mso]>
-                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="#ac4d2f">
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="8%" stroke="f" fillcolor="{{ config('ticketit.email.color_button_bg') }}">
                           <w:anchorlock/>
                           <center>
                             <![endif]-->
                             <a href="{{ url(config('ticketit.admin_route')) }}"
-                            style="background-color:#ac4d2f;border-radius:4px;color:#ffffff;display:inline-block;font-family: Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">{{ config('ticketit.email.dashboard') }}</a>
+                            style="background-color:{{ config('ticketit.email.color_button_bg') }};border-radius:4px;color:#ffffff;display:inline-block;font-family: Helvetica, Arial, sans-serif;font-size:16px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:200px;-webkit-text-size-adjust:none;">{{ config('ticketit.email.dashboard') }}</a>
                         <!--[if mso]>
                           </center>
                         </v:roundrect>
@@ -156,14 +156,20 @@
                 </tr>
             </table>
 
-            <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" class="force-full-width" bgcolor="#414141" style="margin: 0 auto">
+            <table style="margin: 0 auto;" cellpadding="0" cellspacing="0" class="force-full-width" bgcolor="{{ config('ticketit.email.color_footer_bg') }}" style="margin: 0 auto">
               <tr>
-                <td style="background-color:#414141;">
+                <td style="background-color:{{ config('ticketit.email.color_footer_bg') }};">
                     <br>
                     <br>
-                      <a href="{{ config('ticketit.email.google_plus_link') }}"><img src="https://www.filepicker.io/api/file/R4VBTe2UQeGdAlM7KDc4" alt="google+"></a>
-                      <a href="{{ config('ticketit.email.facebook_link') }}"><img src="https://www.filepicker.io/api/file/cvmSPOdlRaWQZnKFnBGt" alt="facebook"></a>
-                      <a href="{{ config('ticketit.email.twitter_link') }}"><img src="https://www.filepicker.io/api/file/Gvu32apSQDqLMb40pvYe" alt="twitter"></a>
+                      @if( (bool) config('ticketit.email.google_plus_link') )
+                        <a href="{{ config('ticketit.email.google_plus_link') }}"><img src="https://www.filepicker.io/api/file/R4VBTe2UQeGdAlM7KDc4" alt="google+"></a>
+                      @endif
+                      @if( (bool) config('ticketit.email.facebook_link') )
+                        <a href="{{ config('ticketit.email.facebook_link') }}"><img src="https://www.filepicker.io/api/file/cvmSPOdlRaWQZnKFnBGt" alt="facebook"></a>
+                      @endif
+                      @if( (bool) config('ticketit.email.twitter_link') )
+                        <a href="{{ config('ticketit.email.twitter_link') }}"><img src="https://www.filepicker.io/api/file/Gvu32apSQDqLMb40pvYe" alt="twitter"></a>
+                      @endif
                     <br>
                     <br>
                 </td>

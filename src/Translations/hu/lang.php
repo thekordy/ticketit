@@ -6,113 +6,113 @@ return [
   *  Constants
   */
 
-  'nav-active-tickets'               => 'Active Tickets',
-  'nav-completed-tickets'            => 'Completed Tickets',
+  'nav-active-tickets'               => 'Actív kérelmek',
+  'nav-completed-tickets'            => 'Lezárt kérelmek',
 
   'table-id'                         => 'ID',
-  'table-subject'                    => 'Subject',
-  'table-owner'                      => 'Owner',
-  'table-status'                     => 'Status',
-  'table-last-updated'               => 'Last Updated',
-  'table-last-response'              => 'Last Response',  
-  'table-priority'                   => 'Priority',
-  'table-agent'                      => 'Agent',  
-  'table-category'                   => 'Category', 
+  'table-subject'                    => 'Tárgy',
+  'table-owner'                      => 'Tulajdonos',
+  'table-status'                     => 'Státusz',
+  'table-last-updated'               => 'Utolsó frissítés',
+  'table-last-response'              => 'Utolsó válasz',  
+  'table-priority'                   => 'Prioritás',
+  'table-agent'                      => 'Ügynök',  
+  'table-category'                   => 'Kategória', 
 
-  'btn-back'                         => 'Back',
-  'btn-close'                        => 'Close',  
-  'btn-delete'                       => 'Delete',  
-  'btn-edit'                         => 'Edit',  
-  'btn-mark-complete'                => 'Mark Complete', 
-  'btn-submit'                       => 'Submit', 
+  'btn-back'                         => 'Vissza',
+  'btn-close'                        => 'Bezárás',  
+  'btn-delete'                       => 'Törlés',  
+  'btn-edit'                         => 'Szerkesztés',  
+  'btn-mark-complete'                => 'Megjelölés lezártként', 
+  'btn-submit'                       => 'Küldés', 
   
-  'agent'                            => 'Agent',
-  'category'                         => 'Category',
+  'agent'                            => 'Ügynök',
+  'category'                         => 'Kategória',
   'colon'                            => ': ',
-  'comments'                         => 'Comments',  
-  'created'                          => 'Created',
-  'description'                      => 'Description',
+  'comments'                         => 'Hozzászólások',  
+  'created'                          => 'Létrehova',
+  'description'                      => 'Leírás',
   'flash-x'                          => '×', // &times;
-  'last-update'                      => 'Last Update',  
-  'no-replies'                       => 'No replies.',
-  'owner'                            => 'Owner',  
-  'priority'                         => 'Priority',  
-  'reopen-ticket'                    => 'Reopen Ticket',
-  'reply'                            => 'Reply',
-  'responsible'                      => 'Responsible',
-  'status'                           => 'Status',      
-  'subject'                          => 'Subject',
+  'last-update'                      => 'Utolsó frissítés',  
+  'no-replies'                       => 'Nincsenek hozzászólások.',
+  'owner'                            => 'Tulajdonos',  
+  'priority'                         => 'Prioritás',  
+  'reopen-ticket'                    => 'Kérelem újranyitása',
+  'reply'                            => 'Válasz',
+  'responsible'                      => 'Felelős',
+  'status'                           => 'Státusz',      
+  'subject'                          => 'Tárgy',
   
  /*  
   *  Page specific
   */
 
 // ____
-  'index-title'                      => 'Helpdesk main page',
+  'index-title'                      => 'Supprt nyitólap',
 
 // tickets/____
-  'index-my-tickets'                 => 'My tickets',
-  'btn-create-new-ticket'            => 'Create new ticket',
-  'index-complete-none'              => 'There are no complete tickets', 
-  'index-active-check'               => 'Be sure to check Active Tickets if you cannot find your ticket.',
-  'index-active-none'                => 'There are no active tickets,',
-  'index-create-new-ticket'          => 'create new ticket',
-  'index-complete-check'             => 'Be sure to check Complete Tickets if you cannot find your ticket.',
+  'index-my-tickets'                 => 'Kérelmeim',
+  'btn-create-new-ticket'            => 'Új kérelem',
+  'index-complete-none'              => 'Nincsenek lezárt kérelmek.', 
+  'index-active-check'               => 'Ellenőrizze az Actív kérelmeket, ha nem találja a keresett kérelmet.',
+  'index-active-none'                => 'Nincsenek aktív kérelmek,',
+  'index-create-new-ticket'          => 'kérelem létrehozása',
+  'index-complete-check'             => 'Ellenőrizze a Lezárt kérelmeket, ha nem találja a keresett kérelmet.',
 
-  'create-ticket-title'              => 'New Ticket Form',
-  'create-new-ticket'                => 'Create New Ticket',
-  'create-ticket-brief-issue'        => 'A brief of your issue ticket',
-  'create-ticket-describe-issue'     => 'Describe your issue here in details',  
+  'create-ticket-title'              => 'Új kérelem',
+  'create-new-ticket'                => 'Új kérelem létrehozása',
+  'create-ticket-brief-issue'        => 'Tömör összefoglalás',
+  'create-ticket-describe-issue'     => 'A probléma részletes kifejtése',  
   
-  'show-ticket-title'                => 'Ticket',   
-  'show-ticket-js-delete'            => 'Are you sure you want to delete: ',
-  'show-ticket-modal-delete-title'   => 'ID:id. Delete ticket?',  
-  'show-ticket-modal-delete-message' => 'Are you sure you want to delete ticket: :subject?',
+  'show-ticket-title'                => 'Kérelem',   
+  'show-ticket-js-delete'            => 'Biztosan törölni kívánja a következő kérelmet: ',
+  'show-ticket-modal-delete-title'   => 'ID:id. Kérelem törlése?',  
+  'show-ticket-modal-delete-message' => 'Biztosan törölni kívánja a következő kérelmet: :subject?',
 
  /*  
   *  Controllers
   */
 
 // AgentsController
-  'agents-are-added-to-agents'       => 'Agents :names are added to agents',
-  'agents-joined-categories-ok'      => 'Joined categories successfully',
-  'agents-is-removed-from-team'      => 'Removed agent\s :name from the agent team',
+  'agents-are-added-to-agents'       => ':names felhasználók hozzáadva az ügynökökhöz.',
+  'agents-joined-categories-ok'      => 'Kategóriák sikeresen összekapcsolva',
+  'agents-is-removed-from-team'      => ':name eltávolítva az ügynökök listájáról.',
 
 // CategoriesController
-  'category-name-has-been-created'   => 'The category :name has been created!',  
-  'category-name-has-been-modified'  => 'The category :name has been modified!',   
-  'category-name-has-been-deleted'   => 'The category :name has been deleted!', 
+  'category-name-has-been-created'   => ':name kategória létrehozva!',  
+  'category-name-has-been-modified'  => ':name kategória módosítva!',   
+  'category-name-has-been-deleted'   => ':name kategória törölve!', 
 
 // PrioritiesController
-  'priority-name-has-been-created'   => 'The priority :name has been created!',  
-  'priority-name-has-been-modified'  => 'The priority :name has been modified!',   
-  'priority-name-has-been-deleted'   => 'The priority :name has been deleted!',
-  'priority-all-tickets-here'        => 'All priority related tickets here',
+  'priority-name-has-been-created'   => ':name prioritás létrehozva!',  
+  'priority-name-has-been-modified'  => ':name prioritás módosítva!',   
+  'priority-name-has-been-deleted'   => ':name prioritás törölve!',
+  'priority-all-tickets-here'        => 'Az összes prioritáshoz tartozó kérelem',
 
 // StatusesController
-  'status-name-has-been-created'   => 'The status :name has been created!',  
-  'status-name-has-been-modified'  => 'The status :name has been modified!',   
-  'status-name-has-been-deleted'   => 'The status :name has been deleted!',
-  'status-all-tickets-here'        => 'All status related tickets here',
+  'status-name-has-been-created'   => ':name státusz létrehozva!',
+  'status-name-has-been-modified'  => ':name státusz módosítva!',
+  'status-name-has-been-deleted'   => ':name státusz törölve!',
+  'status-all-tickets-here'        => 'Az összes státuszhoz tartozó kérelem',
   
 // CommentsController
-  'comment-has-been-added-ok'        => 'Comment has been added successfully', 
+  'comment-has-been-added-ok'        => 'Hozzászólás sikeresen mentve', 
 
 // NotificationsController
-  'notify-new-comment-from'          => 'New comment from ', 
+  'notify-new-comment-from'          => 'Új hozzászólás érkezett tőle: ', 
   'notify-on'                        => ' on ', 
-  'notify-status-to-complete'        => ' status to Complete', 
-  'notify-status-to'                 => ' status to ', 
-  'notify-transferred'               => ' transferred ', 
-  'notify-to-you'                    => ' to you', 
-  'notify-created-ticket'            => ' created ticket ', 
-  'notify-updated'                   => ' updated ',   
+  'notify-status-to-complete'        => ' státuszát lezártra', 
+  'notify-status-to'                 => ' stáruszát erre: ', 
+  'notify-transferred'               => ' áthelyezte ', 
+  'notify-to-you'                    => ' önhöz', 
+  'notify-created-ticket'            => ' új kérelmet hozott létre ', 
+  'notify-updated'                   => ' frissítve ',   
   
  // TicketsController
-  'the-ticket-has-been-created'      => 'The ticket has been created!',  
-  'the-ticket-has-been-modified'     => 'The ticket has been modified!',   
-  'the-ticket-has-been-deleted'      => 'The ticket :name has been deleted!',  
-  'the-ticket-has-been-completed'    => 'The ticket :name has been completed!', 
-  'the-ticket-has-been-reopened'     => 'The ticket :name has been reopened!',
+  'the-ticket-has-been-created'      => 'Kérelem létrehozva!',  
+  'the-ticket-has-been-modified'     => 'Kérelem módosítva!',   
+  'the-ticket-has-been-deleted'      => ':name kérelem törölve!',  
+  'the-ticket-has-been-completed'    => ':name kérelem lezárva!', 
+  'the-ticket-has-been-reopened'     => ':name kérelem újra meg lett nyitva!',
 
 ];

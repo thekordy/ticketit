@@ -3,17 +3,17 @@
 return [
 
     // resources/views/vendor/ticketit/tickets/create.blade.php
-    'my_tickets' => 'My Tickets',
+    'my_tickets' => 'Kérelmeim',
 
     // resources/views/vendor/ticketit/tickets/create.blade.php
-    'page_new_ticket_form' => 'New Ticket Form',
-    'create_new_ticket' => 'Create New Ticket',
-    'create_new_ticket_subject' => 'Subject:',
-    'create_new_ticket_brief_issue' => 'A brief of your issue ticket',
-    'create_new_ticket_description' => 'Description:',
-    'create_new_ticket_describe_issue' => 'Describe your issue here in details',
-    'create_new_ticket_priority' => 'Priority:',
-    'create_new_ticket_category' => 'Category:',
-    'create_new_ticket_back' => 'Back',
-    'create_new_ticket_submit' => 'Submit',
+    'page_new_ticket_form' => 'Új kérelem',
+    'create_new_ticket' => 'Krelem létrehozása',
+    'create_new_ticket_subject' => 'Tárgy:',
+    'create_new_ticket_brief_issue' => 'Tömör összefoglalás',
+    'create_new_ticket_description' => 'Leírás:',
+    'create_new_ticket_describe_issue' => 'A probléma részletes kifejtése',
+    'create_new_ticket_priority' => 'Prioritás:',
+    'create_new_ticket_category' => 'Kategória:',
+    'create_new_ticket_back' => 'Vissza',
+    'create_new_ticket_submit' => 'Küldés',
 ];

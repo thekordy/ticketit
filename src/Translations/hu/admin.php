@@ -66,7 +66,7 @@ return [
   'priority-create-title'         => 'Prioritás létrehozása',
   'priority-create-name'          => 'Név',
   'priority-create-color'         => 'Szín',
-  'priority-edit-title'           => 'Edit Priority: :name',
+  'priority-edit-title'           => 'Prioritás szerkesztése: :name',
 
 // tickets-admin/status/____
   'status-index-title'            => 'Státuszok kezelése',

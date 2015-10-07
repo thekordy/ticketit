@@ -31,9 +31,9 @@ return [
 		'signoff'          => 'Thank you for your patience!',
 		'signature'        => 'Your friends',
 		'dashboard'        => 'My Dashboard',
-		'google_plus_link' => 'http://www.facebook.com/fusion.design.me',
-		'facebook_link'    => false,
-		'twitter_link'     => '#',
+		'google_plus_link' => '#', // Toogle icon link: false or string
+		'facebook_link'    => '#', // Toogle icon link: false or string
+		'twitter_link'     => '#', // Toogle icon link: false or string
 		'footer'           => 'Powered by Ticketit',
 		'footer_link'      => 'https://github.com/thekordy/ticketit',
 		'color_body_bg'    => '#FFFFFF',

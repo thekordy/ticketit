@@ -6,9 +6,9 @@ return [
 
 
 
-<b>:name</b> has transferred the ticket <b>:subject</b> :status from :agent in :old_category to you in :new_category<br>
+<b>:name</b> átruházta <b>:subject</b> kérelmet :status státusszal :agent ügynöktől önre. Kategória :old_category &#8594; :new_category<br>
 <hr>
-Go to ticket: 
+Kérelem megnyitása: 
 
 
 

@@ -6,12 +6,12 @@ return [
 
 
 
-<b>:name</b> commented on ticket: :subject<br>
-<b>Ticket category:</b> :category - <b>status:</b> :status<br>
+<b>:name</b> hozzászólt a következő kérelemhez: :subject<br>
+<b>Kategória:</b> :category - <b>Státusz:</b> :status<br>
 <br>
 <div>:comment</div><br>
 <hr>
-Go to ticket: 
+Kérelem megnyitása: 
 
 
 

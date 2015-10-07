@@ -6,9 +6,9 @@ return [
 
 
 
-<b>:name</b> changed the status of :subject from :old_status to :new_status<br>
+<b>:name</b> megváltoztatta :subject kérelem státuszát: :old_status &#8594; :new_status<br>
 <hr>
-Go to ticket: 
+Kérelem megnyitása: 
 
 
 

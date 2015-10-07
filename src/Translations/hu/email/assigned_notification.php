@@ -6,10 +6,10 @@ return [
 
 
 
-<b>:name</b> created new ticket <b>:subject</b><br>
-:status in :category, and it has been assigned to you.<br>
+<b>:name</b> új kérelmet hozott létre <b>:subject</b> tárggyal<br>
+:status státusszal :category kategóriában, és ez önhöz lett rendelve.<br>
 <hr>
-Go to ticket: 
+Kérelem megnyitása: 
 
 
 

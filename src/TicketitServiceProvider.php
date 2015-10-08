@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
+use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
 
 class TicketitServiceProvider extends ServiceProvider {
@@ -15,13 +16,17 @@ class TicketitServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function boot() {
+
 		// Send the Agent User model to the view under $u
 		view()->composer('*', function ($view) {
 			if (auth()->check()) {
 				$u = Agent::find(auth()->user()->id);
 				$view->with('u', $u);
 			}
+			$setting = new Setting;
+			$view->with('setting', $setting);
 		});
+
 		// Adding HTML5 color picker to form elements
 		Form::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
 			$field = $this->input($type, $name, $value, $options);
@@ -30,14 +35,14 @@ class TicketitServiceProvider extends ServiceProvider {
 
 		// Passing to views the master view value from the setting file
 		view()->composer('ticketit::*', function ($view) {
-			$master = config('ticketit.master_template');
-			$email = config('ticketit.email_template');
+			$master = Setting::grab('ticketit.master_template');
+			$email = Setting::grab('ticketit.email_template');
 			$view->with(compact('master', 'email'));
 		});
 
 		// Send notification when new comment is added
 		Comment::creating(function ($comment) {
-			if (config('ticketit.comment_notification') == 'yes') {
+			if (Setting::grab('ticketit.comment_notification')) {
 				$notification = new NotificationsController();
 				$notification->newComment($comment);
 			}
@@ -46,14 +51,14 @@ class TicketitServiceProvider extends ServiceProvider {
 
 		// Send notification when ticket status is modified
 		Ticket::updating(function ($modified_ticket) {
-			if (config('ticketit.status_notification') == 'yes') {
+			if (Setting::grab('ticketit.status_notification')) {
 				$original_ticket = Ticket::find($modified_ticket->id);
 				if ($original_ticket->status_id != $modified_ticket->status_id || $original_ticket->completed_at != $modified_ticket->completed_at) {
 					$notification = new NotificationsController();
 					$notification->ticketStatusUpdated($modified_ticket, $original_ticket);
 				}
 			}
-			if (config('ticketit.assigned_notification') == 'yes') {
+			if (Setting::grab('ticketit.assigned_notification')) {
 				$original_ticket = Ticket::find($modified_ticket->id);
 				if ($original_ticket->agent->id != $modified_ticket->agent->id) {
 					$notification = new NotificationsController();
@@ -65,7 +70,7 @@ class TicketitServiceProvider extends ServiceProvider {
 
 		// Send notification when ticket status is modified
 		Ticket::created(function ($ticket) {
-			if (config('ticketit.assigned_notification') == 'yes') {
+			if (Setting::grab('ticketit.assigned_notification')) {
 				$notification = new NotificationsController();
 				$notification->newTicketNotifyAgent($ticket);
 			}

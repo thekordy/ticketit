@@ -1,6 +1,6 @@
-<!-- Removing the unserialize methods on this template resolves errors. No known issues.
-Outbound status works fine even with unserialize removed. The other views need them for some
-reason -->
+<?php $notification_owner = unserialize($notification_owner); ?>
+<?php $ticket = unserialize($original_ticket); ?>
+<?php $ticket = unserialize($ticket); ?>
 
 @extends($email)
 

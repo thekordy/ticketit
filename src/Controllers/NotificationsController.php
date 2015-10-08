@@ -11,7 +11,7 @@ class NotificationsController extends Controller {
 	public function newComment(Comment $comment) {
 		$ticket = $comment->ticket;
 		$notification_owner = $comment->user;
-		$template = "ticketit::emails.comment_notification";
+		$template = "ticketit::emails.comment";
 		$data = ['comment' => serialize($comment), 'ticket' => serialize($ticket)];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
@@ -20,7 +20,7 @@ class NotificationsController extends Controller {
 
 	public function ticketStatusUpdated(Ticket $ticket, Ticket $original_ticket) {
 		$notification_owner = auth()->user();
-		$template = "ticketit::emails.status_notification";
+		$template = "ticketit::emails.status";
 		$data = [
             'ticket' => serialize($ticket),
             'notification_owner' => serialize($notification_owner),
@@ -37,8 +37,8 @@ class NotificationsController extends Controller {
     }
 
 	public function ticketAgentUpdated(Ticket $ticket, Ticket $original_ticket) {
-		$notification_owner = \Auth::user();
-		$template = "ticketit::emails.transfer_notification";
+		$notification_owner = auth()->user();
+		$template = "ticketit::emails.transfer";
 		$data = [
 			'ticket' => serialize($ticket),
 			'notification_owner' => serialize($notification_owner),
@@ -50,8 +50,8 @@ class NotificationsController extends Controller {
     }
 
 	public function newTicketNotifyAgent(Ticket $ticket) {
-		$notification_owner = \Auth::user();
-		$template = "ticketit::emails.assigned_notification";
+		$notification_owner = auth()->user();
+		$template = "ticketit::emails.assigned";
 		$data = [
 			'ticket' => serialize($ticket),
 			'notification_owner' => serialize($notification_owner),

@@ -1,5 +1,5 @@
 <?php $notification_owner = unserialize($notification_owner); ?>
-<?php $ticket = unserialize($original_ticket); ?>
+<?php $original_ticket = unserialize($original_ticket); ?>
 <?php $ticket = unserialize($ticket); ?>
 
 @extends($email)

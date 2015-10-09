@@ -53,10 +53,10 @@ class TicketsController extends Controller
                 'ticketit_statuses.color AS color_status',
                 'ticketit_priorities.color AS color_priority',
                 'ticketit_categories.color AS color_category',
-                'ticketit.id AS last_responder',
+                'ticketit.id AS agent',
                 'ticketit.updated_at AS updated_at',
                 'ticketit_priorities.name AS priority',
-                'users.name',
+                'users.name AS owner',
                 'ticketit.agent_id',
                 'ticketit_categories.name AS category',
             ]);
@@ -99,13 +99,9 @@ class TicketsController extends Controller
             return "<div style='color: $color'>$category</div>";
         });
 
-        $collection->editColumn('last_responder', function ($ticket) {
+        $collection->editColumn('agent', function ($ticket) {
             $ticket = $this->tickets->find($ticket->id);
-            if ($ticket->hasComments()) {
-                return $ticket->comments->last()->user->name;
-            } else {
-                return trans('ticketit::lang.no-replies');
-            }
+            return $ticket->agent->name;
         });
 
         return $collection;

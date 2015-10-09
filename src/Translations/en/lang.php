@@ -15,7 +15,6 @@ return [
   'table-owner'                      => 'Owner',
   'table-status'                     => 'Status',
   'table-last-updated'               => 'Last Updated',
-  'table-last-response'              => 'Last Response',  
   'table-priority'                   => 'Priority',
   'table-agent'                      => 'Agent',  
   'table-category'                   => 'Category', 

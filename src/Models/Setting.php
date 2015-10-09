@@ -48,7 +48,7 @@ class Setting extends Model
         $setting = $settings->where('slug', $slug)->first();
 
         if ($setting->lang) {
-            return trans($value->lang);
+            return trans($setting->lang);
         }
 
         if ($setting->value) {

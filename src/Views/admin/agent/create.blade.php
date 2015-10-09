@@ -10,7 +10,7 @@
         @if ($users->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.agent-create-no-users') }}</h3>
         @else
-            {!! Form::open(['route'=> config('ticketit.admin_route').'.agent.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['route'=> $setting->grab('admin_route').'.agent.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
             <div class="panel-body">
                 {{ trans('ticketit::admin.agent-create-select-user') }}
             </div>
@@ -18,7 +18,7 @@
                 <tfoot>
                     <tr>
                         <td class="text-center">
-                            {!! link_to_route(config('ticketit.admin_route').'.agent.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn btn-default']) !!}
+                            {!! link_to_route($setting->grab('admin_route').'.agent.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn btn-default']) !!}
                             {!! Form::submit(trans('ticketit::admin.btn-submit'), ['class' => 'btn btn-primary']) !!}
                         </td>
                     </tr>

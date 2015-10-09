@@ -2,7 +2,7 @@
 
     <div class="panel-heading">
         <h2>{{ trans('ticketit::lang.index-my-tickets') }}
-            {!! link_to_route(config('ticketit.main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
+            {!! link_to_route($setting->grab('main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>
 

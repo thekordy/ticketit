@@ -23,7 +23,7 @@
 
             });
             $('#category_id').change(function(){
-                var loadpage = "{!! route(config('ticketit.main_route').'agentselectlist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
+                var loadpage = "{!! route($setting->grab('main_route').'agentselectlist') !!}/" + $(this).val() + "/{{ $ticket->id }}";
                 $('#agent_id').load(loadpage);
             });
             $('#confirmDelete').on('show.bs.modal', function (e) {

@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <h2>{{ trans('ticketit::admin.agent-index-title') }}
                 {!! link_to_route(
-                                    config('ticketit.admin_route').'.agent.create',
+                                    $setting->grab('admin_route').'.agent.create',
                                     trans('ticketit::admin.btn-create-new-agent'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
@@ -19,7 +19,7 @@
 
         @if ($agents->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.agent-index-no-agents') }}
-                {!! link_to_route(config('ticketit.admin_route').'.agent.create', trans('ticketit::admin.agent-index-create-new')) !!}
+                {!! link_to_route($setting->grab('admin_route').'.agent.create', trans('ticketit::admin.agent-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
@@ -30,7 +30,7 @@
                         <td>{{ trans('ticketit::admin.table-name') }}</td>
                         <td>{{ trans('ticketit::admin.table-categories') }}</td>
                         <td>{{ trans('ticketit::admin.table-join-category') }}</td>
-                        <td>{{ trans('ticketit::admin.table-remove-agent') }}</td>																											
+                        <td>{{ trans('ticketit::admin.table-remove-agent') }}</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +53,7 @@
                             {!! Form::open([
                                             'method' => 'PATCH',
                                             'route' => [
-                                                        config('ticketit.admin_route').'.agent.update',
+                                                        $setting->grab('admin_route').'.agent.update',
                                                         $agent->id
                                                         ],
                                             ]) !!}
@@ -71,7 +71,7 @@
                             {!! Form::open([
                             'method' => 'DELETE',
                             'route' => [
-                                        config('ticketit.admin_route').'.agent.destroy',
+                                        $setting->grab('admin_route').'.agent.destroy',
                                         $agent->id
                                         ],
                             'id' => "delete-$agent->id"

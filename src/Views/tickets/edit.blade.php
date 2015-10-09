@@ -2,7 +2,7 @@
     <div class="modal-dialog model-lg" role="document">
         <div class="modal-content">
             {!! Form::model($ticket, [
-                 'route' => [config('ticketit.main_route').'.update', $ticket->id],
+                 'route' => [$setting->grab('main_route').'.update', $ticket->id],
                  'method' => 'PATCH',
                  'class' => 'form-horizontal'
              ]) !!}

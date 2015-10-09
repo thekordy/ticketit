@@ -11,9 +11,9 @@ return [
 
   'table-id'                         => 'DE_ID',
   'table-subject'                    => 'DE_Subject',
+  'table-owner'                      => 'DE_Owner',  
   'table-status'                     => 'DE_Status',
   'table-last-updated'               => 'DE_Last Updated',
-  'table-last-response'              => 'DE_Last Response',  
   'table-priority'                   => 'DE_Priority',
   'table-agent'                      => 'DE_Agent',  
   'table-category'                   => 'DE_Category', 

@@ -2,6 +2,7 @@
 namespace Kordy\Ticketit;
 
 use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Models\Agent;
@@ -94,5 +95,18 @@ class TicketitServiceProvider extends ServiceProvider {
 		);
 
 		include __DIR__ . '/routes.php';
+
+        /*
+         * Register the service provider for the dependency.
+         */
+        $this->app->register('Collective\Html\HtmlServiceProvider');
+        $this->app->register('yajra\Datatables\DatatablesServiceProvider');
+        /*
+         * Create aliases for the dependency.
+         */
+        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader->alias('Form', 'Collective\Html\FormFacade');
+        $loader->alias('Html', 'Collective\Html\FormFacade');
+        $loader->alias('Datatables', 'yajra\Datatables\Datatables');
 	}
 }

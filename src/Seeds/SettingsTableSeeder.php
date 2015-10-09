@@ -2,12 +2,14 @@
 
 namespace Kordy\Ticketit\Seeds;
 
-use File;
 use Illuminate\Database\Seeder;
 use Kordy\Ticketit\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
 {
+
+    public $config = [];
+
     /**
      * Seed the Plans table
      */
@@ -16,12 +18,7 @@ class SettingsTableSeeder extends Seeder
 
         $defaults = [];
 
-        if (File::isFile('config/ticketit.php')) {
-            $config = include 'config/ticketit.php';
-            File::move('config/ticketit.php', 'config/ticketit.php.backup');
-        }
-
-        $defaults = $this->cleanupAndMerge($this->getDefaults(), $config);
+        $defaults = $this->cleanupAndMerge($this->getDefaults(), $this->config);
 
         foreach ($defaults as $slug => $column) {
 

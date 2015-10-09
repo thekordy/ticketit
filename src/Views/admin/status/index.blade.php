@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <h2>{{ trans('ticketit::admin.status-index-title') }}
                 {!! link_to_route(
-                                    config('ticketit.admin_route').'.status.create',
+                                    $setting->grab('admin_route').'.status.create',
                                     trans('ticketit::admin.btn-create-new-status'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
@@ -19,7 +19,7 @@
 
         @if ($statuses->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.status-index-no-statuses') }}
-                {!! link_to_route(config('ticketit.admin_route').'.status.create', trans('ticketit::admin.status-index-create-new')) !!}
+                {!! link_to_route($setting->grab('admin_route').'.status.create', trans('ticketit::admin.status-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.edit', trans('ticketit::admin.btn-edit'), $status->id,
+                                                    $setting->grab('admin_route').'.status.edit', trans('ticketit::admin.btn-edit'), $status->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.status.destroy', trans('ticketit::admin.btn-delete'), $status->id,
+                                                    $setting->grab('admin_route').'.status.destroy', trans('ticketit::admin.btn-delete'), $status->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$status->id",
@@ -57,7 +57,7 @@
                             {!! Form::open([
                                             'method' => 'DELETE',
                                             'route' => [
-                                                        config('ticketit.admin_route').'.status.destroy',
+                                                        $setting->grab('admin_route').'.status.destroy',
                                                         $status->id
                                                         ],
                                             'id' => "delete-$status->id"

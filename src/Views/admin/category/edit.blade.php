@@ -5,7 +5,7 @@
     @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::model($category, [
-                                    'route' => [config('ticketit.admin_route').'.category.update', $category->id],
+                                    'route' => [$setting->grab('admin_route').'.category.update', $category->id],
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}

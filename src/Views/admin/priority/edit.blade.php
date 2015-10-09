@@ -5,7 +5,7 @@
     @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::model($priority, [
-                                    'route' => [config('ticketit.admin_route').'.priority.update', $priority->id],
+                                    'route' => [$setting->grab('admin_route').'.priority.update', $priority->id],
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}

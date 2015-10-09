@@ -5,7 +5,7 @@
 @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! Form::open([
-                        'route'=>config('ticketit.main_route').'.store',
+                        'route'=>$setting->grab('main_route').'.store',
                         'method' => 'POST',
                         'class' => 'form-horizontal'
                         ]) !!}
@@ -42,7 +42,7 @@
             <br>
             <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
-                    {!! link_to_route(config('ticketit.main_route').'.index', trans('ticketit::lang.btn-back'), null, ['class' => 'btn btn-default']) !!}
+                    {!! link_to_route($setting->grab('main_route').'.index', trans('ticketit::lang.btn-back'), null, ['class' => 'btn btn-default']) !!}
                     {!! Form::submit(trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
                 </div>
             </div>

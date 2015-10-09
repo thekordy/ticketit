@@ -48,24 +48,18 @@ Install database tables by running the migrate artisan command
 ```
 
 ## Configuration
-**You may publish all files at once**
+**Publish views:**
 
 ```shell
 	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider"
 ```
 
-**Or you may publish by tags**
+**Merge old or new installations and seed database:**
 
-Publish the config file (It will generate new file at `config/ticketit.php`. Edit necessary lines.)
+Seed the database with configuration. Works with 0.1 branch updates. Renames config/ticketit.php (legacy) to config/ticketit.php.backup.
 ```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="config"
+	php artisan db:seed --class=Kordy\\Ticketit\\Seeds\\SettingsTableSeeder
 ```
-Publish the views (It will generate views files at `resources/views/vendor/kordy/ticketit/`. Edit necessary lines.)
-```shell
-	php artisan vendor:publish --provider="Kordy\Ticketit\TicketitServiceProvider" --tag="views"
-```
-
-**After publishing the config file config/ticketit.php , edit it for your settings.**
 
 **Be sure to implement these views sections in your master template in order to integrate with the ticketit views:**
 

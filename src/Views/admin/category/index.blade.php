@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <h2>{{ trans('ticketit::admin.category-index-title') }}
                 {!! link_to_route(
-                                    config('ticketit.admin_route').'.category.create',
+                                    $setting->grab('admin_route').'.category.create',
                                     trans('ticketit::admin.btn-create-new-category'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
@@ -19,7 +19,7 @@
 
         @if ($categories->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.category-index-no-categories') }}
-                {!! link_to_route(config('ticketit.admin_route').'.category.create', trans('ticketit::admin.category-index-create-new')) !!}
+                {!! link_to_route($setting->grab('admin_route').'.category.create', trans('ticketit::admin.category-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.edit', trans('ticketit::admin.btn-edit'), $category->id,
+                                                    $setting->grab('admin_route').'.category.edit', trans('ticketit::admin.btn-edit'), $category->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.category.destroy', trans('ticketit::admin.btn-delete'), $category->id,
+                                                    $setting->grab('admin_route').'.category.destroy', trans('ticketit::admin.btn-delete'), $category->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$category->id",
@@ -57,7 +57,7 @@
                             {!! Form::open([
                                             'method' => 'DELETE',
                                             'route' => [
-                                                        config('ticketit.admin_route').'.category.destroy',
+                                                        $setting->grab('admin_route').'.category.destroy',
                                                         $category->id
                                                         ],
                                             'id' => "delete-$category->id"

@@ -10,7 +10,7 @@
         <div class="panel-heading">
             <h2>{{ trans('ticketit::admin.priority-index-title') }}
                 {!! link_to_route(
-                                    config('ticketit.admin_route').'.priority.create',
+                                    $setting->grab('admin_route').'.priority.create',
                                     trans('ticketit::admin.btn-create-new-priority'), null,
                                     ['class' => 'btn btn-primary pull-right'])
                 !!}
@@ -19,7 +19,7 @@
 
         @if ($priorities->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.priority-index-no-priorities') }}
-                {!! link_to_route(config('ticketit.admin_route').'.priority.create', trans('ticketit::admin.priority-index-create-new')) !!}
+                {!! link_to_route($setting->grab('admin_route').'.priority.create', trans('ticketit::admin.priority-index-create-new')) !!}
             </h3>
         @else
             <div id="message"></div>
@@ -42,12 +42,12 @@
                         </td>
                         <td>
                             {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.edit', trans('ticketit::admin.btn-edit'), $priority->id,
+                                                    $setting->grab('admin_route').'.priority.edit', trans('ticketit::admin.btn-edit'), $priority->id,
                                                     ['class' => 'btn btn-info'] )
                                 !!}
 
                                 {!! link_to_route(
-                                                    config('ticketit.admin_route').'.priority.destroy', trans('ticketit::admin.btn-delete'), $priority->id,
+                                                    $setting->grab('admin_route').'.priority.destroy', trans('ticketit::admin.btn-delete'), $priority->id,
                                                     [
                                                     'class' => 'btn btn-danger deleteit',
                                                     'form' => "delete-$priority->id",
@@ -57,7 +57,7 @@
                             {!! Form::open([
                                             'method' => 'DELETE',
                                             'route' => [
-                                                        config('ticketit.admin_route').'.priority.destroy',
+                                                        $setting->grab('admin_route').'.priority.destroy',
                                                         $priority->id
                                                         ],
                                             'id' => "delete-$priority->id"

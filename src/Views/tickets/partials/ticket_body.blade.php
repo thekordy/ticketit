@@ -5,10 +5,10 @@
                 {{ $ticket->subject }}
                 <span class="pull-right">
                     @if(! $ticket->completed_at && $close_perm == 'yes')
-                            {!! link_to_route(config('ticketit.main_route').'.complete', trans('ticketit::lang.btn-mark-complete'), $ticket->id,
+                            {!! link_to_route($setting->grab('main_route').'.complete', trans('ticketit::lang.btn-mark-complete'), $ticket->id,
                                                 ['class' => 'btn btn-success']) !!}
                     @elseif($ticket->completed_at && $reopen_perm == 'yes')
-                            {!! link_to_route(config('ticketit.main_route').'.reopen', trans('ticketit::lang.reopen-ticket'), $ticket->id,
+                            {!! link_to_route($setting->grab('main_route').'.reopen', trans('ticketit::lang.reopen-ticket'), $ticket->id,
                                                 ['class' => 'btn btn-success']) !!}
                     @endif
                     @if($u->isAgent())
@@ -17,19 +17,19 @@
                         </button>
                     @endif
                     @if($u->isAdmin())
-                        @if(config('ticketit.delete_modal_type') == 'builtin')
+                        @if($setting->grab('delete_modal_type') == 'builtin')
                             {!! link_to_route(
-                                            config('ticketit.main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id,
+                                            $setting->grab('main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id,
                                             [
                                             'class' => 'btn btn-danger deleteit',
                                             'form' => "delete-ticket-$ticket->id",
                                             "node" => $ticket->subject
                                             ])
                             !!}
-                        @elseif(config('ticketit.delete_modal_type') == 'modal')
+                        @elseif($setting->grab('delete_modal_type') == 'modal')
 {{-- // OR; Modal Window: 1/2 --}}
                             {!! Form::open(array(
-                                    'route' => array(config('ticketit.main_route').'.destroy', $ticket->id),
+                                    'route' => array($setting->grab('main_route').'.destroy', $ticket->id),
                                     'method' => 'delete',
                                     'style' => 'display:inline'
                                ))
@@ -56,7 +56,7 @@
                             <p> <strong>{{ trans('ticketit::lang.owner') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->user->name }}</p>
                             <p>
                                 <strong>{{ trans('ticketit::lang.status') }}</strong>{{ trans('ticketit::lang.colon') }}
-                                @if( $ticket->isComplete() && ! config('ticketit.default_close_status_id') )
+                                @if( $ticket->isComplete() && ! $setting->grab('default_close_status_id') )
                                     <span style="color: blue">Complete</span>
                                 @else
                                     <span style="color: {{ $ticket->status->color }}">{{ $ticket->status->name }}</span>
@@ -92,7 +92,7 @@
         {!! Form::open([
                         'method' => 'DELETE',
                         'route' => [
-                                    config('ticketit.main_route').'.destroy',
+                                    $setting->grab('main_route').'.destroy',
                                     $ticket->id
                                     ],
                         'id' => "delete-ticket-$ticket->id"

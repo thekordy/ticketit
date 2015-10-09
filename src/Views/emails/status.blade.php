@@ -1,6 +1,6 @@
-<?php $notification_owner = unserialize($notification_owner); ?>
-<?php $original_ticket = unserialize($original_ticket); ?>
-<?php $ticket = unserialize($ticket); ?>
+<?php $notification_owner = unserialize($notification_owner);?>
+<?php $original_ticket = unserialize($original_ticket);?>
+<?php $ticket = unserialize($ticket);?>
 
 @extends($email)
 
@@ -9,7 +9,7 @@
 @stop
 
 @section('link')
-	<a style="color:#ffffff" href="{{ route(config('ticketit.main_route').'.show', $ticket->id) }}">
+	<a style="color:#ffffff" href="{{ route($setting->grab('main_route').'.show', $ticket->id) }}">
 		{{ trans('ticketit::email/globals.view-ticket') }}
 	</a>
 @stop

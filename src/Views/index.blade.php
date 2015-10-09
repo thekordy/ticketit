@@ -20,8 +20,8 @@
 	        processing: false,
 	        serverSide: true,
 	        responsive: true,
-        	lengthMenu: {{ json_encode(config('ticketit.length_menu')) }},
-	        ajax: '{!! route(config('ticketit.main_route').'.data', $complete) !!}',
+        	lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
+	        ajax: '{!! route($setting->grab('main_route').'.data', $complete) !!}',
 	        language: {
 				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
 				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
@@ -47,10 +47,10 @@
 				},
 			},
 	        columns: [
-	            { data: 'id', name: 'ticketit.id' },
-	            { data: 'subject', name: 'ticketit.subject' },
+	            { data: 'id', name: 'id' },
+	            { data: 'subject', name: 'subject' },
 	            { data: 'status', name: 'ticketit_statuses.name' },
-	            { data: 'updated_at', name: 'ticketit.updated_at' },
+	            { data: 'updated_at', name: 'updated_at' },
 	            { data: 'last_responder', name: 'users.name' },
 	            @if( $u->isAgent() || $u->isAdmin() )
 		            { data: 'priority', name: 'ticketit_priorities.name' },

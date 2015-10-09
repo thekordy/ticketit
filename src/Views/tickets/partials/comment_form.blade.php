@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-body">
-        {!! Form::open(['method' => 'POST', 'route' => config('ticketit.main_route').'-comment.store', 'class' => 'form-horizontal']) !!}
+        {!! Form::open(['method' => 'POST', 'route' => $setting->grab('main_route').'-comment.store', 'class' => 'form-horizontal']) !!}
 
 
             {!! Form::hidden('ticket_id', $ticket->id ) !!}

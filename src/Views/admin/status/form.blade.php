@@ -12,7 +12,7 @@
 </div>
 <div class="form-group">
     <div class="col-lg-10 col-lg-offset-2">
-        {!! link_to_route(config('ticketit.admin_route').'.status.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn btn-default']) !!}
+        {!! link_to_route($setting->grab('admin_route').'.status.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn btn-default']) !!}
         @if(isset($status))
             {!! Form::submit(trans('ticketit::admin.btn-update'), ['class' => 'btn btn-primary']) !!}
         @else

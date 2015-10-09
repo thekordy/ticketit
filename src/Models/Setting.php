@@ -54,9 +54,9 @@ class Setting extends Model
         if ($setting->value) {
 
             if (Setting::is_serialized($setting->value)) {
-                $setting = unserialize($setting->default);
+                $setting = unserialize($setting->value);
             } else {
-                $setting = $setting->default;
+                $setting = $setting->value;
             }
             return $setting;
         }

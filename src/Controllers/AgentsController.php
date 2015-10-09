@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Setting;
 
 class AgentsController extends Controller
 {

@@ -152,7 +152,7 @@ class TicketitServiceProvider extends ServiceProvider {
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Form', 'Collective\Html\FormFacade');
-        $loader->alias('Html', 'Collective\Html\FormFacade');
+        $loader->alias('Html', 'Collective\Html\HtmlFacade');
         $loader->alias('Datatables', 'yajra\Datatables\Datatables');
 	}
 }

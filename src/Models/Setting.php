@@ -39,7 +39,7 @@ class Setting extends Model
      */
     public static function grab($slug)
     {
-        // Cache::forget('settings');
+        Cache::forget('settings');
 
         $settings = Cache::remember('settings', 60, function () {
             return Table::all();

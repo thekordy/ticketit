@@ -3,7 +3,7 @@
 A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system. 
 It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice support ticket system. 
 
-### Features:
+## Features:
 1. Three main users roles users, agents, and admins
 2. Users can create tickets, keep track of their tickets status, giving comments, and even close their own tickets (configurable)
 3. Auto assigning to agents, the system searches for agents in specific department and auto select the agent with lowest queue
@@ -43,11 +43,11 @@ Step 3. [Setting up your master view for Ticketit integration (1-2 minutes)](htt
 
 Step 4. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
 
-### Documentation
+## Documentation
 [Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
 
-### Support:
+## Support:
 [Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
 
-### Live Demo
+## Live Demo
 A live demo is hosted by fusion design at http://ticketit.fusiondesign.me

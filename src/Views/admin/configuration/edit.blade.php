@@ -68,7 +68,7 @@
 
               <!-- Submit Field -->
               <div class="form-group">
-                  <div class="col-md-2 col-md-offset-2">
+                  <div class="col-sm-10 col-sm-offset-2">
                     {!! Form::submit(trans('ticketit::admin.btn-submit'), ['class' => 'btn btn-primary']) !!}
                   </div>
               </div>

@@ -13,7 +13,6 @@ return [
   'nav-statuses'                  => 'Statuses',
   'nav-configuration'             => 'Configuration',  // New
 
-
   'table-hash'                    => '#', // New
   'table-id'                      => 'ID',
   'table-name'                    => 'Name',
@@ -94,8 +93,10 @@ return [
   'config-index-subtitle'         => 'Settings', // New
   'btn-create-new-config'         => 'Add new setting', // New
   'config-index-no-settings'      => 'There are no settings,', // New
-  'config-edit-title'             => 'Edit: Global Configuration', 
-  'config-edit-subtitle'          => 'Edit Setting',
+  'config-create-title'           => 'Create: New Global Setting', // New
+  'config-create-subtitle'        => 'Create Setting', // New  
+  'config-edit-title'             => 'Edit: Global Configuration', // New 
+  'config-edit-subtitle'          => 'Edit Setting', // New
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',
   'config-edit-default'           => 'Default value',

@@ -1,15 +1,26 @@
 @extends($master)
 
 @section('content')
-
-    <h2>{{ trans('ticketit::admin.config-edit-title') }}</h2>
-    <div class="panel panel-default">
+    @include('ticketit::shared.header')
+     <div class="panel panel-default">
       <div class="panel-heading">
-        {{ trans('ticketit::admin.config-edit-subtitle') }}
-        <div class="panel-nav pull-right" style="margin-top: -7px;">
-          <a href="{!! route($setting->grab('admin_route').'.configuration.index') !!}" class="btn btn-default">Back</a>
-        </div>
-      </div>
+        <h3>{{ trans('ticketit::admin.config-edit-title') }}
+          <div class="panel-nav pull-right" style="margin-top: -7px;">          
+              {!! link_to_route(
+                  $setting->grab('admin_route').'.configuration.index',
+                  trans('ticketit::admin.btn-back'), null,
+                  ['class' => 'btn btn-default'])
+              !!}
+              {{--
+              {!! link_to_route(
+                  $setting->grab('admin_route').'.configuration.create',
+                  trans('ticketit::admin.btn-create-new-config'), null,
+                  ['class' => 'btn btn-primary'])
+              !!}
+              --}}
+          </div>
+        </h3>  
+      </div>     
       <div class="panel-body">
         <div class="form-horizontal">
           @include('common.errors')
@@ -56,8 +67,10 @@
               </div>
 
               <!-- Submit Field -->
-              <div class="form-group col-sm-12">
-                  {!! Form::submit(trans('ticketit::admin.btn-save'), ['class' => 'btn btn-primary']) !!}
+              <div class="form-group">
+                  <div class="col-md-2 col-md-offset-2">
+                    {!! Form::submit(trans('ticketit::admin.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                  </div>
               </div>
 
           {!! Form::close() !!}

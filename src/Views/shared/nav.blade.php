@@ -37,6 +37,9 @@
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/category*") ? "active" : "" !!}">
                             <a href="/{{ $setting->grab('admin_route') }}/category">{{ trans('ticketit::admin.nav-categories') }}</a>
                         </li>
+                        <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/config*") ? "active" : "" !!}">
+                            <a href="/{{ $setting->grab('admin_route') }}/configuration">{{ trans('ticketit::admin.nav-configuration') }}</a>
+                        </li>                       
                     </ul>
                 </li>
             @endif

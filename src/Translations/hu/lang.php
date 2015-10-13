@@ -14,6 +14,7 @@ return [
   'table-owner'                      => 'Tulajdonos',
   'table-status'                     => 'Státusz',
   'table-last-updated'               => 'Utolsó frissítés',
+  'table-last-response'              => 'Utolsó válasz',  
   'table-priority'                   => 'Prioritás',
   'table-agent'                      => 'Ügynök',  
   'table-category'                   => 'Kategória', 

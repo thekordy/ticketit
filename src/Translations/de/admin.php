@@ -6,77 +6,101 @@ return [
   *  Constants
   */
   
-  'nav-agents'                    => 'DE_Agent',
-  'nav-dashboard'                 => 'DE_Dashboard',
-  'nav-categories'                => 'DE_Categories',
-  'nav-priorities'                => 'DE_Priorities',
-  'nav-statuses'                  => 'DE_Statuses',
+  'nav-agents'                    => 'Agent',
+  'nav-dashboard'                 => 'Dashboard',
+  'nav-categories'                => 'Categories',
+  'nav-priorities'                => 'Priorities',
+  'nav-statuses'                  => 'Statuses',
+  'nav-configuration'             => 'Configuration',  // New
 
-  'table-id'                      => 'DE_ID',
-  'table-name'                    => 'DE_Name',
-  'table-action'                  => 'DE_Action',
-  'table-categories'              => 'DE_Categories',
-  'table-join-category'           => 'DE_Joined Categories',
-  'table-remove-agent'            => 'DE_Remove from agents',
 
-  'btn-back'                      => 'DE_Back',
-  'btn-delete'                    => 'DE_Delete',
-  'btn-edit'                      => 'DE_Edit', 
-  'btn-join'                      => 'DE_Join',  
-  'btn-remove'                    => 'DE_Remove',
-  'btn-submit'                    => 'DE_Submit',
-  'btn-update'                    => 'DE_Update',
+
+  'table-hash'                    => '#', // New
+  'table-id'                      => 'ID',
+  'table-name'                    => 'Name',
+  'table-action'                  => 'Action',
+  'table-categories'              => 'Categories',
+  'table-join-category'           => 'Joined Categories',
+  'table-remove-agent'            => 'Remove from agents',
+
+  'table-slug'                    => 'Slug', // New
+  'table-default'                 => 'Default Value', // New
+  'table-value'                   => 'My Value',  // New
+  'table-lang'                    => 'Lang', // New
+  'table-edit'                    => 'Edit', // New
+
+  'btn-back'                      => 'Back',
+  'btn-delete'                    => 'Delete',
+  'btn-edit'                      => 'Edit', 
+  'btn-join'                      => 'Join',  
+  'btn-remove'                    => 'Remove',
+  'btn-submit'                    => 'Submit',
+  'btn-save'                      => 'Save',  // New
+  'btn-update'                    => 'Update',
   
-  'colon'                         => 'DE_: ',
+  'colon'                         => ': ',
 
  /*  
   *  Page specific
   */
 
 // tickets-admin/____
-  'index-title'                   => 'DE_Tickets System Dashboard',
+  'index-title'                   => 'Tickets System Dashboard',
 
 // tickets-admin/agent/____  
-  'agent-index-title'             => 'DE_Agent Management',
-  'btn-create-new-agent'          => 'DE_Create new agent',
-  'agent-index-no-agents'         => 'DE_There are no agents, ',
-  'agent-index-create-new'        => 'DE_Add agents',
-  'agent-create-title'            => 'DE_Add Agent',
-  'agent-create-add-agents'       => 'DE_Add Agents',
-  'agent-create-no-users'         => 'DE_There are no user accounts, create user accounts first.',
-  'agent-create-select-user'      => 'DE_Select user accounts to be added as agents',
+  'agent-index-title'             => 'Agent Management',
+  'btn-create-new-agent'          => 'Create new agent',
+  'agent-index-no-agents'         => 'There are no agents, ',
+  'agent-index-create-new'        => 'Add agents',
+  'agent-create-title'            => 'Add Agent',
+  'agent-create-add-agents'       => 'Add Agents',
+  'agent-create-no-users'         => 'There are no user accounts, create user accounts first.',
+  'agent-create-select-user'      => 'Select user accounts to be added as agents',
 
 // tickets-admin/category/____
-  'category-index-title'          => 'DE_Categories Management',
-  'btn-create-new-category'       => 'DE_Create new category',
-  'category-index-no-categories'  => 'DE_There are no categories, ',
-  'category-index-create-new'     => 'DE_create new category',
-  'category-index-js-delete'      => 'DE_Are you sure you want to delete the category: ',
-  'category-create-title'         => 'DE_Create New Category',
-  'category-create-name'          => 'DE_Name',
-  'category-create-color'         => 'DE_Color',
-  'category-edit-title'           => 'DE_Edit Category: :name',
+  'category-index-title'          => 'Categories Management',
+  'btn-create-new-category'       => 'Create new category',
+  'category-index-no-categories'  => 'There are no categories, ',
+  'category-index-create-new'     => 'create new category',
+  'category-index-js-delete'      => 'Are you sure you want to delete the category: ',
+  'category-create-title'         => 'Create New Category',
+  'category-create-name'          => 'Name',
+  'category-create-color'         => 'Color',
+  'category-edit-title'           => 'Edit Category: :name',
 
 // tickets-admin/priority/____  
-  'priority-index-title'          => 'DE_Priorities Management',
-  'btn-create-new-priority'       => 'DE_Create new priority',
-  'priority-index-no-priorities'  => 'DE_There are no priorities, ',
-  'priority-index-create-new'     => 'DE_create new priority',
-  'priority-index-js-delete'      => 'DE_Are you sure you want to delete the priority: ',
-  'priority-create-title'         => 'DE_Create New Priority',
-  'priority-create-name'          => 'DE_Name',
-  'priority-create-color'         => 'DE_Color',
-  'priority-edit-title'           => 'DE_Edit Priority: :name',
+  'priority-index-title'          => 'Priorities Management',
+  'btn-create-new-priority'       => 'Create new priority',
+  'priority-index-no-priorities'  => 'There are no priorities, ',
+  'priority-index-create-new'     => 'create new priority',
+  'priority-index-js-delete'      => 'Are you sure you want to delete the priority: ',
+  'priority-create-title'         => 'Create New Priority',
+  'priority-create-name'          => 'Name',
+  'priority-create-color'         => 'Color',
+  'priority-edit-title'           => 'Edit Priority: :name',
 
 // tickets-admin/status/____
-  'status-index-title'            => 'DE_Statuses Management',
-  'btn-create-new-status'         => 'DE_Create new status',
-  'status-index-no-statuses'      => 'DE_There are no statues,',
-  'status-index-create-new'       => 'DE_create new status',
-  'status-index-js-delete'        => 'DE_Are you sure you want to delete the status: ',
-  'status-create-title'           => 'DE_Create New Status',
-  'status-create-name'            => 'DE_Name',
-  'status-create-color'           => 'DE_Color',
-  'status-edit-title'             => 'DE_Edit Status: :name',
+  'status-index-title'            => 'Statuses Management',
+  'btn-create-new-status'         => 'Create new status',
+  'status-index-no-statuses'      => 'There are no statues,',
+  'status-index-create-new'       => 'create new status',
+  'status-index-js-delete'        => 'Are you sure you want to delete the status: ',
+  'status-create-title'           => 'Create New Status',
+  'status-create-name'            => 'Name',
+  'status-create-color'           => 'Color',
+  'status-edit-title'             => 'Edit Status: :name',
+  
+// tickets-admin/configuration/____
+  'config-index-title'            => 'Configuration Settings', // New
+  'config-index-subtitle'         => 'Settings', // New
+  'btn-create-new-config'         => 'Add new setting', // New
+  'config-index-no-settings'      => 'There are no settings,', // New
+  'config-edit-title'             => 'Edit: Global Configuration', 
+  'config-edit-subtitle'          => 'Edit Setting',
+  'config-edit-id'                => 'ID',
+  'config-edit-slug'              => 'Slug',
+  'config-edit-default'           => 'Default value',
+  'config-edit-value'             => 'My value',
+  'config-edit-language'          => 'Language',
 
 ];

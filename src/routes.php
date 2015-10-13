@@ -44,4 +44,7 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], fu
 
 	//Agents management routes (ex. http://url/tickets-admin/agent)
 	resource("$admin_route/category", 'Kordy\Ticketit\Controllers\CategoriesController');
+
+	//Settings configuration routes (ex. http://url/tickets-admin/configuration)
+	resource("$admin_route/configuration", 'Kordy\Ticketit\Controllers\ConfigurationsController');  
 });

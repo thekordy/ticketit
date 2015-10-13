@@ -11,7 +11,10 @@ return [
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
   'nav-statuses'                  => 'Statuses',
+  'nav-configuration'             => 'Configuration',  // New
 
+
+  'table-hash'                    => '#', // New
   'table-id'                      => 'ID',
   'table-name'                    => 'Name',
   'table-action'                  => 'Action',
@@ -19,12 +22,19 @@ return [
   'table-join-category'           => 'Joined Categories',
   'table-remove-agent'            => 'Remove from agents',
 
+  'table-slug'                    => 'Slug', // New
+  'table-default'                 => 'Default Value', // New
+  'table-value'                   => 'My Value',  // New
+  'table-lang'                    => 'Lang', // New
+  'table-edit'                    => 'Edit', // New
+
   'btn-back'                      => 'Back',
   'btn-delete'                    => 'Delete',
   'btn-edit'                      => 'Edit', 
   'btn-join'                      => 'Join',  
   'btn-remove'                    => 'Remove',
   'btn-submit'                    => 'Submit',
+  'btn-save'                      => 'Save',  // New
   'btn-update'                    => 'Update',
   
   'colon'                         => ': ',
@@ -78,5 +88,18 @@ return [
   'status-create-name'            => 'Name',
   'status-create-color'           => 'Color',
   'status-edit-title'             => 'Edit Status: :name',
+  
+// tickets-admin/configuration/____
+  'config-index-title'            => 'Configuration Settings', // New
+  'config-index-subtitle'         => 'Settings', // New
+  'btn-create-new-config'         => 'Add new setting', // New
+  'config-index-no-settings'      => 'There are no settings,', // New
+  'config-edit-title'             => 'Edit: Global Configuration', 
+  'config-edit-subtitle'          => 'Edit Setting',
+  'config-edit-id'                => 'ID',
+  'config-edit-slug'              => 'Slug',
+  'config-edit-default'           => 'Default value',
+  'config-edit-value'             => 'My value',
+  'config-edit-language'          => 'Language',
 
 ];

@@ -37,19 +37,19 @@
     <br />
         <div class="tab-content">
             <div id="init-configs" class="tab-pane fade in active">
-                @include('ticketit::admin.configuration.init_table')
+                @include('ticketit::admin.configuration.tables.init_table')
             </div>
             <div id="ticket-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.ticket_table')
+                @include('ticketit::admin.configuration.tables.ticket_table')
             </div>
             <div id="email-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.email_table')
+                @include('ticketit::admin.configuration.tables.email_table')
             </div>
             <div id="perms-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.perms_table')
+                @include('ticketit::admin.configuration.tables.perms_table')
             </div>
             <div id="other-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.other_table')
+                @include('ticketit::admin.configuration.tables.other_table')
             </div>
         </div>
     @endif

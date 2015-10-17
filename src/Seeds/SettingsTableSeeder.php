@@ -122,7 +122,6 @@ class SettingsTableSeeder extends Seeder
             'email.color_header_bg' => '#44B7B7',
             'email.color_content_bg' => '#F46B45',
             'email.color_footer_bg' => '#414141',
-            'email.color_footer_bg' => '#414141',
             'email.color_button_bg' => '#AC4D2F',
             /*
              * The default status for new created tickets

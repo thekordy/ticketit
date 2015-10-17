@@ -9,7 +9,7 @@
           <th class="text-center">{{ trans('ticketit::admin.table-edit') }}</th>
         </thead>
         <tbody>
-@foreach($configurations as $configuration)
+@foreach($configurations_by_sections['init'] as $configuration)
           <tr>
             <td class="text-center">{!! $configuration->id !!}</td>
             <td>{!! $configuration->slug !!}</td>
@@ -20,7 +20,7 @@
               {!! link_to_route(
                   $setting->grab('admin_route').'.configuration.edit', trans('ticketit::admin.btn-edit'), [$configuration->id],
                   ['class' => 'btn btn-info', 'title' => trans('ticketit::admin.table-edit').' '.$configuration->slug,  'data-toggle' => 'tooltip'] )
-              !!}             
+              !!}
             </td>
           </tr>
 @endforeach

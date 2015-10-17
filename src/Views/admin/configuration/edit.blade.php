@@ -23,7 +23,7 @@
       </div>     
       <div class="panel-body">
         <div class="form-horizontal">
-          @include('common.errors')
+          @include('ticketit::shared.errors')
 {!! Form::model($configuration, ['route' => [$setting->grab('admin_route').'.configuration.update', $configuration->id], 'method' => 'patch']) !!}
 
               <!-- ID Field -->

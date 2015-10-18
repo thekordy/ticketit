@@ -14,7 +14,7 @@ class TicketitTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $email_domain = '@kordy.info';
+        $email_domain = '@example.com';
 
         // create agents
         for ($x = 1; $x <= 3; $x++) {

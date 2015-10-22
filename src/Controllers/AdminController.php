@@ -36,11 +36,4 @@ class AdminController extends Controller {
             ));
     }
 
-    public function demoDataSeeder() {
-        $seeder = new TicketitTableSeeder();
-        $seeder->run();
-        session()->flash('status', 'Demo tickets, users, and agents are seeded!');
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
-    }
-
 }

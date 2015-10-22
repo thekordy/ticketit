@@ -1,7 +1,9 @@
 <?php
+namespace Kordy\Ticketit\Seeds;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class TicketitTableSeeder extends Seeder
 {

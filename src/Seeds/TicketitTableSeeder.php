@@ -78,16 +78,16 @@ class TicketitTableSeeder extends Seeder
         }
 
         // create users
-        for ($x = 1; $x <= 3; $x++) {
+        for ($u = 1; $u <= 3; $u++) {
             $user_info = $this->randomUser();
-            $user_email = 'user'.$x.$email_domain;
+            $user_email = 'user'.$u.$email_domain;
             $user = new \App\User();
             $user->name = ucfirst($user_info['first']).' '.ucfirst($user_info['last']);
             $user->email = $user_email;
             $user->password = Hash::make('123321');
             $user->save();
 
-            for ($x = 0; $x <= 10; $x++) {
+            for ($t = 0; $t <= 10; $t++) {
 
                 $random_title_json = file_get_contents('http://www.randomtext.me/api/gibberish/h1/3-6');
                 $random_title_json = json_decode($random_title_json);
@@ -99,15 +99,17 @@ class TicketitTableSeeder extends Seeder
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
                 $agent = $category->agents()->first();
 
+                $rand_status = rand(1, 3);
+
                 $ticket = new \Kordy\Ticketit\Models\Ticket();
                 $ticket->subject = strip_tags($random_title_json->text_out);
                 $ticket->content = $random_content_json->text_out;
-                $ticket->status_id = rand(1, 3);
+                $ticket->status_id = $rand_status;
                 $ticket->priority_id = rand(1, 3);
                 $ticket->user_id = $user->id;
                 $ticket->agent_id = $agent->id;
                 $ticket->category_id = $rand_category;
-                if($rand_category = 2) $ticket->completed_at = \Carbon\Carbon::now();
+                if($rand_status == 2) $ticket->completed_at = \Carbon\Carbon::now();
                 $ticket->save();
             }
         }

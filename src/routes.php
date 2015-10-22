@@ -46,5 +46,8 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], fu
 	resource("$admin_route/category", 'Kordy\Ticketit\Controllers\CategoriesController');
 
 	//Settings configuration routes (ex. http://url/tickets-admin/configuration)
-	resource("$admin_route/configuration", 'Kordy\Ticketit\Controllers\ConfigurationsController');  
+	resource("$admin_route/configuration", 'Kordy\Ticketit\Controllers\ConfigurationsController');
+
+	//Tickets demo data route (ex. http://url/tickets-admin/demo-seeds/)
+	// get("$admin_route/demo-seeds", 'Kordy\Ticketit\Controllers\AdminController@demoDataSeeder');
 });

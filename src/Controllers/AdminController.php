@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Seeds\TicketitTableSeeder;
 
 class AdminController extends Controller {
 
@@ -33,6 +34,13 @@ class AdminController extends Controller {
                 'tickets_count',
                 'categories_count'
             ));
+    }
+
+    public function demoDataSeeder() {
+        $seeder = new TicketitTableSeeder();
+        $seeder->run();
+        session()->flash('status', 'Demo tickets, users, and agents are seeded!');
+        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
 
 }

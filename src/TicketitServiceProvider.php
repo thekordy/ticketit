@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
+use Kordy\Ticketit\Controllers\ToolsController;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
@@ -42,9 +43,10 @@ class TicketitServiceProvider extends ServiceProvider {
 
             // Passing to views the master view value from the setting file
             view()->composer('ticketit::*', function ($view) {
+                $tools = new ToolsController();
                 $master = Setting::grab('master_template');
                 $email = Setting::grab('email.template');
-                $view->with(compact('master', 'email'));
+                $view->with(compact('master', 'email', 'tools'));
             });
 
             // Send notification when new comment is added

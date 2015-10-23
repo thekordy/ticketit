@@ -49,13 +49,13 @@ class AdminController extends Controller {
         }
 
         // Per Category performance
-        $categories_performance = [];
-        foreach ($categories as $category) {
-            $categories_count[$category->name]['total'] = $category->tickets()->count();
-            $categories_count[$category->name]['open'] = $category->tickets()->whereNull('completed_at')->count();
-            $categories_count[$category->name]['closed'] = $category->tickets()->whereNotNull('completed_at')->count();
-            $categories_count[$category->name]['color'] = $category->color;
-        }
+//        $categories_performance = [];
+//        foreach ($categories as $category) {
+//            $categories_count[$category->name]['total'] = $category->tickets()->count();
+//            $categories_count[$category->name]['open'] = $category->tickets()->whereNull('completed_at')->count();
+//            $categories_count[$category->name]['closed'] = $category->tickets()->whereNotNull('completed_at')->count();
+//            $categories_count[$category->name]['color'] = $category->color;
+//        }
 
         return view(
             'ticketit::admin.index',

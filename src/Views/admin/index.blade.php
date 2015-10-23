@@ -152,7 +152,7 @@
     </div>
 @stop
 @section('footer')
-    @include('ticketit::shared.footer')
+    {{--@include('ticketit::shared.footer')--}}
     <script type="text/javascript"
             src="https://www.google.com/jsapi?autoload={
             'modules':[{

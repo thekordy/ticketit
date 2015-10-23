@@ -95,7 +95,7 @@ class TicketitServiceProvider extends ServiceProvider {
             $this->publishes([__DIR__ . '/Public' => public_path('vendor/ticketit')], 'public');
 
             // Check public assets are present, publish them if not
-            $installer->publicAssets();
+//            $installer->publicAssets();
 
             $main_route = Setting::grab('main_route');
             $admin_route = Setting::grab('admin_route');

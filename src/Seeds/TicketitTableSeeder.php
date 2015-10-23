@@ -1,6 +1,7 @@
 <?php
 namespace Kordy\Ticketit\Seeds;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -78,7 +79,7 @@ class TicketitTableSeeder extends Seeder
         }
 
         // create users
-        for ($u = 1; $u <= 3; $u++) {
+        for ($u = 1; $u <= 10; $u++) {
             $user_info = $this->randomUser();
             $user_email = 'user'.$u.$email_domain;
             $user = new \App\User();
@@ -109,7 +110,13 @@ class TicketitTableSeeder extends Seeder
                 $ticket->user_id = $user->id;
                 $ticket->agent_id = $agent->id;
                 $ticket->category_id = $rand_category;
-                if($rand_status == 2) $ticket->completed_at = \Carbon\Carbon::now();
+                $random_create = rand(1,90);
+                $ticket->created_at = \Carbon\Carbon::now()->subDays($random_create);
+                if($rand_status == 2) {
+                    $random_complete = rand(1,7);
+                    $created_date = new Carbon($ticket->created_at);
+                    $ticket->completed_at = $created_date->addDays($random_complete);
+                }
                 $ticket->save();
             }
         }

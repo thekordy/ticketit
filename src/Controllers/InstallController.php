@@ -18,12 +18,23 @@ class InstallController extends Controller
         '2015_10_08_123457_create_settings_table'
     ];
 
+    public function publicAssets() {
+        $public = $this->allFilesList(public_path('vendor/ticketit'));
+        $assets = $this->allFilesList(base_path('vendor/kordy/ticketit/src/Public'));
+        if( $public !== $assets ) {
+            Artisan::call('vendor:publish', [
+                '--provider' => 'Kordy\\Ticketit\\TicketitServiceProvider',
+                '--tag' => ['public']
+            ]);
+        }
+    }
+
     /*
      * Initial install form
      */
     public function index() {
 
-        $views_files_list = $this->viewsFilesList() + ['another' => trans('ticketit::install.another-file')];
+        $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
         $inactive_migrations = $this->inactiveMigrations();
         return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations'));
     }
@@ -91,14 +102,35 @@ class InstallController extends Controller
      * Get list of all files in the views folder
      * @return mixed
      */
-    public function viewsFilesList()
+    public function viewsFilesList($dir_path)
     {
-        $templates_list = File::files('../resources/views/');
-        foreach ($templates_list as $file_path) {
-            $path = basename($file_path);
-            $name = strstr(basename($file_path), '.', true);
+        $dir_files = File::files($dir_path);
+        $files = [];
+        foreach ($dir_files as $file) {
+            $path = basename($file);
+            $name = strstr(basename($file), '.', true);
             $files[$name] = $path;
         }
+        return $files;
+    }
+
+    /**
+     * Get list of all files in the views folder
+     * @return mixed
+     */
+    public function allFilesList($dir_path)
+    {
+
+        $files = [];
+        if (File::exists($dir_path)) {
+            $dir_files = File::allFiles($dir_path);
+            foreach ($dir_files as $file) {
+                $path = basename($file);
+                $name = strstr(basename($file), '.', true);
+                $files[$name] = $path;
+            }
+        }
+
         return $files;
     }
 

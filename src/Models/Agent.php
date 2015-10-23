@@ -11,18 +11,31 @@ class Agent extends User
 
     /**
      * list of all agents and returning collection
-     * @param integer $cat_id
+     * @param $query
      * @return bool
+     * @internal param int $cat_id
      */
     public function scopeAgents($query)
     {
         return $query->where('ticketit_agent', '1')->get();
     }
+    /**
+     * list of all agents and returning collection
+     * @param $query
+     * @return bool
+     * @internal param int $cat_id
+     */
+
+    public function scopeUsers($query)
+    {
+        return $query->where('ticketit_agent', '0')->get();
+    }
 
     /**
      * list of all agents and returning lists array of id and name
-     * @param integer $cat_id
+     * @param $query
      * @return bool
+     * @internal param int $cat_id
      */
     public function scopeAgentsLists($query)
     {

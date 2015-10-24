@@ -107,18 +107,20 @@
                             <em>Open / Closed</em>
                         </span>
                     </a>
-                    @foreach($tools->sortArray( $categories_count, 'total', $type = 'desc' ) as $category_name => $category_counts)
+                    @foreach($categories as $category)
                         <a href="#" class="list-group-item">
-                    <span style="color: {{ $category_counts['color'] }}">
-                        {{ $category_name }} <span class="badge">{{ $category_counts['total'] }}</span>
+                    <span style="color: {{ $category->color }}">
+                        {{ $category->name }} <span class="badge">{{ $category->tickets()->count() }}</span>
                     </span>
                     <span class="pull-right text-muted small">
                         <em>
-                            {{ $category_counts['open'] }} / {{ $category_counts['closed'] }}
+                            {{ $category->tickets()->whereNull('completed_at')->count() }} /
+                             {{ $category->tickets()->whereNotNull('completed_at')->count() }}
                         </em>
                     </span>
                         </a>
                     @endforeach
+                    {!! $categories->render() !!}
                 </div>
                 <div id="information-panel-agents" class="list-group tab-pane fade">
                     <a href="#" class="list-group-item disabled">
@@ -127,18 +129,24 @@
                             <em>Open / Closed</em>
                         </span>
                     </a>
-                    @foreach($tools->sortArray( $agents_count, 'total', $type = 'desc' ) as $agent_name => $agent_counts)
+                    @foreach($agents as $agent)
                         <a href="#" class="list-group-item">
                             <span>
-                                {{ $agent_name }} <span class="badge">{{ $agent_counts['total'] }}</span>
+                                {{ $agent->name }}
+                                <span class="badge">
+                                    {{ $agent->agentTickets(false)->whereNull('completed_at')->count()  +
+                                     $agent->agentTickets(true)->whereNotNull('completed_at')->count() }}
+                                </span>
                             </span>
                             <span class="pull-right text-muted small">
                                 <em>
-                                    {{ $agent_counts['open'] }} / {{ $agent_counts['closed'] }}
+                                    {{ $agent->agentTickets(false)->whereNull('completed_at')->count() }} /
+                                     {{ $agent->agentTickets(true)->whereNotNull('completed_at')->count() }}
                                 </em>
                             </span>
                         </a>
                     @endforeach
+                    {!! $agents->render() !!}
                 </div>
                 <div id="information-panel-users" class="list-group tab-pane fade">
                     <a href="#" class="list-group-item disabled">
@@ -147,18 +155,24 @@
                             <em>Open / Closed</em>
                         </span>
                     </a>
-                    @foreach($tools->sortArray( $users_count, 'total', $type = 'desc' ) as $user_name => $user_counts)
+                    @foreach($users as $user)
                         <a href="#" class="list-group-item">
                             <span>
-                                {{ $user_name }} <span class="badge">{{ $user_counts['total'] }}</span>
+                                {{ $user->name }}
+                                <span class="badge">
+                                    {{ $user->userTickets(false)->whereNull('completed_at')->count()  +
+                                     $user->userTickets(true)->whereNotNull('completed_at')->count() }}
+                                </span>
                             </span>
                             <span class="pull-right text-muted small">
                                 <em>
-                                    {{ $user_counts['open'] }} / {{ $user_counts['closed'] }}
+                                    {{ $user->userTickets(false)->whereNull('completed_at')->count() }} /
+                                    {{ $user->userTickets(true)->whereNotNull('completed_at')->count() }}
                                 </em>
                             </span>
                         </a>
                     @endforeach
+                    {!! $users->render() !!}
                 </div>
             </div>
         </div>

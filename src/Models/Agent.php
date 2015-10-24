@@ -15,9 +15,13 @@ class Agent extends User
      * @return bool
      * @internal param int $cat_id
      */
-    public function scopeAgents($query)
+    public function scopeAgents($query, $paginate = false)
     {
-        return $query->where('ticketit_agent', '1')->get();
+        if ($paginate) {
+            return $query->where('ticketit_agent', '1')->paginate(10,['*'],'agents_page');
+        } else {
+            return $query->where('ticketit_agent', '1')->get();
+        }
     }
     /**
      * list of all agents and returning collection
@@ -26,9 +30,13 @@ class Agent extends User
      * @internal param int $cat_id
      */
 
-    public function scopeUsers($query)
+    public function scopeUsers($query, $paginate = false)
     {
-        return $query->where('ticketit_agent', '0')->get();
+        if ($paginate) {
+            return $query->where('ticketit_agent', '0')->paginate(10,['*'],'users_page');
+        } else {
+            return $query->where('ticketit_agent', '0')->get();
+        }
     }
 
     /**

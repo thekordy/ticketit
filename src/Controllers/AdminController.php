@@ -17,8 +17,22 @@ class AdminController extends Controller {
         $open_tickets_count = Ticket::whereNull('completed_at')->count();
         $closed_tickets_count = Ticket::whereNotNull('completed_at')->count();
 
-        // Per Category
+        // Per Category pagination
         $categories = Category::paginate(10,['*'],'cat_page');
+
+        // Total tickets counter per category for google pie chart
+        $categories_all = Category::all();
+        $categories_share = [];
+        foreach ($categories_all as $cat) {
+            $categories_share[$cat->name] = $cat->tickets()->count();
+        }
+
+        // Total tickets counter per agent for google pie chart
+        $agents_all = Agent::agents();
+        $agents_share = [];
+        foreach ($agents_all as $agent_single) {
+            $agents_share[$agent_single->name] = $agent_single->agentTickets(false)->count() + $agent_single->agentTickets(true)->count();
+        }
 
         // Per Agent
         $agents = Agent::agents(10);
@@ -26,7 +40,7 @@ class AdminController extends Controller {
         // Per User
         $users = Agent::users(10);
 
-        // Per Category performance
+        // Per Category performance data for google graph
         $monthly_performance = $this->monthlyPerfomance($indicator_period);
 
         return view(
@@ -38,7 +52,9 @@ class AdminController extends Controller {
                 'categories',
                 'agents',
                 'users',
-                'monthly_performance'
+                'monthly_performance',
+                'categories_share',
+                'agents_share'
             ));
     }
 

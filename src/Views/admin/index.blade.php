@@ -1,13 +1,13 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::admin.index-title') }}	
+    {{ trans('ticketit::admin.index-title') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.header')
     <div class="row">
-        <div class="col-lg-3 col-md-4">
+        <div class="col-lg-3 col-md-4 col-lg-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
@@ -75,6 +75,28 @@
                 </div>
                 <div class="panel-body">
                     <div id="curve_chart" style="width: 100%; height: 350px"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Categories tickets share
+                        </div>
+                        <div class="panel-body">
+                            <div id="catpiechart" style="width: auto; height: 350;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Agents tickets share
+                        </div>
+                        <div class="panel-body">
+                            <div id="agentspiechart" style="width: auto; height: 350;"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,6 +214,7 @@
     <script type="text/javascript">
         google.setOnLoadCallback(drawChart);
 
+        // performance line chart
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 @foreach($monthly_performance as $google_data_arr)
@@ -212,6 +235,49 @@
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
             chart.draw(data, options);
+
+            // Categories Pie Chart
+            var cat_data = google.visualization.arrayToDataTable([
+              ['Category', 'Tickets'],
+              @foreach($categories_share as $cat_name => $cat_tickets)
+                  @if($cat_tickets != end($categories_share))
+                      ['{{ $cat_name }}', {{ $cat_tickets }}],
+                  @else
+                      ['{{ $cat_name }}', {{ $cat_tickets }}]
+                  @endif
+              @endforeach
+            ]);
+
+            var cat_options = {
+              title: 'Tickets distribution per category',
+              legend: {position: 'bottom'}
+            };
+
+            var cat_chart = new google.visualization.PieChart(document.getElementById('catpiechart'));
+
+            cat_chart.draw(cat_data, cat_options);
+
+            // Agents Pie Chart
+            var agent_data = google.visualization.arrayToDataTable([
+              ['Agent', 'Assigned Tickets'],
+              @foreach($agents_share as $agent_name => $agent_tickets)
+                  @if($agent_tickets != end($agents_share))
+                      ['{{ $agent_name }}', {{ $agent_tickets }}],
+                  @else
+                      ['{{ $agent_name }}', {{ $agent_tickets }}]
+                  @endif
+              @endforeach
+            ]);
+
+            var agent_options = {
+              title: 'Tickets distribution per Agent',
+              legend: {position: 'bottom'}
+            };
+
+            var agent_chart = new google.visualization.PieChart(document.getElementById('agentspiechart'));
+
+            agent_chart.draw(agent_data, agent_options);
+
         }
     </script>
 @stop

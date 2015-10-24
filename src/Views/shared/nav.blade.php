@@ -3,10 +3,30 @@
         <ul class="nav nav-pills">
 
             <li role="presentation" class="{!! Request::is($setting->grab('main_route')) ? "active" : "" !!}">
-                <a href="/{{ $setting->grab('main_route') }}">{{ trans('ticketit::lang.nav-active-tickets') }}</a>
+                <a href="/{{ $setting->grab('main_route') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
+                    @if($u->isAgent())
+                        <span class="badge">
+                            {{ $u->agentTickets(false)->whereNull('completed_at')->count() }}
+                        </span>
+                    @else
+                        <span class="badge">
+                            {{ $u->userTickets(false)->whereNull('completed_at')->count() }}
+                        </span>
+                    @endif
+                </a>
             </li>
             <li role="presentation" class="{!! Request::is($setting->grab('main_route').'/complete') ? "active" : "" !!}">
-                <a href="/{{ $setting->grab('main_route') . '/complete' }}">{{ trans('ticketit::lang.nav-completed-tickets') }}</a>
+                <a href="/{{ $setting->grab('main_route') . '/complete' }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
+                    @if($u->isAgent())
+                        <span class="badge">
+                            {{ $u->agentTickets(true)->whereNotNull('completed_at')->count() }}
+                        </span>
+                    @else
+                        <span class="badge">
+                            {{ $u->userTickets(true)->whereNotNull('completed_at')->count() }}
+                        </span>
+                    @endif
+                </a>
             </li>
 
             @if($u->isAdmin())

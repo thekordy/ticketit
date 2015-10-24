@@ -31,6 +31,10 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], fu
 
 Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () use ($admin_route) {
 	//Ticket admin index route (ex. http://url/tickets-admin/)
+	get("$admin_route/indicator/{indicator_period?}", [
+			'as' => 'dashboard.indicator',
+			'uses' => 'Kordy\Ticketit\Controllers\AdminController@index'
+	]);
 	get($admin_route, 'Kordy\Ticketit\Controllers\AdminController@index');
 
 	//Ticket statuses admin routes (ex. http://url/tickets-admin/status)

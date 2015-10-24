@@ -58,10 +58,23 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                    <i class="fa fa-bar-chart-o fa-fw"></i> Performance Indicator
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Periods
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="{{ route('dashboard.indicator', 2) }}">3 months</a></li>
+                                <li><a href="{{ route('dashboard.indicator', 5) }}">6 months</a></li>
+                                <li><a href="{{ route('dashboard.indicator', 11) }}">12 months</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel-body">
-                    <div id="curve_chart" style="width: 100%; height: auto"></div>
+                    <div id="curve_chart" style="width: 100%; height: 350px"></div>
                 </div>
             </div>
         </div>
@@ -167,16 +180,19 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004',  1000,      400],
-                ['2005',  1170,      460],
-                ['2006',  660,       1120],
-                ['2007',  1030,      540]
+                @foreach($monthly_performance as $google_data_arr)
+                    @if($google_data_arr != end($monthly_performance))
+                        [{!! implode(',', $google_data_arr) !!}],
+                    @else
+                        [{!! implode(',', $google_data_arr) !!}]
+                    @endif
+                @endforeach
             ]);
 
             var options = {
+                title: 'Support Performance',
                 curveType: 'function',
-                legend: { position: 'bottom' }
+                legend: {position: 'right'}
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));

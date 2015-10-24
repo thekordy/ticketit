@@ -156,14 +156,14 @@
                             <span>
                                 {{ $agent->name }}
                                 <span class="badge">
-                                    {{ $agent->agentTickets(false)->whereNull('completed_at')->count()  +
-                                     $agent->agentTickets(true)->whereNotNull('completed_at')->count() }}
+                                    {{ $agent->agentTickets(false)->count()  +
+                                     $agent->agentTickets(true)->count() }}
                                 </span>
                             </span>
                             <span class="pull-right text-muted small">
                                 <em>
-                                    {{ $agent->agentTickets(false)->whereNull('completed_at')->count() }} /
-                                     {{ $agent->agentTickets(true)->whereNotNull('completed_at')->count() }}
+                                    {{ $agent->agentTickets(false)->count() }} /
+                                     {{ $agent->agentTickets(true)->count() }}
                                 </em>
                             </span>
                         </a>
@@ -182,14 +182,14 @@
                             <span>
                                 {{ $user->name }}
                                 <span class="badge">
-                                    {{ $user->userTickets(false)->whereNull('completed_at')->count()  +
-                                     $user->userTickets(true)->whereNotNull('completed_at')->count() }}
+                                    {{ $user->userTickets(false)->count()  +
+                                     $user->userTickets(true)->count() }}
                                 </span>
                             </span>
                             <span class="pull-right text-muted small">
                                 <em>
-                                    {{ $user->userTickets(false)->whereNull('completed_at')->count() }} /
-                                    {{ $user->userTickets(true)->whereNotNull('completed_at')->count() }}
+                                    {{ $user->userTickets(false)->count() }} /
+                                    {{ $user->userTickets(true)->count() }}
                                 </em>
                             </span>
                         </a>

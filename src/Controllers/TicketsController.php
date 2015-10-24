@@ -35,7 +35,7 @@ class TicketsController extends Controller
         $user = $this->agent->find(auth()->user()->id);
 
         if ($complete) {
-            $collection = $user->getTickets(true)->complete();
+            $collection = $user->getTickets(true);
         } else {
             $collection = $user->getTickets();
         }

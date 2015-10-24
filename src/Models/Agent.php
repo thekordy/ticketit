@@ -5,6 +5,7 @@ namespace Kordy\Ticketit\Models;
 use App\User;
 use Auth;
 use Kordy\Ticketit\Models\Setting;
+use Kordy\Ticketit\Models\Ticket;
 
 class Agent extends User
 {
@@ -162,16 +163,25 @@ class Agent extends User
         }
     }
 
+    public function allTickets($complete = false)
+    {
+        if ($complete) {
+            return Ticket::whereNotNull('completed_at');
+        } else {
+            return Ticket::whereNull('completed_at');
+        }
+    }
+
     public function getTickets($complete = false)
     {
         $user = Agent::find(auth()->user()->id);
 
         if ($user->isAdmin()) {
-            $tickets = $user->tickets($complete)->active();
+            $tickets = $user->allTickets($complete);
         } elseif ($user->isAgent()) {
-            $tickets = $user->agentTickets();
+            $tickets = $user->agentTickets($complete);
         } else {
-            $tickets = $user->userTickets();
+            $tickets = $user->userTickets($complete);
         }
 
         return $tickets;

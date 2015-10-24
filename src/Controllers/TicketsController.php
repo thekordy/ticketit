@@ -8,6 +8,7 @@ use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use yajra\Datatables\Datatables;
@@ -385,6 +386,75 @@ class TicketsController extends Controller
             return 'yes';
         }
         return 'no';
+    }
+
+    /**
+     * Calculate average closing period of days per category for number of months
+     * @param int $period
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function monthlyPerfomance($period = 2)
+    {
+        $categories = Category::all();
+        $intervals[0][] = '"Month"';
+        foreach ($categories as $cat) {
+            $intervals[0][] = '"'.$cat->name.'"';
+        }
+
+        for ($m = $period; $m >= 0; $m--) {
+            $from = Carbon::now()->subMonth($m);
+            $from->day = 1;
+            $to = Carbon::now()->subMonth($m)->endOfMonth();
+            $intervals[$m+1][] = '"'.$from->format('F Y').'"';
+            foreach ($categories as $cat) {
+                $intervals[$m+1][] = round($this->intervalPerformance($from, $to, $cat->id), 1);
+            }
+        }
+        return $intervals;
+    }
+
+
+    /**
+     * Calculate the date length it took to solve a ticket
+     * @param Ticket $ticket
+     * @return integer|false
+     */
+    public function ticketPerformance($ticket) {
+        if ($ticket->completed_at == null)
+            return false;
+
+        $created = new Carbon($ticket->created_at);
+        $completed = new Carbon($ticket->completed_at);
+        $length = $created->diff($completed)->days;
+
+        return $length;
+    }
+
+    /**
+     * Calculate the average date length it took to solve tickets within date period
+     * @param $from
+     * @param $to
+     * @return int
+     */
+    public function intervalPerformance($from, $to, $cat_id = false ) {
+        if ($cat_id) {
+            $tickets = Ticket::where('category_id', $cat_id)->whereBetween('completed_at', array($from, $to))->get();
+        } else {
+            $tickets = Ticket::whereBetween('completed_at', array($from, $to))->get();
+        }
+
+        if(empty($tickets->first())) {
+            return false;
+        }
+
+        $performance_count = 0;
+        $counter = 0;
+        foreach ($tickets as $ticket) {
+            $performance_count += $this->ticketPerformance($ticket);
+            $counter++;
+        }
+        $performance_average = $performance_count / $counter;
+        return $performance_average;
     }
 
 }

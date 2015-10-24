@@ -190,7 +190,7 @@
             ]);
 
             var options = {
-                title: 'Support Performance',
+                title: 'How many days in average to resolve a ticket?',
                 curveType: 'function',
                 legend: {position: 'right'}
             };

@@ -217,11 +217,12 @@
         // performance line chart
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                @foreach($monthly_performance as $google_data_arr)
-                    @if($google_data_arr != end($monthly_performance))
-                        [{!! implode(',', $google_data_arr) !!}],
+                ["Month", "{!! implode('", "', $monthly_performance['categories']) !!}"],
+                @foreach($monthly_performance['interval'] as $month => $records)
+                    @if($records != end($monthly_performance['interval']))
+                        ["{{ $month }}", {!! implode(',', $records) !!}],
                     @else
-                        [{!! implode(',', $google_data_arr) !!}]
+                        ["{{ $month }}", {!! implode(',', $records) !!}]
                     @endif
                 @endforeach
             ]);

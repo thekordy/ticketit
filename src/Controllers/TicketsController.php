@@ -396,21 +396,20 @@ class TicketsController extends Controller
     public function monthlyPerfomance($period = 2)
     {
         $categories = Category::all();
-        $intervals[0][] = '"Month"';
         foreach ($categories as $cat) {
-            $intervals[0][] = '"'.$cat->name.'"';
+            $records['categories'][] = $cat->name;
         }
 
         for ($m = $period; $m >= 0; $m--) {
             $from = Carbon::now()->subMonth($m);
             $from->day = 1;
             $to = Carbon::now()->subMonth($m)->endOfMonth();
-            $intervals[$m+1][] = '"'.$from->format('F Y').'"';
+            $records['interval'][$from->format('F Y')] = [];
             foreach ($categories as $cat) {
-                $intervals[$m+1][] = round($this->intervalPerformance($from, $to, $cat->id), 1);
+                $records['interval'][$from->format('F Y')][] = round($this->intervalPerformance($from, $to, $cat->id), 1);
             }
         }
-        return $intervals;
+        return $records;
     }
 
 

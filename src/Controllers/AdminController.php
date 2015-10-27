@@ -41,7 +41,7 @@ class AdminController extends Controller {
         // Per User
         $users = Agent::users(10);
 
-        // Per Category performance data for google graph
+        // Per Category performance data 
         $ticketController = new TicketsController(new Ticket, new Agent);
         $monthly_performance = $ticketController->monthlyPerfomance($indicator_period);
 

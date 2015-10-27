@@ -39,6 +39,11 @@ class Setting extends Model
      */
     public static function grab($slug)
     {
+        /**
+         * Comment out prior to 0.2 launch. Will cause massive amount
+         * of Database queries. Only for adding new settings while
+         * in development and testing.
+         */
         Cache::forget('settings');
 
         $settings = Cache::remember('settings', 60, function () {

@@ -116,7 +116,7 @@
                 </li>
                 <li>
                     <a data-toggle="pill" href="#information-panel-users">
-                        <i class="glyphicon glyphicon-user"></i> <small>users</small>
+                        <i class="glyphicon glyphicon-user"></i> <small>Users</small>
                     </a>
                 </li>
             </ul>

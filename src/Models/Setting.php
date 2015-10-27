@@ -67,12 +67,6 @@ class Setting extends Model
             return $setting;
         }
 
-        if (Setting::is_serialized($setting->default)) {
-            $setting = unserialize($setting->default);
-        } else {
-            $setting = $setting->default;
-        }
-
         return $setting;
 
     }

@@ -6,7 +6,7 @@ return [
   *  Constants
   */
   
-  'nav-agents'                    => 'Agent',
+  'nav-agents'                    => 'Agents',
   'nav-dashboard'                 => 'Dashboard',
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
@@ -43,9 +43,34 @@ return [
   */
 
 // tickets-admin/____
-  'index-title'                   => 'Tickets System Dashboard',
+  'index-title'                         => 'Tickets System Dashboard',
+  'index-empty-records'                 => 'No tickets yet',
+  'index-total-tickets'                 => 'Total tickets',
+  'index-open-tickets'                  => 'Open tickets',
+  'index-closed-tickets'                => 'Closed tickets',
+  'index-performance-indicator'         => 'Performance Indicator',
+  'index-periods'                       => 'Periods',
+  'index-3-months'                      => '3 months',
+  'index-6-months'                      => '6 months',
+  'index-11-months'                     => '11 months',
+  'index-tickets-share-per-category'    => 'Tickets share per category',
+  'index-tickets-share-per-agent'       => 'Tickets share per agent',
+  'index-categories'                    => 'Categories',
+  'index-category'                      => 'Category',
+  'index-agents'                        => 'Agents',
+  'index-agent'                         => 'Agent',
+  'index-users'                         => 'Users',
+  'index-user'                          => 'User',
+  'index-tickets'                       => 'Tickets',
+  'index-open'                          => 'Open',
+  'index-closed'                        => 'Closed',
+  'index-total'                         => 'Total',
+  'index-month'                         => 'Month',
+  'index-performance-chart'             => 'How many days in average to resolve a ticket?',
+  'index-categories-chart'              => 'Tickets distribution per category',
+  'index-agents-chart'                  => 'Tickets distribution per Agent',
 
-// tickets-admin/agent/____  
+// tickets-admin/agent/____
   'agent-index-title'             => 'Agent Management',
   'btn-create-new-agent'          => 'Create new agent',
   'agent-index-no-agents'         => 'There are no agents, ',

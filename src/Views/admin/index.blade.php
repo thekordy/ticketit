@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <h1>{{ $tickets_count }}</h1>
-                                <div>Total Tickets</div>
+                                <div>{{ trans('ticketit::admin.index-total-tickets') }}</div>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <h1>{{ $open_tickets_count }}</h1>
-                                <div>Open Tickets</div>
+                                <div>{{ trans('ticketit::admin.index-open-tickets') }}</div>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <h1>{{ $closed_tickets_count }}</h1>
-                                <span>Closed Tickets</span>
+                                <span>{{ trans('ticketit::admin.index-closed-tickets') }}</span>
                             </div>
                         </div>
                     </div>
@@ -59,17 +59,29 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Performance Indicator
+                        <i class="fa fa-bar-chart-o fa-fw"></i> {{ trans('ticketit::admin.index-performance-indicator') }}
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    Periods
+                                    {{ trans('ticketit::admin.index-periods') }}
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu pull-right" role="menu">
-                                    <li><a href="{{ route('dashboard.indicator', 2) }}">3 months</a></li>
-                                    <li><a href="{{ route('dashboard.indicator', 5) }}">6 months</a></li>
-                                    <li><a href="{{ route('dashboard.indicator', 11) }}">12 months</a></li>
+                                    <li>
+                                        <a href="{{ route('dashboard.indicator', 2) }}">
+                                            {{ trans('ticketit::admin.index-3-months') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('dashboard.indicator', 5) }}">
+                                            {{ trans('ticketit::admin.index-6-months') }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('dashboard.indicator', 11) }}">
+                                            {{ trans('ticketit::admin.index-12-months') }}
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -82,7 +94,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Categories tickets share
+                                {{ trans('ticketit::admin.index-tickets-share-per-category') }}
                             </div>
                             <div class="panel-body">
                                 <div id="catpiechart" style="width: auto; height: 350;"></div>
@@ -92,7 +104,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Agents tickets share
+                                {{ trans('ticketit::admin.index-tickets-share-per-agent') }}
                             </div>
                             <div class="panel-body">
                                 <div id="agentspiechart" style="width: auto; height: 350;"></div>
@@ -107,17 +119,20 @@
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active">
                         <a data-toggle="pill" href="#information-panel-categories">
-                            <i class="glyphicon glyphicon-folder-close"></i> <small>Categories</small>
+                            <i class="glyphicon glyphicon-folder-close"></i>
+                            <small>{{ trans('ticketit::admin.index-categories') }}</small>
                         </a>
                     </li>
                     <li>
                         <a data-toggle="pill" href="#information-panel-agents">
-                            <i class="glyphicon glyphicon-user"></i> <small>Agents</small>
+                            <i class="glyphicon glyphicon-user"></i>
+                            <small>{{ trans('ticketit::admin.index-agents') }}</small>
                         </a>
                     </li>
                     <li>
                         <a data-toggle="pill" href="#information-panel-users">
-                            <i class="glyphicon glyphicon-user"></i> <small>Users</small>
+                            <i class="glyphicon glyphicon-user"></i>
+                            <small>{{ trans('ticketit::admin.index-users') }}</small>
                         </a>
                     </li>
                 </ul>
@@ -125,9 +140,14 @@
                 <div class="tab-content">
                     <div id="information-panel-categories" class="list-group tab-pane fade in active">
                         <a href="#" class="list-group-item disabled">
-                            <span>Category <span class="badge">Total</span></span>
+                            <span>{{ trans('ticketit::admin.index-category') }}
+                                <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>
+                            </span>
                             <span class="pull-right text-muted small">
-                                <em>Open / Closed</em>
+                                <em>
+                                    {{ trans('ticketit::admin.index-open') }} /
+                                     {{ trans('ticketit::admin.index-closed') }}
+                                </em>
                             </span>
                         </a>
                         @foreach($categories as $category)
@@ -147,9 +167,14 @@
                     </div>
                     <div id="information-panel-agents" class="list-group tab-pane fade">
                         <a href="#" class="list-group-item disabled">
-                            <span>Agent <span class="badge">Total</span></span>
+                            <span>{{ trans('ticketit::admin.index-agent') }}
+                                <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>
+                            </span>
                             <span class="pull-right text-muted small">
-                                <em>Open / Closed</em>
+                                <em>
+                                    {{ trans('ticketit::admin.index-open') }} /
+                                    {{ trans('ticketit::admin.index-closed') }}
+                                </em>
                             </span>
                         </a>
                         @foreach($agents as $agent)
@@ -173,9 +198,14 @@
                     </div>
                     <div id="information-panel-users" class="list-group tab-pane fade">
                         <a href="#" class="list-group-item disabled">
-                            <span>Ticket Owner <span class="badge">Total</span></span>
+                            <span>{{ trans('ticketit::admin.index-user') }}
+                                <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>
+                            </span>
                             <span class="pull-right text-muted small">
-                                <em>Open / Closed</em>
+                                <em>
+                                    {{ trans('ticketit::admin.index-open') }} /
+                                    {{ trans('ticketit::admin.index-closed') }}
+                                </em>
                             </span>
                         </a>
                         @foreach($users as $user)
@@ -224,7 +254,7 @@
         // performance line chart
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ["Month", "{!! implode('", "', $monthly_performance['categories']) !!}"],
+                ["{{ trans('ticketit::admin.index-month') }}", "{!! implode('", "', $monthly_performance['categories']) !!}"],
                 @foreach($monthly_performance['interval'] as $month => $records)
                     @if($records != end($monthly_performance['interval']))
                         ["{{ $month }}", {!! implode(',', $records) !!}],
@@ -235,7 +265,7 @@
             ]);
 
             var options = {
-                title: 'How many days in average to resolve a ticket?',
+                title: '{{ trans('ticketit::admin.index-performance-chart') }}',
                 curveType: 'function',
                 legend: {position: 'right'}
             };
@@ -246,7 +276,7 @@
 
             // Categories Pie Chart
             var cat_data = google.visualization.arrayToDataTable([
-              ['Category', 'Tickets'],
+              ['{{ trans('ticketit::admin.index-category') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
               @foreach($categories_share as $cat_name => $cat_tickets)
                   @if($cat_tickets != end($categories_share))
                       ['{{ $cat_name }}', {{ $cat_tickets }}],
@@ -257,7 +287,7 @@
             ]);
 
             var cat_options = {
-              title: 'Tickets distribution per category',
+              title: '{{ trans('ticketit::admin.index-categories-chart') }}',
               legend: {position: 'bottom'}
             };
 
@@ -267,7 +297,7 @@
 
             // Agents Pie Chart
             var agent_data = google.visualization.arrayToDataTable([
-              ['Agent', 'Assigned Tickets'],
+              ['{{ trans('ticketit::admin.index-agent') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
               @foreach($agents_share as $agent_name => $agent_tickets)
                   @if($agent_tickets != end($agents_share))
                       ['{{ $agent_name }}', {{ $agent_tickets }}],
@@ -278,7 +308,7 @@
             ]);
 
             var agent_options = {
-              title: 'Tickets distribution per Agent',
+              title: '{{ trans('ticketit::admin.index-agents-chart') }}',
               legend: {position: 'bottom'}
             };
 

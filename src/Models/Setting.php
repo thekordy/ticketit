@@ -57,16 +57,11 @@ class Setting extends Model
             return trans($setting->lang);
         }
 
-        if ($setting->value) {
-
-            if (Setting::is_serialized($setting->value)) {
-                $setting = unserialize($setting->value);
-            } else {
-                $setting = $setting->value;
-            }
-            return $setting;
+        if (Setting::is_serialized($setting->value)) {
+            $setting = unserialize($setting->value);
+        } else {
+            $setting = $setting->value;
         }
-
         return $setting;
 
     }
@@ -77,6 +72,7 @@ class Setting extends Model
      *
      * @param $data
      * @param $strict
+     * @return bool
      */
     public static function is_serialized($data, $strict = true)
     {

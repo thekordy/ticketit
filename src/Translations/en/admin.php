@@ -52,7 +52,7 @@ return [
   'index-periods'                       => 'Periods',
   'index-3-months'                      => '3 months',
   'index-6-months'                      => '6 months',
-  'index-11-months'                     => '11 months',
+  'index-12-months'                     => '12 months',
   'index-tickets-share-per-category'    => 'Tickets share per category',
   'index-tickets-share-per-agent'       => 'Tickets share per agent',
   'index-categories'                    => 'Categories',

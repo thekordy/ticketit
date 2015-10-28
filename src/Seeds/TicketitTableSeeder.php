@@ -90,11 +90,11 @@ class TicketitTableSeeder extends Seeder
 
             for ($t = 0; $t <= 10; $t++) {
 
-                $random_title_json = file_get_contents('http://www.randomtext.me/api/gibberish/h1/3-6');
-                $random_title_json = json_decode($random_title_json);
+                $random_title_content = file_get_contents('http://loripsum.net/api/1/short/plaintext');
+                $random_title_length = rand(-10, -50);
+                $random_title = substr($random_title_content, $random_title_length);
 
-                $random_content_json = file_get_contents('http://www.randomtext.me/api/gibberish/p-2/35-75');
-                $random_content_json = json_decode($random_content_json);
+                $random_content = file_get_contents('http://loripsum.net/api');
 
                 $rand_category = rand(1, 3);
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
@@ -103,8 +103,8 @@ class TicketitTableSeeder extends Seeder
                 $rand_status = rand(1, 3);
 
                 $ticket = new \Kordy\Ticketit\Models\Ticket();
-                $ticket->subject = strip_tags($random_title_json->text_out);
-                $ticket->content = $random_content_json->text_out;
+                $ticket->subject = $random_title;
+                $ticket->content = $random_content;
                 $ticket->status_id = $rand_status;
                 $ticket->priority_id = rand(1, 3);
                 $ticket->user_id = $user->id;

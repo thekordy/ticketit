@@ -401,9 +401,13 @@ class TicketsController extends Controller
         }
 
         for ($m = $period; $m >= 0; $m--) {
-            $from = Carbon::now()->subMonth($m);
+            $from = Carbon::now();
             $from->day = 1;
-            $to = Carbon::now()->subMonth($m)->endOfMonth();
+            $from->subMonth($m);
+            $to = Carbon::now();
+            $to->day = 1;
+            $to->subMonth($m);
+            $to->endOfMonth();
             $records['interval'][$from->format('F Y')] = [];
             foreach ($categories as $cat) {
                 $records['interval'][$from->format('F Y')][] = round($this->intervalPerformance($from, $to, $cat->id), 1);

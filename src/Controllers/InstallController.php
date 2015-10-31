@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Seeds\SettingsTableSeeder;
+use Kordy\Ticketit\Seeds\TicketitTableSeeder;
 
 class InstallController extends Controller
 {

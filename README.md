@@ -55,7 +55,7 @@ Default ticketit admin route: http://your-project-url/tickets-admin
 [Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
 
 ## Live Demo
-http://ticketit.kordy.info
+http://ticketit.kordy.info/tickets
 
 ## Credits
 Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.

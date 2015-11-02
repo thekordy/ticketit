@@ -45,6 +45,7 @@ Step 3. [Setting up your master view for Ticketit integration (1-2 minutes)](htt
 Step 4. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
 
 Default ticketit front route: http://your-project-url/tickets
+
 Default ticketit admin route: http://your-project-url/tickets-admin
 
 ## Documentation

@@ -118,6 +118,11 @@ return [
   'config-index-subtitle'         => 'Settings', // New
   'btn-create-new-config'         => 'Add new setting', // New
   'config-index-no-settings'      => 'There are no settings,', // New
+  'config-index-initial'          => 'Initial', // New
+  'config-index-tickets'          => 'Tickets', // New
+  'config-index-notifications'    => 'Notifications', // New
+  'config-index-permissions'      => 'Permissions', // New
+  'config-index-other'            => 'Other', // New
   'config-create-title'           => 'Create: New Global Setting', // New
   'config-create-subtitle'        => 'Create Setting', // New  
   'config-edit-title'             => 'Edit: Global Configuration', // New 

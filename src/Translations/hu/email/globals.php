@@ -2,10 +2,10 @@
 
 return [
 
-	'assigned'    => 'HU_Ticket Assigned',
-	'comment'     => 'HU_New Comment',
-	'status'      => 'HU_Status Changed',
-	'transfer'    => 'HU_Ticket Transferred',
-	'view-ticket' => 'HU_Click here to view your ticket.',		
+	'assigned'    => 'Kérelem hozzárendelve',
+	'comment'     => 'Új hozzászólás',
+	'status'      => 'Státusz megváltozott',
+	'transfer'    => 'Kérelem átmozgatva',
+	'view-ticket' => 'Kattintson ide kérelme megtekintéséhez.',		
 
 ];

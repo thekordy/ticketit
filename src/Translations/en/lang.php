@@ -137,4 +137,11 @@ return [
   'the-ticket-has-been-reopened'     => 'The ticket :name has been reopened!',
   'you-are-not-permitted-to-do-this' => 'You are not permitted to do this action!',
 
+ /*
+ *  Middlewares
+ */
+
+ //  IsAdminMiddleware IsAgentMiddleware ResAccessMiddleware
+  'you-are-not-permitted-to-access'     => 'You are not permitted to access this page!',
+
 ];

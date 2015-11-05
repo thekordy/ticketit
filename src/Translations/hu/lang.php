@@ -9,6 +9,7 @@ return [
   'nav-active-tickets'               => 'Actív kérelmek',
   'nav-completed-tickets'            => 'Lezárt kérelmek',
 
+  // Tables
   'table-id'                         => 'ID',
   'table-subject'                    => 'Tárgy',
   'table-owner'                      => 'Tulajdonos',
@@ -17,9 +18,30 @@ return [
   'table-last-response'              => 'Utolsó válasz',  
   'table-priority'                   => 'Prioritás',
   'table-agent'                      => 'Ügynök',  
-  'table-category'                   => 'Kategória', 
+  'table-category'                   => 'Kategória',
+
+  // Datatables
+  'table-decimal'                    => ',',
+  'table-empty'                      => 'Nincs megjeleníthető adat',
+  'table-info'                       => '_START_ - _END_ sorok megjelenítve. Összesen: _TOTAL_ sor',
+  'table-info-empty'                 => 'Nincs sor a táblában',
+  'table-info-filtered'              => '(_MAX_ db. sorból szűrve)',
+  'table-info-postfix'          => '',  
+  'table-thousands'                  => '.',
+  'table-length-menu'                => '_MENU_ elemek mutatása',  
+  'table-loading-results'            => 'Töltés...', 
+  'table-processing'                 => 'Feldolgozás...', 
+  'table-search'                     => 'Keresés:', 
+  'table-zero-records'               => 'Nincs találat', 
+  'table-paginate-first'             => 'Első', 
+  'table-paginate-last'              => 'Utolsó', 
+  'table-paginate-next'              => 'Következő', 
+  'table-paginate-prev'              => 'Előző', 
+  'table-aria-sort-asc'              => ': növekvő rendezés', 
+  'table-aria-sort-desc'             => ': csökkenő rendezés', 
 
   'btn-back'                         => 'Vissza',
+  'btn-cancel'                       => 'Mégse',
   'btn-close'                        => 'Bezárás',  
   'btn-delete'                       => 'Törlés',  
   'btn-edit'                         => 'Szerkesztés',  
@@ -114,5 +136,6 @@ return [
   'the-ticket-has-been-deleted'      => ':name kérelem törölve!',  
   'the-ticket-has-been-completed'    => ':name kérelem lezárva!', 
   'the-ticket-has-been-reopened'     => ':name kérelem újra meg lett nyitva!',
+  'you-are-not-permitted-to-do-this' => 'Nincs jogosultsága a művelethez.'
 
 ];

@@ -93,6 +93,7 @@ class TicketitServiceProvider extends ServiceProvider {
             $this->publishes([__DIR__ . '/Views' => base_path('resources/views/vendor/ticketit')], 'views');
             $this->publishes([__DIR__ . '/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
             $this->publishes([__DIR__ . '/Public' => public_path('vendor/ticketit')], 'public');
+            $this->publishes([__DIR__ . '/Migrations' => base_path('database/migrations')], 'db');
 
             // Check public assets are present, publish them if not
 //            $installer->publicAssets();

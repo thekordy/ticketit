@@ -8,7 +8,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 2. Users can create tickets, keep track of their tickets status, giving comments, and close their own tickets (access permissions are configurable)
 3. Auto assigning agents to tickets, the system searches for agents in specific department and auto select the agent with lowest queue
 4. Simple admin panel 
-5. Localization (English and Hungarian language packs are included)
+5. Localization (English and Hungarian, Brazilian Portuguese language packs are included)
 6. Very simple installation and integration process
 7. Admin dashboard with statistics and performance tracking graphs
 

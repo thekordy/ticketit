@@ -42,6 +42,17 @@
             </span>
         </div>
 
+        <h3 class="form-signin-heading">{{ trans('ticketit::install.admin-select') }}</h3>
+        <select id="admin_id" name="admin_id" class="form-control" required autofocus>
+            @foreach($users_list as $id => $name)
+                <option value="{{ $id }}">{{ $name }}</option>
+            @endforeach
+        </select>
+        <span id="helpBlock" class="help-block">
+            {{ trans('ticketit::install.admin-select-help-block') }}
+        </span>
+        <br>
+
         <div class="well small" style="border: 1px solid #ccc">
             @if(!empty($inactive_migrations))
                 <b>{{ trans('ticketit::install.migrations-to-be-installed') }}</b>

@@ -95,9 +95,11 @@ return [
   */
 
 // AgentsController
-  'agents-are-added-to-agents'       => 'Agents :names are added to agents',
-  'agents-joined-categories-ok'      => 'Joined categories successfully',
-  'agents-is-removed-from-team'      => 'Removed agent\s :name from the agent team',
+  'agents-are-added-to-agents'                      => 'Agents :names are added to agents',
+  'administrators-are-added-to-administrators'      => 'Administrators :names are added to administrators', //New
+  'agents-joined-categories-ok'                     => 'Joined categories successfully',
+  'agents-is-removed-from-team'                     => 'Removed agent\s :name from the agent team',
+  'administrators-is-removed-from-team'             => 'Removed administrator\s :name from the administrators team', // New
 
 // CategoriesController
   'category-name-has-been-created'   => 'The category :name has been created!',  

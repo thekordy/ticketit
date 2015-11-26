@@ -27,6 +27,22 @@ class Agent extends User
     }
 
     /**
+     * list of all admins and returning collection
+     * @param $query
+     * @param bool $paginate
+     * @return bool
+     * @internal param int $cat_id
+     */
+    public function scopeAdmins($query, $paginate = false)
+    {
+        if ($paginate) {
+            return $query->where('ticketit_admin', '1')->paginate($paginate,['*'],'admins_page');
+        } else {
+            return $query->where('ticketit_admin', '1')->get();
+        }
+    }
+
+    /**
      * list of all agents and returning collection
      * @param $query
      * @param bool $paginate
@@ -83,7 +99,7 @@ class Agent extends User
     public static function isAdmin()
     {
         if (auth()->check()) {
-            if (in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
+            if (auth()->user()->ticketit_admin || in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
                 return true;
             }
 

@@ -146,5 +146,8 @@ return [
   'config-edit-default'           => 'Default value',
   'config-edit-value'             => 'My value',
   'config-edit-language'          => 'Language',
+  'config-edit-unserialize'       => 'Get the array values, and change the values',
+  'config-edit-serialize'         => 'Get the serialized string of the changed values (to be entered in the field)',
+  'config-edit-tools'             => 'Tools:',
 
 ];

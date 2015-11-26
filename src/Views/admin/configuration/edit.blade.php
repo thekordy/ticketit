@@ -25,7 +25,16 @@
         <div class="form-horizontal">
           @include('ticketit::shared.errors')
 {!! Form::model($configuration, ['route' => [$setting->grab('admin_route').'.configuration.update', $configuration->id], 'method' => 'patch']) !!}
-
+             <div class="well">
+                 <b>{{ trans('ticketit::admin.config-edit-tools') }}</b><br>
+                 <a href="https://www.functions-online.com/unserialize.html" target="_blank">
+                     {{ trans('ticketit::admin.config-edit-unserialize') }}
+                 </a>
+                 <br>
+                 <a href="https://www.functions-online.com/serialize.html" target="_blank">
+                     {{ trans('ticketit::admin.config-edit-serialize') }}
+                 </a>
+             </div>
               <!-- ID Field -->
               <div class="form-group">
                   {!! Form::label('id', trans('ticketit::admin.config-edit-id') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}

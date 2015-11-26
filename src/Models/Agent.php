@@ -99,7 +99,7 @@ class Agent extends User
     public static function isAdmin()
     {
         if (auth()->check()) {
-            if (auth()->user()->ticketit_admin) {
+            if (auth()->user()->ticketit_admin || in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
                 return true;
             }
 

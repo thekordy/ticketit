@@ -29,7 +29,7 @@ class ConfigurationsController extends Controller
         'email.color_body_bg','email.color_header_bg','email.color_content_bg','email.color_footer_bg',
         'email.color_button_bg'];
       $tickets_section = ['default_status_id', 'default_close_status_id', 'default_reopen_status_id', 'paginate_items'];
-      $perms_section = ['admin_ids', 'agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
+      $perms_section = ['agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
     // Split them into configurations sections for tabs
     foreach($configurations as $config_item) {
         if (in_array($config_item->slug, $init_section))

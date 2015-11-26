@@ -116,4 +116,38 @@ class Ticket extends Model
     //    }
     //
 
+    /**
+     * @see Illuminate/Database/Eloquent/Model::asDateTime
+     */
+    public function freshTimestamp()
+    {
+        return new Date();
+    }
+
+    /**
+     * @see Illuminate/Database/Eloquent/Model::asDateTime
+     */
+    protected function asDateTime($value)
+    {
+        if (is_numeric($value))
+        {
+            return Date::createFromTimestamp($value);
+
+        }
+        elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value))
+        {
+
+            return Date::createFromFormat('Y-m-d', $value)->startOfDay();
+
+        }
+        elseif (! $value instanceof DateTime)
+        {
+            $format = $this->getDateFormat();
+
+            return Date::createFromFormat($format, $value);
+        }
+
+        return Date::instance($value);
+    }
+
 }

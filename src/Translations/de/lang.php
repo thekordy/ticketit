@@ -2,116 +2,139 @@
 
 return [
 
- /*  
-  *  Constants
-  */
+    /*
+     *  Constants
+     */
 
-  'nav-active-tickets'               => 'DE_Active Tickets',
-  'nav-completed-tickets'            => 'DE_Completed Tickets',
+    'nav-active-tickets'               => 'Offene Tickets',
+    'nav-completed-tickets'            => 'Geschlossene Tickets',
 
-  'table-id'                         => 'DE_ID',
-  'table-subject'                    => 'DE_Subject',
-  'table-owner'                      => 'DE_Owner',  
-  'table-status'                     => 'DE_Status',
-  'table-last-updated'               => 'DE_Last Updated',
-  'table-priority'                   => 'DE_Priority',
-  'table-agent'                      => 'DE_Agent',  
-  'table-category'                   => 'DE_Category', 
+    // Tables
+    'table-id'                         => '#',
+    'table-subject'                    => 'Betreff',
+    'table-owner'                      => 'Ersteller',
+    'table-status'                     => 'Status',
+    'table-last-updated'               => 'Zuletzt aktualisiert',
+    'table-priority'                   => 'Priorität',
+    'table-agent'                      => 'Agent',
+    'table-category'                   => 'Kategorie',
 
-  'btn-back'                         => 'DE_Back',
-  'btn-close'                        => 'DE_Close',  
-  'btn-delete'                       => 'DE_Delete',  
-  'btn-edit'                         => 'DE_Edit',  
-  'btn-mark-complete'                => 'DE_Mark Complete', 
-  'btn-submit'                       => 'DE_Submit', 
-  
-  'agent'                            => 'DE_Agent',
-  'category'                         => 'DE_Category',
-  'colon'                            => 'DE_: ',
-  'comments'                         => 'DE_Comments',  
-  'created'                          => 'DE_Created',
-  'description'                      => 'DE_Description',
-  'flash-x'                          => 'DE_×', // &times;
-  'last-update'                      => 'DE_Last Update',  
-  'no-replies'                       => 'DE_No replies.',
-  'owner'                            => 'DE_Owner',  
-  'priority'                         => 'DE_Priority',  
-  'reopen-ticket'                    => 'DE_Reopen Ticket',
-  'reply'                            => 'DE_Reply',
-  'responsible'                      => 'DE_Responsible',
-  'status'                           => 'DE_Status',      
-  'subject'                          => 'DE_Subject',
-  
- /*  
-  *  Page specific
-  */
+    // Datatables
+    'table-decimal'                    => '',
+    'table-empty'                      => 'Keine Daten in der Tabelle verfügbar',
+    'table-info'                       => 'Zeige _START_ bis _END_ von _TOTAL_ Einträgen',
+    'table-info-empty'                 => 'Zeige 0 bis 0 von 0 Einträgen',
+    'table-info-filtered'              => '(gefiltert von _MAX_ total Einträgen)',
+    'table-info-postfix'          => '',
+    'table-thousands'                  => ',',
+    'table-length-menu'                => 'Zeige _MENU_ Einträge',
+    'table-loading-results'            => 'Lade...',
+    'table-processing'                 => 'Verarbeitung...',
+    'table-search'                     => 'Suche:',
+    'table-zero-records'               => 'Keine passenden Einträge gefunden',
+    'table-paginate-first'             => 'Start',
+    'table-paginate-last'              => 'Ende',
+    'table-paginate-next'              => 'Vor',
+    'table-paginate-prev'              => 'Zurück',
+    'table-aria-sort-asc'              => ': aktivieren um diese Spalte aufsteigend zu sortieren',
+    'table-aria-sort-desc'             => ': aktivieren um diese Spalte absteigend zu sortieren',
+
+    'btn-back'                         => 'Zurück',
+    'btn-cancel'                       => 'Abbrechen', // NEW
+    'btn-close'                        => 'Schliessen',
+    'btn-delete'                       => 'Löschen',
+    'btn-edit'                         => 'Bearbeiten',
+    'btn-mark-complete'                => 'Als geschlossen markieren',
+    'btn-submit'                       => 'Absenden',
+
+    'agent'                            => 'Agent',
+    'category'                         => 'Kategorie',
+    'colon'                            => ': ',
+    'comments'                         => 'Kommentare',
+    'created'                          => 'Erstellt',
+    'description'                      => 'Beschreibung',
+    'flash-x'                          => '×', // &times;
+    'last-update'                      => 'Zuletzt aktualisiert',
+    'no-replies'                       => 'Keine Antworten.',
+    'owner'                            => 'Ersteller',
+    'priority'                         => 'Priorität',
+    'reopen-ticket'                    => 'Ticket wieder öffnen',
+    'reply'                            => 'Antworten',
+    'responsible'                      => 'Verantwortlich',
+    'status'                           => 'Status',
+    'subject'                          => 'Betreff',
+
+    /*
+     *  Page specific
+     */
 
 // ____
-  'index-title'                      => 'DE_Helpdesk main page',
+    'index-title'                      => 'Helpdesk Hauptseite',
 
 // tickets/____
-  'index-my-tickets'                 => 'DE_My tickets',
-  'btn-create-new-ticket'            => 'DE_Create new ticket',
-  'index-complete-none'              => 'DE_There are no complete tickets', 
-  'index-active-check'               => 'DE_Be sure to check Active Tickets if you cannot find your ticket.',
-  'index-active-none'                => 'DE_There are no active tickets,',
-  'index-create-new-ticket'          => 'DE_create new ticket',
-  'index-complete-check'             => 'DE_Be sure to check Complete Tickets if you cannot find your ticket.',
+    'index-my-tickets'                 => 'Meine Tickets',
+    'btn-create-new-ticket'            => 'Neues Ticket erstellen',
+    'index-complete-none'              => 'Es gibt keine geschlossenen Tickets',
+    'index-active-check'               => 'Bitte betrachte die Offenen Tickets wenn du dein Ticket nicht finden kannst.',
+    'index-active-none'                => 'Es gibt keine aktiven Tickets,',
+    'index-create-new-ticket'          => 'neues Ticket erstellen',
+    'index-complete-check'             => 'Bitte betrachte die Geschlossenen Tickets wenn du dein Ticket nicht finden kannst.',
 
-  'create-ticket-title'              => 'DE_New Ticket Form',
-  'create-new-ticket'                => 'DE_Create New Ticket',
-  'create-ticket-brief-issue'        => 'DE_A brief of your issue ticket',
-  'create-ticket-describe-issue'     => 'DE_Describe your issue here in details',  
-  
-  'show-ticket-title'                => 'DE_Ticket',   
-  'show-ticket-js-delete'            => 'DE_Are you sure you want to delete: ',
-  'show-ticket-modal-delete-title'   => 'DE_ID:id. Delete ticket?',  
-  'show-ticket-modal-delete-message' => 'DE_Are you sure you want to delete ticket: :subject?',
+    'create-ticket-title'              => 'Neues Ticket Formular',
+    'create-new-ticket'                => 'Neues Ticket erstellen',
+    'create-ticket-brief-issue'        => 'Kurzbeschreibung',
+    'create-ticket-describe-issue'     => 'Detaillierte Beschreibung',
 
- /*  
-  *  Controllers
-  */
+    'show-ticket-title'                => 'Ticket',
+    'show-ticket-js-delete'            => 'Möchtest du wirklich folgendes löschen: ',
+    'show-ticket-modal-delete-title'   => 'Ticket Löschen',
+    'show-ticket-modal-delete-message' => 'Möchtest du dieses Ticket wirklich löschen: :subject?',
+
+    /*
+     *  Controllers
+     */
 
 // AgentsController
-  'agents-are-added-to-agents'       => 'DE_Agents :names are added to agents',
-  'agents-joined-categories-ok'      => 'DE_Joined categories successfully',
-  'agents-is-removed-from-team'      => 'DE_Removed agent\s :name from the agent team',
+    'agents-are-added-to-agents'       => 'Agenten :names wurden hinzugefügt',
+    'agents-joined-categories-ok'      => 'Erfolgreich den Kategorien zugewiesen',
+    'agents-is-removed-from-team'      => 'Agent(en) :name wurden aus dem Agenten Team entfernt',
 
 // CategoriesController
-  'category-name-has-been-created'   => 'DE_The category :name has been created!',  
-  'category-name-has-been-modified'  => 'DE_The category :name has been modified!',   
-  'category-name-has-been-deleted'   => 'DE_The category :name has been deleted!', 
+    'category-name-has-been-created'   => 'Die Kategorie :name wurde erstellt!',
+    'category-name-has-been-modified'  => 'Die Kategorie :name wurde bearbeitet!',
+    'category-name-has-been-deleted'   => 'Die Kategorie :name wurde gelöscht!',
 
 // PrioritiesController
-  'priority-name-has-been-created'   => 'DE_The priority :name has been created!',  
-  'priority-name-has-been-modified'  => 'DE_The priority :name has been modified!',   
-  'priority-name-has-been-deleted'   => 'DE_The priority :name has been deleted!',
-  'priority-all-tickets-here'        => 'DE_All priority related tickets here',
+    'priority-name-has-been-created'   => 'Die Priorität :name wurde erstellt!',
+    'priority-name-has-been-modified'  => 'Die Priorität :name wurde bearbeitet!',
+    'priority-name-has-been-deleted'   => 'Die Priorität :name wurde gelöscht!',
+    'priority-all-tickets-here'        => 'Alle Prioritäts Tickets hierher',
 
 // StatusesController
-  'status-name-has-been-created'     => 'DE_The status :name has been created!',  
-  'status-name-has-been-modified'    => 'DE_The status :name has been modified!',   
-  'status-name-has-been-deleted'     => 'DE_The status :name has been deleted!',
-  'status-all-tickets-here'          => 'DE_All status related tickets here',
-  
+    'status-name-has-been-created'   => 'Der Status :name wurde erstellt!',
+    'status-name-has-been-modified'  => 'Der Status :name wurde bearbeitet!',
+    'status-name-has-been-deleted'   => 'Der Status :name wurde gelöscht!',
+    'status-all-tickets-here'        => 'Alle Status Tickets hierher',
+
 // CommentsController
-  'comment-has-been-added-ok'        => 'DE_Comment has been added successfully', 
+    'comment-has-been-added-ok'        => 'Kommentar erfolgreich hinzugefügt',
 
 // NotificationsController
-  'notify-new-comment-from'          => 'DE_New comment from ', 
-  'notify-on'                        => 'DE_ on ', 
-  'notify-status-to-complete'        => 'DE_ status to Complete', 
-  'notify-status-to'                 => 'DE_ status to ', 
-  'notify-transferred'               => 'DE_ transferred ', 
-  'notify-to-you'                    => 'DE_ to you', 
-  'notify-created-ticket'            => 'DE_ created ticket ', 
-  'notify-updated'                   => 'DE_ updated ',   
-  
- // TicketsController
-  'the-ticket-has-been-created'      => 'DE_The ticket has been created!',  
-  'the-ticket-has-been-modified'     => 'DE_The ticket has been modified!',   
-  'the-ticket-has-been-deleted'      => 'DE_The ticket :name has been deleted!',  
-  'the-ticket-has-been-completed'    => 'DE_The ticket :name has been completed!', 
-  'the-ticket-has-been-reopened'     => 'DE_The ticket :name has been reopened!',
-  
+    'notify-new-comment-from'          => 'Neuer Kommentar von ',
+    'notify-on'                        => ' bei ',
+    'notify-status-to-complete'        => ' Status auf Geschlossen',
+    'notify-status-to'                 => ' Status auf ',
+    'notify-transferred'               => ' verschoben ',
+    'notify-to-you'                    => ' zu Dir',
+    'notify-created-ticket'            => ' Ticket erstellt ',
+    'notify-updated'                   => ' aktualisiert ',
+
+    // TicketsController
+    'the-ticket-has-been-created'      => 'Das Ticket wurde erstellt!',
+    'the-ticket-has-been-modified'     => 'Das Ticket wurde bearbeitet!',
+    'the-ticket-has-been-deleted'      => 'Das Ticket :name wurde gelöscht!',
+    'the-ticket-has-been-completed'    => 'Das Ticket :name wurde geschlossen!',
+    'the-ticket-has-been-reopened'     => 'Das Ticket :name wurde erneut geöffnet!',
+    'you-are-not-permitted-to-do-this' => 'Du bist nicht berechtigt diese Aktion auszuführen!',
+
 ];

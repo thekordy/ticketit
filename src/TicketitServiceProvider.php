@@ -131,6 +131,7 @@ class TicketitServiceProvider extends ServiceProvider {
          */
         $this->app->register('Collective\Html\HtmlServiceProvider');
         $this->app->register('yajra\Datatables\DatatablesServiceProvider');
+        $this->app->register('Jenssegers\Date\DateServiceProvider');
         /*
          * Create aliases for the dependency.
          */
@@ -138,5 +139,6 @@ class TicketitServiceProvider extends ServiceProvider {
         $loader->alias('Form', 'Collective\Html\FormFacade');
         $loader->alias('Html', 'Collective\Html\HtmlFacade');
         $loader->alias('Datatables', 'yajra\Datatables\Datatables');
+        $loader->alias('Date', 'Jenssegers\Date\Date');
 	}
 }

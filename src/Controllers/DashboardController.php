@@ -10,7 +10,7 @@ use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\Controllers\TicketsController;
 
-class AdminController extends Controller {
+class DashboardController extends Controller {
 
     public function index($indicator_period = 2)
     {

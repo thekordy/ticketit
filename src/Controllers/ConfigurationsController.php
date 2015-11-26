@@ -9,6 +9,7 @@ use Kordy\Ticketit\Requests\PrepareConfigurationUpdateRequest;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Configuration;
 use Illuminate\Support\Facades\Session;
+use Cache;
 
 class ConfigurationsController extends Controller
 {
@@ -71,7 +72,7 @@ class ConfigurationsController extends Controller
     $configuration->create($input);   
 
     Session::flash('configuration', 'Setting saved successfully.');
-
+    Cache::forget('settings'); // refresh cached settings
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }
 
@@ -101,8 +102,8 @@ class ConfigurationsController extends Controller
     $configuration = Configuration::findOrFail($id);
     $configuration->update(['value' => $request->value, 'lang' => $request->lang]);    
     
-    Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));   
-    
+    Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
+    Cache::forget('settings'); // refresh cached settings
     //return redirect(route('ticketit::admin.configuration.index'));
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }

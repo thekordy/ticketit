@@ -3,8 +3,8 @@
 return [
 
 'data' => '
-	<b>:name</b> created new ticket <b>:subject</b><br>
-	:status in :category, and it has been assigned to you.<br>
+	<b>:name</b> hat ein neues Ticket erstellt <b>:subject</b><br>
+	:status in :category, welches Dir zugewiesen wurde.<br>
 ',
 
 ];

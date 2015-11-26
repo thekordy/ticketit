@@ -2,6 +2,7 @@
 
 namespace Kordy\Ticketit\Models;
 
+use Jenssegers\Date\Date;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model

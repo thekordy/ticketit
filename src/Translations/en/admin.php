@@ -11,21 +11,23 @@ return [
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
   'nav-statuses'                  => 'Statuses',
-  'nav-configuration'             => 'Configuration',  // New
+  'nav-configuration'             => 'Configuration',  
+  'nav-administrator'             => 'Administrator',  //new
 
-  'table-hash'                    => '#', // New
+  'table-hash'                    => '#', 
   'table-id'                      => 'ID',
   'table-name'                    => 'Name',
   'table-action'                  => 'Action',
   'table-categories'              => 'Categories',
   'table-join-category'           => 'Joined Categories',
   'table-remove-agent'            => 'Remove from agents',
+  'table-remove-administrator'    => 'Remove from administrators', // New
 
-  'table-slug'                    => 'Slug', // New
-  'table-default'                 => 'Default Value', // New
-  'table-value'                   => 'My Value',  // New
-  'table-lang'                    => 'Lang', // New
-  'table-edit'                    => 'Edit', // New
+  'table-slug'                    => 'Slug', 
+  'table-default'                 => 'Default Value', 
+  'table-value'                   => 'My Value',  
+  'table-lang'                    => 'Lang', 
+  'table-edit'                    => 'Edit', 
 
   'btn-back'                      => 'Back',
   'btn-delete'                    => 'Delete',
@@ -33,7 +35,7 @@ return [
   'btn-join'                      => 'Join',  
   'btn-remove'                    => 'Remove',
   'btn-submit'                    => 'Submit',
-  'btn-save'                      => 'Save',  // New
+  'btn-save'                      => 'Save',  
   'btn-update'                    => 'Update',
   
   'colon'                         => ': ',
@@ -59,6 +61,8 @@ return [
   'index-category'                      => 'Category',
   'index-agents'                        => 'Agents',
   'index-agent'                         => 'Agent',
+  'index-administrators'                => 'Administrators',  //new
+  'index-administrator'                 => 'Administrator',  //new
   'index-users'                         => 'Users',
   'index-user'                          => 'User',
   'index-tickets'                       => 'Tickets',
@@ -79,6 +83,16 @@ return [
   'agent-create-add-agents'       => 'Add Agents',
   'agent-create-no-users'         => 'There are no user accounts, create user accounts first.',
   'agent-create-select-user'      => 'Select user accounts to be added as agents',
+
+// tickets-admin/administrators/____
+  'administrator-index-title'                   => 'Administrator Management',  //new
+  'btn-create-new-administrator'                => 'Create new administrator',  //new
+  'administrator-index-no-administrators'       => 'There are no administrators, ',  //new
+  'administrator-index-create-new'              => 'Add administrators',  //new
+  'administrator-create-title'                  => 'Add Administrator',  //new
+  'administrator-create-add-administrators'     => 'Add Administrators',  //new
+  'administrator-create-no-users'               => 'There are no user accounts, create user accounts first.',  //new
+  'administrator-create-select-user'            => 'Select user accounts to be added as administrators',  //new
 
 // tickets-admin/category/____
   'category-index-title'          => 'Categories Management',
@@ -114,19 +128,19 @@ return [
   'status-edit-title'             => 'Edit Status: :name',
   
 // tickets-admin/configuration/____
-  'config-index-title'            => 'Configuration Settings', // New
-  'config-index-subtitle'         => 'Settings', // New
-  'btn-create-new-config'         => 'Add new setting', // New
-  'config-index-no-settings'      => 'There are no settings,', // New
-  'config-index-initial'          => 'Initial', // New
-  'config-index-tickets'          => 'Tickets', // New
-  'config-index-notifications'    => 'Notifications', // New
-  'config-index-permissions'      => 'Permissions', // New
-  'config-index-other'            => 'Other', // New
-  'config-create-title'           => 'Create: New Global Setting', // New
-  'config-create-subtitle'        => 'Create Setting', // New  
-  'config-edit-title'             => 'Edit: Global Configuration', // New 
-  'config-edit-subtitle'          => 'Edit Setting', // New
+  'config-index-title'            => 'Configuration Settings', 
+  'config-index-subtitle'         => 'Settings', 
+  'btn-create-new-config'         => 'Add new setting', 
+  'config-index-no-settings'      => 'There are no settings,', 
+  'config-index-initial'          => 'Initial', 
+  'config-index-tickets'          => 'Tickets', 
+  'config-index-notifications'    => 'Notifications', 
+  'config-index-permissions'      => 'Permissions', 
+  'config-index-other'            => 'Other', 
+  'config-create-title'           => 'Create: New Global Setting', 
+  'config-create-subtitle'        => 'Create Setting',   
+  'config-edit-title'             => 'Edit: Global Configuration',  
+  'config-edit-subtitle'          => 'Edit Setting', 
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',
   'config-edit-default'           => 'Default value',

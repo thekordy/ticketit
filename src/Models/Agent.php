@@ -27,6 +27,22 @@ class Agent extends User
     }
 
     /**
+     * list of all admins and returning collection
+     * @param $query
+     * @param bool $paginate
+     * @return bool
+     * @internal param int $cat_id
+     */
+    public function scopeAdmins($query, $paginate = false)
+    {
+        if ($paginate) {
+            return $query->where('ticketit_admin', '1')->paginate($paginate,['*'],'admins_page');
+        } else {
+            return $query->where('ticketit_admin', '1')->get();
+        }
+    }
+
+    /**
      * list of all agents and returning collection
      * @param $query
      * @param bool $paginate

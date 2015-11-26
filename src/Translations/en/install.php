@@ -10,5 +10,7 @@ return [
     'all-tables-migrated'             => 'All needed tables are migrated',
     'proceed'                         => 'Proceed',
     'another-file'                    => 'another File',
+    'admin-select'                    => 'Select administrator',
+    'admin-select-help-block'         => 'Later you can select more users for administration',
 
-    ];
+];

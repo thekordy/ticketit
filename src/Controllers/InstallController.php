@@ -2,6 +2,7 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
@@ -37,7 +38,8 @@ class InstallController extends Controller
 
         $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
         $inactive_migrations = $this->inactiveMigrations();
-        return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations'));
+        $users_list = User::lists('name', 'id')->toArray();
+        return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
     }
 
     /*
@@ -52,6 +54,10 @@ class InstallController extends Controller
             $master = str_replace('/', '.', $views_content);
         }
         $this->initialSettings($master);
+        $admin_id = $request->admin_id;
+        $admin = User::find($admin_id);
+        $admin->ticketit_admin = true;
+        $admin->save();
         return redirect('/'.Setting::grab('main_route'));
     }
 

@@ -12,7 +12,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 6. Very simple installation and integration process
 7. Admin dashboard with statistics and performance tracking graphs
 
-[Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.0-Features)
+[Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.1-Features)
 
 ## Requirements
 **First Make sure you have got this Laravel setup working:**

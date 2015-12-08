@@ -28,7 +28,7 @@
                             !!}
                         @elseif($setting->grab('delete_modal_type') == 'modal')
 {{-- // OR; Modal Window: 1/2 --}}
-                            {!! Form::open(array(
+                            {!! CollectiveForm::open(array(
                                     'route' => array($setting->grab('main_route').'.destroy', $ticket->id),
                                     'method' => 'delete',
                                     'style' => 'display:inline'
@@ -44,7 +44,7 @@
                               {{ trans('ticketit::lang.btn-delete') }}
                             </button>
                         @endif
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::close() !!}
 {{-- // END Modal Window: 1/2 --}}
                     @endif
                 </span>
@@ -89,7 +89,7 @@
                 <p> {!! nl2br(e($ticket->content))  !!} </p>
             </div>
         </div>
-        {!! Form::open([
+        {!! CollectiveForm::open([
                         'method' => 'DELETE',
                         'route' => [
                                     $setting->grab('main_route').'.destroy',
@@ -98,7 +98,7 @@
                         'id' => "delete-ticket-$ticket->id"
                         ])
         !!}
-        {!! Form::close() !!}
+        {!! CollectiveForm::close() !!}
     </div>
 </div>
 

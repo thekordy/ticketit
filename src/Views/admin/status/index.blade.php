@@ -54,7 +54,7 @@
                                                     "node" => $status->name
                                                     ])
                                 !!}
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                                             'method' => 'DELETE',
                                             'route' => [
                                                         $setting->grab('admin_route').'.status.destroy',
@@ -63,7 +63,7 @@
                                             'id' => "delete-$status->id"
                                             ])
                             !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                     </tr>
                 @endforeach

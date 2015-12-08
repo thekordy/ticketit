@@ -41,7 +41,7 @@
                             {{ $administrator->name }}
                         </td>
                         <td>
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                             'method' => 'DELETE',
                             'route' => [
                                         $setting->grab('admin_route').'.administrator.destroy',
@@ -49,8 +49,8 @@
                                         ],
                             'id' => "delete-$administrator->id"
                             ]) !!}
-                            {!! Form::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                     </tr>
                 @endforeach

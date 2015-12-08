@@ -1,7 +1,7 @@
 <?php
 namespace Kordy\Ticketit;
 
-use Collective\Html\FormFacade as Form;
+use Collective\Html\FormFacade as CollectiveForm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +36,7 @@ class TicketitServiceProvider extends ServiceProvider {
             });
 
             // Adding HTML5 color picker to form elements
-            Form::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
+            CollectiveForm::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
                 $field = $this->input($type, $name, $value, $options);
                 return $field;
             });
@@ -136,9 +136,6 @@ class TicketitServiceProvider extends ServiceProvider {
          * Create aliases for the dependency.
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('Form', 'Collective\Html\FormFacade');
-        $loader->alias('Html', 'Collective\Html\HtmlFacade');
-        $loader->alias('Datatables', 'yajra\Datatables\Datatables');
-        $loader->alias('Date', 'Jenssegers\Date\Date');
+        $loader->alias('CollectiveForm', 'Collective\Html\FormFacade');
 	}
 }

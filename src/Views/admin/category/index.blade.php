@@ -54,7 +54,7 @@
                                                     "node" => $category->name
                                                     ])
                                 !!}
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                                             'method' => 'DELETE',
                                             'route' => [
                                                         $setting->grab('admin_route').'.category.destroy',
@@ -63,7 +63,7 @@
                                             'id' => "delete-$category->id"
                                             ])
                             !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                     </tr>
                 @endforeach

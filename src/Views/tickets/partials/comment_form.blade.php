@@ -14,9 +14,9 @@
                 </div>
                 @if( $u->isAgent() || $u->isAdmin() )
                     <div class="form-group col-lg-3">
-                        {!!  CollectiveCollectiveForm::label('time', trans('ticketit::lang.time-spent') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 control-label']) !!}
+                        {!!  CollectiveForm::label('time', trans('ticketit::lang.time-spent') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 control-label']) !!}
                         <div class="col-lg-6">
-                            {!! CollectiveCollectiveForm::text('time_spent', null, ['class' => 'form-control']) !!}
+                            {!! CollectiveForm::text('time_spent', null, ['class' => 'form-control']) !!}
                         </div>
                     </div>
                 @endif

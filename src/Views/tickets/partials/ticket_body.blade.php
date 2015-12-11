@@ -73,7 +73,7 @@
                                 <p>
                                     <strong>{{ trans('ticketit::lang.time-spent') }}</strong>{{ trans('ticketit::lang.colon') }}
                                     <span>
-                                    {{ $total_time }}
+                                    {{ $total_time }} Minutes
                                     </span>
                                 </p>
                             @endif

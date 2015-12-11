@@ -69,6 +69,14 @@
                                     {{ $ticket->priority->name }}
                                 </span>
                             </p>
+                            @if( $u->isAgent() || $u->isAdmin() )
+                                <p>
+                                    <strong>{{ trans('ticketit::lang.time-spent') }}</strong>{{ trans('ticketit::lang.colon') }}
+                                    <span>
+                                    {{ $total_time }}
+                                    </span>
+                                </p>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <p> <strong>{{ trans('ticketit::lang.responsible') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->agent->name }}</p>

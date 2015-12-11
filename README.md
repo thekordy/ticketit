@@ -64,3 +64,5 @@ Big thank you for all active people who took from their time to give their feedb
 * [Brian Royer](https://github.com/FusionDesign)
 * [Lee Nielsen](https://github.com/fishmad)
 * [balping](https://github.com/balping)
+* [Anderson de Oliveira Machado](https://github.com/andersondeoliveiramachado)
+* [datune](https://github.com/datune)

@@ -18,8 +18,11 @@ class TicketitTableSeeder extends Seeder
     public $comments_per_ticket_max = 3;
     public $default_agent_password = 'demo';
     public $default_user_password = 'demo';
-    public $tickets_date_period = 300; // days
+    public $tickets_date_period = 270; // days
+    public $tickets_open = 20; // To-do
+    public $tickets_min_close_period = 3; // days
     public $tickets_max_close_period = 5; // days
+    public $default_status_id = 2;
     public $categories = [
         'Technical' => '#0014f4',
         'Billing' => '#2b9900',
@@ -88,6 +91,9 @@ class TicketitTableSeeder extends Seeder
                 'color' => $color
             ]);
         }
+        $categories_qty = \Kordy\Ticketit\Models\Category::count();
+        $priorities_qty = \Kordy\Ticketit\Models\Priority::count();
+        $statuses_qty = \Kordy\Ticketit\Models\Status::count();
 
         // create users
         $users_counter = 1;
@@ -105,28 +111,37 @@ class TicketitTableSeeder extends Seeder
 
             for ($t = 1; $t <= $tickets_qty; $t++) {
 
-                $rand_category = rand(1, 3);
+                $rand_category = rand(1, $categories_qty);
+                $priority_id = rand(1, $priorities_qty);
+                do {
+                    $rand_status = rand(1, $statuses_qty);
+                } while($rand_status == $this->default_status_id);
+
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
                 $agents = $category->agents()->lists('name', 'id')->toArray();
                 $agent_id = array_rand($agents);
                 $random_create = rand(1,$this->tickets_date_period);
-                $rand_status = rand(1, 3);
-                $random_complete = rand(1,$this->tickets_max_close_period);
+
+                $random_complete = rand($this->tickets_min_close_period,
+                                        $this->tickets_max_close_period);
 
                 $ticket = new \Kordy\Ticketit\Models\Ticket();
                 $ticket->subject = $faker->text(50);
                 $ticket->content = $faker->paragraph($nbSentences = 10);
                 $ticket->status_id = $rand_status;
-                $ticket->priority_id = rand(1, 3);
+                $ticket->priority_id = $priority_id;
                 $ticket->user_id = $user_info->id;
                 $ticket->agent_id = $agent_id;
                 $ticket->category_id = $rand_category;
                 $ticket->created_at = \Carbon\Carbon::now()->subDays($random_create);
                 $ticket->updated_at = \Carbon\Carbon::now()->subDays($random_create);
-                if($rand_status == 2) {
-                    $created_date = new Carbon($ticket->created_at);
-                    $ticket->completed_at = $created_date->addDays($random_complete);
-                    $ticket->updated_at = $created_date->addDays($random_complete);
+
+                $completed_at = new Carbon($ticket->created_at);
+
+                if(!$completed_at->addDays($random_complete)->gt(\Carbon\Carbon::now())) {
+                    $ticket->completed_at = $completed_at;
+                    $ticket->updated_at = $completed_at;
+                    $ticket->status_id = $this->default_status_id;
                 }
                 $ticket->save();
 

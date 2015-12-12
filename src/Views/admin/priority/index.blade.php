@@ -54,7 +54,7 @@
                                                     "node" => $priority->name
                                                     ])
                                 !!}
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                                             'method' => 'DELETE',
                                             'route' => [
                                                         $setting->grab('admin_route').'.priority.destroy',
@@ -63,7 +63,7 @@
                                             'id' => "delete-$priority->id"
                                             ])
                             !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                     </tr>
                 @endforeach

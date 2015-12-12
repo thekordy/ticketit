@@ -314,7 +314,8 @@ class TicketsController extends Controller
         $lowest_tickets = 1000000;
 
         // If no agent selected, select the admin
-        $selected_agent_id = Setting::grab('admin_ids')[0];
+        $first_admin = Agent::admins()->first();
+        $selected_agent_id = $first_admin->id;
 
         foreach ($agents as $agent) {
             if ($count == 0) {

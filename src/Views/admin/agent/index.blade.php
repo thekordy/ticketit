@@ -50,7 +50,7 @@
                             @endforeach
                         </td>
                         <td>
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                                             'method' => 'PATCH',
                                             'route' => [
                                                         $setting->grab('admin_route').'.agent.update',
@@ -64,11 +64,11 @@
                                        {!! ($agent_cat->agents()->where("id", $agent->id)->count() > 0) ? "checked" : ""  !!}
                                        > {{ $agent_cat->name }}
                             @endforeach
-                            {!! Form::submit(trans('ticketit::admin.btn-join'), ['class' => 'btn btn-info btn-sm']) !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-join'), ['class' => 'btn btn-info btn-sm']) !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                         <td>
-                            {!! Form::open([
+                            {!! CollectiveForm::open([
                             'method' => 'DELETE',
                             'route' => [
                                         $setting->grab('admin_route').'.agent.destroy',
@@ -76,8 +76,8 @@
                                         ],
                             'id' => "delete-$agent->id"
                             ]) !!}
-                            {!! Form::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
+                            {!! CollectiveForm::submit(trans('ticketit::admin.btn-remove'), ['class' => 'btn btn-danger']) !!}
+                            {!! CollectiveForm::close() !!}
                         </td>
                     </tr>
                 @endforeach

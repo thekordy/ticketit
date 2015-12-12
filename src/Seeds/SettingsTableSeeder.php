@@ -139,10 +139,10 @@ class SettingsTableSeeder extends Seeder
              */
             'default_reopen_status_id' => false,
             /*
-             * User ids who are members of admin role
+             * [Deprecated] User ids who are members of admin role
              * Default: 1
              */
-            'admin_ids' => [1],
+//            'admin_ids' => [1],
             /*
              * Pagination length: For standard pagination.
              * Default: 1

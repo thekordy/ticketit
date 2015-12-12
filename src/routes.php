@@ -33,9 +33,9 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], fu
 	//Ticket admin index route (ex. http://url/tickets-admin/)
 	get("$admin_route/indicator/{indicator_period?}", [
 			'as' => 'dashboard.indicator',
-			'uses' => 'Kordy\Ticketit\Controllers\AdminController@index'
+			'uses' => 'Kordy\Ticketit\Controllers\DashboardController@index'
 	]);
-	get($admin_route, 'Kordy\Ticketit\Controllers\AdminController@index');
+	get($admin_route, 'Kordy\Ticketit\Controllers\DashboardController@index');
 
 	//Ticket statuses admin routes (ex. http://url/tickets-admin/status)
 	resource("$admin_route/status", 'Kordy\Ticketit\Controllers\StatusesController');
@@ -51,6 +51,9 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], fu
 
 	//Settings configuration routes (ex. http://url/tickets-admin/configuration)
 	resource("$admin_route/configuration", 'Kordy\Ticketit\Controllers\ConfigurationsController');
+
+    //Administrators configuration routes (ex. http://url/tickets-admin/administrators)
+    resource("$admin_route/administrator", 'Kordy\Ticketit\Controllers\AdministratorsController');
 
 	//Tickets demo data route (ex. http://url/tickets-admin/demo-seeds/)
 	// get("$admin_route/demo-seeds", 'Kordy\Ticketit\Controllers\InstallController@demoDataSeeder');

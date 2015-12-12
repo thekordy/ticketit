@@ -256,11 +256,7 @@
             var data = google.visualization.arrayToDataTable([
                 ["{{ trans('ticketit::admin.index-month') }}", "{!! implode('", "', $monthly_performance['categories']) !!}"],
                 @foreach($monthly_performance['interval'] as $month => $records)
-                    @if($records != end($monthly_performance['interval']))
-                        ["{{ $month }}", {!! implode(',', $records) !!}],
-                    @else
-                        ["{{ $month }}", {!! implode(',', $records) !!}]
-                    @endif
+                    ["{{ $month }}", {!! implode(',', $records) !!}],
                 @endforeach
             ]);
 
@@ -278,11 +274,7 @@
             var cat_data = google.visualization.arrayToDataTable([
               ['{{ trans('ticketit::admin.index-category') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
               @foreach($categories_share as $cat_name => $cat_tickets)
-                  @if($cat_tickets != end($categories_share))
-                      ['{{ $cat_name }}', {{ $cat_tickets }}],
-                  @else
-                      ['{{ $cat_name }}', {{ $cat_tickets }}]
-                  @endif
+                    ['{{ $cat_name }}', {{ $cat_tickets }}],
               @endforeach
             ]);
 
@@ -299,11 +291,7 @@
             var agent_data = google.visualization.arrayToDataTable([
               ['{{ trans('ticketit::admin.index-agent') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
               @foreach($agents_share as $agent_name => $agent_tickets)
-                  @if($agent_tickets != end($agents_share))
-                      ['{{ $agent_name }}', {{ $agent_tickets }}],
-                  @else
-                      ['{{ $agent_name }}', {{ $agent_tickets }}]
-                  @endif
+                    ['{{ $agent_name }}', {{ $agent_tickets }}],
               @endforeach
             ]);
 

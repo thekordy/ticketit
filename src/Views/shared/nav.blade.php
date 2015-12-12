@@ -26,7 +26,8 @@
                     Request::is($setting->grab('admin_route')."/status*") ||
                     Request::is($setting->grab('admin_route')."/priority*") ||
                     Request::is($setting->grab('admin_route')."/agent*") ||
-                    Request::is($setting->grab('admin_route')."/category*")
+                    Request::is($setting->grab('admin_route')."/category*") ||
+                    Request::is($setting->grab('admin_route')."/administrator*")
                     ? "active" : "" !!}">
 
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -47,6 +48,9 @@
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/config*") ? "active" : "" !!}">
                             <a href="/{{ $setting->grab('admin_route') }}/configuration">{{ trans('ticketit::admin.nav-configuration') }}</a>
+                        </li>
+                        <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/administrator*") ? "active" : "" !!}">
+                            <a href="/{{ $setting->grab('admin_route') }}/administrator">{{ trans('ticketit::admin.nav-administrator') }}</a>
                         </li>
                     </ul>
                 </li>

@@ -2,6 +2,6 @@
 
 return [
 
-'data' => '<b>:name</b> changed the status of ":subject" from :old_status to :new_status<br>',
+'data' => '<b>:name</b> hat den Status für ":subject" von :old_status auf :new_status gesetzt<br>',
 
 ];

@@ -63,7 +63,7 @@ return [
   'responsible'                      => 'Responsible',
   'status'                           => 'Status',      
   'subject'                          => 'Subject',
-  
+  'time-spent'                       => 'Work Time',
  /*  
   *  Page specific
   */

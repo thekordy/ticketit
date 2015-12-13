@@ -28,7 +28,7 @@ class PrepareTicketUpdateRequest extends Request
             'content'     => 'required|min:6',
             'priority_id' => 'required|numeric',
             'category_id' => 'required|numeric',
-            'agent_id' => 'required'
+            'agent_id'    => 'required'
         ];
     }
 }

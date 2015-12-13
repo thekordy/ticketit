@@ -12,8 +12,15 @@
                         {!! CollectiveForm::textarea('content', null, ['class' => 'form-control', 'rows' => "3"]) !!}
                     </div>
                 </div>
-
-                <div class="text-right col-md-12">
+                @if( $u->isAgent() || $u->isAdmin() )
+                    <div class="form-group col-lg-3">
+                        {!!  CollectiveForm::label('time', trans('ticketit::lang.time-spent') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 control-label']) !!}
+                        <div class="col-lg-6">
+                            {!! CollectiveForm::text('time_spent', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                @endif
+                <div class="text-right col-md-9">
                     {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
                 </div>
 

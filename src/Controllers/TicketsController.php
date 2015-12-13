@@ -191,9 +191,13 @@ class TicketsController extends Controller
         }
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
+        $total_time = 0;
+        foreach ($ticket->comments as $comment){
+            $total_time += $comment->time_spent;
+        }
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
-                'close_perm', 'reopen_perm'));
+                'close_perm', 'reopen_perm', 'total_time'));
     }
 
     /**

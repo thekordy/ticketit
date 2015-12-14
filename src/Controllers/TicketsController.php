@@ -197,7 +197,7 @@ class TicketsController extends Controller
             $total_time += $comment->time_spent;
         }
         $total_hours = intval($total_time/60);
-        $total_minutes = $total_time - ($total_hours * 60);
+        $total_minutes = $total_time % 60;
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm', 'total_hours', 'total_minutes'));

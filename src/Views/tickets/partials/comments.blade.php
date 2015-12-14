@@ -1,6 +1,6 @@
 @if(!$comments->isEmpty())
     @foreach($comments as $comment)
-        @if( (!$u->isAgent() || !$u->isAdmin()) && $comment->private == 1 )
+        @if( !$u->isAgent() && !$u->isAdmin() && $comment->private == 1 )
             <?php continue; ?>
         @endif
         @if ($comment->private == 1)

@@ -263,7 +263,14 @@
             var options = {
                 title: '{{ trans('ticketit::admin.index-performance-chart') }}',
                 curveType: 'function',
-                legend: {position: 'right'}
+                legend: {position: 'right'},
+                vAxis: {
+                    viewWindowMode:'explicit',
+                    format: '#',
+                    viewWindow:{
+                        min:0
+                    }
+                }
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));

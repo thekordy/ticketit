@@ -19,10 +19,20 @@
                             {!! CollectiveForm::text('time_spent', null, ['class' => 'form-control']) !!}
                         </div>
                     </div>
+                    <div class="form-group col-lg-3">
+                        {!!  CollectiveForm::label('private', trans('ticketit::lang.private') . trans('ticketit::lang.colon'), ['class' => 'col-lg-10 control-label']) !!}
+                        <div class="col-lg-2">
+                            {!! CollectiveForm::checkbox('private', 1, false, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="text-right col-md-6">
+                        {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                    </div>
+                @else
+                    <div class="text-right col-md-12">
+                        {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                    </div>
                 @endif
-                <div class="text-right col-md-9">
-                    {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
-                </div>
 
             </fieldset>
         {!! CollectiveForm::close() !!}

@@ -190,14 +190,17 @@ class TicketsController extends Controller
             $agent_lists = ['auto' => 'Auto Select'];
         }
 
-        $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
+        $comments = $ticket->comments()->orderBy('id', 'desc')->paginate(Setting::grab('paginate_items'));
+
         $total_time = 0;
-        foreach ($ticket->comments as $comment){
+        foreach ($ticket->comments as $comment) {
             $total_time += $comment->time_spent;
         }
+        $total_hours = intval($total_time/60);
+        $total_minutes = $total_time % 60;
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
-                'close_perm', 'reopen_perm', 'total_time'));
+                'close_perm', 'reopen_perm', 'total_hours', 'total_minutes'));
     }
 
     /**

@@ -43,6 +43,7 @@ class CommentsController extends Controller {
 		$comment->ticket_id = $request->get('ticket_id');
 		$comment->user_id = \Auth::user()->id;
 		$comment->time_spent = $request->get('time_spent');
+		$comment->private = $request->get('private');
 		$comment->save();
 
 		$ticket = Models\Ticket::find($comment->ticket_id);

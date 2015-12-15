@@ -1,9 +1,10 @@
 <?php
 namespace Kordy\Ticketit\Controllers;
 
+use Kordy\Ticketit\Models\Attachment;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use Illuminate\Http\Request;
+use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 use Kordy\Ticketit\Models;
 
 class CommentsController extends Controller {
@@ -37,7 +38,7 @@ class CommentsController extends Controller {
 	 * @param Requests\CommentFormRequest|Request $request
 	 * @return Response
 	 */
-	public function store(Request $request) {
+	public function store(PrepareCommentStoreRequest $request) {
 		$comment = new Models\Comment;
 		$comment->content = $request->get('content');
 		$comment->ticket_id = $request->get('ticket_id');
@@ -49,6 +50,23 @@ class CommentsController extends Controller {
 		$ticket = Models\Ticket::find($comment->ticket_id);
 		$ticket->updated_at = $comment->created_at;
 		$ticket->save();
+
+		if ($request->hasFile('file_upload')) {
+			$file = $request->file('file_upload');
+			$extension = $file->getClientOriginalExtension();
+			$filename = $file->getFileName() . '.' . $extension;
+			$filepath = '/app/attachments/'.$comment->user_id.'/';
+			$file->move(storage_path().$filepath, $filename);
+
+			$file_entry = new Attachment;
+			$file_entry->mime = $file->getClientMimeType();
+			$file_entry->original_filename = $file->getClientOriginalName();
+			$file_entry->filename = $filename;
+			$file_entry->filepath = $filepath;
+			$file_entry->ticket_id = $comment->ticket_id;
+			$file_entry->comment_id = $comment->id;
+			$file_entry->save();
+		}
 
         return back()->with('status', trans('ticketit::lang.comment-has-been-added-ok'));
     }

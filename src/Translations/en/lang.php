@@ -57,13 +57,15 @@ return [
   'last-update'                      => 'Last Update',  
   'no-replies'                       => 'No replies.',
   'owner'                            => 'Owner',  
-  'priority'                         => 'Priority',  
+  'priority'                         => 'Priority',
+  'private'                          => 'Private',
   'reopen-ticket'                    => 'Reopen Ticket',
   'reply'                            => 'Reply',
   'responsible'                      => 'Responsible',
   'status'                           => 'Status',      
   'subject'                          => 'Subject',
-  
+  'time-spent'                       => 'Work Time',
+  'file-upload'                      => 'Upload File',
  /*  
   *  Page specific
   */

@@ -52,7 +52,7 @@
             <div class="panel well well-sm">
                 <div class="panel-body">
                     <div class="col-md-12">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <p> <strong>{{ trans('ticketit::lang.owner') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->user->name }}</p>
                             <p>
                                 <strong>{{ trans('ticketit::lang.status') }}</strong>{{ trans('ticketit::lang.colon') }}
@@ -69,8 +69,16 @@
                                     {{ $ticket->priority->name }}
                                 </span>
                             </p>
+                            @if( $u->isAgent() || $u->isAdmin() )
+                                <p>
+                                    <strong>{{ trans('ticketit::lang.time-spent') }}</strong>{{ trans('ticketit::lang.colon') }}
+                                    <span>
+                                    {{ $total_hours }} Hours {{ $total_minutes }} Minutes
+                                    </span>
+                                </p>
+                            @endif
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <p> <strong>{{ trans('ticketit::lang.responsible') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->agent->name }}</p>
                             <p>
                                 <strong>{{ trans('ticketit::lang.category') }}</strong>{{ trans('ticketit::lang.colon') }}
@@ -81,6 +89,21 @@
                             <p> <strong>{{ trans('ticketit::lang.created') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->created_at->diffForHumans() }}</p>
                             <p> <strong>{{ trans('ticketit::lang.last-update') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->updated_at->diffForHumans() }}</p>
                         </div>
+                        @if( $ticket->attachments )
+                            <div class="col-md-4">
+                                <p><strong>Attachments:</strong></p>
+                                @foreach($ticket->attachments as $attachment)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><a href="{!! route('getattachment', ['$fileid' => $attachment->id]) !!}" class="truncateTxt">{!! $attachment->original_filename !!}</a></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><strong>{{ trans('ticketit::lang.created') }}</strong>{{ trans('ticketit::lang.colon') }}</strong>{{ $attachment->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

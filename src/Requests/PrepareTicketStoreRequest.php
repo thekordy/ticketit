@@ -27,7 +27,8 @@ class PrepareTicketStoreRequest extends Request
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric'
+            'category_id' => 'required|numeric',
+            'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg'
         ];
     }
 }

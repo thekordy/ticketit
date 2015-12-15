@@ -51,7 +51,7 @@ class TicketitServiceProvider extends ServiceProvider {
 
             // Send notification when new comment is added
             Comment::creating(function ($comment) {
-                if (Setting::grab('comment_notification')) {
+                if (Setting::grab('comment_notification') && $comment->private != 1) {
                     $notification = new NotificationsController();
                     $notification->newComment($comment);
                 }

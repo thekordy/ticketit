@@ -9,6 +9,7 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\Models\Category;
+use Kordy\Ticketit\Models\Attachment;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use yajra\Datatables\Datatables;
@@ -161,6 +162,22 @@ class TicketsController extends Controller
 
         $ticket->save();
 
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file('file_upload');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getFileName() . '.' . $extension;
+            $filepath = '/app/attachments/'.$ticket->user_id.'/';
+            $file->move(storage_path().$filepath, $filename);
+
+            $file_entry = new Attachment;
+            $file_entry->mime = $file->getClientMimeType();
+            $file_entry->original_filename = $file->getClientOriginalName();
+            $file_entry->filename = $filename;
+            $file_entry->filepath = $filepath;
+            $file_entry->ticket_id = $ticket->id;
+            $file_entry->save();
+        }
+
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
@@ -190,12 +207,18 @@ class TicketsController extends Controller
             $agent_lists = ['auto' => 'Auto Select'];
         }
 
-        $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
+        $comments = $ticket->comments()->orderBy('id', 'desc')->paginate(Setting::grab('paginate_items'));
+
+        $total_time = 0;
+        foreach ($ticket->comments as $comment) {
+            $total_time += $comment->time_spent;
+        }
+        $total_hours = intval($total_time/60);
+        $total_minutes = $total_time % 60;
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
-                'close_perm', 'reopen_perm'));
+                'close_perm', 'reopen_perm', 'total_hours', 'total_minutes'));
     }
-
     /**
      * Update the specified resource in storage.
      *

@@ -105,6 +105,15 @@ class Ticket extends Model
     {
         return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
     }
+    /**
+     * Get Ticket attachments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attachments()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Attachment', 'ticket_id');
+    }
 
 //    /**
     //     * Get Ticket audits

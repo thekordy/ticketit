@@ -7,6 +7,7 @@
         {!! CollectiveForm::open([
                         'route'=>$setting->grab('main_route').'.store',
                         'method' => 'POST',
+                        'files' => true,
                         'class' => 'form-horizontal'
                         ]) !!}
             <legend>{!! trans('ticketit::lang.create-new-ticket') !!}</legend>
@@ -35,6 +36,12 @@
                     {!! CollectiveForm::label('category', trans('ticketit::lang.category') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 control-label']) !!}
                     <div class="col-lg-6">
                         {!! CollectiveForm::select('category_id', $categories, null, ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group col-lg-4">
+                    {!! CollectiveForm::label('file_upload', trans('ticketit::lang.file-upload') . trans('ticketit::lang.colon'), ['class' => 'col-lg-12']) !!}
+                    <div class="col-lg-12">
+                        {!! CollectiveForm::file('file_upload', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
                 {!! CollectiveForm::hidden('agent_id', 'auto') !!}

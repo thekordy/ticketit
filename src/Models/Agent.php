@@ -22,7 +22,7 @@ class Agent extends User
         if ($paginate) {
             return $query->where('ticketit_agent', '1')->paginate($paginate,['*'],'agents_page');
         } else {
-            return $query->where('ticketit_agent', '1')->get();
+            return $query->where('ticketit_agent', '1');
         }
     }
 
@@ -155,11 +155,22 @@ class Agent extends User
      */
     public function agentTickets($complete = false)
     {
-        if ($complete) {
+        if ($complete == 'total') {
+            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
+        } else if ($complete) {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
         } else {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
         }
+    }
+
+    /**
+     * Get total related agent tickets (open + closed)
+     *
+     */
+    public function agentTicketsTotal()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
     }
 
     /**
@@ -174,6 +185,16 @@ class Agent extends User
         } else {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
         }
+    }
+
+    /**
+     * Get total related user tickets (open + closed)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userTicketsTotal($complete = false)
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id');
     }
 
     public function tickets($complete = false)

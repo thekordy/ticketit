@@ -417,13 +417,11 @@ class TicketsController extends Controller
      * @param int $period
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function monthlyPerfomance($period = 2)
+    public function monthlyPerfomance($period = 2, $categories_all)
     {
-        $categories = Category::all();
-        foreach ($categories as $cat) {
-            $records['categories'][] = $cat->name;
+        foreach ($categories_all as $category) {
+            $records['categories'][] = $category->name;
         }
-
         for ($m = $period; $m >= 0; $m--) {
             $from = Carbon::now();
             $from->day = 1;
@@ -433,13 +431,38 @@ class TicketsController extends Controller
             $to->subMonth($m);
             $to->endOfMonth();
             $records['interval'][$from->format('F Y')] = [];
-            foreach ($categories as $cat) {
-                $records['interval'][$from->format('F Y')][] = round($this->intervalPerformance($from, $to, $cat->id), 1);
+            foreach ($categories_all as $category) {
+                $records['interval'][$from->format('F Y')][] = round($this->intervalPerformance($from, $to, $category), 1);
             }
         }
         return $records;
     }
 
+    /**
+     * Calculate the average date length it took to solve tickets within date period
+     * @param $from
+     * @param $to
+     * @return int
+     */
+    public function intervalPerformance($from, $to, $category) {
+        $tickets = $category->tickets->filter(function ($ticket) use ($from, $to) {
+            $completed = new Carbon($ticket->completed_at);
+            return $completed->between(new Carbon($from), new Carbon($to));
+        });
+
+        if(!$tickets->count() > 0) {
+            return 0;
+        }
+
+        $performance_count = 0;
+        $counter = 0;
+        foreach ($tickets as $ticket) {
+            $performance_count += $this->ticketPerformance($ticket);
+            $counter++;
+        }
+        $performance_average = $performance_count / $counter;
+        return $performance_average;
+    }
 
     /**
      * Calculate the date length it took to solve a ticket
@@ -455,33 +478,6 @@ class TicketsController extends Controller
         $length = $created->diff($completed)->days;
 
         return $length;
-    }
-
-    /**
-     * Calculate the average date length it took to solve tickets within date period
-     * @param $from
-     * @param $to
-     * @return int
-     */
-    public function intervalPerformance($from, $to, $cat_id = false ) {
-        if ($cat_id) {
-            $tickets = Ticket::where('category_id', $cat_id)->whereBetween('completed_at', array($from, $to))->get();
-        } else {
-            $tickets = Ticket::whereBetween('completed_at', array($from, $to))->get();
-        }
-
-        if(empty($tickets->first())) {
-            return false;
-        }
-
-        $performance_count = 0;
-        $counter = 0;
-        foreach ($tickets as $ticket) {
-            $performance_count += $this->ticketPerformance($ticket);
-            $counter++;
-        }
-        $performance_average = $performance_count / $counter;
-        return $performance_average;
     }
 
 }

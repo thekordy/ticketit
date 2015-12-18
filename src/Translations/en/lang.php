@@ -65,6 +65,7 @@ return [
   'status'                           => 'Status',      
   'subject'                          => 'Subject',
   'time-spent'                       => 'Work Time',
+  'file-upload'                      => 'Upload File',
  /*  
   *  Page specific
   */

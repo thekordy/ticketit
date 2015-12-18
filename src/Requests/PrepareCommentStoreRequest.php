@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
 
-class PrepareTicketStoreRequest extends Request
+class PrepareCommentStoreRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,6 @@ class PrepareTicketStoreRequest extends Request
     public function rules()
     {
         return [
-            'subject'     => 'required|min:3',
-            'content'     => 'required|min:6',
-            'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
             'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg'
         ];
     }

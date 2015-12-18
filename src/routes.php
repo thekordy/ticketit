@@ -18,6 +18,10 @@ Route::group(['middleware' => 'auth'], function () use ($main_route) {
 	//Ticket reopen route for permitted user.
 	get("$main_route/{id}/reopen", 'Kordy\Ticketit\Controllers\TicketsController@reopen')
 		->name("$main_route.reopen");
+
+	//Download Attachments
+	get("$main_route/download/file-id={file}", 'Kordy\Ticketit\Controllers\AttachmentsController@getattachment')
+		->name("getattachment");
 });
 
 Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () use ($main_route) {

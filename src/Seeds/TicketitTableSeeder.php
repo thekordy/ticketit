@@ -11,6 +11,7 @@ class TicketitTableSeeder extends Seeder
 
     public $email_domain = '@example.com'; // the email domain name for demo accounts. Ex. user1@example.com
     public $agents_qty = 5; // number of demo agents accounts
+    public $agents_per_category = 2; // number of demo agents per category (must be lower than $agents_qty)
     public $users_qty = 30; // number of demo users accounts
     public $tickets_per_user_min = 1; // Minimum number of generated tickets per user
     public $tickets_per_user_max = 5; // Maximum number of generated tickets per user
@@ -52,7 +53,6 @@ class TicketitTableSeeder extends Seeder
 
         // create agents
         $agents_counter = 1;
-        $agent_ids = [];
 
         for ($a = 1; $a <= $this->agents_qty; $a++) {
             $agent_info = new \App\User();
@@ -61,7 +61,7 @@ class TicketitTableSeeder extends Seeder
             $agent_info->ticketit_agent = 1;
             $agent_info->password = Hash::make($this->default_agent_password);
             $agent_info->save();
-            $agent_ids[] = $agent_info->id;
+            $agents[$agent_info->id] = $agent_info;
             $agents_counter++;
         }
 
@@ -80,7 +80,7 @@ class TicketitTableSeeder extends Seeder
                 'name' => $name,
                 'color' => $color
             ]);
-            $agent = rand(min($agent_ids), max($agent_ids));
+            $agent = array_rand($agents, $this->agents_per_category);
             $category->agents()->attach($agent);
             $counter++;
         }

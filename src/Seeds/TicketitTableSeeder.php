@@ -9,20 +9,20 @@ use Illuminate\Support\Facades\Hash;
 class TicketitTableSeeder extends Seeder
 {
 
-    public $email_domain = '@example.com';
-    public $agents_qty = 5;
-    public $users_qty = 30;
-    public $tickets_per_user_min = 1;
-    public $tickets_per_user_max = 5;
-    public $comments_per_ticket_min = 0;
-    public $comments_per_ticket_max = 3;
-    public $default_agent_password = 'demo';
-    public $default_user_password = 'demo';
-    public $tickets_date_period = 270; // days
-    public $tickets_open = 20; // To-do
-    public $tickets_min_close_period = 3; // days
-    public $tickets_max_close_period = 5; // days
-    public $default_status_id = 2;
+    public $email_domain = '@example.com'; // the email domain name for demo accounts. Ex. user1@example.com
+    public $agents_qty = 5; // number of demo agents accounts
+    public $users_qty = 30; // number of demo users accounts
+    public $tickets_per_user_min = 1; // Minimum number of generated tickets per user
+    public $tickets_per_user_max = 5; // Maximum number of generated tickets per user
+    public $comments_per_ticket_min = 0; // Minimum number of generated comments per ticket
+    public $comments_per_ticket_max = 3; // Maximum number of generated comments per ticket
+    public $default_agent_password = 'demo'; // default demo agents accounts paasword
+    public $default_user_password = 'demo'; // default demo users accounts paasword
+    public $tickets_date_period = 270; // to go to past (in days) and start creating tickets since
+    public $tickets_open = 20; // To-do number of remaining open tickets
+    public $tickets_min_close_period = 3; // minimum days to close tickets
+    public $tickets_max_close_period = 5; // maximum days to close tickets
+    public $default_closed_status_id = 2; // default status id for closed tickets
     public $categories = [
         'Technical' => '#0014f4',
         'Billing' => '#2b9900',
@@ -52,6 +52,7 @@ class TicketitTableSeeder extends Seeder
 
         // create agents
         $agents_counter = 1;
+        $agent_ids = [];
 
         for ($a = 1; $a <= $this->agents_qty; $a++) {
             $agent_info = new \App\User();
@@ -60,6 +61,7 @@ class TicketitTableSeeder extends Seeder
             $agent_info->ticketit_agent = 1;
             $agent_info->password = Hash::make($this->default_agent_password);
             $agent_info->save();
+            $agent_ids[] = $agent_info->id;
             $agents_counter++;
         }
 
@@ -71,7 +73,6 @@ class TicketitTableSeeder extends Seeder
             ]);
         }
 
-        $agents = \Kordy\Ticketit\Models\Agent::agentsLists();
         $counter = 0;
         // create tickets statuses
         foreach ($this->categories as $name => $color) {
@@ -79,7 +80,7 @@ class TicketitTableSeeder extends Seeder
                 'name' => $name,
                 'color' => $color
             ]);
-            $agent = array_rand($agents, 4);
+            $agent = rand(min($agent_ids), max($agent_ids));
             $category->agents()->attach($agent);
             $counter++;
         }
@@ -115,7 +116,7 @@ class TicketitTableSeeder extends Seeder
                 $priority_id = rand(1, $priorities_qty);
                 do {
                     $rand_status = rand(1, $statuses_qty);
-                } while($rand_status == $this->default_status_id);
+                } while($rand_status == $this->default_closed_status_id);
 
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
                 $agents = $category->agents()->lists('name', 'id')->toArray();
@@ -141,7 +142,7 @@ class TicketitTableSeeder extends Seeder
                 if(!$completed_at->addDays($random_complete)->gt(\Carbon\Carbon::now())) {
                     $ticket->completed_at = $completed_at;
                     $ticket->updated_at = $completed_at;
-                    $ticket->status_id = $this->default_status_id;
+                    $ticket->status_id = $this->default_closed_status_id;
                 }
                 $ticket->save();
 

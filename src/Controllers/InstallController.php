@@ -17,7 +17,10 @@ class InstallController extends Controller
         '2015_07_22_115516_create_ticketit_tables',
         '2015_07_22_123254_alter_users_table',
         '2015_09_29_123456_add_completed_at_column_to_ticketit_table',
-        '2015_10_08_123457_create_settings_table'
+        '2015_10_08_123457_create_settings_table',
+        '2015_12_10_173206_add_time_spent_to_comments',
+        '2015_12_13_224543_add_private_comments',
+        '2015_12_14_173904_add_attachments_table'
     ];
 
     public function publicAssets() {

@@ -11,8 +11,8 @@ use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
-use yajra\Datatables\Datatables;
-use yajra\Datatables\Engines\EloquentEngine;
+use Yajra\Datatables\Datatables;
+use Yajra\Datatables\Engines\EloquentEngine;
 
 class TicketsController extends Controller
 {

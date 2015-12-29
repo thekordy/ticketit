@@ -6,7 +6,7 @@ return [
   *  Constants
   */
 
-  'nav-active-tickets'               => 'Actív kérelmek',
+  'nav-active-tickets'               => 'Aktív kérelmek',
   'nav-completed-tickets'            => 'Lezárt kérelmek',
 
   // Tables

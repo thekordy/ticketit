@@ -125,13 +125,13 @@ return [
 
 // NotificationsController
   'notify-new-comment-from'          => 'New comment from ', 
-  'notify-on'                        => ' on ', 
+  'notify-on'                        => ' on ticket ', 
   'notify-status-to-complete'        => ' status to Complete', 
   'notify-status-to'                 => ' status to ', 
-  'notify-transferred'               => ' transferred ', 
+  'notify-transferred'               => ' transferred ticket ', 
   'notify-to-you'                    => ' to you', 
   'notify-created-ticket'            => ' created ticket ', 
-  'notify-updated'                   => ' updated ',   
+  'notify-updated'                   => ' updated ticket ',   
   
  // TicketsController
   'the-ticket-has-been-created'      => 'The ticket has been created!',  

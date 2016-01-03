@@ -70,7 +70,7 @@ return [
   */
 
 // ____
-  'index-title'                      => 'Supprt nyitólap',
+  'index-title'                      => 'Support nyitólap',
 
 // tickets/____
   'index-my-tickets'                 => 'Kérelmeim',

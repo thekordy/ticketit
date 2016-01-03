@@ -130,7 +130,7 @@ class TicketitServiceProvider extends ServiceProvider {
          * Register the service provider for the dependency.
          */
         $this->app->register('Collective\Html\HtmlServiceProvider');
-        $this->app->register('Yajra\Datatables\DatatablesServiceProvider');
+        $this->app->register('yajra\Datatables\DatatablesServiceProvider');
         $this->app->register('Jenssegers\Date\DateServiceProvider');
         /*
          * Create aliases for the dependency.

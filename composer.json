@@ -7,7 +7,7 @@
         "laravel/framework": "^5.1",
         "laravelcollective/html": "^5.1",
         "illuminate/support": "^5.1",
-        "yajra/laravel-datatables-oracle": "~6.0",
+        "yajra/laravel-datatables-oracle": "~5.0",
         "jenssegers/date": "^3.0"
     },
     "license": "MIT",

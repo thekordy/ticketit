@@ -200,6 +200,21 @@ class SettingsTableSeeder extends Seeder
              * Options: builtin, modal
              */
             'delete_modal_type' => 'builtin',
+            /*
+             * Settings used by the email functions
+             */
+            'imap_server' => 'imap.gmail.com:993/imap/ssl', //server connected to for emails
+            'imap_folder' => 'Inbox', //folder searched for new emails
+            'imap_user' => 'someone@gmail.com', //username for imap account
+            'imap_password' => 'password', //password for imap account should probably be hashed
+            'default_priority_id' => '1',
+            'default_category_id' => '1',
+            'default_outgoing_email' => 'user', //user = agents email
+            'default_outgoing_name' => 'user', //user = agents name
+            'default_emails_agent' => 'auto',
+            'move_email_to' => '', //folder that read emails will be moved to
+            'accepted_file_types' => 'jpeg,jpg,bmp,png,txt,doc,docx,xlsx', //file types accepted through ticket upload
+            'accepted_email_attachments' => 'jpg|jpeg|png|gif|bmp', //file types accepted through email attachments
 
         ];
 

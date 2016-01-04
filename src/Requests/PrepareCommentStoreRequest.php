@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
+use Kordy\Ticketit\Models\Setting;
 
 class PrepareCommentStoreRequest extends Request
 {
@@ -24,7 +25,7 @@ class PrepareCommentStoreRequest extends Request
     public function rules()
     {
         return [
-            'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg'
+            'file_upload'   => 'mimes:'.Setting::grab('accepted_file_types')
         ];
     }
 }

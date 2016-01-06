@@ -73,7 +73,7 @@ class TicketsController extends Controller
     {
 
         $collection->editColumn('subject', function ($ticket) {
-            return link_to_route(
+            return (string) link_to_route(
                 Setting::grab('main_route') . '.show',
                 $ticket->subject,
                 $ticket->id

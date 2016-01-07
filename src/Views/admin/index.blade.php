@@ -261,7 +261,7 @@
             ]);
 
             var options = {
-                title: '{{ trans('ticketit::admin.index-performance-chart') }}',
+                title: '{!! addslashes(trans('ticketit::admin.index-performance-chart')) !!}',
                 curveType: 'function',
                 legend: {position: 'right'},
                 vAxis: {
@@ -279,14 +279,14 @@
 
             // Categories Pie Chart
             var cat_data = google.visualization.arrayToDataTable([
-              ['{{ trans('ticketit::admin.index-category') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
+              ['{{ trans('ticketit::admin.index-category') }}', '{!! addslashes(trans('ticketit::admin.index-tickets')) !!}'],
               @foreach($categories_share as $cat_name => $cat_tickets)
-                    ['{{ $cat_name }}', {{ $cat_tickets }}],
+                    ['{!! addslashes($cat_name) !!}', {{ $cat_tickets }}],
               @endforeach
             ]);
 
             var cat_options = {
-              title: '{{ trans('ticketit::admin.index-categories-chart') }}',
+              title: '{!! addslashes(trans('ticketit::admin.index-categories-chart')) !!}',
               legend: {position: 'bottom'}
             };
 
@@ -296,14 +296,14 @@
 
             // Agents Pie Chart
             var agent_data = google.visualization.arrayToDataTable([
-              ['{{ trans('ticketit::admin.index-agent') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
+              ['{{ trans('ticketit::admin.index-agent') }}', '{!! addslashes(trans('ticketit::admin.index-tickets')) !!}'],
               @foreach($agents_share as $agent_name => $agent_tickets)
-                    ['{{ $agent_name }}', {{ $agent_tickets }}],
+                    ['{!! addslashes($agent_name) !!}', {{ $agent_tickets }}],
               @endforeach
             ]);
 
             var agent_options = {
-              title: '{{ trans('ticketit::admin.index-agents-chart') }}',
+              title: '{!! addslashes(trans('ticketit::admin.index-agents-chart')) !!}',
               legend: {position: 'bottom'}
             };
 

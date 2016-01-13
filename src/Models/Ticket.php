@@ -190,6 +190,8 @@ class Ticket extends Model
      */
     public function scopeAgentUserTickets($query, $id)
     {
-        return $query->where('agent_id', $id)->orWhere('user_id', $id);
+        return $query->where(function($subquery) use ($id) {
+            $subquery->where('agent_id', $id)->orWhere('user_id', $id);
+        });
     }
 }

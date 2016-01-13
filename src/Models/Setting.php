@@ -44,7 +44,7 @@ class Setting extends Model
          * of Database queries. Only for adding new settings while
          * in development and testing.
          */
-        Cache::forget('settings');
+//        Cache::forget('settings');
 
 
         $settings = Cache::remember('settings', 60, function () {

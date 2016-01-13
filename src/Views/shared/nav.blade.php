@@ -5,14 +5,14 @@
             <li role="presentation" class="{!! Request::is($setting->grab('main_route')) ? "active" : "" !!}">
                 <a href="/{{ $setting->grab('main_route') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
                     <span class="badge">
-                        {{ $u->getTickets(false)->count() }}
+                        {{ Kordy\Ticketit\Models\Ticket::active()->agentUserTickets($u->id)->count() }}
                     </span>
                 </a>
             </li>
             <li role="presentation" class="{!! Request::is($setting->grab('main_route').'/complete') ? "active" : "" !!}">
                 <a href="/{{ $setting->grab('main_route') . '/complete' }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                     <span class="badge">
-                        {{ $u->getTickets(true)->count() }}
+                        {{ Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets($u->id)->count() }}
                     </span>
                 </a>
             </li>

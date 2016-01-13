@@ -24,6 +24,7 @@ class TicketitServiceProvider extends ServiceProvider {
         $installer = new InstallController();
 
         // if a migration is missing scape to the installation
+        //Todo use $installer->inactiveSettings to check and install new added settings
         if (empty($installer->inactiveMigrations()) && DB::table('ticketit_settings')->count() != 0) {
             // Send the Agent User model to the view under $u
             view()->composer('*', function ($view) {
@@ -102,7 +103,7 @@ class TicketitServiceProvider extends ServiceProvider {
             $admin_route = Setting::grab('admin_route');
             include __DIR__ . '/routes.php';
         }
-        elseif (Request::path() == 'tickets-install') {
+        elseif (Request::path() == 'tickets-install' || Request::path() == 'tickets' || Request::path() == 'tickets-admin') {
 
             $this->loadTranslationsFrom(__DIR__ . '/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
@@ -110,12 +111,20 @@ class TicketitServiceProvider extends ServiceProvider {
 
             Route::get('/tickets-install', [
                 'middleware' => 'auth',
+                'as' => 'tickets.install.index',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@index'
             ]);
             Route::post('/tickets-install', [
                 'middleware' => 'auth',
+                'as' => 'tickets.install.setup',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup'
             ]);
+            Route::get('/tickets', function() {
+                return redirect()->route('tickets.install.index');
+            });
+            Route::get('/tickets-admin', function() {
+                return redirect()->route('tickets.install.index');
+            });
         }
 
 	}

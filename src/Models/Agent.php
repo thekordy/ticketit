@@ -150,7 +150,7 @@ class Agent extends User
     }
 
     /**
-     * Get related agent tickets
+     * Get related agent tickets (To be deprecated)
      *
      */
     public function agentTickets($complete = false)
@@ -165,7 +165,7 @@ class Agent extends User
     }
 
     /**
-     * Get total related agent tickets (open + closed)
+     * Get total related agent tickets (open + closed) (To be deprecated)
      *
      */
     public function agentTicketsTotal()
@@ -174,7 +174,7 @@ class Agent extends User
     }
 
     /**
-     * Get related user tickets
+     * Get related user tickets (To be deprecated)
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -188,16 +188,16 @@ class Agent extends User
     }
 
     /**
-     * Get total related user tickets (open + closed)
+     * Get total related user tickets (open + closed) (To be deprecated)
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userTicketsTotal($complete = false)
+    public function userTicketsTotal()
     {
         return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id');
     }
 
-    public function tickets($complete = false)
+    public function tickets($complete = false) //  (To be deprecated)
     {
         if ($complete) {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
@@ -206,7 +206,7 @@ class Agent extends User
         }
     }
 
-    public function allTickets($complete = false)
+    public function allTickets($complete = false) // (To be deprecated)
     {
         if ($complete) {
             return Ticket::whereNotNull('completed_at');
@@ -215,7 +215,7 @@ class Agent extends User
         }
     }
 
-    public function getTickets($complete = false)
+    public function getTickets($complete = false) // (To be deprecated)
     {
         $user = Agent::find(auth()->user()->id);
 

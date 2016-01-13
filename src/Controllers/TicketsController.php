@@ -8,7 +8,6 @@ use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Attachment;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
@@ -35,10 +34,24 @@ class TicketsController extends Controller
     {
         $user = $this->agent->find(auth()->user()->id);
 
-        if ($complete) {
-            $collection = $user->getTickets(true);
+        if ($user->isAdmin()) {
+            if ($complete) {
+                $collection = Ticket::complete();
+            } else {
+                $collection = Ticket::active();
+            }
+        } elseif ($user->isAgent()) {
+            if ($complete) {
+                $collection = Ticket::complete()->agentUserTickets($user->id);
+            } else {
+                $collection = Ticket::active()->agentUserTickets($user->id);
+            }
         } else {
-            $collection = $user->getTickets();
+            if ($complete) {
+                $collection = Ticket::userTickets($user->id)->complete();
+            } else {
+                $collection = Ticket::userTickets($user->id)->active();
+            }
         }
 
         $collection

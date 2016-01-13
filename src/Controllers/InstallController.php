@@ -13,15 +13,12 @@ use Kordy\Ticketit\Seeds\TicketitTableSeeder;
 
 class InstallController extends Controller
 {
-    protected $migrations_tables = [
-        '2015_07_22_115516_create_ticketit_tables',
-        '2015_07_22_123254_alter_users_table',
-        '2015_09_29_123456_add_completed_at_column_to_ticketit_table',
-        '2015_10_08_123457_create_settings_table',
-        '2015_12_10_173206_add_time_spent_to_comments',
-        '2015_12_13_224543_add_private_comments',
-        '2015_12_14_173904_add_attachments_table'
-    ];
+    protected $migrations_tables = [];
+
+    public function __construct()
+    {
+        $this->migrations_tables = \File::files('vendor/kordy/ticketit/src/Migrations');
+    }
 
     public function publicAssets() {
         $public = $this->allFilesList(public_path('vendor/ticketit'));
@@ -168,6 +165,26 @@ class InstallController extends Controller
             }
         }
         return $inactiveMigrations;
+    }
+
+    /**
+     * Check if all Ticketit Package settings that were not installed to setting table
+     * @return boolean
+     */
+    public function inactiveSettings()
+    {
+        $seeder = new SettingsTableSeeder();
+
+        // Package Settings
+        $installedSettings = DB::table('ticketit_settings')->get();
+
+        // Application active migrations
+        $defaultSettings = $seeder->getDefaults();
+
+        if (count($installedSettings) == count($defaultSettings))
+            return false;
+
+        return true;
     }
 
     /**

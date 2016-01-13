@@ -6,7 +6,7 @@
 
 @section('content')
     @include('ticketit::shared.header')
-    @if($tickets_total->count() > 0)
+    @if($tickets_count)
         <div class="row">
             <div class="col-lg-3 col-md-4 col-lg-offset-1">
                 <div class="panel panel-default">
@@ -153,12 +153,12 @@
                         @foreach($categories as $category)
                             <a href="#" class="list-group-item">
                         <span style="color: {{ $category->color }}">
-                            {{ $category->name }} <span class="badge">{{ $category->tickets->count() }}</span>
+                            {{ $category->name }} <span class="badge">{{ $category->tickets()->count() }}</span>
                         </span>
                         <span class="pull-right text-muted small">
                             <em>
-                                {{ $category->tickets->where('completed_at', null)->count() }} /
-                                 {{ $category->tickets->count() - $category->tickets->where('completed_at', null)->count() }}
+                                {{ $category->tickets()->whereNull('completed_at')->count() }} /
+                                 {{ $category->tickets()->whereNotNull('completed_at')->count() }}
                             </em>
                         </span>
                             </a>
@@ -182,13 +182,14 @@
                                 <span>
                                     {{ $agent->name }}
                                     <span class="badge">
-                                        {{ $agent->agentTicketsTotal->count() }}
+                                        {{ $agent->agentTickets(false)->count()  +
+                                         $agent->agentTickets(true)->count() }}
                                     </span>
                                 </span>
                                 <span class="pull-right text-muted small">
                                     <em>
-                                        {{ $agent->agentTicketsTotal->where('completed_at', null)->count() }} /
-                                         {{ $agent->agentTicketsTotal->count() - $agent->agentTicketsTotal->where('completed_at', null)->count() }}
+                                        {{ $agent->agentTickets(false)->count() }} /
+                                         {{ $agent->agentTickets(true)->count() }}
                                     </em>
                                 </span>
                             </a>
@@ -212,13 +213,14 @@
                                 <span>
                                     {{ $user->name }}
                                     <span class="badge">
-                                        {{ $user->userTicketsTotal->count() }}
+                                        {{ $user->userTickets(false)->count()  +
+                                         $user->userTickets(true)->count() }}
                                     </span>
                                 </span>
                                 <span class="pull-right text-muted small">
                                     <em>
-                                        {{ $user->userTicketsTotal->where('completed_at', null)->count() }} /
-                                        {{ $user->userTicketsTotal->count() - $user->userTicketsTotal->where('completed_at', null)->count() }}
+                                        {{ $user->userTickets(false)->count() }} /
+                                        {{ $user->userTickets(true)->count() }}
                                     </em>
                                 </span>
                             </a>
@@ -259,7 +261,7 @@
             ]);
 
             var options = {
-                title: '{{ trans('ticketit::admin.index-performance-chart') }}',
+                title: '{!! addslashes(trans('ticketit::admin.index-performance-chart')) !!}',
                 curveType: 'function',
                 legend: {position: 'right'},
                 vAxis: {
@@ -277,14 +279,14 @@
 
             // Categories Pie Chart
             var cat_data = google.visualization.arrayToDataTable([
-              ['{{ trans('ticketit::admin.index-category') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
-              @foreach($categories_all as $category)
-                    ['{{ $category->name }}', {{ $category->tickets->count() }}],
+              ['{{ trans('ticketit::admin.index-category') }}', '{!! addslashes(trans('ticketit::admin.index-tickets')) !!}'],
+              @foreach($categories_share as $cat_name => $cat_tickets)
+                    ['{!! addslashes($cat_name) !!}', {{ $cat_tickets }}],
               @endforeach
             ]);
 
             var cat_options = {
-              title: '{{ trans('ticketit::admin.index-categories-chart') }}',
+              title: '{!! addslashes(trans('ticketit::admin.index-categories-chart')) !!}',
               legend: {position: 'bottom'}
             };
 
@@ -294,14 +296,14 @@
 
             // Agents Pie Chart
             var agent_data = google.visualization.arrayToDataTable([
-              ['{{ trans('ticketit::admin.index-agent') }}', '{{ trans('ticketit::admin.index-tickets') }}'],
-              @foreach($agents_all as $agent)
-                    ['{{ $agent->name }}', {{ $agent->agentTicketsTotal->count() }}],
+              ['{{ trans('ticketit::admin.index-agent') }}', '{!! addslashes(trans('ticketit::admin.index-tickets')) !!}'],
+              @foreach($agents_share as $agent_name => $agent_tickets)
+                    ['{!! addslashes($agent_name) !!}', {{ $agent_tickets }}],
               @endforeach
             ]);
 
             var agent_options = {
-              title: '{{ trans('ticketit::admin.index-agents-chart') }}',
+              title: '{!! addslashes(trans('ticketit::admin.index-agents-chart')) !!}',
               legend: {position: 'bottom'}
             };
 

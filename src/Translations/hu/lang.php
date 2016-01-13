@@ -6,7 +6,7 @@ return [
   *  Constants
   */
 
-  'nav-active-tickets'               => 'Actív kérelmek',
+  'nav-active-tickets'               => 'Aktív kérelmek',
   'nav-completed-tickets'            => 'Lezárt kérelmek',
 
   // Tables
@@ -70,7 +70,7 @@ return [
   */
 
 // ____
-  'index-title'                      => 'Supprt nyitólap',
+  'index-title'                      => 'Support nyitólap',
 
 // tickets/____
   'index-my-tickets'                 => 'Kérelmeim',

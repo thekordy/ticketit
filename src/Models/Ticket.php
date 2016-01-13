@@ -31,9 +31,9 @@ class Ticket extends Model
      *
      * @return Collection
      */
-    public function scopeComplete()
+    public function scopeComplete($query)
     {
-        return $this->whereNotNull('completed_at');
+        return $query->whereNotNull('completed_at');
     }
 
     /**
@@ -41,9 +41,9 @@ class Ticket extends Model
      *
      * @return Collection
      */
-    public function scopeActive()
+    public function scopeActive($query)
     {
-        return $this->whereNull('completed_at');
+        return $query->whereNull('completed_at');
     }
 
     /**
@@ -151,4 +151,36 @@ class Ticket extends Model
         return Date::instance($value);
     }
 
+
+    /**
+     * Get all user tickets
+     * @param $query
+     * @param $id
+     * @return mixed
+     */
+    public function scopeUserTickets($query, $id)
+    {
+        return $query->where('user_id', $id);
+    }
+
+    /**
+     * Get all agent tickets
+     * @param $query
+     * @param $id
+     * @return mixed
+     */
+    public function scopeAgentTickets($query, $id)
+    {
+        return $query->where('agent_id', $id);
+    }
+    /**
+     * Get all agent tickets
+     * @param $query
+     * @param $id
+     * @return mixed
+     */
+    public function scopeAgentUserTickets($query, $id)
+    {
+        return $query->where('agent_id', $id)->orWhere('user_id', $id);
+    }
 }

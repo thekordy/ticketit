@@ -9,7 +9,7 @@
                 <legend>{!! trans('ticketit::lang.reply') !!}</legend>
                 <div class="form-group">
                     <div class="col-lg-12">
-                        {!! CollectiveForm::textarea('content', null, ['class' => 'form-control', 'rows' => "3"]) !!}
+                        {!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => "3"]) !!}
                     </div>
                 </div>
 
@@ -21,3 +21,5 @@
         {!! CollectiveForm::close() !!}
     </div>
 </div>
+
+@include('ticketit::tickets.partials.summernote')

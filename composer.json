@@ -8,7 +8,8 @@
         "laravelcollective/html": "^5.1",
         "illuminate/support": "^5.1",
         "yajra/laravel-datatables-oracle": "~6.1",
-        "jenssegers/date": "^3.0"
+        "jenssegers/date": "^3.0",
+        "mews/purifier": "~2.0"
     },
     "license": "MIT",
     "authors": [

@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         {!! CollectiveForm::textarea('content', $ticket->content, [
-                            'class' => 'form-control', 'rows' => '5', 'required'
+                            'class' => 'form-control summernote-editor', 'rows' => '5', 'required'
                         ]) !!}
                     </div>
                     {{--@endif--}}
@@ -73,3 +73,5 @@
                 </div>
             </div>
         </div>
+
+@include('ticketit::tickets.partials.summernote')

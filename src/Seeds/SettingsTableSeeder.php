@@ -201,7 +201,62 @@ class SettingsTableSeeder extends Seeder
              */
             'delete_modal_type' => 'builtin',
 
+            /* ------------------ JS EDITOR ------------------ */
+
+            /*
+             * Enable summernote editor on textareas
+             * Default: yes
+             */
+            'editor_enabled' => 'yes',
+
+            /*
+             * If Font-awesome css is included outside ticketit, this should be set to 'no'
+             * Default: 'no'
+             */
+            'include_font_awesome' => 'no',
+
+            /*
+             * Which language should summernote js texteditor use
+             * If value is 'laravel', locale set in config/app.php will be used
+             *
+             * Example: 'hu-HU' for Hungarian
+             *
+             * See available language codes here: https://cdnjs.com/libraries/summernote/0.7.3
+             *
+             * Default: 'laravel'
+             */
+            'summernote_locale' => 'laravel',
+
+            /*
+             * Whether include codemirror sytax highlighter or not
+             * http://summernote.org/examples/#codemirror-as-codeview
+             *
+             * Default: 'yes'
+             */
+
+            'editor_html_highlighter' => 'yes',
+
+
+            /*
+             * Theme for sytax highlighter
+             *
+             * Available themes here: https://cdnjs.com/libraries/codemirror/5.10.0
+             *
+             * Default: 'monikai'
+             */
+            'codemirror_theme' => 'monokai',
+
+            /*
+             * Init values for summernote js texteditor in JSON
+             * See avaiable options here: http://summernote.org/deep-dive/#initialization-options
+             *
+             * This setting stores the path to the json config file, relative to project route
+             */
+            'summernote_options_json_file' => 'vendor/kordy/ticketit/src/JSON/summernote_init.json',
+
         ];
 
     }
+
+
 }

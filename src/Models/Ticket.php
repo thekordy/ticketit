@@ -185,4 +185,23 @@ class Ticket extends Model
             $subquery->where('agent_id', $id)->orWhere('user_id', $id);
         });
     }
+
+    /**
+     * Removes all html from content
+     *
+     * @param $raw
+     */
+    public function setContentAttribute($raw){
+        $this->attributes['content'] = "bla";
+        $this->html = $raw;
+    }
+
+    /**
+     * Makes html safe
+     *
+     * @param $raw
+     */
+    public function setHtmlAttribute($raw){
+        $this->attributes['html'] = "escaped";
+    }
 }

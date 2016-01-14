@@ -47,8 +47,39 @@ class TicketitServiceProvider extends ServiceProvider {
                 $tools = new ToolsController();
                 $master = Setting::grab('master_template');
                 $email = Setting::grab('email.template');
-                $view->with(compact('master', 'email', 'tools'));
+                $editor_enabled = Setting::grab('editor_enabled');
+                $codemirror_enabled = Setting::grab('editor_html_highlighter');
+                $codemirror_theme = Setting::grab('codemirror_theme');
+                $view->with(compact('master', 'email', 'tools', 'editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
             });
+
+            //inlude font awesome css or not
+            view()->composer('ticketit::shared.header', function ($view) {
+                $include_font_awesome = Setting::grab('include_font_awesome');
+                $view->with(compact('include_font_awesome'));
+            });
+
+            view()->composer('ticketit::tickets.partials.summernote', function ($view) {
+                $editor_locale = Setting::grab('summernote_locale');
+
+                if($editor_locale == 'laravel'){
+                    $editor_locale = config('app.locale');
+                }
+
+                if($editor_locale == 'en'){
+                    $editor_locale = null;
+                }else{
+                    if(strlen($editor_locale) == 2){
+                        $editor_locale = $editor_locale . "-" . strtoupper($editor_locale);
+                    }
+                }
+
+                $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
+
+
+                $view->with(compact('editor_locale', 'editor_options'));
+            });
+
 
             // Send notification when new comment is added
             Comment::creating(function ($comment) {

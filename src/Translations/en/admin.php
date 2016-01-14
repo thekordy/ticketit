@@ -135,8 +135,9 @@ return [
   'config-index-initial'          => 'Initial', 
   'config-index-tickets'          => 'Tickets', 
   'config-index-notifications'    => 'Notifications', 
-  'config-index-permissions'      => 'Permissions', 
-  'config-index-other'            => 'Other', 
+  'config-index-permissions'      => 'Permissions',
+  'config-index-editor'           => 'Editor', //Added: 2016.01.14
+  'config-index-other'            => 'Other',
   'config-create-title'           => 'Create: New Global Setting', 
   'config-create-subtitle'        => 'Create Setting',   
   'config-edit-title'             => 'Edit: Global Configuration',  

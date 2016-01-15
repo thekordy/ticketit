@@ -81,6 +81,7 @@ class InstallController extends Controller
 
             $this->settingsSeeder($master);
         }
+        \Cache::forget('settings');
     }
 
     /**

@@ -39,7 +39,9 @@ class CommentsController extends Controller {
 	 */
 	public function store(Request $request) {
 		$comment = new Models\Comment;
-		$comment->content = $request->get('content');
+
+		$comment->setPurifiedContent($request->get('content'));
+
 		$comment->ticket_id = $request->get('ticket_id');
 		$comment->user_id = \Auth::user()->id;
 		$comment->save();

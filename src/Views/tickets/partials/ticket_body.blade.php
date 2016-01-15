@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-md-12">
-                <p> {!! nl2br(e($ticket->content))  !!} </p>
+                <p> {!! $ticket->html !!} </p>
             </div>
         </div>
         {!! CollectiveForm::open([

@@ -254,6 +254,21 @@ class SettingsTableSeeder extends Seeder
              */
             'summernote_options_json_file' => 'vendor/kordy/ticketit/src/JSON/summernote_init.json',
 
+            /*
+             * Set which html tags are allowed
+             *
+             * This overrides the settings part of this file: https://github.com/mewebstudio/Purifier/blob/master/config/purifier.php
+             * The same config can be achived by running php artisan vendor:publish and modifying config/purifier.php
+             *
+             * Full docs: http://htmlpurifier.org/docs
+             */
+
+            'purifier_config' => array(
+                "HTML.SafeIframe" => "true",
+                "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
+                'URI.AllowedSchemes' => array("data" => true, "http" => true, "https" => true, "mailto" => true, "ftp" => true),
+            ),
+
         ];
 
     }

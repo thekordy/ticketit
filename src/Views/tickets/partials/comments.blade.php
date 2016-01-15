@@ -9,7 +9,7 @@
             </div>
             <div class="panel-body">
                 <div class="content">
-                    <p> {!! nl2br(e($comment->content)) !!} </p>
+                    <p> {!! $comment->html !!} </p>
                 </div>
             </div>
         </div>

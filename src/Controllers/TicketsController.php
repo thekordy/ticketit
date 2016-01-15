@@ -11,7 +11,6 @@ use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
-use Mews\Purifier\Facades\Purifier;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -166,7 +165,9 @@ class TicketsController extends Controller
         $ticket = new Ticket;
 
         $ticket->subject = $request->subject;
-        $ticket->content = Purifier::clean($request->get('content'));
+
+        $ticket->setPurifiedContent($request->get('content'));
+
         $ticket->priority_id = $request->priority_id;
         $ticket->category_id = $request->category_id;
 
@@ -223,7 +224,9 @@ class TicketsController extends Controller
         $ticket = $this->tickets->findOrFail($id);
 
         $ticket->subject = $request->subject;
-        $ticket->content = $request->get('content');
+
+        $ticket->setPurifiedContent($request->get('content'));
+
         $ticket->status_id = $request->status_id;
         $ticket->category_id = $request->category_id;
         $ticket->priority_id = $request->priority_id;

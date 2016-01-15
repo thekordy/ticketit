@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Controllers\ToolsController;
@@ -178,5 +179,14 @@ class TicketitServiceProvider extends ServiceProvider {
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('CollectiveForm', 'Collective\Html\FormFacade');
+
+        /*
+         * Register htmlify command. Need to run this when upgrading from <=0.2.2
+         */
+
+        $this->app->singleton('command.kordy.ticketit.htmlify', function($app) {
+            return new Htmlify();
+        });
+        $this->commands('command.kordy.ticketit.htmlify');
 	}
 }

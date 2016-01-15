@@ -13,11 +13,11 @@ class AddHtmlcontentToTicketitAndComments extends Migration
     public function up()
     {
         Schema::table('ticketit', function (Blueprint $table) {
-            $table->longText("html")->after("content");
+            $table->longText("html")->nullable()->after("content");
         });
 
         Schema::table('ticketit_comments', function (Blueprint $table) {
-            $table->longText("html")->after("content");
+            $table->longText("html")->nullable()->after("content");
         });
     }
 

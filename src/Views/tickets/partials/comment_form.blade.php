@@ -21,5 +21,3 @@
         {!! CollectiveForm::close() !!}
     </div>
 </div>
-
-@include('ticketit::tickets.partials.summernote')

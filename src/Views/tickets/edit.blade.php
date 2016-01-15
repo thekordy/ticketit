@@ -73,5 +73,3 @@
                 </div>
             </div>
         </div>
-
-@include('ticketit::tickets.partials.summernote')

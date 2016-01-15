@@ -48,6 +48,8 @@
             </div>
         {!! CollectiveForm::close() !!}
     </div>
-    @include('ticketit::tickets.partials.summernote')
-@stop
+@endsection
 
+@section('footer')
+    @include('ticketit::tickets.partials.summernote')
+@endsection

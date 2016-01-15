@@ -13,11 +13,14 @@ use Kordy\Ticketit\Seeds\TicketitTableSeeder;
 
 class InstallController extends Controller
 {
-    protected $migrations_tables = [];
+    public $migrations_tables = [];
 
     public function __construct()
     {
-        $this->migrations_tables = \File::files('vendor/kordy/ticketit/src/Migrations');
+        $migrations = \File::files(dirname(dirname(__FILE__)).'/Migrations');
+        foreach($migrations as $migration) {
+            $this->migrations_tables[] = basename($migration);
+        }
     }
 
     public function publicAssets() {

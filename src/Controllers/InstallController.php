@@ -19,7 +19,7 @@ class InstallController extends Controller
     {
         $migrations = \File::files(dirname(dirname(__FILE__)).'/Migrations');
         foreach($migrations as $migration) {
-            $this->migrations_tables[] = basename($migration);
+            $this->migrations_tables[] = basename($migration, ".php");
         }
     }
 

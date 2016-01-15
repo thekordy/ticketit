@@ -186,22 +186,4 @@ class Ticket extends Model
         });
     }
 
-    /**
-     * Removes all html from content
-     *
-     * @param $raw
-     */
-    public function setContentAttribute($raw){
-        $this->attributes['content'] = "bla";
-        $this->html = $raw;
-    }
-
-    /**
-     * Makes html safe
-     *
-     * @param $raw
-     */
-    public function setHtmlAttribute($raw){
-        $this->attributes['html'] = "escaped";
-    }
 }

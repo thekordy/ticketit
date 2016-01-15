@@ -9,7 +9,8 @@
         "illuminate/support": "^5.1",
         "yajra/laravel-datatables-oracle": "~6.1",
         "jenssegers/date": "^3.0",
-        "mews/purifier": "~2.0"
+        "mews/purifier": "~2.0",
+        "soundasleep/html2text": "~0.3"
     },
     "license": "MIT",
     "authors": [

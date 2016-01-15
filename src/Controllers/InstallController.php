@@ -68,7 +68,8 @@ class InstallController extends Controller
      * Initial installer to install migrations, seed default settings, and configure the master_template
      */
     public function initialSettings($master) {
-        if ($this->inactiveMigrations()) { // If a migration is missing, do the migrate
+        $inactive_migrations = $this->inactiveMigrations();
+        if ($inactive_migrations) { // If a migration is missing, do the migrate
             Artisan::call('vendor:publish', [
                 '--provider' => 'Kordy\\Ticketit\\TicketitServiceProvider',
                 '--tag' => ['db']
@@ -76,6 +77,11 @@ class InstallController extends Controller
             Artisan::call('migrate');
 
             $this->settingsSeeder($master);
+
+            // if this is the first install of the html editor, seed old posts text to the new html column
+            if(in_array('2016_01_15_002617_add_htmlcontent_to_ticketit_and_comments', $inactive_migrations)) {
+                Artisan::call('ticketit:htmlify');
+            }
         }
         elseif(DB::table('ticketit_settings')->count() == 0) { // Settings table is empty, run the seeder
 

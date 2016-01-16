@@ -1,6 +1,8 @@
 @if($editor_enabled)
 
-
+@if($include_jquery)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+@endif
 
 @if($codemirror_enabled)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.js"></script>
@@ -14,7 +16,7 @@
 <script>
 
 
-    (function() {
+    $(function() {
 
         var options = $.extend(true, {lang: '{{$editor_locale}}' {!! $codemirror_enabled ? ", codemirror: {theme: '{$codemirror_theme}', mode: 'text/html', htmlMode: true}" : ''  !!} } , {!! $editor_options !!});
 
@@ -23,7 +25,7 @@
         $("label[for=content]").click(function () {
             $("#content").summernote("focus");
         });
-    })();
+    });
 
 
 </script>

@@ -55,7 +55,7 @@ class TicketitServiceProvider extends ServiceProvider {
             });
 
             //inlude font awesome css or not
-            view()->composer('ticketit::shared.header', function ($view) {
+            view()->composer('ticketit::shared.assets', function ($view) {
                 $include_font_awesome = Setting::grab('include_font_awesome');
                 $view->with(compact('include_font_awesome'));
             });
@@ -77,8 +77,10 @@ class TicketitServiceProvider extends ServiceProvider {
 
                 $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
 
+                $include_jquery = Setting::grab('include_jquery');
 
-                $view->with(compact('editor_locale', 'editor_options'));
+
+                $view->with(compact('editor_locale', 'editor_options', 'include_jquery'));
             });
 
 

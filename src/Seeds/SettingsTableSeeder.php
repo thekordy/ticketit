@@ -211,9 +211,16 @@ class SettingsTableSeeder extends Seeder
 
             /*
              * If Font-awesome css is included outside ticketit, this should be set to 'no'
-             * Default: 'no'
+             * Default: 'yes'
              */
             'include_font_awesome' => 'yes',
+
+
+            /*
+             * If Font-awesome css is included outside ticketit, this should be set to 'no'
+             * Default: 'yes'
+             */
+            'include_jquery' => 'yes',
 
             /*
              * Which language should summernote js texteditor use

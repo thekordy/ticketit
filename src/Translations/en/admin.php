@@ -149,6 +149,13 @@ return [
   'config-edit-language'          => 'Language',
   'config-edit-unserialize'       => 'Get the array values, and change the values',
   'config-edit-serialize'         => 'Get the serialized string of the changed values (to be entered in the field)',
+  'config-edit-should-serialize'  => 'Serialize', //Added: 2016-01-16
+  'config-edit-eval-warning'      => 'When checked, the server will run eval()!
+  									  Don\'t use this if eval() is disabled on your server or if you don\'t exactly know what you are doing!
+  									  Exact code executed:', //Added: 2016-01-16
+  'config-edit-reenter-password'  => 'Re-enter your password', //Added: 2016-01-16
+  'config-edit-auth-failed'       => 'Password mismatch', //Added: 2016-01-16
+  'config-edit-eval-error'        => 'Invalid value', //Added: 2016-01-16
   'config-edit-tools'             => 'Tools:',
 
 ];

@@ -185,12 +185,12 @@ class SettingsTableSeeder extends Seeder
              */
             'agent_restrict' => 'no',
             /*
-             * Close Ticket Perm: Whose has a permission to close tickets
+             * Close Ticket Perm: Who has a permission to close tickets
              * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
              */
             'close_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
             /*
-             * Reopen Ticket Perm: Whose has a permission to reopen tickets
+             * Reopen Ticket Perm: Who has a permission to reopen tickets
              * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
              */
             'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
@@ -217,7 +217,7 @@ class SettingsTableSeeder extends Seeder
 
 
             /*
-             * If Font-awesome css is included outside ticketit, this should be set to 'no'
+             * If Jquery is included outside ticketit, this should be set to 'no'
              * Default: 'yes'
              */
             'include_jquery' => 'yes',

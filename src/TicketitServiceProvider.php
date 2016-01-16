@@ -67,7 +67,7 @@ class TicketitServiceProvider extends ServiceProvider {
                     $editor_locale = config('app.locale');
                 }
 
-                if($editor_locale == 'en'){
+                if(substr($editor_locale, 0, 2) == 'en'){
                     $editor_locale = null;
                 }else{
                     if(strlen($editor_locale) == 2){

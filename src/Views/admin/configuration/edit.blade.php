@@ -1,5 +1,9 @@
 @extends($master)
 
+@section('page')
+    {{ trans('ticketit::admin.config-edit-subtitle') }}
+@stop
+
 @section('content')
     @include('ticketit::shared.header')
      <div class="panel panel-default">
@@ -35,6 +39,13 @@
                      {{ trans('ticketit::admin.config-edit-serialize') }}
                  </a>
              </div>
+
+            @if(trans("ticketit::settings." . $configuration->slug) != ("ticketit::settings." . $configuration->slug) && trans("ticketit::settings." . $configuration->slug))
+                <div class="panel panel-info">
+                    <div class="panel-body">{!! trans("ticketit::settings." . $configuration->slug) !!}</div>
+                </div>
+            @endif
+
               <!-- ID Field -->
               <div class="form-group">
                   {!! CollectiveForm::label('id', trans('ticketit::admin.config-edit-id') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
@@ -84,8 +95,6 @@
 
           {!! CollectiveForm::close() !!}
         </div>
-      </div>
-      <div class="panel-footer">
       </div>
     </div>
 

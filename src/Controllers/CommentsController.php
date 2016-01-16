@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Models;
+use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 
 class CommentsController extends Controller {
 
@@ -34,10 +35,10 @@ class CommentsController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param Requests\CommentFormRequest|Request $request
+	 * @param PrepareCommentStoreRequest $request
 	 * @return Response
 	 */
-	public function store(Request $request) {
+	public function store(PrepareCommentStoreRequest $request) {
 		$comment = new Models\Comment;
 
 		$comment->setPurifiedContent($request->get('content'));

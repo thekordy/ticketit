@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
 
-class PrepareTicketUpdateRequest extends Request
+class PrepareCommentStoreRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class PrepareTicketUpdateRequest extends Request
     public function rules()
     {
         return [
-            'subject'     => 'required|min:3',
-            'content'     => 'required|min:6|max:' . ((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
-            'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
-            'agent_id' => 'required'
+            'ticket_id'   => 'required|exists:ticketit,id',
+            'content'     => 'required|min:6|max:' . ((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295')
         ];
     }
 }

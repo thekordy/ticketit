@@ -76,52 +76,33 @@ class NotificationsController extends Controller
      */
     public function sendNotification($template, $data, $ticket, $notification_owner, $subject, $type)
     {
+
+        $mail_callback = function ($m) use ($ticket, $notification_owner, $subject, $type) {
+
+            if ($type != 'agent') {
+                $m->to($ticket->user->email, $ticket->user->name);
+
+                if ($ticket->user->email != $notification_owner->email) {
+                    $m->to($ticket->user->email, $ticket->user->name);
+                }
+
+                if ($ticket->agent->email != $notification_owner->email) {
+                    $m->to($ticket->agent->email, $ticket->agent->name);
+                }
+
+            } else {
+                $m->to($ticket->agent->email, $ticket->agent->name);
+            }
+
+            $m->from($notification_owner->email, $notification_owner->name);
+
+            $m->subject($subject);
+        };
+
         if (Setting::grab('queue_emails') == 'yes') {
-            Mail::queue($template, $data,
-                function ($m) use ($ticket, $notification_owner, $subject, $type) {
-
-                    if ($type != 'agent') {
-                        $m->to($ticket->user->email, $ticket->user->name);
-
-                        if ($ticket->user->email != $notification_owner->email) {
-                            $m->to($ticket->user->email, $ticket->user->name);
-                        }
-
-                        if ($ticket->agent->email != $notification_owner->email) {
-                            $m->to($ticket->agent->email, $ticket->agent->name);
-                        }
-
-                    } else {
-                        $m->to($ticket->agent->email, $ticket->agent->name);
-                    }
-
-                    $m->from($notification_owner->email, $notification_owner->name);
-
-                    $m->subject($subject);
-                });
+            Mail::queue($template, $data, $mail_callback);
         } else {
-            Mail::send($template, $data,
-                function ($m) use ($ticket, $notification_owner, $subject, $type) {
-
-                    if ($type != 'agent') {
-                        $m->to($ticket->user->email, $ticket->user->name);
-
-                        if ($ticket->user->email != $notification_owner->email) {
-                            $m->to($ticket->user->email, $ticket->user->name);
-                        }
-
-                        if ($ticket->agent->email != $notification_owner->email) {
-                            $m->to($ticket->agent->email, $ticket->agent->name);
-                        }
-
-                    } else {
-                        $m->to($ticket->agent->email, $ticket->agent->name);
-                    }
-
-                    $m->from($notification_owner->email, $notification_owner->name);
-
-                    $m->subject($subject);
-                });
+            Mail::send($template, $data, $mail_callback);
         }
     }
 

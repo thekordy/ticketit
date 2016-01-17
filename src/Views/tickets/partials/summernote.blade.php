@@ -1,9 +1,5 @@
 @if($editor_enabled)
 
-@if($include_jquery)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-@endif
-
 @if($codemirror_enabled)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/mode/xml/xml.min.js"></script>

@@ -215,13 +215,6 @@ class SettingsTableSeeder extends Seeder
              */
             'include_font_awesome' => 'yes',
 
-
-            /*
-             * If Jquery is included outside ticketit, this should be set to 'no'
-             * Default: 'yes'
-             */
-            'include_jquery' => 'yes',
-
             /*
              * Which language should summernote js texteditor use
              * If value is 'laravel', locale set in config/app.php will be used

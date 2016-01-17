@@ -77,10 +77,7 @@ class TicketitServiceProvider extends ServiceProvider {
 
                 $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
 
-                $include_jquery = Setting::grab('include_jquery');
-
-
-                $view->with(compact('editor_locale', 'editor_options', 'include_jquery'));
+                $view->with(compact('editor_locale', 'editor_options'));
             });
 
 

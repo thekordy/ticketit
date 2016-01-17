@@ -128,16 +128,6 @@ ENDHTML
 ENDHTML
 
 
-	,'include_jquery' => <<<ENDHTML
-			<p>If Jquery is included outside ticketit, this should be set to <code>0</code></p>
-
-			<p>
-				Don't include: <code>0</code><br>
-				Include: <code>1</code>
-			</p>
-ENDHTML
-
-
 	,'summernote_locale' => <<<ENDHTML
 			<p>
 				Which language should summernote js texteditor use<br>

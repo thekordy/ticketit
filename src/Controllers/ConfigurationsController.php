@@ -35,7 +35,7 @@ class ConfigurationsController extends Controller
         'email.color_button_bg'];
       $tickets_section = ['default_status_id', 'default_close_status_id', 'default_reopen_status_id', 'paginate_items'];
       $perms_section = ['agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
-      $editor_section = ['editor_enabled', 'include_font_awesome', 'include_jquery', 'editor_html_highlighter', 'codemirror_theme',
+      $editor_section = ['editor_enabled', 'include_font_awesome', 'editor_html_highlighter', 'codemirror_theme',
           'summernote_locale', 'summernote_options_json_file', 'purifier_config'];
 
     // Split them into configurations sections for tabs

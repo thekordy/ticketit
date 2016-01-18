@@ -5,7 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/mode/xml/xml.min.js"></script>
 @endif
 
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.min.js"></script>
 @if($editor_locale)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/lang/summernote-{{$editor_locale}}.min.js"></script>
 @endif

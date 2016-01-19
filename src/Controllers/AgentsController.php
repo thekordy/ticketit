@@ -12,7 +12,7 @@ class AgentsController extends Controller
 
     public function index()
     {
-        $agents = Agent::agents();
+        $agents = Agent::agents()->get();
         return view('ticketit::admin.agent.index', compact('agents'));
     }
 

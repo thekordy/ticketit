@@ -24,9 +24,8 @@ class TicketitServiceProvider extends ServiceProvider {
 	public function boot() {
         $installer = new InstallController();
 
-        // if a migration is missing scape to the installation
-        //Todo use $installer->inactiveSettings to check and install new added settings
-        if (empty($installer->inactiveMigrations()) && DB::table('ticketit_settings')->count() != 0) {
+        // if a migration or new setting is missing scape to the installation
+        if (empty($installer->inactiveMigrations()) && ! $installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
             view()->composer('*', function ($view) {
                 if (auth()->check()) {
@@ -134,21 +133,30 @@ class TicketitServiceProvider extends ServiceProvider {
             $admin_route = Setting::grab('admin_route');
             include __DIR__ . '/routes.php';
         }
-        elseif (Request::path() == 'tickets-install' || Request::path() == 'tickets' || Request::path() == 'tickets-admin') {
-
+        elseif (Request::path() == 'tickets-install'
+                || Request::path() == 'tickets-upgrade'
+                || Request::path() == 'tickets'
+                || Request::path() == 'tickets-admin') {
             $this->loadTranslationsFrom(__DIR__ . '/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
             $this->publishes([__DIR__ . '/Migrations' => base_path('database/migrations')], 'db');
 
+            $authMiddleware = Helpers\LaravelVersion::authMiddleware();
+
             Route::get('/tickets-install', [
-                'middleware' => 'auth',
+                'middleware' => $authMiddleware,
                 'as' => 'tickets.install.index',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@index'
             ]);
             Route::post('/tickets-install', [
-                'middleware' => 'auth',
+                'middleware' => $authMiddleware,
                 'as' => 'tickets.install.setup',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup'
+            ]);
+            Route::get('/tickets-upgrade', [
+                'middleware' => $authMiddleware,
+                'as' => 'tickets.install.upgrade',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@upgrade'
             ]);
             Route::get('/tickets', function() {
                 return redirect()->route('tickets.install.index');

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
+use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Seeds\SettingsTableSeeder;
 use Kordy\Ticketit\Seeds\TicketitTableSeeder;
@@ -38,11 +39,23 @@ class InstallController extends Controller
      * Initial install form
      */
     public function index() {
+        $settings = DB::table('ticketit_settings')->get();
+        // if the settings table is not yet installed, start the initial install with admin and master template choices
+        if(count($settings) == 0) {
+            $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
+            $inactive_migrations = $this->inactiveMigrations();
+            $users_list = User::lists('name', 'id')->toArray();
+            return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
+        }
 
-        $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
-        $inactive_migrations = $this->inactiveMigrations();
-        $users_list = User::lists('name', 'id')->toArray();
-        return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
+        // other than that, Upgrade to a new version, installing new migrations and new settings slugs
+        if (Agent::isAdmin()) {
+            $inactive_migrations = $this->inactiveMigrations();
+            $inactive_settings = $this->inactiveSettings();
+            return view('ticketit::install.upgrade', compact('inactive_migrations', 'inactive_settings'));
+        }
+        \Log::emergency('Ticketit needs upgrade, admin should login and visit ticketit-install to activate the upgrade');
+        throw new \Exception("Ticketit needs upgrade, admin should login and visit ticketit install route");
     }
 
     /*
@@ -65,9 +78,21 @@ class InstallController extends Controller
     }
 
     /*
+     * Do version upgrade
+     */
+    public function upgrade() {
+        if (Agent::isAdmin()) {
+            $this->initialSettings();
+            return redirect('/'.Setting::grab('main_route'));
+        }
+        \Log::emergency('Ticketit upgrade path access: Only admin is allowed to upgrade');
+        throw new \Exception("Ticketit upgrade path access: Only admin is allowed to upgrade");
+    }
+
+    /*
      * Initial installer to install migrations, seed default settings, and configure the master_template
      */
-    public function initialSettings($master) {
+    public function initialSettings($master = false) {
         $inactive_migrations = $this->inactiveMigrations();
         if ($inactive_migrations) { // If a migration is missing, do the migrate
             Artisan::call('vendor:publish', [
@@ -83,7 +108,7 @@ class InstallController extends Controller
                 Artisan::call('ticketit:htmlify');
             }
         }
-        elseif(DB::table('ticketit_settings')->count() == 0) { // Settings table is empty, run the seeder
+        elseif($this->inactiveSettings()) { // new settings to be installed
 
             $this->settingsSeeder($master);
         }
@@ -94,7 +119,7 @@ class InstallController extends Controller
      * Run the settings table seeder
      * @param string $master
      */
-    public function settingsSeeder($master = 'master')
+    public function settingsSeeder($master = false)
     {
         $cli_path = 'config/ticketit.php'; // if seeder run from cli, use the cli path
         $provider_path = '../config/ticketit.php'; // if seeder run from provider, use the provider path
@@ -110,7 +135,7 @@ class InstallController extends Controller
             File::move($settings_file_path, $settings_file_path . '.backup');
         }
         $seeder = new SettingsTableSeeder();
-        $config_settings['master_template'] = $master;
+        if($master) $config_settings['master_template'] = $master;
         $seeder->config = $config_settings;
         $seeder->run();
     }
@@ -186,15 +211,16 @@ class InstallController extends Controller
         $seeder = new SettingsTableSeeder();
 
         // Package Settings
-        $installedSettings = DB::table('ticketit_settings')->get();
+        $installed_settings = DB::table('ticketit_settings')->lists('value', 'slug');
 
         // Application active migrations
-        $defaultSettings = $seeder->getDefaults();
+        $default_Settings = $seeder->getDefaults();
 
-        if (count($installedSettings) == count($defaultSettings))
+        if (count($installed_settings) == count($default_Settings))
             return false;
 
-        return true;
+        $inactive_settings = array_diff_key($default_Settings, $installed_settings);
+        return $inactive_settings;
     }
 
     /**

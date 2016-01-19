@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => Helpers\LaravelVersion::authMiddleware()], function () use ($main_route) {
+Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddleware()], function () use ($main_route) {
 	//Ticket public route
 	Route::get("$main_route/complete", 'Kordy\Ticketit\Controllers\TicketsController@indexComplete')
 		->name("$main_route-complete");

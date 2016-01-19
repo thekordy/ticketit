@@ -20,7 +20,7 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
 		->name("$main_route.reopen");
 });
 
-Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () use ($main_route) {
+Route::group(['middleware' => array_merge(\Kordy\Ticketit\Helpers\LaravelVersion::authMiddleware(), ['Kordy\Ticketit\Middleware\IsAgentMiddleware'])], function () use ($main_route) {
 
 	//API return list of agents in particular category
 	Route::get("$main_route/agents/list/{category_id?}/{ticket_id?}", [
@@ -29,7 +29,7 @@ Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], fu
 	]);
 });
 
-Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () use ($admin_route) {
+Route::group(['middleware' => array_merge(\Kordy\Ticketit\Helpers\LaravelVersion::authMiddleware(), ['Kordy\Ticketit\Middleware\IsAdminMiddleware'])], function () use ($admin_route) {
 	//Ticket admin index route (ex. http://url/tickets-admin/)
 	Route::get("$admin_route/indicator/{indicator_period?}", [
 			'as' => 'dashboard.indicator',

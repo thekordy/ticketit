@@ -135,18 +135,19 @@ class TicketitServiceProvider extends ServiceProvider {
             include __DIR__ . '/routes.php';
         }
         elseif (Request::path() == 'tickets-install' || Request::path() == 'tickets' || Request::path() == 'tickets-admin') {
-
             $this->loadTranslationsFrom(__DIR__ . '/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
             $this->publishes([__DIR__ . '/Migrations' => base_path('database/migrations')], 'db');
 
+            $authMiddleware = Helpers\LaravelVersion::authMiddleware();
+
             Route::get('/tickets-install', [
-                'middleware' => 'auth',
+                'middleware' => $authMiddleware,
                 'as' => 'tickets.install.index',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@index'
             ]);
             Route::post('/tickets-install', [
-                'middleware' => 'auth',
+                'middleware' => $authMiddleware,
                 'as' => 'tickets.install.setup',
                 'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup'
             ]);

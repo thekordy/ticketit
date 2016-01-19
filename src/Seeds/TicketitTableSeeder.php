@@ -128,7 +128,8 @@ class TicketitTableSeeder extends Seeder
 
                 $ticket = new \Kordy\Ticketit\Models\Ticket();
                 $ticket->subject = $faker->text(50);
-                $ticket->content = $faker->paragraph($nbSentences = 10);
+                $ticket->content = $faker->paragraphs(3, true);
+                $ticket->html = nl2br($ticket->content);
                 $ticket->status_id = $rand_status;
                 $ticket->priority_id = $priority_id;
                 $ticket->user_id = $user_info->id;
@@ -162,7 +163,8 @@ class TicketitTableSeeder extends Seeder
 
                     $comment = new \Kordy\Ticketit\Models\Comment;
                     $comment->ticket_id = $ticket->id;
-                    $comment->content = $faker->paragraph($nbSentences = 10);
+                    $comment->content = $faker->paragraphs(3, true);
+                    $comment->html = nl2br($comment->content);
 
                     if($c % 2 == 0) {
                         $comment->user_id = $ticket->user_id;

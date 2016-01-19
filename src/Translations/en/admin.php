@@ -135,8 +135,9 @@ return [
   'config-index-initial'          => 'Initial', 
   'config-index-tickets'          => 'Tickets', 
   'config-index-notifications'    => 'Notifications', 
-  'config-index-permissions'      => 'Permissions', 
-  'config-index-other'            => 'Other', 
+  'config-index-permissions'      => 'Permissions',
+  'config-index-editor'           => 'Editor', //Added: 2016.01.14
+  'config-index-other'            => 'Other',
   'config-create-title'           => 'Create: New Global Setting', 
   'config-create-subtitle'        => 'Create Setting',   
   'config-edit-title'             => 'Edit: Global Configuration',  
@@ -148,6 +149,13 @@ return [
   'config-edit-language'          => 'Language',
   'config-edit-unserialize'       => 'Get the array values, and change the values',
   'config-edit-serialize'         => 'Get the serialized string of the changed values (to be entered in the field)',
+  'config-edit-should-serialize'  => 'Serialize', //Added: 2016-01-16
+  'config-edit-eval-warning'      => 'When checked, the server will run eval()!
+  									  Don\'t use this if eval() is disabled on your server or if you don\'t exactly know what you are doing!
+  									  Exact code executed:', //Added: 2016-01-16
+  'config-edit-reenter-password'  => 'Re-enter your password', //Added: 2016-01-16
+  'config-edit-auth-failed'       => 'Password mismatch', //Added: 2016-01-16
+  'config-edit-eval-error'        => 'Invalid value', //Added: 2016-01-16
   'config-edit-tools'             => 'Tools:',
 
 ];

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Controllers\ToolsController;
@@ -47,8 +48,38 @@ class TicketitServiceProvider extends ServiceProvider {
                 $tools = new ToolsController();
                 $master = Setting::grab('master_template');
                 $email = Setting::grab('email.template');
-                $view->with(compact('master', 'email', 'tools'));
+                $editor_enabled = Setting::grab('editor_enabled');
+                $codemirror_enabled = Setting::grab('editor_html_highlighter');
+                $codemirror_theme = Setting::grab('codemirror_theme');
+                $view->with(compact('master', 'email', 'tools', 'editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
             });
+
+            //inlude font awesome css or not
+            view()->composer('ticketit::shared.assets', function ($view) {
+                $include_font_awesome = Setting::grab('include_font_awesome');
+                $view->with(compact('include_font_awesome'));
+            });
+
+            view()->composer('ticketit::tickets.partials.summernote', function ($view) {
+                $editor_locale = Setting::grab('summernote_locale');
+
+                if($editor_locale == 'laravel'){
+                    $editor_locale = config('app.locale');
+                }
+
+                if(substr($editor_locale, 0, 2) == 'en'){
+                    $editor_locale = null;
+                }else{
+                    if(strlen($editor_locale) == 2){
+                        $editor_locale = $editor_locale . "-" . strtoupper($editor_locale);
+                    }
+                }
+
+                $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
+
+                $view->with(compact('editor_locale', 'editor_options'));
+            });
+
 
             // Send notification when new comment is added
             Comment::creating(function ($comment) {
@@ -138,13 +169,23 @@ class TicketitServiceProvider extends ServiceProvider {
         /*
          * Register the service provider for the dependency.
          */
-        $this->app->register('Collective\Html\HtmlServiceProvider');
-        $this->app->register('Yajra\Datatables\DatatablesServiceProvider');
-        $this->app->register('Jenssegers\Date\DateServiceProvider');
+        $this->app->register(\Collective\Html\HtmlServiceProvider::class);
+        $this->app->register(\Yajra\Datatables\DatatablesServiceProvider::class);
+        $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
+        $this->app->register(\Mews\Purifier\PurifierServiceProvider::class);
         /*
          * Create aliases for the dependency.
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('CollectiveForm', 'Collective\Html\FormFacade');
+
+        /*
+         * Register htmlify command. Need to run this when upgrading from <=0.2.2
+         */
+
+        $this->app->singleton('command.kordy.ticketit.htmlify', function($app) {
+            return new Htmlify();
+        });
+        $this->commands('command.kordy.ticketit.htmlify');
 	}
 }

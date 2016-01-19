@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 use Kordy\Ticketit\Models;
+use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 
 class CommentsController extends Controller {
 
@@ -35,12 +36,14 @@ class CommentsController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param Requests\CommentFormRequest|Request $request
+	 * @param PrepareCommentStoreRequest $request
 	 * @return Response
 	 */
 	public function store(PrepareCommentStoreRequest $request) {
 		$comment = new Models\Comment;
-		$comment->content = $request->get('content');
+
+		$comment->setPurifiedContent($request->get('content'));
+
 		$comment->ticket_id = $request->get('ticket_id');
 		$comment->user_id = \Auth::user()->id;
 		$comment->time_spent = $request->get('time_spent');

@@ -5,9 +5,11 @@ namespace Kordy\Ticketit\Models;
 use Auth;
 use Illuminate\Database\Eloquent\Model as Model;
 use Kordy\Ticketit\Models\Configuration;
+use Kordy\Ticketit\Traits\ContentEllipse;
 
 class Configuration extends Model
 {
+  use ContentEllipse;
   
   public $table = 'ticketit_settings';
     

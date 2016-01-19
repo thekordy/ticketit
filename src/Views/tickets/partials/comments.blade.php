@@ -26,6 +26,7 @@
                             {{ $comment->time_spent }} Minutes</span>
                         @endif
                     @endif
+                    <p> {!! $comment->html !!} </p>
                 </div>
             </div>
         </div>

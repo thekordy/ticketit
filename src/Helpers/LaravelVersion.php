@@ -68,7 +68,7 @@ class LaravelVersion
 	 */
 	public static function authMiddleware(){
 		if(static::min('5.2')){
-			return ['web', 'auth'];
+			return ['auth'];
 		}
 
 		return ['auth'];

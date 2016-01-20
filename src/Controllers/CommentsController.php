@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 use Kordy\Ticketit\Models;
-use Kordy\Ticketit\Requests\PrepareCommentStoreRequest;
 
 class CommentsController extends Controller {
 

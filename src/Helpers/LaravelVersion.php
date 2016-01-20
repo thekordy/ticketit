@@ -4,6 +4,8 @@ namespace Kordy\Ticketit\Helpers;
 
 
 
+use Illuminate\Routing\Router;
+
 class LaravelVersion
 {
 	/**
@@ -67,7 +69,7 @@ class LaravelVersion
 	 * @return array
 	 */
 	public static function authMiddleware(){
-		if(static::min('5.2')){
+		if(static::min('5.2') && app(Router::class)->resolveMiddlewareClassName('web') != 'web'){
 			return ['web', 'auth'];
 		}
 

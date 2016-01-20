@@ -1,16 +1,15 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Kordy\Ticketit\Requests\PrepareCategoryRequest;
 use App\Http\Controllers\Controller;
-use Kordy\Ticketit\Models\Category;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Kordy\Ticketit\Models\Category;
+use Kordy\Ticketit\Requests\PrepareCategoryRequest;
 
-class CategoriesController extends Controller {
-
+class CategoriesController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +18,7 @@ class CategoriesController extends Controller {
     public function index()
     {
         $categories = Category::all();
+
         return view('ticketit::admin.category.index', compact('categories'));
     }
 
@@ -35,15 +35,16 @@ class CategoriesController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return Response
      */
     public function store(PrepareCategoryRequest $request)
     {
-        $category = new Category;
+        $category = new Category();
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));     
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }
@@ -51,31 +52,35 @@ class CategoriesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
-        return "All category related agents here";
+        return 'All category related agents here';
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+
         return view('ticketit::admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
+     *
      * @return Response
      */
     public function update(PrepareCategoryRequest $request, $id)
@@ -83,7 +88,7 @@ class CategoriesController extends Controller {
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));     
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }
@@ -91,7 +96,8 @@ class CategoriesController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -100,7 +106,7 @@ class CategoriesController extends Controller {
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));        
+        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
     }

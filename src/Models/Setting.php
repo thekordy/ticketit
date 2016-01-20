@@ -19,10 +19,11 @@ class Setting extends Model
 
     /**
      * Returns one of three columns by slug.
-     * Priority: lang, value, default
+     * Priority: lang, value, default.
      *
      * @param $query
      * @param $slug
+     *
      * @return mixed
      */
     public function scopeBySlug($query, $slug)
@@ -32,20 +33,20 @@ class Setting extends Model
 
     /**
      * Grab a setting from cached Settings table by slug.
-     * Cache lifetime: 60 minutes
+     * Cache lifetime: 60 minutes.
      *
      * @param $slug
+     *
      * @return mixed
      */
     public static function grab($slug)
     {
-        /**
+        /*
          * Comment out prior to 0.2 launch. Will cause massive amount
          * of Database queries. Only for adding new settings while
          * in development and testing.
          */
  //       Cache::forget('settings');
-
 
         $settings = Cache::remember('settings', 60, function () {
             return Table::all();
@@ -57,13 +58,13 @@ class Setting extends Model
             return trans($setting->lang);
         }
 
-        if (Setting::is_serialized($setting->value)) {
+        if (self::is_serialized($setting->value)) {
             $setting = unserialize($setting->value);
         } else {
             $setting = $setting->value;
         }
-        return $setting;
 
+        return $setting;
     }
 
     /**
@@ -72,6 +73,7 @@ class Setting extends Model
      *
      * @param $data
      * @param $strict
+     *
      * @return bool
      */
     public static function is_serialized($data, $strict = true)
@@ -111,7 +113,6 @@ class Setting extends Model
             if (false !== $brace && $brace < 4) {
                 return false;
             }
-
         }
         $token = $data[0];
         switch ($token) {
@@ -131,9 +132,10 @@ class Setting extends Model
             case 'i':
             case 'd':
                 $end = $strict ? '$' : '';
+
                 return (bool) preg_match("/^{$token}:[0-9.E-]+;$end/", $data);
         }
+
         return false;
     }
-
 }

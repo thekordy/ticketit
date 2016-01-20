@@ -1,16 +1,15 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Kordy\Ticketit\Requests\PrepareStatusRequest;
 use App\Http\Controllers\Controller;
-use Kordy\Ticketit\Models\Status;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Kordy\Ticketit\Models\Status;
+use Kordy\Ticketit\Requests\PrepareStatusRequest;
 
-class StatusesController extends Controller {
-
+class StatusesController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +18,7 @@ class StatusesController extends Controller {
     public function index()
     {
         $statuses = Status::all();
+
         return view('ticketit::admin.status.index', compact('statuses'));
     }
 
@@ -35,15 +35,16 @@ class StatusesController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return Response
      */
     public function store(PrepareStatusRequest $request)
     {
-        $status = new Status;
+        $status = new Status();
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-         Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
@@ -51,7 +52,8 @@ class StatusesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -62,20 +64,23 @@ class StatusesController extends Controller {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
         $status = Status::findOrFail($id);
+
         return view('ticketit::admin.status.edit', compact('status'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
+     *
      * @return Response
      */
     public function update(PrepareStatusRequest $request, $id)
@@ -91,7 +96,8 @@ class StatusesController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -101,7 +107,7 @@ class StatusesController extends Controller {
         $status->delete();
 
         Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
-        
+
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 }

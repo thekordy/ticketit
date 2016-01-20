@@ -25,10 +25,10 @@ class PrepareTicketUpdateRequest extends Request
     {
         return [
             'subject'     => 'required|min:3',
-            'content'     => 'required|min:6|max:' . ((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
+            'content'     => 'required|min:6|max:'.((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
             'priority_id' => 'required|numeric',
             'category_id' => 'required|numeric',
-            'agent_id' => 'required'
+            'agent_id'    => 'required',
         ];
     }
 }

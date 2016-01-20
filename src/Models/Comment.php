@@ -6,24 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use Kordy\Ticketit\Traits\ContentEllipse;
 use Kordy\Ticketit\Traits\Purifiable;
 
-
-class Comment extends Model {
+class Comment extends Model
+{
     use ContentEllipse;
     use Purifiable;
 
     protected $table = 'ticketit_comments';
 
     /**
-     * Get related ticket
+     * Get related ticket.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function ticket() {
+    public function ticket()
+    {
         return $this->belongsTo('Kordy\Ticketit\Models\Ticket', 'ticket_id');
     }
 
     /**
-     * Get comment owner
+     * Get comment owner.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

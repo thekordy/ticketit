@@ -25,7 +25,7 @@ return [
     'table-info'                       => 'Exibindo _START_ ate _END_ do _TOTAL_ de entradas',
     'table-info-empty'                 => 'Exibindo 0 de 0 até 0 entradas',
     'table-info-filtered'              => '(filtrando do _MAX_ total entradas)',
-    'table-info-postfix'          => '',
+    'table-info-postfix'               => '',
     'table-thousands'                  => ',',
     'table-length-menu'                => 'Exibindo _MENU_ entradas',
     'table-loading-results'            => 'Carregando...',
@@ -122,7 +122,6 @@ return [
 
 //  IsAdminMiddleware IsAgentMiddleware ResAccessMiddleware
   'you-are-not-permitted-to-access-this-page'     => 'Você não tem permissão para acessar esta página!',
-
 
     // CommentsController
     'comment-has-been-added-ok'        => 'Comantário adicionado com Sucesso',

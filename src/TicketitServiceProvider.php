@@ -1,4 +1,5 @@
 <?php
+
 namespace Kordy\Ticketit;
 
 use Collective\Html\FormFacade as CollectiveForm;
@@ -15,30 +16,33 @@ use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
 
-class TicketitServiceProvider extends ServiceProvider {
-	/**
-	 * Bootstrap the application services.
-	 *
-	 * @return void
-	 */
-	public function boot() {
+class TicketitServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
         $installer = new InstallController();
 
         // if a migration or new setting is missing scape to the installation
-        if (empty($installer->inactiveMigrations()) && ! $installer->inactiveSettings()) {
+        if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
             view()->composer('*', function ($view) {
                 if (auth()->check()) {
                     $u = Agent::find(auth()->user()->id);
                     $view->with('u', $u);
                 }
-                $setting = new Setting;
+                $setting = new Setting();
                 $view->with('setting', $setting);
             });
 
             // Adding HTML5 color picker to form elements
-            CollectiveForm::macro('custom', function ($type, $name, $value = "#000000", $options = []) {
+            CollectiveForm::macro('custom', function ($type, $name, $value = '#000000', $options = []) {
                 $field = $this->input($type, $name, $value, $options);
+
                 return $field;
             });
 
@@ -62,15 +66,15 @@ class TicketitServiceProvider extends ServiceProvider {
             view()->composer('ticketit::tickets.partials.summernote', function ($view) {
                 $editor_locale = Setting::grab('summernote_locale');
 
-                if($editor_locale == 'laravel'){
+                if ($editor_locale == 'laravel') {
                     $editor_locale = config('app.locale');
                 }
 
-                if(substr($editor_locale, 0, 2) == 'en'){
+                if (substr($editor_locale, 0, 2) == 'en') {
                     $editor_locale = null;
-                }else{
-                    if(strlen($editor_locale) == 2){
-                        $editor_locale = $editor_locale . "-" . strtoupper($editor_locale);
+                } else {
+                    if (strlen($editor_locale) == 2) {
+                        $editor_locale = $editor_locale.'-'.strtoupper($editor_locale);
                     }
                 }
 
@@ -78,7 +82,6 @@ class TicketitServiceProvider extends ServiceProvider {
 
                 $view->with(compact('editor_locale', 'editor_options'));
             });
-
 
             // Send notification when new comment is added
             Comment::creating(function ($comment) {
@@ -105,6 +108,7 @@ class TicketitServiceProvider extends ServiceProvider {
                         $notification->ticketAgentUpdated($modified_ticket, $original_ticket);
                     }
                 }
+
                 return true;
             });
 
@@ -114,66 +118,66 @@ class TicketitServiceProvider extends ServiceProvider {
                     $notification = new NotificationsController();
                     $notification->newTicketNotifyAgent($ticket);
                 }
+
                 return true;
             });
 
-            $this->loadTranslationsFrom(__DIR__ . '/Translations', 'ticketit');
+            $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
 
-            $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
+            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
 
-            $this->publishes([__DIR__ . '/Views' => base_path('resources/views/vendor/ticketit')], 'views');
-            $this->publishes([__DIR__ . '/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
-            $this->publishes([__DIR__ . '/Public' => public_path('vendor/ticketit')], 'public');
-            $this->publishes([__DIR__ . '/Migrations' => base_path('database/migrations')], 'db');
+            $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
+            $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
+            $this->publishes([__DIR__.'/Public' => public_path('vendor/ticketit')], 'public');
+            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             // Check public assets are present, publish them if not
 //            $installer->publicAssets();
 
             $main_route = Setting::grab('main_route');
             $admin_route = Setting::grab('admin_route');
-            include __DIR__ . '/routes.php';
-        }
-        elseif (Request::path() == 'tickets-install'
+            include __DIR__.'/routes.php';
+        } elseif (Request::path() == 'tickets-install'
                 || Request::path() == 'tickets-upgrade'
                 || Request::path() == 'tickets'
                 || Request::path() == 'tickets-admin') {
-            $this->loadTranslationsFrom(__DIR__ . '/Translations', 'ticketit');
-            $this->loadViewsFrom(__DIR__ . '/Views', 'ticketit');
-            $this->publishes([__DIR__ . '/Migrations' => base_path('database/migrations')], 'db');
+            $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
+            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             $authMiddleware = Helpers\LaravelVersion::authMiddleware();
 
             Route::get('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as' => 'tickets.install.index',
-                'uses' => 'Kordy\Ticketit\Controllers\InstallController@index'
+                'as'         => 'tickets.install.index',
+                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@index',
             ]);
             Route::post('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as' => 'tickets.install.setup',
-                'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup'
+                'as'         => 'tickets.install.setup',
+                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@setup',
             ]);
             Route::get('/tickets-upgrade', [
                 'middleware' => $authMiddleware,
-                'as' => 'tickets.install.upgrade',
-                'uses' => 'Kordy\Ticketit\Controllers\InstallController@upgrade'
+                'as'         => 'tickets.install.upgrade',
+                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@upgrade',
             ]);
-            Route::get('/tickets', function() {
+            Route::get('/tickets', function () {
                 return redirect()->route('tickets.install.index');
             });
-            Route::get('/tickets-admin', function() {
+            Route::get('/tickets-admin', function () {
                 return redirect()->route('tickets.install.index');
             });
         }
+    }
 
-	}
-
-	/**
-	 * Register the application services.
-	 *
-	 * @return void
-	 */
-	public function register() {
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
         /*
          * Register the service provider for the dependency.
          */
@@ -191,9 +195,9 @@ class TicketitServiceProvider extends ServiceProvider {
          * Register htmlify command. Need to run this when upgrading from <=0.2.2
          */
 
-        $this->app->singleton('command.kordy.ticketit.htmlify', function($app) {
+        $this->app->singleton('command.kordy.ticketit.htmlify', function ($app) {
             return new Htmlify();
         });
         $this->commands('command.kordy.ticketit.htmlify');
-	}
+    }
 }

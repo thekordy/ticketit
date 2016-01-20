@@ -6,6 +6,8 @@
  * See Seeds/SettingsTableSeeder.php
  */
 
+$codemirrorVersion = Kordy\Ticketit\Helpers\Cdn::CodeMirror;
+$summernoteVersion =  Kordy\Ticketit\Helpers\Cdn::Summernote;
 
 return [
 
@@ -128,7 +130,7 @@ ENDHTML
 ENDHTML
 
 
-	,'summernote_locale' => <<<ENDHTML
+	,'summernote_locale' => <<<"ENDHTML"
 			<p>
 				Which language should summernote js texteditor use<br>
 				If value is <code>laravel</code>, locale set in <code>config/app.php</code> will be used
@@ -136,7 +138,7 @@ ENDHTML
 
 			<p>Example: <code>hu-HU</code> for Hungarian</p>
 
-			<p>See available language codes <a target="_blank" href="https://cdnjs.com/libraries/summernote/0.7.3">here</a></p>
+			<p>See available language codes <a target="_blank" href="https://cdnjs.com/libraries/summernote/$summernoteVersion">here</a></p>
 ENDHTML
 
 
@@ -155,7 +157,7 @@ ENDHTML
 	,'codemirror_theme' => <<<ENDHTML
 			<p>Theme for sytax highlighter</p>
 
-			<p>Available themes <a target="_blank" href="https://cdnjs.com/libraries/codemirror/5.10.0">here</a></p>		
+			<p>Available themes <a target="_blank" href="https://cdnjs.com/libraries/codemirror/$codemirrorVersion">here</a></p>
 ENDHTML
 
 

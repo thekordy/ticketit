@@ -13,13 +13,13 @@
     loadCSS({!! '"'.asset('//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.css').'"' !!});
     loadCSS({!! '"'.asset('//cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css').'"' !!});
     @if($editor_enabled)
-        loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.css').'"' !!});
+        loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/summernote/' . Kordy\Ticketit\Helpers\Cdn::Summernote . '/summernote.css').'"' !!});
         @if($include_font_awesome)
-            loadCSS({!! '"'.asset('https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css').'"' !!});
+            loadCSS({!! '"'.asset('https://netdna.bootstrapcdn.com/font-awesome/' . Kordy\Ticketit\Helpers\Cdn::FontAwesome . '/css/font-awesome.min.css').'"' !!});
         @endif
         @if($codemirror_enabled)
-            loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.css').'"' !!});
-            loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/theme/'.$codemirror_theme.'.min.css').'"' !!});
+            loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/' . Kordy\Ticketit\Helpers\Cdn::CodeMirror . '/codemirror.min.css').'"' !!});
+            loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/' . Kordy\Ticketit\Helpers\Cdn::CodeMirror . '/theme/'.$codemirror_theme.'.min.css').'"' !!});
         @endif
     @endif
 </script>

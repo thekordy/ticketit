@@ -2,10 +2,9 @@
 
 namespace Kordy\Ticketit\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Models\Attachment;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class AttachmentsController extends Controller
 {
@@ -18,25 +17,25 @@ class AttachmentsController extends Controller
     {
         //
     }
+
     /**
-     * Allow Attachment Downloads
+     * Allow Attachment Downloads.
      */
-    public function getAttachment($fileid){
+    public function getAttachment($fileid)
+    {
         $attachment = Attachment::find($fileid);
         $file_path = storage_path().$attachment->filepath.$attachment->filename;
-        if (file_exists($file_path))
-        {
+        if (file_exists($file_path)) {
             //Send Download
             return response()->download($file_path, $attachment->original_filename, [
-                'Content-Length: '.filesize($file_path)
+                'Content-Length: '.filesize($file_path),
             ]);
-        }
-        else
-        {
+        } else {
             // Print Error
             exit('Requested file does not exist.');
         }
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,7 +49,8 @@ class AttachmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -61,7 +61,8 @@ class AttachmentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,7 +73,8 @@ class AttachmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -83,8 +85,9 @@ class AttachmentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,7 +98,8 @@ class AttachmentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

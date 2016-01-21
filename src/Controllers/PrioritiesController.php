@@ -1,16 +1,15 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Kordy\Ticketit\Requests\PreparePriorityRequest;
 use App\Http\Controllers\Controller;
-use Kordy\Ticketit\Models\Priority;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Kordy\Ticketit\Models\Priority;
+use Kordy\Ticketit\Requests\PreparePriorityRequest;
 
-class PrioritiesController extends Controller {
-
+class PrioritiesController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +18,7 @@ class PrioritiesController extends Controller {
     public function index()
     {
         $priorities = Priority::all();
+
         return view('ticketit::admin.priority.index', compact('priorities'));
     }
 
@@ -35,12 +35,13 @@ class PrioritiesController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return Response
      */
     public function store(PreparePriorityRequest $request)
     {
-        $priority = new Priority;
+        $priority = new Priority();
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-created', ['name' => $request->name]));
@@ -51,32 +52,35 @@ class PrioritiesController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         return trans('ticketit::lang.priority-all-tickets-here');
-        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
     {
         $priority = Priority::findOrFail($id);
+
         return view('ticketit::admin.priority.edit', compact('priority'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
+     *
      * @return Response
      */
     public function update(PreparePriorityRequest $request, $id)
@@ -85,7 +89,6 @@ class PrioritiesController extends Controller {
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-modified', ['name' => $request->name]));
-        
 
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
@@ -93,7 +96,8 @@ class PrioritiesController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -103,7 +107,7 @@ class PrioritiesController extends Controller {
         $priority->delete();
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-deleted', ['name' => $name]));
-        
+
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 }

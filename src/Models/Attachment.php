@@ -4,24 +4,27 @@ namespace Kordy\Ticketit\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Attachment extends Model {
-
+class Attachment extends Model
+{
     protected $table = 'ticketit_attachments';
 
     /**
-     * Get related ticket
+     * Get related ticket.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function comment() {
+    public function comment()
+    {
         return $this->belongsTo('Kordy\Ticketit\Models\Comment', 'comment_id');
     }
 
-    public function ticket() {
+    public function ticket()
+    {
         return $this->belongsto('Kordy\Ticketit\Models\Ticket', 'ticket_id');
     }
+
     /**
-     * Get comment owner
+     * Get comment owner.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

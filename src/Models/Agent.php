@@ -4,67 +4,75 @@ namespace Kordy\Ticketit\Models;
 
 use App\User;
 use Auth;
-use Kordy\Ticketit\Models\Setting;
-use Kordy\Ticketit\Models\Ticket;
 
 class Agent extends User
 {
-
-    protected $table = "users";
+    protected $table = 'users';
 
     /**
-     * list of all agents and returning collection
+     * list of all agents and returning collection.
+     *
      * @param $query
      * @param bool $paginate
+     *
      * @return bool
+     *
      * @internal param int $cat_id
      */
     public function scopeAgents($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_agent', '1')->paginate($paginate,['*'],'agents_page');
+            return $query->where('ticketit_agent', '1')->paginate($paginate, ['*'], 'agents_page');
         } else {
             return $query->where('ticketit_agent', '1');
         }
     }
 
     /**
-     * list of all admins and returning collection
+     * list of all admins and returning collection.
+     *
      * @param $query
      * @param bool $paginate
+     *
      * @return bool
+     *
      * @internal param int $cat_id
      */
     public function scopeAdmins($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_admin', '1')->paginate($paginate,['*'],'admins_page');
+            return $query->where('ticketit_admin', '1')->paginate($paginate, ['*'], 'admins_page');
         } else {
             return $query->where('ticketit_admin', '1')->get();
         }
     }
 
     /**
-     * list of all agents and returning collection
+     * list of all agents and returning collection.
+     *
      * @param $query
      * @param bool $paginate
+     *
      * @return bool
+     *
      * @internal param int $cat_id
      */
-
     public function scopeUsers($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_agent', '0')->paginate($paginate,['*'],'users_page');
+            return $query->where('ticketit_agent', '0')->paginate($paginate, ['*'], 'users_page');
         } else {
             return $query->where('ticketit_agent', '0')->get();
         }
     }
 
     /**
-     * list of all agents and returning lists array of id and name
+     * list of all agents and returning lists array of id and name.
+     *
      * @param $query
+     *
      * @return bool
+     *
      * @internal param int $cat_id
      */
     public function scopeAgentsLists($query)
@@ -73,8 +81,9 @@ class Agent extends User
     }
 
     /**
-     * Check if user is agent
-     * @return boolean
+     * Check if user is agent.
+     *
+     * @return bool
      */
     public static function isAgent($id = null)
     {
@@ -90,31 +99,31 @@ class Agent extends User
             if (auth()->user()->ticketit_agent) {
                 return true;
             }
-
         }
     }
 
     /**
-     * Check if user is admin
-     * @return boolean
+     * Check if user is admin.
+     *
+     * @return bool
      */
     public static function isAdmin()
     {
         if (auth()->check()) {
             if (auth()->user()->ticketit_admin) {
                 return true;
-            }
-            elseif (!is_null(Setting::where('slug', 'admin_ids')->first()) && in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
+            } elseif (!is_null(Setting::where('slug', 'admin_ids')->first()) && in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
                 return true;
             }
-
         }
     }
 
     /**
-     * Check if user is the assigned agent for a ticket
-     * @param integer $id ticket id
-     * @return boolean
+     * Check if user is the assigned agent for a ticket.
+     *
+     * @param int $id ticket id
+     *
+     * @return bool
      */
     public static function isAssignedAgent($id)
     {
@@ -122,14 +131,15 @@ class Agent extends User
             if (Auth::user()->id == Ticket::find($id)->agent->id) {
                 return true;
             }
-
         }
     }
 
     /**
-     * Check if user is the owner for a ticket
-     * @param integer $id ticket id
-     * @return boolean
+     * Check if user is the owner for a ticket.
+     *
+     * @param int $id ticket id
+     *
+     * @return bool
      */
     public static function isTicketOwner($id)
     {
@@ -137,12 +147,11 @@ class Agent extends User
             if (auth()->user()->id == Ticket::find($id)->user->id) {
                 return true;
             }
-
         }
     }
 
     /**
-     * Get related categories
+     * Get related categories.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -152,14 +161,13 @@ class Agent extends User
     }
 
     /**
-     * Get related agent tickets (To be deprecated)
-     *
+     * Get related agent tickets (To be deprecated).
      */
     public function agentTickets($complete = false)
     {
         if ($complete == 'total') {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
-        } else if ($complete) {
+        } elseif ($complete) {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
         } else {
             return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
@@ -167,8 +175,7 @@ class Agent extends User
     }
 
     /**
-     * Get total related agent tickets (open + closed) (To be deprecated)
-     *
+     * Get total related agent tickets (open + closed) (To be deprecated).
      */
     public function agentTicketsTotal()
     {
@@ -176,7 +183,7 @@ class Agent extends User
     }
 
     /**
-     * Get related user tickets (To be deprecated)
+     * Get related user tickets (To be deprecated).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -190,7 +197,7 @@ class Agent extends User
     }
 
     /**
-     * Get total related user tickets (open + closed) (To be deprecated)
+     * Get total related user tickets (open + closed) (To be deprecated).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -219,7 +226,7 @@ class Agent extends User
 
     public function getTickets($complete = false) // (To be deprecated)
     {
-        $user = Agent::find(auth()->user()->id);
+        $user = self::find(auth()->user()->id);
 
         if ($user->isAdmin()) {
             $tickets = $user->allTickets($complete);
@@ -231,5 +238,4 @@ class Agent extends User
 
         return $tickets;
     }
-
 }

@@ -22,8 +22,9 @@ Localization (English, Hungarian, Brazilian Portuguese, and German language pack
 1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
 2. [Users table](http://laravel.com/docs/5.1/authentication)
 3. [Laravel email configuration](http://laravel.com/docs/5.1/mail#sending-mail)
-4. Bootstrap 3+
-5. Jquery
+4. [PhPImap package]https://github.com/barbushin/php-imap
+5. Bootstrap 3+
+6. Jquery
 
 **Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
 
@@ -34,7 +35,7 @@ Localization (English, Hungarian, Brazilian Portuguese, and German language pack
 
 Step 1. Run this code via your terminal (1-2 minutes)
 ```shell
-	composer require kordy/ticketit:0.*
+	composer require kordy/ticketit:1.0.x-dev
 ```
 
 Step 2. After install, you have to add this line on your `config/app.php` in Service Providers section (1-2 minutes).

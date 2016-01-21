@@ -1,4 +1,5 @@
 <?php
+
 namespace Kordy\Ticketit\Seeds;
 
 use Carbon\Carbon;
@@ -8,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class TicketitTableSeeder extends Seeder
 {
-
     public $email_domain = '@example.com'; // the email domain name for demo accounts. Ex. user1@example.com
     public $agents_qty = 5; // number of demo agents accounts
     public $agents_per_category = 2; // number of demo agents per category (must be lower than $agents_qty)
@@ -25,19 +25,19 @@ class TicketitTableSeeder extends Seeder
     public $tickets_max_close_period = 5; // maximum days to close tickets
     public $default_closed_status_id = 2; // default status id for closed tickets
     public $categories = [
-        'Technical' => '#0014f4',
-        'Billing' => '#2b9900',
-        'Customer Services' => '#7e0099'
+        'Technical'         => '#0014f4',
+        'Billing'           => '#2b9900',
+        'Customer Services' => '#7e0099',
     ];
     public $statuses = [
         'Pending' => '#e69900',
-        'Solved' => '#15a000',
-        'Bug' => '#f40700'
+        'Solved'  => '#15a000',
+        'Bug'     => '#f40700',
     ];
     public $priorities = [
-        'Low' => '#069900',
-        'Normal' => '#e1d200',
-        'Critical' => '#e10000'
+        'Low'      => '#069900',
+        'Normal'   => '#e1d200',
+        'Critical' => '#e10000',
     ];
 
     /**
@@ -68,8 +68,8 @@ class TicketitTableSeeder extends Seeder
         // create tickets statuses
         foreach ($this->statuses as $name => $color) {
             $status = \Kordy\Ticketit\Models\Status::create([
-                'name' => $name,
-                'color' => $color
+                'name'  => $name,
+                'color' => $color,
             ]);
         }
 
@@ -77,8 +77,8 @@ class TicketitTableSeeder extends Seeder
         // create tickets statuses
         foreach ($this->categories as $name => $color) {
             $category = \Kordy\Ticketit\Models\Category::create([
-                'name' => $name,
-                'color' => $color
+                'name'  => $name,
+                'color' => $color,
             ]);
             $agent = array_rand($agents, $this->agents_per_category);
             $category->agents()->attach($agent);
@@ -88,8 +88,8 @@ class TicketitTableSeeder extends Seeder
         // create tickets statuses
         foreach ($this->priorities as $name => $color) {
             $priority = \Kordy\Ticketit\Models\Priority::create([
-                'name' => $name,
-                'color' => $color
+                'name'  => $name,
+                'color' => $color,
             ]);
         }
         $categories_qty = \Kordy\Ticketit\Models\Category::count();
@@ -111,17 +111,16 @@ class TicketitTableSeeder extends Seeder
             $tickets_qty = rand($this->tickets_per_user_min, $this->tickets_per_user_max);
 
             for ($t = 1; $t <= $tickets_qty; $t++) {
-
                 $rand_category = rand(1, $categories_qty);
                 $priority_id = rand(1, $priorities_qty);
                 do {
                     $rand_status = rand(1, $statuses_qty);
-                } while($rand_status == $this->default_closed_status_id);
+                } while ($rand_status == $this->default_closed_status_id);
 
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
                 $agents = $category->agents()->lists('name', 'id')->toArray();
                 $agent_id = array_rand($agents);
-                $random_create = rand(1,$this->tickets_date_period);
+                $random_create = rand(1, $this->tickets_date_period);
 
                 $random_complete = rand($this->tickets_min_close_period,
                                         $this->tickets_max_close_period);
@@ -140,7 +139,7 @@ class TicketitTableSeeder extends Seeder
 
                 $completed_at = new Carbon($ticket->created_at);
 
-                if(!$completed_at->addDays($random_complete)->gt(\Carbon\Carbon::now())) {
+                if (!$completed_at->addDays($random_complete)->gt(\Carbon\Carbon::now())) {
                     $ticket->completed_at = $completed_at;
                     $ticket->updated_at = $completed_at;
                     $ticket->status_id = $this->default_closed_status_id;
@@ -150,26 +149,23 @@ class TicketitTableSeeder extends Seeder
                 $comments_qty = rand($this->comments_per_ticket_min,
                                     $this->comments_per_ticket_max);
 
-                for ($c=1; $c <= $comments_qty ; $c++) {
+                for ($c = 1; $c <= $comments_qty; $c++) {
                     if (is_null($ticket->completed_at)) {
                         $random_comment_date = $faker->dateTimeBetween(
                         '-'.$random_create.' days', 'now');
-                    }
-                    else {
+                    } else {
                         $random_comment_date = $faker->dateTimeBetween(
                         '-'.$random_create.' days', '-'.($random_create - $random_complete).' days');
                     }
 
-
-                    $comment = new \Kordy\Ticketit\Models\Comment;
+                    $comment = new \Kordy\Ticketit\Models\Comment();
                     $comment->ticket_id = $ticket->id;
                     $comment->content = $faker->paragraphs(3, true);
                     $comment->html = nl2br($comment->content);
 
-                    if($c % 2 == 0) {
+                    if ($c % 2 == 0) {
                         $comment->user_id = $ticket->user_id;
-                    }
-                    else {
+                    } else {
                         $comment->user_id = $ticket->agent_id;
                     }
                     $comment->created_at = $random_comment_date;
@@ -179,9 +175,7 @@ class TicketitTableSeeder extends Seeder
                 $last_comment = $ticket->Comments->sortByDesc('created_at')->first();
                 $ticket->updated_at = $last_comment['created_at'];
                 $ticket->save();
-
             }
         }
-
     }
 }

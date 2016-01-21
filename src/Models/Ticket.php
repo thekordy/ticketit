@@ -2,8 +2,8 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Jenssegers\Date\Date;
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 use Kordy\Ticketit\Traits\ContentEllipse;
 use Kordy\Ticketit\Traits\Purifiable;
 
@@ -51,7 +51,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket status
+     * Get Ticket status.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -61,7 +61,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket priority
+     * Get Ticket priority.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -71,7 +71,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket category
+     * Get Ticket category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -81,7 +81,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket owner
+     * Get Ticket owner.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -91,7 +91,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket agent
+     * Get Ticket agent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -101,7 +101,7 @@ class Ticket extends Model
     }
 
     /**
-     * Get Ticket comments
+     * Get Ticket comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -134,19 +134,11 @@ class Ticket extends Model
      */
     protected function asDateTime($value)
     {
-        if (is_numeric($value))
-        {
+        if (is_numeric($value)) {
             return Date::createFromTimestamp($value);
-
-        }
-        elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value))
-        {
-
+        } elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value)) {
             return Date::createFromFormat('Y-m-d', $value)->startOfDay();
-
-        }
-        elseif (! $value instanceof DateTime)
-        {
+        } elseif (!$value instanceof DateTime) {
             $format = $this->getDateFormat();
 
             return Date::createFromFormat($format, $value);
@@ -155,11 +147,12 @@ class Ticket extends Model
         return Date::instance($value);
     }
 
-
     /**
-     * Get all user tickets
+     * Get all user tickets.
+     *
      * @param $query
      * @param $id
+     *
      * @return mixed
      */
     public function scopeUserTickets($query, $id)
@@ -168,26 +161,30 @@ class Ticket extends Model
     }
 
     /**
-     * Get all agent tickets
+     * Get all agent tickets.
+     *
      * @param $query
      * @param $id
+     *
      * @return mixed
      */
     public function scopeAgentTickets($query, $id)
     {
         return $query->where('agent_id', $id);
     }
+
     /**
-     * Get all agent tickets
+     * Get all agent tickets.
+     *
      * @param $query
      * @param $id
+     *
      * @return mixed
      */
     public function scopeAgentUserTickets($query, $id)
     {
-        return $query->where(function($subquery) use ($id) {
+        return $query->where(function ($subquery) use ($id) {
             $subquery->where('agent_id', $id)->orWhere('user_id', $id);
         });
     }
-
 }

@@ -1,17 +1,14 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
-use Carbon\Carbon;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Controllers\TicketsController;
 
-class DashboardController extends Controller {
-
+class DashboardController extends Controller
+{
     public function index($indicator_period = 2)
     {
         $tickets_count = Ticket::count();
@@ -19,7 +16,7 @@ class DashboardController extends Controller {
         $closed_tickets_count = Ticket::whereNotNull('completed_at')->count();
 
         // Per Category pagination
-        $categories = Category::paginate(10,['*'],'cat_page');
+        $categories = Category::paginate(10, ['*'], 'cat_page');
 
         // Total tickets counter per category for google pie chart
         $categories_all = Category::all();
@@ -41,8 +38,8 @@ class DashboardController extends Controller {
         // Per User
         $users = Agent::users(10);
 
-        // Per Category performance data 
-        $ticketController = new TicketsController(new Ticket, new Agent);
+        // Per Category performance data
+        $ticketController = new TicketsController(new Ticket(), new Agent());
         $monthly_performance = $ticketController->monthlyPerfomance($indicator_period);
 
         return view(
@@ -59,5 +56,4 @@ class DashboardController extends Controller {
                 'agents_share'
             ));
     }
-
 }

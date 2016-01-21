@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AddPrivateComments extends Migration
 {
@@ -14,7 +14,7 @@ class AddPrivateComments extends Migration
     {
         Schema::table('ticketit_comments', function (Blueprint $table) {
             $table->boolean('private')->default(0)->nullable();
-        });    
+        });
     }
 
     /**

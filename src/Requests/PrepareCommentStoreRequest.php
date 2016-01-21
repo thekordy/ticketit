@@ -25,7 +25,7 @@ class PrepareCommentStoreRequest extends Request
     {
         return [
             'ticket_id'   => 'required|exists:ticketit,id',
-            'content'     => 'required|min:6|max:' . ((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295')
+            'content'     => 'required|min:6|max:'.((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
         ];
     }
 }

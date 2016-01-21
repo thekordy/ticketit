@@ -1,4 +1,5 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -6,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use Yajra\Datatables\Datatables;
@@ -16,7 +17,6 @@ use Yajra\Datatables\Engines\EloquentEngine;
 
 class TicketsController extends Controller
 {
-
     protected $tickets;
     protected $agent;
 
@@ -85,10 +85,9 @@ class TicketsController extends Controller
 
     public function renderTicketTable(EloquentEngine $collection)
     {
-
         $collection->editColumn('subject', function ($ticket) {
             return (string) link_to_route(
-                Setting::grab('main_route') . '.show',
+                Setting::grab('main_route').'.show',
                 $ticket->subject,
                 $ticket->id
             );
@@ -97,23 +96,27 @@ class TicketsController extends Controller
         $collection->editColumn('status', function ($ticket) {
             $color = $ticket->color_status;
             $status = $ticket->status;
+
             return "<div style='color: $color'>$status</div>";
         });
 
         $collection->editColumn('priority', function ($ticket) {
             $color = $ticket->color_priority;
             $priority = $ticket->priority;
+
             return "<div style='color: $color'>$priority</div>";
         });
 
         $collection->editColumn('category', function ($ticket) {
             $color = $ticket->color_category;
             $category = $ticket->category;
+
             return "<div style='color: $color'>$category</div>";
         });
 
         $collection->editColumn('agent', function ($ticket) {
             $ticket = $this->tickets->find($ticket->id);
+
             return $ticket->agent->name;
         });
 
@@ -128,6 +131,7 @@ class TicketsController extends Controller
     public function index()
     {
         $complete = false;
+
         return view('ticketit::index', compact('complete'));
     }
 
@@ -139,6 +143,7 @@ class TicketsController extends Controller
     public function indexComplete()
     {
         $complete = true;
+
         return view('ticketit::index', compact('complete'));
     }
 
@@ -151,18 +156,20 @@ class TicketsController extends Controller
     {
         $priorities = Models\Priority::lists('name', 'id');
         $categories = Models\Category::lists('name', 'id');
+
         return view('ticketit::tickets.create', compact('priorities', 'categories'));
     }
 
     /**
-     * Store a newly created ticket and auto assign an agent for it
+     * Store a newly created ticket and auto assign an agent for it.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return Response redirect to index
      */
     public function store(PrepareTicketStoreRequest $request)
     {
-        $ticket = new Ticket;
+        $ticket = new Ticket();
 
         $ticket->subject = $request->subject;
 
@@ -185,7 +192,8 @@ class TicketsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -207,6 +215,7 @@ class TicketsController extends Controller
         }
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
+
         return view('ticketit::tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm'));
@@ -215,8 +224,9 @@ class TicketsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
+     * @param Request $request
+     * @param int     $id
+     *
      * @return Response
      */
     public function update(PrepareTicketUpdateRequest $request, $id)
@@ -241,13 +251,14 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
 
-        return redirect()->route(Setting::grab('main_route') . '.show', $id);
+        return redirect()->route(Setting::grab('main_route').'.show', $id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
@@ -258,19 +269,19 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-deleted', ['name' => $subject]));
 
-        return redirect()->route(Setting::grab('main_route') . '.index');
+        return redirect()->route(Setting::grab('main_route').'.index');
     }
 
     /**
      * Mark ticket as complete.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function complete($id)
     {
         if ($this->permToClose($id) == 'yes') {
-
             $ticket = $this->tickets->findOrFail($id);
             $ticket->completed_at = Carbon::now();
 
@@ -283,23 +294,23 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-completed', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route') . '.index');
+            return redirect()->route(Setting::grab('main_route').'.index');
         }
 
-        return redirect()->route(Setting::grab('main_route') . '.index')
+        return redirect()->route(Setting::grab('main_route').'.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
     /**
      * Reopen ticket from complete status.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function reopen($id)
     {
         if ($this->permToReopen($id) == 'yes') {
-
             $ticket = $this->tickets->findOrFail($id);
             $ticket->completed_at = null;
 
@@ -312,18 +323,19 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-reopened', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route') . '.index');
+            return redirect()->route(Setting::grab('main_route').'.index');
         }
 
-        return redirect()->route(Setting::grab('main_route') . '.index')
+        return redirect()->route(Setting::grab('main_route').'.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
     /**
-     * Get the agent with the lowest tickets assigned in specific category
+     * Get the agent with the lowest tickets assigned in specific category.
      *
-     * @param integer $cat_id
-     * @return integer $selected_agent_id
+     * @param int $cat_id
+     *
+     * @return int $selected_agent_id
      */
     public function autoSelectAgent($cat_id)
     {
@@ -348,6 +360,7 @@ class TicketsController extends Controller
             }
             $count++;
         }
+
         return $selected_agent_id;
     }
 
@@ -363,15 +376,17 @@ class TicketsController extends Controller
         $selected_Agent = $this->tickets->find($ticket_id)->agent->id;
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {
-            $selected = ($id == $selected_Agent) ? "selected" : "";
-            $select .= '<option value="' . $id . '" ' . $selected . '>' . $name . '</option>';
+            $selected = ($id == $selected_Agent) ? 'selected' : '';
+            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
         }
         $select .= '</select>';
+
         return $select;
     }
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function permToClose($id)
@@ -387,11 +402,13 @@ class TicketsController extends Controller
         if ($this->agent->isTicketOwner($id) && $close_ticket_perm['owner'] == 'yes') {
             return 'yes';
         }
+
         return 'no';
     }
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function permToReopen($id)
@@ -404,12 +421,15 @@ class TicketsController extends Controller
         } elseif ($this->agent->isTicketOwner($id) && $reopen_ticket_perm['owner'] == 'yes') {
             return 'yes';
         }
+
         return 'no';
     }
 
     /**
-     * Calculate average closing period of days per category for number of months
+     * Calculate average closing period of days per category for number of months.
+     *
      * @param int $period
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function monthlyPerfomance($period = 2)
@@ -432,18 +452,22 @@ class TicketsController extends Controller
                 $records['interval'][$from->format('F Y')][] = round($this->intervalPerformance($from, $to, $cat->id), 1);
             }
         }
+
         return $records;
     }
 
-
     /**
-     * Calculate the date length it took to solve a ticket
+     * Calculate the date length it took to solve a ticket.
+     *
      * @param Ticket $ticket
-     * @return integer|false
+     *
+     * @return int|false
      */
-    public function ticketPerformance($ticket) {
-        if ($ticket->completed_at == null)
+    public function ticketPerformance($ticket)
+    {
+        if ($ticket->completed_at == null) {
             return false;
+        }
 
         $created = new Carbon($ticket->created_at);
         $completed = new Carbon($ticket->completed_at);
@@ -453,19 +477,22 @@ class TicketsController extends Controller
     }
 
     /**
-     * Calculate the average date length it took to solve tickets within date period
+     * Calculate the average date length it took to solve tickets within date period.
+     *
      * @param $from
      * @param $to
+     *
      * @return int
      */
-    public function intervalPerformance($from, $to, $cat_id = false ) {
+    public function intervalPerformance($from, $to, $cat_id = false)
+    {
         if ($cat_id) {
-            $tickets = Ticket::where('category_id', $cat_id)->whereBetween('completed_at', array($from, $to))->get();
+            $tickets = Ticket::where('category_id', $cat_id)->whereBetween('completed_at', [$from, $to])->get();
         } else {
-            $tickets = Ticket::whereBetween('completed_at', array($from, $to))->get();
+            $tickets = Ticket::whereBetween('completed_at', [$from, $to])->get();
         }
 
-        if(empty($tickets->first())) {
+        if (empty($tickets->first())) {
             return false;
         }
 
@@ -476,7 +503,7 @@ class TicketsController extends Controller
             $counter++;
         }
         $performance_average = $performance_count / $counter;
+
         return $performance_average;
     }
-
 }

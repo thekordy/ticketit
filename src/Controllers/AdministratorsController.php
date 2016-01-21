@@ -1,4 +1,5 @@
 <?php
+
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -9,16 +10,17 @@ use Kordy\Ticketit\Models\Setting;
 
 class AdministratorsController extends Controller
 {
-
     public function index()
     {
         $administrators = Agent::admins();
+
         return view('ticketit::admin.administrator.index', compact('administrators'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
+
         return view('ticketit::admin.administrator.create', compact('users'));
     }
 
@@ -51,9 +53,10 @@ class AdministratorsController extends Controller
     }
 
     /**
-     * Assign users as administrators
+     * Assign users as administrators.
      *
      * @param $user_ids
+     *
      * @return array
      */
     public function addAdministrators($user_ids)
@@ -64,12 +67,15 @@ class AdministratorsController extends Controller
             $user->save();
             $users_list[] = $user->name;
         }
+
         return $users_list;
     }
 
     /**
-     * Remove user from the administrators
+     * Remove user from the administrators.
+     *
      * @param $id
+     *
      * @return mixed
      */
     public function removeAdministrator($id)
@@ -87,7 +93,8 @@ class AdministratorsController extends Controller
     }
 
     /**
-     * Sync Administrator categories with the selected categories got from update form
+     * Sync Administrator categories with the selected categories got from update form.
+     *
      * @param $id
      * @param Request $request
      */
@@ -97,5 +104,4 @@ class AdministratorsController extends Controller
         $administrator = Agent::find($id);
         $administrator->categories()->sync($form_cats);
     }
-
 }

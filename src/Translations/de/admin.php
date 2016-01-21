@@ -5,15 +5,13 @@ return [
  /*  
   *  Constants
   */
-  
+
   'nav-agents'                    => 'Agent',
   'nav-dashboard'                 => 'Dashboard',
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
   'nav-statuses'                  => 'Statuses',
   'nav-configuration'             => 'Configuration',  // New
-
-
 
   'table-hash'                    => '#', // New
   'table-id'                      => 'ID',
@@ -31,13 +29,13 @@ return [
 
   'btn-back'                      => 'Back',
   'btn-delete'                    => 'Delete',
-  'btn-edit'                      => 'Edit', 
-  'btn-join'                      => 'Join',  
+  'btn-edit'                      => 'Edit',
+  'btn-join'                      => 'Join',
   'btn-remove'                    => 'Remove',
   'btn-submit'                    => 'Submit',
   'btn-save'                      => 'Save',  // New
   'btn-update'                    => 'Update',
-  
+
   'colon'                         => ': ',
 
  /*  
@@ -47,7 +45,7 @@ return [
 // tickets-admin/____
   'index-title'                   => 'Tickets System Dashboard',
 
-// tickets-admin/agent/____  
+// tickets-admin/agent/____
   'agent-index-title'             => 'Agent Management',
   'btn-create-new-agent'          => 'Create new agent',
   'agent-index-no-agents'         => 'There are no agents, ',
@@ -68,7 +66,7 @@ return [
   'category-create-color'         => 'Color',
   'category-edit-title'           => 'Edit Category: :name',
 
-// tickets-admin/priority/____  
+// tickets-admin/priority/____
   'priority-index-title'          => 'Priorities Management',
   'btn-create-new-priority'       => 'Create new priority',
   'priority-index-no-priorities'  => 'There are no priorities, ',
@@ -89,13 +87,13 @@ return [
   'status-create-name'            => 'Name',
   'status-create-color'           => 'Color',
   'status-edit-title'             => 'Edit Status: :name',
-  
+
 // tickets-admin/configuration/____
   'config-index-title'            => 'Configuration Settings', // New
   'config-index-subtitle'         => 'Settings', // New
   'btn-create-new-config'         => 'Add new setting', // New
   'config-index-no-settings'      => 'There are no settings,', // New
-  'config-edit-title'             => 'Edit: Global Configuration', 
+  'config-edit-title'             => 'Edit: Global Configuration',
   'config-edit-subtitle'          => 'Edit Setting',
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',

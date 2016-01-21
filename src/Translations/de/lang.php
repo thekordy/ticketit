@@ -25,7 +25,7 @@ return [
     'table-info'                       => 'Zeige _START_ bis _END_ von _TOTAL_ Einträgen',
     'table-info-empty'                 => 'Zeige 0 bis 0 von 0 Einträgen',
     'table-info-filtered'              => '(gefiltert von _MAX_ total Einträgen)',
-    'table-info-postfix'          => '',
+    'table-info-postfix'               => '',
     'table-thousands'                  => ',',
     'table-length-menu'                => 'Zeige _MENU_ Einträge',
     'table-loading-results'            => 'Lade...',

@@ -27,5 +27,4 @@ class PrepareConfigurationStoreRequest extends Request
         //    'name'     => 'required'
         ];
     }
-
 }

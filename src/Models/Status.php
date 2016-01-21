@@ -2,7 +2,6 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
@@ -19,7 +18,7 @@ class Status extends Model
     public $timestamps = false;
 
     /**
-     * Get related tickets
+     * Get related tickets.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

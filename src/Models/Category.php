@@ -2,7 +2,6 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -19,7 +18,7 @@ class Category extends Model
     public $timestamps = false;
 
     /**
-     * Get related tickets
+     * Get related tickets.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -29,7 +28,7 @@ class Category extends Model
     }
 
     /**
-     * Get related agents
+     * Get related agents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -37,5 +36,4 @@ class Category extends Model
     {
         return $this->belongsToMany('\Kordy\Ticketit\Models\Agent', 'ticketit_categories_users', 'category_id', 'user_id');
     }
-
 }

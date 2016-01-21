@@ -4,7 +4,7 @@ namespace Kordy\Ticketit\Requests;
 
 use App\Http\Requests\Request;
 
-class PrepareConfigurationUpdateRequest extends Request 
+class PrepareConfigurationUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,5 +28,4 @@ class PrepareConfigurationUpdateRequest extends Request
             'serialize' => 'boolean',
         ];
     }
-
 }

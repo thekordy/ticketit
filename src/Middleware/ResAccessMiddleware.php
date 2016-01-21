@@ -2,17 +2,18 @@
 
 namespace Kordy\Ticketit\Middleware;
 
+use Closure;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
-use \Closure;
 
 class ResAccessMiddleware
 {
     /**
      * Run the request filter.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -29,12 +30,12 @@ class ResAccessMiddleware
         }
 
         // if this is a ticket show page
-        if ($request->route()->getName() == Setting::grab('main_route') . '.show') {
+        if ($request->route()->getName() == Setting::grab('main_route').'.show') {
             $ticket_id = $request->route(Setting::grab('main_route'));
         }
 
         // if this is a new comment on a ticket
-        if ($request->route()->getName() == Setting::grab('main_route') . '-comment.store') {
+        if ($request->route()->getName() == Setting::grab('main_route').'-comment.store') {
             $ticket_id = $request->get('ticket_id');
         }
 
@@ -51,5 +52,4 @@ class ResAccessMiddleware
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-access'));
     }
-
 }

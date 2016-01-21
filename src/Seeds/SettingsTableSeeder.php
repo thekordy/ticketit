@@ -7,21 +7,18 @@ use Kordy\Ticketit\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
 {
-
     public $config = [];
 
     /**
-     * Seed the Plans table
+     * Seed the Plans table.
      */
     public function run()
     {
-
         $defaults = [];
 
         $defaults = $this->cleanupAndMerge($this->getDefaults(), $this->config);
 
         foreach ($defaults as $slug => $column) {
-
             $setting = Setting::bySlug($slug);
 
             if ($setting->count()) {
@@ -30,15 +27,13 @@ class SettingsTableSeeder extends Seeder
                 ]);
             } else {
                 Setting::create([
-                    'lang' => null,
-                    'slug' => $slug,
-                    'value' => $column,
+                    'lang'    => null,
+                    'slug'    => $slug,
+                    'value'   => $column,
                     'default' => $column,
                 ]);
             }
-
         }
-
     }
 
     /**
@@ -46,27 +41,23 @@ class SettingsTableSeeder extends Seeder
      *
      * @param $defaults
      * @param $config
+     *
      * @return array
      */
     public function cleanupAndMerge($defaults, $config)
     {
-
         $merged = array_merge($defaults, $config);
 
         foreach ($merged as $slug => $column) {
-
             if (is_array($column)) {
-
                 foreach ($column as $key => $value) {
-
-                    if ($value == "yes") {
+                    if ($value == 'yes') {
                         $merged[$slug][$key] = true;
                     }
 
-                    if ($value == "no") {
+                    if ($value == 'no') {
                         $merged[$slug][$key] = false;
                     }
-
                 }
 
                 $merged[$slug] = serialize($merged[$slug]);
@@ -109,20 +100,20 @@ class SettingsTableSeeder extends Seeder
              */
             'email.template' => 'ticketit::emails.templates.ticketit',
             // resources/views/emails/templates/ticketit.blade.php
-            'email.header' => 'Ticket Update',
-            'email.signoff' => 'Thank you for your patience!',
-            'email.signature' => 'Your friends',
-            'email.dashboard' => 'My Dashboard',
+            'email.header'           => 'Ticket Update',
+            'email.signoff'          => 'Thank you for your patience!',
+            'email.signature'        => 'Your friends',
+            'email.dashboard'        => 'My Dashboard',
             'email.google_plus_link' => '#', // Toogle icon link: false or string
-            'email.facebook_link' => '#', // Toogle icon link: false or string
-            'email.twitter_link' => '#', // Toogle icon link: false or string
-            'email.footer' => 'Powered by Ticketit',
-            'email.footer_link' => 'https://github.com/thekordy/ticketit',
-            'email.color_body_bg' => '#FFFFFF',
-            'email.color_header_bg' => '#44B7B7',
+            'email.facebook_link'    => '#', // Toogle icon link: false or string
+            'email.twitter_link'     => '#', // Toogle icon link: false or string
+            'email.footer'           => 'Powered by Ticketit',
+            'email.footer_link'      => 'https://github.com/thekordy/ticketit',
+            'email.color_body_bg'    => '#FFFFFF',
+            'email.color_header_bg'  => '#44B7B7',
             'email.color_content_bg' => '#F46B45',
-            'email.color_footer_bg' => '#414141',
-            'email.color_button_bg' => '#AC4D2F',
+            'email.color_footer_bg'  => '#414141',
+            'email.color_button_bg'  => '#AC4D2F',
             /*
              * The default status for new created tickets
              * Default: 1
@@ -203,17 +194,17 @@ class SettingsTableSeeder extends Seeder
             /*
              * Settings used by the email functions
              */
-            'imap_server' => 'imap.gmail.com:993/imap/ssl', //server connected to for emails
-            'imap_folder' => 'Inbox', //folder searched for new emails
-            'imap_user' => 'someone@gmail.com', //username for imap account
-            'imap_password' => 'password', //password for imap account should probably be hashed
-            'default_priority_id' => '1',
-            'default_category_id' => '1',
-            'default_outgoing_email' => 'user', //user = agents email
-            'default_outgoing_name' => 'user', //user = agents name
-            'default_emails_agent' => 'auto',
-            'move_email_to' => '', //folder that read emails will be moved to
-            'accepted_file_types' => 'jpeg,jpg,bmp,png,txt,doc,docx,xlsx', //file types accepted through ticket upload
+            'imap_server'                => 'imap.gmail.com:993/imap/ssl', //server connected to for emails
+            'imap_folder'                => 'Inbox', //folder searched for new emails
+            'imap_user'                  => 'someone@gmail.com', //username for imap account
+            'imap_password'              => 'password', //password for imap account should probably be hashed
+            'default_priority_id'        => '1',
+            'default_category_id'        => '1',
+            'default_outgoing_email'     => 'user', //user = agents email
+            'default_outgoing_name'      => 'user', //user = agents name
+            'default_emails_agent'       => 'auto',
+            'move_email_to'              => '', //folder that read emails will be moved to
+            'accepted_file_types'        => 'jpeg,jpg,bmp,png,txt,doc,docx,xlsx', //file types accepted through ticket upload
             'accepted_email_attachments' => 'jpg|jpeg|png|gif|bmp', //file types accepted through email attachments
 
             /* ------------------ JS EDITOR ------------------ */
@@ -251,7 +242,6 @@ class SettingsTableSeeder extends Seeder
 
             'editor_html_highlighter' => 'yes',
 
-
             /*
              * Theme for sytax highlighter
              *
@@ -278,15 +268,12 @@ class SettingsTableSeeder extends Seeder
              * Full docs: http://htmlpurifier.org/docs
              */
 
-            'purifier_config' => array(
-                "HTML.SafeIframe" => "true",
-                "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
-                'URI.AllowedSchemes' => array("data" => true, "http" => true, "https" => true, "mailto" => true, "ftp" => true),
-            ),
+            'purifier_config' => [
+                'HTML.SafeIframe'      => 'true',
+                'URI.SafeIframeRegexp' => '%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%',
+                'URI.AllowedSchemes'   => ['data' => true, 'http' => true, 'https' => true, 'mailto' => true, 'ftp' => true],
+            ],
 
         ];
-
     }
-
-
 }

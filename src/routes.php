@@ -22,17 +22,17 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
 
     //Download Attachments
     Route::get("$main_route/download/file-id={file}", 'Kordy\Ticketit\Controllers\AttachmentsController@getattachment')
-            ->name("getattachment");
+            ->name('getattachment');
     //Get Emails
-    Route::get("/getemails", 'Kordy\Ticketit\Controllers\EmailsController@getemails')
-            ->name("getemails");
+    Route::get('/getemails', 'Kordy\Ticketit\Controllers\EmailsController@getemails')
+            ->name('getemails');
     //});
 
     Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () use ($main_route) {
 
         //API return list of agents in particular category
         Route::get("$main_route/agents/list/{category_id?}/{ticket_id?}", [
-            'as' => $main_route . 'agentselectlist',
+            'as'   => $main_route.'agentselectlist',
             'uses' => 'Kordy\Ticketit\Controllers\TicketsController@agentSelectList',
         ]);
     });
@@ -40,8 +40,8 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
     Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () use ($admin_route) {
         //Ticket admin index route (ex. http://url/tickets-admin/)
         Route::get("$admin_route/indicator/{indicator_period?}", [
-            'as' => 'dashboard.indicator',
-            'uses' => 'Kordy\Ticketit\Controllers\DashboardController@index'
+            'as'   => 'dashboard.indicator',
+            'uses' => 'Kordy\Ticketit\Controllers\DashboardController@index',
         ]);
         Route::get($admin_route, 'Kordy\Ticketit\Controllers\DashboardController@index');
 

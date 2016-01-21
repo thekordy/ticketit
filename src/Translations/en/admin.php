@@ -11,10 +11,10 @@ return [
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
   'nav-statuses'                  => 'Statuses',
-  'nav-configuration'             => 'Configuration',  
+  'nav-configuration'             => 'Configuration',
   'nav-administrator'             => 'Administrator',  //new
 
-  'table-hash'                    => '#', 
+  'table-hash'                    => '#',
   'table-id'                      => 'ID',
   'table-name'                    => 'Name',
   'table-action'                  => 'Action',
@@ -23,21 +23,21 @@ return [
   'table-remove-agent'            => 'Remove from agents',
   'table-remove-administrator'    => 'Remove from administrators', // New
 
-  'table-slug'                    => 'Slug', 
-  'table-default'                 => 'Default Value', 
-  'table-value'                   => 'My Value',  
-  'table-lang'                    => 'Lang', 
-  'table-edit'                    => 'Edit', 
+  'table-slug'                    => 'Slug',
+  'table-default'                 => 'Default Value',
+  'table-value'                   => 'My Value',
+  'table-lang'                    => 'Lang',
+  'table-edit'                    => 'Edit',
 
   'btn-back'                      => 'Back',
   'btn-delete'                    => 'Delete',
-  'btn-edit'                      => 'Edit', 
-  'btn-join'                      => 'Join',  
+  'btn-edit'                      => 'Edit',
+  'btn-join'                      => 'Join',
   'btn-remove'                    => 'Remove',
   'btn-submit'                    => 'Submit',
-  'btn-save'                      => 'Save',  
+  'btn-save'                      => 'Save',
   'btn-update'                    => 'Update',
-  
+
   'colon'                         => ': ',
 
  /*  
@@ -105,7 +105,7 @@ return [
   'category-create-color'         => 'Color',
   'category-edit-title'           => 'Edit Category: :name',
 
-// tickets-admin/priority/____  
+// tickets-admin/priority/____
   'priority-index-title'          => 'Priorities Management',
   'btn-create-new-priority'       => 'Create new priority',
   'priority-index-no-priorities'  => 'There are no priorities, ',
@@ -126,22 +126,22 @@ return [
   'status-create-name'            => 'Name',
   'status-create-color'           => 'Color',
   'status-edit-title'             => 'Edit Status: :name',
-  
+
 // tickets-admin/configuration/____
-  'config-index-title'            => 'Configuration Settings', 
-  'config-index-subtitle'         => 'Settings', 
-  'btn-create-new-config'         => 'Add new setting', 
-  'config-index-no-settings'      => 'There are no settings,', 
-  'config-index-initial'          => 'Initial', 
-  'config-index-tickets'          => 'Tickets', 
-  'config-index-notifications'    => 'Notifications', 
+  'config-index-title'            => 'Configuration Settings',
+  'config-index-subtitle'         => 'Settings',
+  'btn-create-new-config'         => 'Add new setting',
+  'config-index-no-settings'      => 'There are no settings,',
+  'config-index-initial'          => 'Initial',
+  'config-index-tickets'          => 'Tickets',
+  'config-index-notifications'    => 'Notifications',
   'config-index-permissions'      => 'Permissions',
   'config-index-editor'           => 'Editor', //Added: 2016.01.14
   'config-index-other'            => 'Other',
-  'config-create-title'           => 'Create: New Global Setting', 
-  'config-create-subtitle'        => 'Create Setting',   
-  'config-edit-title'             => 'Edit: Global Configuration',  
-  'config-edit-subtitle'          => 'Edit Setting', 
+  'config-create-title'           => 'Create: New Global Setting',
+  'config-create-subtitle'        => 'Create Setting',
+  'config-edit-title'             => 'Edit: Global Configuration',
+  'config-edit-subtitle'          => 'Edit Setting',
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',
   'config-edit-default'           => 'Default value',

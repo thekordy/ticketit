@@ -24,11 +24,11 @@ class PrepareTicketStoreRequest extends Request
     public function rules()
     {
         return [
-            'subject'     => 'required|min:3',
-            'content'     => 'required|min:6|max:' . ((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
-            'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric',
-            'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg'
+            'subject'       => 'required|min:3',
+            'content'       => 'required|min:6|max:'.((PHP_INT_MAX == 2147483647) ?  '2147483647' : '4294967295'),
+            'priority_id'   => 'required|numeric',
+            'category_id'   => 'required|numeric',
+            'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg',
         ];
     }
 }

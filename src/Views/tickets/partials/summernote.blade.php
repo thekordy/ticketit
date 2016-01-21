@@ -1,13 +1,13 @@
 @if($editor_enabled)
 
 @if($codemirror_enabled)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.10.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Kordy\Ticketit\Helpers\Cdn::CodeMirror}}/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/{{Kordy\Ticketit\Helpers\Cdn::CodeMirror}}/mode/xml/xml.min.js"></script>
 @endif
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/summernote.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Kordy\Ticketit\Helpers\Cdn::Summernote}}/summernote.min.js"></script>
 @if($editor_locale)
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/lang/summernote-{{$editor_locale}}.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/{{Kordy\Ticketit\Helpers\Cdn::Summernote}}/lang/summernote-{{$editor_locale}}.min.js"></script>
 @endif
 <script>
 

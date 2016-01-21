@@ -88,6 +88,8 @@ class LaravelVersion
     {
         if (static::min('5.2') && app(Router::class)->resolveMiddlewareClassName('web') != 'web') {
             return ['web', 'auth'];
+        } else {
+            return ['auth'];
         }
     }
 }

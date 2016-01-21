@@ -4,9 +4,13 @@ namespace Kordy\Ticketit\Models;
 
 use Jenssegers\Date\Date;
 use Illuminate\Database\Eloquent\Model;
+use Kordy\Ticketit\Traits\ContentEllipse;
+use Kordy\Ticketit\Traits\Purifiable;
 
 class Ticket extends Model
 {
+    use ContentEllipse;
+    use Purifiable;
 
     protected $table = 'ticketit';
     protected $dates = ['completed_at'];
@@ -194,4 +198,5 @@ class Ticket extends Model
             $subquery->where('agent_id', $id)->orWhere('user_id', $id);
         });
     }
+
 }

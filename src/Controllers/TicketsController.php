@@ -165,7 +165,9 @@ class TicketsController extends Controller
         $ticket = new Ticket;
 
         $ticket->subject = $request->subject;
-        $ticket->content = $request->content;
+
+        $ticket->setPurifiedContent($request->get('content'));
+
         $ticket->priority_id = $request->priority_id;
         $ticket->category_id = $request->category_id;
 
@@ -244,7 +246,9 @@ class TicketsController extends Controller
         $ticket = $this->tickets->findOrFail($id);
 
         $ticket->subject = $request->subject;
-        $ticket->content = $request->content;
+
+        $ticket->setPurifiedContent($request->get('content'));
+
         $ticket->status_id = $request->status_id;
         $ticket->category_id = $request->category_id;
         $ticket->priority_id = $request->priority_id;

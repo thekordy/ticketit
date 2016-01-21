@@ -8,7 +8,7 @@
         @include('ticketit::tickets.partials.comments')
         {!! $comments->render() !!}
         @include('ticketit::tickets.partials.comment_form')
-@stop
+@endsection
 
 @section('footer')
     <script>
@@ -43,4 +43,5 @@
             });
         });
     </script>
-@stop
+    @include('ticketit::tickets.partials.summernote')
+@endsection

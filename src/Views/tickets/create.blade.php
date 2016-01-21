@@ -21,7 +21,7 @@
             <div class="form-group">
                 {!! CollectiveForm::label('content', trans('ticketit::lang.description') . trans('ticketit::lang.colon'), ['class' => 'col-lg-2 control-label']) !!}
                 <div class="col-lg-10">
-                    {!! CollectiveForm::textarea('content', null, ['class' => 'form-control', 'rows' => '5']) !!}
+                    {!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => '5']) !!}
                     <span class="help-block">{!! trans('ticketit::lang.create-ticket-describe-issue') !!}</span>
                 </div>
             </div>
@@ -55,4 +55,8 @@
             </div>
         {!! CollectiveForm::close() !!}
     </div>
-@stop
+@endsection
+
+@section('footer')
+    @include('ticketit::tickets.partials.summernote')
+@endsection

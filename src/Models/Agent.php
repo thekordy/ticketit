@@ -10,6 +10,8 @@ use Kordy\Ticketit\Models\Ticket;
 class Agent extends User
 {
 
+    protected $table = "users";
+
     /**
      * list of all agents and returning collection
      * @param $query

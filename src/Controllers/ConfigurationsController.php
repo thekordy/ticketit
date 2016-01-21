@@ -4,6 +4,9 @@ namespace Kordy\Ticketit\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Requests\PrepareConfigurationStoreRequest;
 use Kordy\Ticketit\Requests\PrepareConfigurationUpdateRequest;
 use App\Http\Controllers\Controller;
@@ -22,7 +25,8 @@ class ConfigurationsController extends Controller
   public function index()
   {
     $configurations = Configuration::all();
-    $configurations_by_sections = [];
+    $configurations_by_sections = ['init' => [], 'email' => [], 'tickets' => [], 'perms' => [],
+        'editor' => [], 'other' => []];
     $init_section = ['main_route', 'admin_route', 'master_template'];
     $email_section = ['status_notification', 'comment_notification', 'queue_emails', 'assigned_notification',
         'email.template', 'email.header', 'email.signoff', 'email.signature', 'email.dashboard',
@@ -31,8 +35,15 @@ class ConfigurationsController extends Controller
         'email.color_button_bg'];
       $tickets_section = ['default_status_id', 'default_close_status_id', 'default_reopen_status_id', 'paginate_items'];
       $perms_section = ['agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
+      $editor_section = ['editor_enabled', 'include_font_awesome', 'editor_html_highlighter', 'codemirror_theme',
+          'summernote_locale', 'summernote_options_json_file', 'purifier_config'];
+
     // Split them into configurations sections for tabs
     foreach($configurations as $config_item) {
+        //trim long values (ex serialised arrays)
+        $config_item->value = $config_item->getShortContent(25, 'value');
+        $config_item->default = $config_item->getShortContent(25, 'default');
+
         if (in_array($config_item->slug, $init_section))
             $configurations_by_sections['init'][] = $config_item;
         elseif (in_array($config_item->slug, $email_section))
@@ -41,6 +52,8 @@ class ConfigurationsController extends Controller
             $configurations_by_sections['tickets'][] = $config_item;
         elseif (in_array($config_item->slug, $perms_section))
             $configurations_by_sections['perms'][] = $config_item;
+        elseif (in_array($config_item->slug, $editor_section))
+            $configurations_by_sections['editor'][] = $config_item;
         else
             $configurations_by_sections['other'][] = $config_item;
     }
@@ -86,7 +99,9 @@ class ConfigurationsController extends Controller
   public function edit($id)
   {   
     $configuration = Configuration::findOrFail($id);
-    return view('ticketit::admin.configuration.edit', compact('configuration'));
+    $should_serialize = Setting::is_serialized($configuration->value);
+    $default_serialized = Setting::is_serialized($configuration->default);
+    return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
   }
 
   /**
@@ -100,7 +115,20 @@ class ConfigurationsController extends Controller
   public function update(PrepareConfigurationUpdateRequest $request, $id)
   {
     $configuration = Configuration::findOrFail($id);
-    $configuration->update(['value' => $request->value, 'lang' => $request->lang]);    
+
+      $value = $request->value;
+
+      if($request->serialize){
+         //if(!Hash::check($request->password, Auth::user()->password)){
+          if(!Auth::attempt($request->only('password'), false, false)){
+            return back()->withErrors([trans('ticketit::admin.config-edit-auth-failed')]);
+         }
+         if(false === eval('$value = serialize(' . $value . ');')){
+             return back()->withErrors([trans('ticketit::admin.config-edit-eval-error')]);
+         }
+      }
+
+    $configuration->update(['value' => $value, 'lang' => $request->lang]);
     
     Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
     Cache::forget('settings'); // refresh cached settings

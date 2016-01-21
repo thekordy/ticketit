@@ -25,6 +25,7 @@ class PrepareConfigurationUpdateRequest extends Request
     {
         return [
         //    'name'     => 'required'
+            'serialize' => 'boolean',
         ];
     }
 

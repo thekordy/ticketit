@@ -55,7 +55,7 @@ class EmailsController extends Controller
             } else {
                 $clean_text = strip_tags($email->textHtml);
             }
-            
+
             // Remove quoted lines (lines that begin with '>').
             $clean_text = preg_replace("/(^\w.+:\n)?(^>.*(\n|$))+/mi", '', $clean_text);
             // Remove lines beginning with 'On' and ending with 'wrote:' (matches
@@ -104,7 +104,7 @@ class EmailsController extends Controller
                     $ticket = new Ticket;
 
                     $ticket->subject = $email->subject;
-                    $ticket->content = $email->textPlain;
+                    $ticket->content = $clean_text;
                     $ticket->priority_id = Setting::grab('default_priority_id');
                     $ticket->category_id = Setting::grab('default_category_id');
 

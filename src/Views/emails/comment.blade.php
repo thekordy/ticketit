@@ -19,6 +19,6 @@
 	    'subject'   =>  $ticket->subject,
 	    'status'    =>  $ticket->status->name,
 	    'category'  =>  $ticket->category->name,
-	    'comment'   =>  $comment->content
+	    'comment'   =>  $comment->getShortContent()
 	]) !!}
 @stop

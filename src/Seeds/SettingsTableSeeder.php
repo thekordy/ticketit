@@ -185,12 +185,12 @@ class SettingsTableSeeder extends Seeder
              */
             'agent_restrict' => 'no',
             /*
-             * Close Ticket Perm: Whose has a permission to close tickets
+             * Close Ticket Perm: Who has a permission to close tickets
              * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
              */
             'close_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
             /*
-             * Reopen Ticket Perm: Whose has a permission to reopen tickets
+             * Reopen Ticket Perm: Who has a permission to reopen tickets
              * Default: ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes']
              */
             'reopen_ticket_perm' => ['owner' => 'yes', 'agent' => 'yes', 'admin' => 'yes'],
@@ -216,7 +216,77 @@ class SettingsTableSeeder extends Seeder
             'accepted_file_types' => 'jpeg,jpg,bmp,png,txt,doc,docx,xlsx', //file types accepted through ticket upload
             'accepted_email_attachments' => 'jpg|jpeg|png|gif|bmp', //file types accepted through email attachments
 
+            /* ------------------ JS EDITOR ------------------ */
+
+            /*
+             * Enable summernote editor on textareas
+             * Default: yes
+             */
+            'editor_enabled' => 'yes',
+
+            /*
+             * If Font-awesome css is included outside ticketit, this should be set to 'no'
+             * Default: 'yes'
+             */
+            'include_font_awesome' => 'yes',
+
+            /*
+             * Which language should summernote js texteditor use
+             * If value is 'laravel', locale set in config/app.php will be used
+             *
+             * Example: 'hu-HU' for Hungarian
+             *
+             * See available language codes here: https://cdnjs.com/libraries/summernote/0.7.3
+             *
+             * Default: 'en'
+             */
+            'summernote_locale' => 'en',
+
+            /*
+             * Whether include codemirror sytax highlighter or not
+             * http://summernote.org/examples/#codemirror-as-codeview
+             *
+             * Default: 'yes'
+             */
+
+            'editor_html_highlighter' => 'yes',
+
+
+            /*
+             * Theme for sytax highlighter
+             *
+             * Available themes here: https://cdnjs.com/libraries/codemirror/5.10.0
+             *
+             * Default: 'monikai'
+             */
+            'codemirror_theme' => 'monokai',
+
+            /*
+             * Init values for summernote js texteditor in JSON
+             * See avaiable options here: http://summernote.org/deep-dive/#initialization-options
+             *
+             * This setting stores the path to the json config file, relative to project route
+             */
+            'summernote_options_json_file' => 'vendor/kordy/ticketit/src/JSON/summernote_init.json',
+
+            /*
+             * Set which html tags are allowed
+             *
+             * This overrides the settings part of this file: https://github.com/mewebstudio/Purifier/blob/master/config/purifier.php
+             * The same config can be achived by running php artisan vendor:publish and modifying config/purifier.php
+             *
+             * Full docs: http://htmlpurifier.org/docs
+             */
+
+            'purifier_config' => array(
+                "HTML.SafeIframe" => "true",
+                "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
+                'URI.AllowedSchemes' => array("data" => true, "http" => true, "https" => true, "mailto" => true, "ftp" => true),
+            ),
+
         ];
 
     }
+
+
 }

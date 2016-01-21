@@ -19,7 +19,6 @@
             </div>
             <div class="panel-body">
                 <div class="content">
-                    <p> {!! nl2br(e($comment->content)) !!} </p>
                     @if( $u->isAgent() || $u->isAdmin() )
                         @if( $comment->time_spent != NULL)
                         <span class="pull-right"><strong>{{ trans('ticketit::lang.time-spent') }}</strong>{{ trans('ticketit::lang.colon') }}

@@ -18,7 +18,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 ## Requirements
 **First Make sure you have got this Laravel setup working:**
 
-1. [Laravel 5.2](http://laravel.com/docs/5.2#installation)
+1. [Laravel 5.1](http://laravel.com/docs/5.1#installation) or [Laravel 5.2](http://laravel.com/docs/5.2#installation)
 2. [Users table](http://laravel.com/docs/5.2/authentication)
 3. [Laravel email configuration](http://laravel.com/docs/5.2/mail#sending-mail)
 4. Bootstrap 3+

@@ -1,6 +1,6 @@
-# Ticketit  v0.2.2
+# Ticketit  v0.2.3
 
-A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system. 
+A simple helpdesk tickets system for Laravel 5.1+ which integrates smoothly with Laravel default users and auth system. 
 It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 
 
 ## Features:
@@ -11,15 +11,16 @@ It will integrate into your current Laravel project within minutes, and you can 
 5. Localization (English, Hungarian, Brazilian Portuguese, and Germany language packs are included)
 6. Very simple installation and integration process
 7. Admin dashboard with statistics and performance tracking graphs
+8. Simple text editor for tickets descriptions and comments allows images upload
 
-[Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.1-Features)
+[Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.3-Features)
 
 ## Requirements
 **First Make sure you have got this Laravel setup working:**
 
-1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
-2. [Users table](http://laravel.com/docs/5.1/authentication)
-3. [Laravel email configuration](http://laravel.com/docs/5.1/mail#sending-mail)
+1. [Laravel 5.2](http://laravel.com/docs/5.2#installation)
+2. [Users table](http://laravel.com/docs/5.2/authentication)
+3. [Laravel email configuration](http://laravel.com/docs/5.2/mail#sending-mail)
 4. Bootstrap 3+
 5. Jquery
 
@@ -66,3 +67,4 @@ Big thank you for all active people who took from their time to give their feedb
 * [balping](https://github.com/balping)
 * [Anderson de Oliveira Machado](https://github.com/andersondeoliveiramachado)
 * [datune](https://github.com/datune)
+* [tmcdon89](https://github.com/tmcdon89)

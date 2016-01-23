@@ -111,7 +111,7 @@ class EmailsController extends Controller
             $ticket->status_id = Setting::grab('default_status_id');
             $ticket->user_id = $user[0]->id;
             if (Setting::grab('default_emails_agent') == 'auto') {
-                //call the autoSelectAgent not sure how
+                $ticket->autoSelectAgent();
             } else {
                 $ticket->agent_id = Setting::grab('default_emails_agent');
             }

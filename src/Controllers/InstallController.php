@@ -84,6 +84,8 @@ class InstallController extends Controller
         $admin->ticketit_admin = true;
         $admin->save();
 
+        $this->createAttachmentsDirectory();
+
         return redirect('/'.Setting::grab('main_route'));
     }
 
@@ -259,5 +261,19 @@ class InstallController extends Controller
         session()->flash('status', 'Demo tickets, users, and agents are seeded!');
 
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+    }
+
+
+    /**
+     * Creates storage/app/attachments directory
+     */
+    public function createAttachmentsDirectory()
+    {
+        if(!\Storage::exists('attachments')){
+            if(!\Storage::makeDirectory('attachments')){
+                \Log::alert('Couldn\'t create storage/app/attachments directory, please create it manually');
+                throw new \Exception('Couldn\'t create storage/app/attachments directory, please create it manually');
+            }
+        }
     }
 }

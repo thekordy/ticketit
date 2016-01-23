@@ -12,7 +12,7 @@ use PhpImap\Mailbox as ImapMailbox;
 
 class EmailsController extends Controller
 {
-    public function getemails()
+    public function getEmails()
     {
         $imap_server = Setting::grab('imap_server');
         $imap_folder = Setting::grab('imap_folder');

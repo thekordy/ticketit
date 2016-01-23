@@ -24,7 +24,7 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
     Route::get("$main_route/download/file-id={file}", 'Kordy\Ticketit\Controllers\AttachmentsController@getattachment')
             ->name('getattachment');
     //Get Emails
-    Route::get('/getemails', 'Kordy\Ticketit\Controllers\EmailsController@getemails')
+    Route::get('/getemails', 'Kordy\Ticketit\Controllers\EmailsController@getEmails')
             ->name('getemails');
     //});
 

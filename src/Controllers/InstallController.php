@@ -263,14 +263,13 @@ class InstallController extends Controller
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
 
-
     /**
-     * Creates storage/app/attachments directory
+     * Creates storage/app/attachments directory.
      */
     public function createAttachmentsDirectory()
     {
-        if(!\Storage::exists('attachments')){
-            if(!\Storage::makeDirectory('attachments')){
+        if (!\Storage::exists('attachments')) {
+            if (!\Storage::makeDirectory('attachments')) {
                 \Log::alert('Couldn\'t create storage/app/attachments directory, please create it manually');
                 throw new \Exception('Couldn\'t create storage/app/attachments directory, please create it manually');
             }

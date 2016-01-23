@@ -26,10 +26,13 @@ class DashboardController extends Controller
         }
 
         // Total tickets counter per agent for google pie chart
-        $agents_all = Agent::agents();
+        $agents_share_obj = Agent::agents()->with(['agentTotalTickets' => function($query){
+            $query->addSelect(['id', 'agent_id']);
+        }])->get();
+
         $agents_share = [];
-        foreach ($agents_all as $agent_single) {
-            $agents_share[$agent_single->name] = $agent_single->agentTickets(false)->count() + $agent_single->agentTickets(true)->count();
+        foreach ($agents_share_obj as $agent_share) {
+            $agents_share[$agent_share->name] = $agent_share->agentTotalTickets->count();
         }
 
         // Per Agent

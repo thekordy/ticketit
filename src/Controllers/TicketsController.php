@@ -180,7 +180,7 @@ class TicketsController extends Controller
 
         $ticket->status_id = Setting::grab('default_status_id');
         $ticket->user_id = auth()->user()->id;
-        $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
+        $ticket->autoSelectAgent();
 
         $ticket->save();
 
@@ -328,40 +328,6 @@ class TicketsController extends Controller
 
         return redirect()->route(Setting::grab('main_route').'.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
-    }
-
-    /**
-     * Get the agent with the lowest tickets assigned in specific category.
-     *
-     * @param int $cat_id
-     *
-     * @return int $selected_agent_id
-     */
-    public function autoSelectAgent($cat_id)
-    {
-        $agents = $agents = Models\Category::find($cat_id)->agents()->agents();
-        $count = 0;
-        $lowest_tickets = 1000000;
-
-        // If no agent selected, select the admin
-        $first_admin = Agent::admins()->first();
-        $selected_agent_id = $first_admin->id;
-
-        foreach ($agents as $agent) {
-            if ($count == 0) {
-                $lowest_tickets = $agent->agentTickets->count();
-                $selected_agent_id = $agent->id;
-            } else {
-                $tickets_count = $agent->agentTickets->count();
-                if ($tickets_count < $lowest_tickets) {
-                    $lowest_tickets = $tickets_count;
-                    $selected_agent_id = $agent->id;
-                }
-            }
-            $count++;
-        }
-
-        return $selected_agent_id;
     }
 
     public function agentSelectList($category_id, $ticket_id)

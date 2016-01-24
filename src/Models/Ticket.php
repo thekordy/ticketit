@@ -187,4 +187,37 @@ class Ticket extends Model
             $subquery->where('agent_id', $id)->orWhere('user_id', $id);
         });
     }
+
+    /**
+     * Sets the agent with the lowest tickets assigned in specific category.
+     *
+     * @return Ticket
+     */
+    public function autoSelectAgent()
+    {
+        $cat_id = $this->category_id;
+        $agents = Category::find($cat_id)->agents()->with(['agentTotalTickets' => function($query){
+            $query->addSelect(['id', 'agent_id']);
+        }])->get();
+        $count = 0;
+        $lowest_tickets = 1000000;
+        // If no agent selected, select the admin
+        $first_admin = Agent::admins()->first();
+        $selected_agent_id = $first_admin->id;
+        foreach ($agents as $agent) {
+            if ($count == 0) {
+                $lowest_tickets = $agent->agentTotalTickets->count();
+                $selected_agent_id = $agent->id;
+            } else {
+                $tickets_count = $agent->agentTotalTickets->count();
+                if ($tickets_count < $lowest_tickets) {
+                    $lowest_tickets = $tickets_count;
+                    $selected_agent_id = $agent->id;
+                }
+            }
+            $count++;
+        }
+        $this->agent_id = $selected_agent_id;
+        return $this;
+    }
 }

@@ -206,7 +206,7 @@ class Ticket extends Model
     public function autoSelectAgent()
     {
         $cat_id = $this->category_id;
-        $agents = $agents = Category::find($cat_id)->agents()->agents();
+        $agents = Category::find($cat_id)->agents();
         $count = 0;
         $lowest_tickets = 1000000;
 

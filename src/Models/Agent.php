@@ -238,4 +238,52 @@ class Agent extends User
 
         return $tickets;
     }
+
+    /**
+     * Get related agent total tickets
+     */
+    public function agentTotalTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id');
+    }
+
+    /**
+     * Get related agent Completed tickets
+     */
+    public function agentCompleteTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
+    }
+
+    /**
+     * Get related agent tickets
+     */
+    public function agentOpenTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
+    }
+
+    /**
+     * Get related user total tickets
+     */
+    public function userTotalTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id');
+    }
+
+    /**
+     * Get related user Completed tickets
+     */
+    public function userCompleteTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNotNull('completed_at');
+    }
+
+    /**
+     * Get related user tickets
+     */
+    public function userOpenTickets()
+    {
+        return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
+    }
 }

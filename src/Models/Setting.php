@@ -49,7 +49,7 @@ class Setting extends Model
         //Cache::forget('settings');
 
         // Check if config file has the requested setting, return its value overriding the db settings
-        if(config("ticketit.$slug")) {
+        if (config("ticketit.$slug")) {
             if (config("ticketit.$slug") == 'yes') {
                 return true;
             }
@@ -57,6 +57,7 @@ class Setting extends Model
             if (config("ticketit.$slug") == 'no') {
                 return false;
             }
+
             return config("ticketit.$slug");
         }
 

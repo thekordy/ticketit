@@ -83,10 +83,11 @@ class EmailsController extends Controller
     public function storeEmails($email, $user, $clean_text)
     {
         // Determine if ticket subject is likely opened or new
-        $comment_email = '*New comment from * on ticket *';
+//        $comment_email = '*New comment from * on ticket *';
+        preg_match('/\[\#(\d*)\]/', $email->subject, $subject_ticket_id);
 
-        if (fnmatch($comment_email, $email->subject)) {
-            $ticket_id = filter_var($email->subject, FILTER_SANITIZE_NUMBER_INT);
+        if (isset($subject_ticket_id[1])) {
+            $ticket_id = $subject_ticket_id[1];
             $comment = new Comment();
             $comment->setPurifiedContent($clean_text);
             $comment->ticket_id = $ticket_id;

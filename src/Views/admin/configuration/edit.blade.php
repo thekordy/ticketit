@@ -82,6 +82,9 @@
                       @else
                           {!! CollectiveForm::textarea('value', var_export(unserialize($configuration->value), true), ['class' => 'form-control']) !!}
                       @endif
+                      @if(config('ticketit.'.$configuration->slug))
+                          <small class="text-danger">@lang('ticketit::admin.config-edit-overridden')</small>
+                      @endif
                   </div>
               </div>
 

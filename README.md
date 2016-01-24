@@ -28,6 +28,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
 2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
+3. [HTML Purifier](https://github.com/mewebstudio/Purifier)
 
 ## Installation (4-8 minutes):
 

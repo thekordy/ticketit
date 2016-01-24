@@ -43,7 +43,9 @@ Step 2. After install, you have to add this line on your `config/app.php` in Ser
 
 Step 3. [Setting up your master view for Ticketit integration (1-2 minutes)](https://github.com/thekordy/ticketit/wiki/Integrating-Ticketit-views-with-your-project-template)
 
-Step 4. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
+Step 4. [Check if App\User exists](https://github.com/thekordy/ticketit/wiki/Make-sure-that-App%5CUser-exists)
+
+Step 5. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
 
 Default ticketit front route: http://your-project-url/tickets
 

@@ -52,7 +52,7 @@ class EmailsController extends Controller
             if ($email->textPlain) {
                 $clean_text = $email->textPlain;
             } else {
-                $clean_text = strip_tags($email->textHtml);
+                $clean_text = $email->textHtml;
             }
 
             // Remove quoted lines (lines that begin with '>').
@@ -88,7 +88,7 @@ class EmailsController extends Controller
         if (fnmatch($comment_email, $email->subject)) {
             $ticket_id = filter_var($email->subject, FILTER_SANITIZE_NUMBER_INT);
             $comment = new Comment();
-            $comment->content = $clean_text;
+            $comment->setPurifiedContent($clean_text);
             $comment->ticket_id = $ticket_id;
             $comment->user_id = $user[0]->id;
             $comment->save();

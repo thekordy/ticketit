@@ -70,6 +70,8 @@ class EmailsController extends Controller
             //   - 'From: To: Sent: Subject:'
             //   - 'From: Date: To: Reply-to: Subject:'
             $clean_text = preg_replace('/From:.*^(To:).*^(Subject:).*/sm', '', $clean_text);
+            // Remove all text after "###### write your reply above this line ######"
+            $clean_text = preg_replace('/\#{6}.*/sm', '', $clean_text);
             // Remove any remaining whitespace.
             $clean_text = trim($clean_text);
 
@@ -105,7 +107,7 @@ class EmailsController extends Controller
             $ticket = new Ticket();
 
             $ticket->subject = $email->subject;
-            $ticket->content = $clean_text;
+            $ticket->setPurifiedContent($clean_text);
             $ticket->priority_id = Setting::grab('default_priority_id');
             $ticket->category_id = Setting::grab('default_category_id');
 

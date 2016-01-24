@@ -22,14 +22,15 @@ Localization (English, Hungarian, Brazilian Portuguese, and German language pack
 1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
 2. [Users table](http://laravel.com/docs/5.1/authentication)
 3. [Laravel email configuration](http://laravel.com/docs/5.1/mail#sending-mail)
-4. [PhPImap package]https://github.com/barbushin/php-imap
-5. Bootstrap 3+
-6. Jquery
+4. Bootstrap 3+
+5. Jquery
 
 **Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
 
 1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
 2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
+3. [PhPImap package](https://github.com/barbushin/php-imap)
+4. [HTML Purifier](https://github.com/mewebstudio/Purifier)
 
 ## Installation (4-8 minutes):
 

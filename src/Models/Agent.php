@@ -240,7 +240,7 @@ class Agent extends User
     }
 
     /**
-     * Get related agent total tickets
+     * Get related agent total tickets.
      */
     public function agentTotalTickets()
     {
@@ -248,7 +248,7 @@ class Agent extends User
     }
 
     /**
-     * Get related agent Completed tickets
+     * Get related agent Completed tickets.
      */
     public function agentCompleteTickets()
     {
@@ -256,7 +256,7 @@ class Agent extends User
     }
 
     /**
-     * Get related agent tickets
+     * Get related agent tickets.
      */
     public function agentOpenTickets()
     {
@@ -264,7 +264,7 @@ class Agent extends User
     }
 
     /**
-     * Get related user total tickets
+     * Get related user total tickets.
      */
     public function userTotalTickets()
     {
@@ -272,7 +272,7 @@ class Agent extends User
     }
 
     /**
-     * Get related user Completed tickets
+     * Get related user Completed tickets.
      */
     public function userCompleteTickets()
     {
@@ -280,7 +280,7 @@ class Agent extends User
     }
 
     /**
-     * Get related user tickets
+     * Get related user tickets.
      */
     public function userOpenTickets()
     {

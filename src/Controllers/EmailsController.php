@@ -117,6 +117,10 @@ class EmailsController extends Controller
             }
 
             $ticket->save();
+
+            // Notify sender user
+            $notification = new NotificationsController();
+            $notification->newTicketNotifySender($ticket);
         }
     }
 

@@ -22,14 +22,15 @@ Localization (English, Hungarian, Brazilian Portuguese, and German language pack
 1. [Laravel 5.1](http://laravel.com/docs/5.1#installation)
 2. [Users table](http://laravel.com/docs/5.1/authentication)
 3. [Laravel email configuration](http://laravel.com/docs/5.1/mail#sending-mail)
-4. [PhPImap package]https://github.com/barbushin/php-imap
-5. Bootstrap 3+
-6. Jquery
+4. Bootstrap 3+
+5. Jquery
 
 **Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
 
 1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
 2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
+3. [PhPImap package](https://github.com/barbushin/php-imap)
+4. [HTML Purifier](https://github.com/mewebstudio/Purifier)
 
 ## Installation (4-8 minutes):
 
@@ -45,7 +46,9 @@ Step 2. After install, you have to add this line on your `config/app.php` in Ser
 
 Step 3. [Setting up your master view for Ticketit integration (1-2 minutes)](https://github.com/thekordy/ticketit/wiki/Integrating-Ticketit-views-with-your-project-template)
 
-Step 4. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
+Step 4. [Check if App\User exists](https://github.com/thekordy/ticketit/wiki/Make-sure-that-App%5CUser-exists)
+
+Step 5. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
 
 Default ticketit front route: http://your-project-url/tickets
 

@@ -149,7 +149,8 @@ class InstallController extends Controller
         }
         if ($settings_file_path) {
             $config_settings = include $settings_file_path;
-            File::move($settings_file_path, $settings_file_path.'.backup');
+            // keeping the config file exists to keep its configuration overriding the database configuration
+//            File::move($settings_file_path, $settings_file_path.'.backup');
         }
         $seeder = new SettingsTableSeeder();
         if ($master) {
@@ -263,14 +264,13 @@ class InstallController extends Controller
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
 
-
     /**
-     * Creates storage/app/attachments directory
+     * Creates storage/app/attachments directory.
      */
     public function createAttachmentsDirectory()
     {
-        if(!\Storage::exists('attachments')){
-            if(!\Storage::makeDirectory('attachments')){
+        if (!\Storage::exists('attachments')) {
+            if (!\Storage::makeDirectory('attachments')) {
                 \Log::alert('Couldn\'t create storage/app/attachments directory, please create it manually');
                 throw new \Exception('Couldn\'t create storage/app/attachments directory, please create it manually');
             }

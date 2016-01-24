@@ -353,7 +353,6 @@ class TicketsController extends Controller
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
-
     public function agentSelectList($category_id, $ticket_id)
     {
         $cat_agents = Models\Category::find($category_id)->agents()->agentsLists();

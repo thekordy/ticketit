@@ -196,7 +196,7 @@ class Ticket extends Model
     public function autoSelectAgent()
     {
         $cat_id = $this->category_id;
-        $agents = Category::find($cat_id)->agents()->with(['agentTotalTickets' => function($query){
+        $agents = Category::find($cat_id)->agents()->with(['agentTotalTickets' => function ($query) {
             $query->addSelect(['id', 'agent_id']);
         }])->get();
         $count = 0;
@@ -218,6 +218,7 @@ class Ticket extends Model
             $count++;
         }
         $this->agent_id = $selected_agent_id;
+
         return $this;
     }
 }

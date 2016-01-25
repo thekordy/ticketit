@@ -70,6 +70,8 @@ class EmailsController extends Controller
             //   - 'From: To: Sent: Subject:'
             //   - 'From: Date: To: Reply-to: Subject:'
             $clean_text = preg_replace('/From:.*^(To:).*^(Subject:).*/sm', '', $clean_text);
+            // Remove all text after "###### write your reply above this line ######"
+            $clean_text = preg_replace('/\#{6}.*/sm', '', $clean_text);
             // Remove any remaining whitespace.
             $clean_text = trim($clean_text);
 
@@ -83,10 +85,11 @@ class EmailsController extends Controller
     public function storeEmails($email, $user, $clean_text)
     {
         // Determine if ticket subject is likely opened or new
-        $comment_email = '*New comment from * on ticket *';
+//        $comment_email = '*New comment from * on ticket *';
+        preg_match('/\[\#(\d*)\]/', $email->subject, $subject_ticket_id);
 
-        if (fnmatch($comment_email, $email->subject)) {
-            $ticket_id = filter_var($email->subject, FILTER_SANITIZE_NUMBER_INT);
+        if (isset($subject_ticket_id[1])) {
+            $ticket_id = $subject_ticket_id[1];
             $comment = new Comment();
             $comment->setPurifiedContent($clean_text);
             $comment->ticket_id = $ticket_id;
@@ -104,7 +107,7 @@ class EmailsController extends Controller
             $ticket = new Ticket();
 
             $ticket->subject = $email->subject;
-            $ticket->content = $clean_text;
+            $ticket->setPurifiedContent($clean_text);
             $ticket->priority_id = Setting::grab('default_priority_id');
             $ticket->category_id = Setting::grab('default_category_id');
 

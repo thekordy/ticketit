@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;

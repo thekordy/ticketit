@@ -77,15 +77,6 @@ ENDHTML
 			</p>
 ENDHTML
 
-    , 'include_font_awesome' => <<<ENDHTML
-			<p>Si el CSS de Font-awesome está incluido afuera de ticketit, debe estar configurado en <code>0</code></p>
-
-			<p>
-				No incluir: <code>0</code><br>
-				Incluir CSS: <code>1</code>
-			</p>
-ENDHTML
-
     , 'summernote_locale' => <<<"ENDHTML"
 			<p>
 				¿Qué lenguaje debe debe utilizar el editor de texto summernote.js?<br>

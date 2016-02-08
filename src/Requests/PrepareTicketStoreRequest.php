@@ -29,6 +29,7 @@ class PrepareTicketStoreRequest extends Request
             'priority_id'   => 'required|numeric',
             'category_id'   => 'required|numeric',
             'file_upload'   => 'mimes:png,jpg,bmp,doc,docx,pdf,jpeg',
+            'user'          => 'numeric',
         ];
     }
 }

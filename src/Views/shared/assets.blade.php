@@ -15,9 +15,6 @@
     loadCSS({!! '"'.asset('//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css').'"' !!});
     @if($editor_enabled)
         loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/summernote/' . Kordy\Ticketit\Helpers\Cdn::Summernote . '/summernote.css').'"' !!});
-        @if($include_font_awesome)
-            loadCSS({!! '"'.asset('https://netdna.bootstrapcdn.com/font-awesome/' . Kordy\Ticketit\Helpers\Cdn::FontAwesome . '/css/font-awesome.min.css').'"' !!});
-        @endif
         @if($codemirror_enabled)
             loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/' . Kordy\Ticketit\Helpers\Cdn::CodeMirror . '/codemirror.min.css').'"' !!});
             loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/codemirror/' . Kordy\Ticketit\Helpers\Cdn::CodeMirror . '/theme/'.$codemirror_theme.'.min.css').'"' !!});

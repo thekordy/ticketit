@@ -57,12 +57,6 @@ class TicketitServiceProvider extends ServiceProvider
                 $view->with(compact('master', 'email', 'tools', 'editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
             });
 
-            //inlude font awesome css or not
-            view()->composer('ticketit::shared.assets', function ($view) {
-                $include_font_awesome = Setting::grab('include_font_awesome');
-                $view->with(compact('include_font_awesome'));
-            });
-
             view()->composer('ticketit::tickets.partials.summernote', function ($view) {
                 $editor_locale = Setting::grab('summernote_locale');
 

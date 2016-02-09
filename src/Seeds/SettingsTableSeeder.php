@@ -216,12 +216,6 @@ class SettingsTableSeeder extends Seeder
             'editor_enabled' => 'yes',
 
             /*
-             * If Font-awesome css is included outside ticketit, this should be set to 'no'
-             * Default: 'yes'
-             */
-            'include_font_awesome' => 'yes',
-
-            /*
              * Which language should summernote js texteditor use
              * If value is 'laravel', locale set in config/app.php will be used
              *

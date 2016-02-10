@@ -11,6 +11,15 @@
                         'class' => 'form-horizontal'
                         ]) !!}
             <legend>{!! trans('ticketit::lang.create-new-ticket') !!}</legend>
+            @if( $u->isAgent() || $u->isAdmin() )
+            <div class="form-group">
+                {!! CollectiveForm::label('user', 'User:', ['class' => 'col-lg-2 control-label']) !!}
+                <div class="col-lg-10">
+<!--                    <select name='user' id='user' class='form-control, col-lg-12'></select>-->
+                    {!! CollectiveForm::select('user', ['0'=>''], 0, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            @endif
             <div class="form-group">
                 {!! CollectiveForm::label('subject', trans('ticketit::lang.subject') . trans('ticketit::lang.colon'), ['class' => 'col-lg-2 control-label']) !!}
                 <div class="col-lg-10">
@@ -59,4 +68,5 @@
 
 @section('footer')
     @include('ticketit::tickets.partials.summernote')
+    @include('ticketit::tickets.partials.user-search')
 @endsection

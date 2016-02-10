@@ -27,6 +27,8 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
     Route::get('/getemails', 'Kordy\Ticketit\Controllers\EmailsController@getEmails')
             ->name('getemails');
     //});
+    Route::get('/user-search', 'Kordy\Ticketit\Controllers\UserSearchController@userSearch')
+            ->name('usersearch');
 
     Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAgentMiddleware'], function () use ($main_route) {
 

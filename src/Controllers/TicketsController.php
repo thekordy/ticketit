@@ -242,7 +242,7 @@ class TicketsController extends Controller
         $ticket->priority_id = $request->priority_id;
 
         if ($request->input('agent_id') == 'auto') {
-            $ticket->agent_id = $this->autoSelectAgent($request->input('category_id'));
+            $ticket->autoSelectAgent();
         } else {
             $ticket->agent_id = $request->input('agent_id');
         }

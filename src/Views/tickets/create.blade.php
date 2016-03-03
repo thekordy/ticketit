@@ -15,8 +15,7 @@
             <div class="form-group">
                 {!! CollectiveForm::label('user', 'User:', ['class' => 'col-lg-2 control-label']) !!}
                 <div class="col-lg-10">
-<!--                    <select name='user' id='user' class='form-control, col-lg-12'></select>-->
-                    {!! CollectiveForm::select('user', ['0'=>''], 0, ['class' => 'form-control']) !!}
+                    {!! CollectiveForm::select('user', ['0'=>''], null, ['class' => 'form-control']) !!}
                 </div>
             </div>
             @endif
@@ -53,7 +52,22 @@
                         {!! CollectiveForm::file('file_upload', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                {!! CollectiveForm::hidden('agent_id', 'auto') !!}
+                @if( $u->isAgent() || $u->isAdmin() )
+                <div class="form-group col-lg-6">
+                        {!! CollectiveForm::label('agent_id', trans('ticketit::lang.agent') . trans('ticketit::lang.colon'), [
+                            'class' => 'col-lg-4 control-label'
+                        ]) !!}
+                        <div class="col-lg-8">
+                            {!! CollectiveForm::select(
+                                'agent_id',
+                                $agent_lists,
+                                'auto',
+                                ['class' => 'form-control']) !!}
+                        </div>
+                </div>
+                @else
+                        {!! CollectiveForm::hidden('agent_id', 'auto') !!}
+                @endif
             </div>
             <br>
             <div class="form-group">

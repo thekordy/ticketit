@@ -156,10 +156,16 @@ class TicketsController extends Controller
     {
         $priorities = Models\Priority::lists('name', 'id');
         $categories = Models\Category::lists('name', 'id');
+        
+        $agents = \App\User::where('ticketit_agent', '1')->lists('name', 'id')->toArray();
+        if (is_array($agents)) {
+            $agent_lists = ['auto' => 'Auto Select'] + $agents;
+        } else {
+            $agent_lists = ['auto' => 'Auto Select'];
+        }
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return view('ticketit::tickets.create', compact('priorities', 'categories', 'agent_lists'));
     }
-
     /**
      * Store a newly created ticket and auto assign an agent for it.
      *
@@ -186,7 +192,11 @@ class TicketsController extends Controller
             $ticket->user_id = $request->user;
         }
         
-        $ticket->autoSelectAgent();
+        if ($request->input('agent_id') == 'auto') {
+            $ticket->autoSelectAgent();
+        } else {
+            $ticket->agent_id = $request->input('agent_id');
+        }
 
         $ticket->save();
 

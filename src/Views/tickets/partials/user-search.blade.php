@@ -43,5 +43,5 @@
         },
         templateResult: formatData,
         templateSelection: formatDataSelection
-    }).on('select2:select', function (e){$("#user option[selected=selected]").val(e.params.data.id);});
+    });
 </script>

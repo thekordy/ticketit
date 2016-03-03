@@ -156,7 +156,7 @@ class TicketsController extends Controller
     {
         $priorities = Models\Priority::lists('name', 'id');
         $categories = Models\Category::lists('name', 'id');
-        
+
         $agents = \App\User::where('ticketit_agent', '1')->lists('name', 'id')->toArray();
         if (is_array($agents)) {
             $agent_lists = ['auto' => 'Auto Select'] + $agents;
@@ -185,13 +185,13 @@ class TicketsController extends Controller
         $ticket->category_id = $request->category_id;
 
         $ticket->status_id = Setting::grab('default_status_id');
-        
-        if (!$request->user || $request->user == 0){
+
+        if (!$request->user || $request->user == 0) {
             $ticket->user_id = auth()->user()->id;
         } else {
             $ticket->user_id = $request->user;
         }
-        
+
         if ($request->input('agent_id') == 'auto') {
             $ticket->autoSelectAgent();
         } else {

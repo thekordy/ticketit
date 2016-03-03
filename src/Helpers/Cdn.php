@@ -10,6 +10,6 @@ namespace Kordy\Ticketit\Helpers;
  */
 class Cdn
 {
-    const CodeMirror = '5.11.0';
-    const Summernote = '0.8.0';
+    const CodeMirror = '5.12.0';
+    const Summernote = '0.8.1';
 }

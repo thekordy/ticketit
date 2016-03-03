@@ -6,6 +6,7 @@ use Collective\Html\FormFacade as CollectiveForm;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
@@ -25,6 +26,10 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (!Schema::hasTable('migrations')) {
+            // Database isn't installed yet.
+            return;
+        }
         $installer = new InstallController();
 
         // if a migration or new setting is missing scape to the installation

@@ -84,11 +84,13 @@ class SettingsTableSeeder extends Seeder
              * Default: /ticket
              */
             'main_route' => 'tickets',
+            'main_route_path' => 'tickets',
             /*
              * Ticketit admin route: Where to load the ticket administration dashboard (ex. http://url/tickets-admin)
              * Default: /ticket
              */
             'admin_route' => 'tickets-admin',
+            'admin_route_path' => 'tickets-admin',
             /*
              * Template adherence: The master blade template to be extended
              * Default: resources/views/master.blade.php

@@ -23,7 +23,7 @@ class ConfigurationsController extends Controller
   {
       $configurations = Configuration::all();
       $configurations_by_sections = ['init' => [], 'email' => [], 'tickets' => [], 'perms' => [], 'editor' => [], 'other' => []];
-      $init_section = ['main_route', 'admin_route', 'master_template'];
+      $init_section = ['main_route', 'main_route_path', 'admin_route', 'admin_route_path', 'master_template'];
       $email_section = ['status_notification', 'comment_notification', 'queue_emails', 'assigned_notification',
         'email.template', 'email.header', 'email.signoff', 'email.signature', 'email.dashboard',
         'email.google_plus_link', 'email.facebook_link', 'email.twitter_link', 'email.footer', 'email.footer_link',

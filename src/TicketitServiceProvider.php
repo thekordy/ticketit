@@ -140,7 +140,9 @@ class TicketitServiceProvider extends ServiceProvider
 //            $installer->publicAssets();
 
             $main_route = Setting::grab('main_route');
+            $main_route_path = Setting::grab('main_route_path');
             $admin_route = Setting::grab('admin_route');
+            $admin_route_path = Setting::grab('admin_route_path');
             include __DIR__.'/routes.php';
         } elseif (Request::path() == 'tickets-install'
                 || Request::path() == 'tickets-upgrade'

@@ -1,7 +1,7 @@
 
 <?php
 return [
- /*  
+ /*
   *  Constants
   */
   'nav-settings'                  => 'Beállítások',
@@ -35,7 +35,7 @@ return [
   'btn-save'                      => 'Mentés',
 
   'colon'                         => ': ',
- /*  
+ /*
   *  Page specific
   */
 // tickets-admin/____

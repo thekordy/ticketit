@@ -2,7 +2,7 @@
 
 return [
 
- /*  
+ /*
   *  Constants
   */
 
@@ -65,7 +65,7 @@ return [
   'status'                           => 'Státusz',
   'subject'                          => 'Tárgy',
 
- /*  
+ /*
   *  Page specific
   */
 
@@ -91,7 +91,7 @@ return [
   'show-ticket-modal-delete-title'   => 'ID:id. Kérelem törlése?',
   'show-ticket-modal-delete-message' => 'Biztosan törölni kívánja a következő kérelmet: :subject?',
 
- /*  
+ /*
   *  Controllers
   */
 

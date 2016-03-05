@@ -2,7 +2,7 @@
 
 return [
 
- /*  
+ /*
   *  Constants
   */
 
@@ -38,7 +38,7 @@ return [
 
   'colon'                         => ': ',
 
- /*  
+ /*
   *  Page specific
   */
 

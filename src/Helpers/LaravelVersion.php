@@ -20,7 +20,7 @@ class LaravelVersion
 
     /**
      * Compare laravel version against a version number using a custom operator.
-     * 
+     *
      * @param string $operator One of these: <, lt, <=, le, >, gt, >=, ge, ==, =, eq, !=, <>, ne
      * @param string $version
      *

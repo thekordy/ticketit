@@ -3,14 +3,14 @@
         <ul class="nav nav-pills">
 
             <li role="presentation" class="{!! Request::is($setting->grab('main_route')) ? "active" : "" !!}">
-                <a href="/{{ $setting->grab('main_route') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
+                <a href="{{ url('/tickets' )}}">{{ trans('ticketit::lang.nav-active-tickets') }}
                     <span class="badge">
                         {{ Kordy\Ticketit\Models\Ticket::active()->agentUserTickets($u->id)->count() }}
                     </span>
                 </a>
             </li>
             <li role="presentation" class="{!! Request::is($setting->grab('main_route').'/complete') ? "active" : "" !!}">
-                <a href="/{{ $setting->grab('main_route') . '/complete' }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
+                <a href="{{ url('tickets/complete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                     <span class="badge">
                         {{ Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets($u->id)->count() }}
                     </span>
@@ -19,7 +19,7 @@
 
             @if($u->isAdmin())
                 <li role="presentation" class="{!! Request::is($setting->grab('admin_route')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
-                    <a href="/{{ $setting->grab('admin_route') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
+                    <a href="{{ url('/tickets-admin' )}}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
                 </li>
 
                 <li role="presentation" class="dropdown {!!
@@ -35,22 +35,22 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li role="presentation" class="{!! Request::is($setting->grab('admin_route')."/status*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/status">{{ trans('ticketit::admin.nav-statuses') }}</a>
+                            <a href="{{ url('tickets-admin/status') }}">{{ trans('ticketit::admin.nav-statuses') }}</a>
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/priority*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/priority">{{ trans('ticketit::admin.nav-priorities') }}</a>
+                            <a href="{{ url('tickets-admin/priority') }}">{{ trans('ticketit::admin.nav-priorities') }}</a>
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/agent*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/agent">{{ trans('ticketit::admin.nav-agents') }}</a>
+                            <a href="{{ url('tickets-admin/agent') }}">{{ trans('ticketit::admin.nav-agents') }}</a>
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/category*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/category">{{ trans('ticketit::admin.nav-categories') }}</a>
+                            <a href="{{ url('tickets-admin/category') }}">{{ trans('ticketit::admin.nav-categories') }}</a>
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/config*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/configuration">{{ trans('ticketit::admin.nav-configuration') }}</a>
+                            <a href="{{ url('tickets-admin/configuration') }}">{{ trans('ticketit::admin.nav-configuration') }}</a>
                         </li>
                         <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')."/administrator*") ? "active" : "" !!}">
-                            <a href="/{{ $setting->grab('admin_route') }}/administrator">{{ trans('ticketit::admin.nav-administrator') }}</a>
+                            <a href="{{ url('tickets-admin/administrator') }}">{{ trans('ticketit::admin.nav-administrator') }}</a>
                         </li>
                     </ul>
                 </li>

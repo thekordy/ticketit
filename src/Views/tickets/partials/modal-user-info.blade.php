@@ -8,8 +8,6 @@
       </div>
       <div class="modal-body">
         <p>{{ $ticket->user->email }}</p>
-        
-        <p><a href="{{ URL::route('userDetails', array('id'=>$ticket->user->id)) }}" target="_blank">Details</a>
       </div>
       <div class="modal-footer">
       </div>

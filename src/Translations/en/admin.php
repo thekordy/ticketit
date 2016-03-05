@@ -2,7 +2,7 @@
 
 return [
 
- /*  
+ /*
   *  Constants
   */
   'nav-settings'                  => 'Settings',
@@ -40,7 +40,7 @@ return [
 
   'colon'                         => ': ',
 
- /*  
+ /*
   *  Page specific
   */
 

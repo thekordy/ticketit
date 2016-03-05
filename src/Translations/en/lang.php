@@ -2,7 +2,7 @@
 
 return [
 
- /*  
+ /*
   *  Constants
   */
 
@@ -64,7 +64,7 @@ return [
   'status'                           => 'Status',
   'subject'                          => 'Subject',
 
- /*  
+ /*
   *  Page specific
   */
 
@@ -90,7 +90,7 @@ return [
   'show-ticket-modal-delete-title'   => 'Delete Ticket',
   'show-ticket-modal-delete-message' => 'Are you sure you want to delete ticket: :subject?',
 
- /*  
+ /*
   *  Controllers
   */
 

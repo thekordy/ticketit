@@ -3,6 +3,8 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 class ToolsController extends Controller
 {
@@ -35,5 +37,22 @@ class ToolsController extends Controller
         });
 
         return $data;
+    }
+
+    /**
+     * Determine if the current request URL and query string matches a pattern.
+     *
+     * @param  mixed  string
+     * @return bool
+     */
+    public function fullUrlIs($match)
+    {
+        $url = Request::fullUrl();
+
+        if (Str::is($match, $url)) {
+            return true;
+        }
+
+        return false;
     }
 }

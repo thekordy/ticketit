@@ -53,7 +53,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="col-md-4">
-                            <p> <strong>{{ trans('ticketit::lang.owner') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->user->name }}</p>
+                            <p> <strong>{{ trans('ticketit::lang.owner') }}</strong>{{ trans('ticketit::lang.colon') }}<a href="#" data-toggle="modal" data-target="#userInfo">{{ $ticket->user->name }}</a></p>
                             <p>
                                 <strong>{{ trans('ticketit::lang.status') }}</strong>{{ trans('ticketit::lang.colon') }}
                                 @if( $ticket->isComplete() && ! $setting->grab('default_close_status_id') )
@@ -132,5 +132,6 @@
 {{-- // OR; Modal Window: 2/2 --}}
     @if($u->isAdmin())
         @include('ticketit::tickets.partials.modal-delete-confirm')
+        @include('ticketit::tickets.partials.modal-user-info')
     @endif
 {{-- // END Modal Window: 2/2 --}}

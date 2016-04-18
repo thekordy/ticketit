@@ -51,6 +51,28 @@ class Ticket extends Model
     }
 
     /**
+     * Allows text-base free search
+     *
+     * @param $query
+     * @param string $searchText
+     * @return Collection
+     */
+    public function scopeSearch($query, $searchText)
+    {
+        $searchText = '%' . $searchText . '%';
+
+        $query->leftJoin('ticketit_comments', 'ticketit_comments.ticket_id', '=', 'ticketit.id');
+
+        $query->where(function($query) use ($searchText){
+            $query->orWhere('ticketit.subject', 'LIKE', $searchText)
+                ->orWhere('ticketit.content', 'LIKE', $searchText)
+                ->orWhere('ticketit_comments.content', 'LIKE', $searchText);
+        });
+
+        return $query->groupBy('ticketit.id');
+    }
+
+    /**
      * Get Ticket status.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

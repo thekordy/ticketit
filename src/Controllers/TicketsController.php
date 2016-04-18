@@ -93,6 +93,10 @@ class TicketsController extends Controller
             }
         }
 
+        if($request->searchPhrase){
+            $query->search($request->searchPhrase);
+        }
+
 
         $paginator = $query->paginate($request->rowCount);
         $tickets = $paginator->getCollection();

@@ -7,11 +7,11 @@
         "laravel/framework": "^5.1",
         "laravelcollective/html": "^5.1",
         "illuminate/support": "^5.1",
-        "yajra/laravel-datatables-oracle": "~6.0",
         "jenssegers/date": "^3.0",
         "mews/purifier": "^2.0",
         "doctrine/dbal": "^2.5",
-        "php-imap/php-imap": "~2.0"
+        "php-imap/php-imap": "~2.0",
+        "spatie/laravel-fractal": "^1.9"
 
     },
     "license": "MIT",

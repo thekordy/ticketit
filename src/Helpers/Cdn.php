@@ -12,4 +12,5 @@ class Cdn
 {
     const CodeMirror = '5.12.0';
     const Summernote = '0.8.1';
+    const Bootgrid = '1.3.1';
 }

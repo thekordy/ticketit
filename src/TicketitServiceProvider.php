@@ -176,7 +176,7 @@ class TicketitServiceProvider extends ServiceProvider
          * Register the service provider for the dependency.
          */
         $this->app->register(\Collective\Html\HtmlServiceProvider::class);
-        $this->app->register(\Yajra\Datatables\DatatablesServiceProvider::class);
+        $this->app->register(\Spatie\Fractal\FractalServiceProvider::class);
         $this->app->register(\Jenssegers\Date\DateServiceProvider::class);
         $this->app->register(\Mews\Purifier\PurifierServiceProvider::class);
         /*

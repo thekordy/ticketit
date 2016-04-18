@@ -2,7 +2,7 @@
 
 return [
 
- /*  
+ /*
   *  Constants
   */
 
@@ -19,25 +19,12 @@ return [
   'table-agent'                      => 'Agent',
   'table-category'                   => 'Category',
 
-  // Datatables
-  'table-decimal'                    => '',
-  'table-empty'                      => 'No data available in table',
-  'table-info'                       => 'Showing _START_ to _END_ of _TOTAL_ entries',
-  'table-info-empty'                 => 'Showing 0 to 0 of 0 entries',
-  'table-info-filtered'              => '(filtered from _MAX_ total entries)',
-  'table-info-postfix'               => '',
-  'table-thousands'                  => ',',
-  'table-length-menu'                => 'Show _MENU_ entries',
-  'table-loading-results'            => 'Loading...',
-  'table-processing'                 => 'Processing...',
-  'table-search'                     => 'Search:',
-  'table-zero-records'               => 'No matching records found',
-  'table-paginate-first'             => 'First',
-  'table-paginate-last'              => 'Last',
-  'table-paginate-next'              => 'Next',
-  'table-paginate-prev'              => 'Previous',
-  'table-aria-sort-asc'              => ': activate to sort column ascending',
-  'table-aria-sort-desc'             => ': activate to sort column descending',
+   // Bootgrid
+  'bootgrid-infos'                   => 'Showing {{ctx.start}} to {{ctx.end}} of {{ctx.total}} entries', //Added: 2016. IV. 18
+  'bootgrid-loading'                 => 'Loading...', //Added: 2016. IV. 18
+  'bootgrid-noResults'               => 'No results found!', //Added: 2016. IV. 18
+  'bootgrid-refresh'                 => 'Refresh', //Added: 2016. IV. 18
+  'bootgrid-search'                  => 'Search', //Added: 2016. IV. 18
 
   'btn-back'                         => 'Back',
   'btn-cancel'                       => 'Cancel', // NEW
@@ -66,7 +53,7 @@ return [
   'subject'                          => 'Subject',
   'time-spent'                       => 'Work Time',
   'file-upload'                      => 'Upload File',
- /*  
+ /*
   *  Page specific
   */
 
@@ -92,7 +79,7 @@ return [
   'show-ticket-modal-delete-title'   => 'Delete Ticket',
   'show-ticket-modal-delete-message' => 'Are you sure you want to delete ticket: :subject?',
 
- /*  
+ /*
   *  Controllers
   */
 

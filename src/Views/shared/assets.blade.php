@@ -10,8 +10,7 @@
             document.getElementsByTagName("head")[0].appendChild(file)
         }
     }
-    loadCSS({!! '"'.asset('//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.css').'"' !!});
-    loadCSS({!! '"'.asset('//cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css').'"' !!});
+    loadCSS({!! '"'.asset('//cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/' . Kordy\Ticketit\Helpers\Cdn::Bootgrid . '/jquery.bootgrid.min.css').'"' !!});
     loadCSS({!! '"'.asset('//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css').'"' !!});
     @if($editor_enabled)
         loadCSS({!! '"'.asset('https://cdnjs.cloudflare.com/ajax/libs/summernote/' . Kordy\Ticketit\Helpers\Cdn::Summernote . '/summernote.css').'"' !!});

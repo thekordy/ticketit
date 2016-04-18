@@ -135,15 +135,10 @@ class SettingsTableSeeder extends Seeder
              */
 //            'admin_ids' => [1],
             /*
-             * Pagination length: For standard pagination.
-             * Default: 1
-             */
-            'paginate_items' => 10,
-            /*
              * Pagination length: For tickets table.
              * Default: 1
              */
-            'length_menu' => [[10, 50, 100], [10, 50, 100]],
+            'length_menu' => [10, 25, 50],
             /*
              * Status notification: send email notification to ticket owner/Agent when ticket status is changed
              * Default is send notification: 'yes'

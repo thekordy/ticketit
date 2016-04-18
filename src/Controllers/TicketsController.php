@@ -14,7 +14,6 @@ use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use Kordy\Ticketit\Transformers\TicketTransformer;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
-use Yajra\Datatables\Engines\EloquentEngine;
 
 class TicketsController extends Controller
 {

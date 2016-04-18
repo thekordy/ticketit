@@ -28,7 +28,7 @@ Localization (English, Hungarian, Brazilian Portuguese, and German language pack
 **Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
 
 1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
-2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
+2. [Laravel fractal](https://github.com/spatie/laravel-fractal)
 3. [PhPImap package](https://github.com/barbushin/php-imap)
 4. [HTML Purifier](https://github.com/mewebstudio/Purifier)
 

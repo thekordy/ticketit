@@ -214,6 +214,7 @@ class InstallController extends Controller
             $migration_arr [] = $migration_parent->migration;
         }
 
+        $migration_arr = array();
         foreach ($tables as $table) {
             if (!in_array($table, $migration_arr)) {
                 $inactiveMigrations [] = $table;

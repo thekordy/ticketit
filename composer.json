@@ -1,0 +1,37 @@
+{
+  "name": "kordy/ticketit",
+  "description": "A simple helpdesk tickets system for Laravel 5.2 which integrates smoothly with Laravel default users and auth system",
+  "type": "package",
+  "version": "2.0",
+  "license": "MIT",
+  "keywords": ["laravel","helpdesk", "ticket", "support"],
+  "authors": [
+    {
+      "name": "Ahmed Kordy",
+      "email": "ahmed@kordy.info",
+      "homepage": "https://github.com/thekordy",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "laravel/framework": "^5.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.0|^5.0",
+    "doctrine/dbal": "^2.5"
+  },
+  "autoload": {
+    "classmap": [
+      "src/Migrations/",
+      "tests/TicketitTestCase.php"
+    ],
+    "psr-4": {
+      "Kordy\\Ticketit\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Kordy\\Ticketit\\Test\\": "tests/"
+    }
+  }
+}

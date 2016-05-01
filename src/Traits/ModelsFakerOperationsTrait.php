@@ -2,6 +2,13 @@
 
 namespace Kordy\Ticketit\Traits;
 
+use TicketitTicket;
+use TicketitAgent;
+use TicketitAdmin;
+use TicketitStatus;
+use TicketitPriority;
+use TicketitCategory;
+
 trait ModelsFakerOperationsTrait
 {
 
@@ -30,7 +37,7 @@ trait ModelsFakerOperationsTrait
             'email' => $this->faker->email,
             'password' => bcrypt(str_random(10))
         ];
-        $account = app('TicketitAgent')->create($agent_data);
+        $account = TicketitAgent::create($agent_data);
 
         // add agent flag to user using addToagents() function in Traits/AgentTrait
         return $account->addToAgents();
@@ -49,7 +56,7 @@ trait ModelsFakerOperationsTrait
             'email' => $this->faker->email,
             'password' => bcrypt(str_random(10))
         ];
-        $account = app('TicketitAgent')->create($admin_data);
+        $account = TicketitAdmin::create($admin_data);
 
         // add admin flag to user using addToadmins() function in Traits/AdminTrait
         return $account->addToAdmins();
@@ -62,7 +69,7 @@ trait ModelsFakerOperationsTrait
      */
     protected function createStatus()
     {
-        return app('TicketitStatus')->create([
+        return TicketitStatus::create([
             'name' => $this->faker->text(10),
             'color' => $this->faker->hexcolor
         ]);
@@ -75,7 +82,7 @@ trait ModelsFakerOperationsTrait
      */
     protected function createPriority()
     {
-        return app('TicketitPriority')->create([
+        return TicketitPriority::create([
             'name' => $this->faker->text(10),
             'color' => $this->faker->hexcolor
         ]);
@@ -88,7 +95,7 @@ trait ModelsFakerOperationsTrait
      */
     protected function createCategory()
     {
-        return app('TicketitCategory')->create([
+        return TicketitCategory::create([
             'name' => $this->faker->text(10),
             'color' => $this->faker->hexcolor
         ]);

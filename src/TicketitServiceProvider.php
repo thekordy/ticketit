@@ -2,8 +2,17 @@
 
 namespace Kordy\Ticketit;
 
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Kordy\Ticketit\Facades\TicketitAdminFacade;
+use Kordy\Ticketit\Facades\TicketitAgentFacade;
+use Kordy\Ticketit\Facades\TicketitCategoryFacade;
+use Kordy\Ticketit\Facades\TicketitCommentFacade;
+use Kordy\Ticketit\Facades\TicketitPriorityFacade;
+use Kordy\Ticketit\Facades\TicketitStatusFacade;
+use Kordy\Ticketit\Facades\TicketitTicketFacade;
+use Kordy\Ticketit\Facades\TicketitUserFacade;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -46,8 +55,10 @@ class TicketitServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/core.php', 'ticketit.core');
         // Default models configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
-        
+        // Register model bindings from the configured models paths in Config/models.php
         $this->registerModelBindings();
+        // Register model Facades at Facades/
+        $this->registerFacadesAliases();
     }
     /**
      * Bind the Permission and Role model into the IoC.
@@ -77,5 +88,23 @@ class TicketitServiceProvider extends ServiceProvider
 
         // Whenever call app('TicketitComment') load the model configured 'comment' in Config/models.php
         $this->app->bind('TicketitComment', config('ticketit.models.comment'));
+    }
+
+    /**
+     * Create aliases for the Model Bindings. 
+     * 
+     * @see registerModelBindings
+     */
+    protected function registerFacadesAliases()
+    {
+        $loader = AliasLoader::getInstance();
+        $loader->alias('TicketitUser', TicketitUserFacade::class);
+        $loader->alias('TicketitAgent', TicketitAgentFacade::class);
+        $loader->alias('TicketitAdmin', TicketitAdminFacade::class);
+        $loader->alias('TicketitStatus', TicketitStatusFacade::class);
+        $loader->alias('TicketitPriority', TicketitPriorityFacade::class);
+        $loader->alias('TicketitCategory', TicketitCategoryFacade::class);
+        $loader->alias('TicketitTicket', TicketitTicketFacade::class);
+        $loader->alias('TicketitComment', TicketitCommentFacade::class);
     }
 }

@@ -3,6 +3,12 @@
 namespace Kordy\Ticketit\Test;
 
 use Kordy\Ticketit\Traits\ModelsFakerOperationsTrait;
+use TicketitTicket;
+use TicketitAgent;
+use TicketitAdmin;
+use TicketitStatus;
+use TicketitPriority;
+use TicketitCategory;
 
 class ModelsTest extends TicketitTestCase
 {
@@ -23,13 +29,13 @@ class ModelsTest extends TicketitTestCase
     {
         $agent = $this->createAgent();
 
-        $this->seeInDatabase(app('TicketitAgent')->getTable(),
+        $this->seeInDatabase(TicketitAgent::getTable(),
             ['name' => $agent->name, 'ticketit_agent' => 1]
         );
         
         $agent->removeFromAgents();
 
-        $this->dontSeeInDatabase(app('TicketitAgent')->getTable(),
+        $this->dontSeeInDatabase(TicketitAgent::getTable(),
             ['name' => $agent->name, 'ticketit_agent' => 1]
         );
     }
@@ -38,13 +44,13 @@ class ModelsTest extends TicketitTestCase
     {
         $admin = $this->createAdmin();
 
-        $this->seeInDatabase(app('TicketitAdmin')->getTable(),
+        $this->seeInDatabase(TicketitAdmin::getTable(),
             ['name' => $admin->name, 'ticketit_admin' => 1]
         );
 
         $admin->removeFromAdmins();
 
-        $this->dontSeeInDatabase(app('TicketitAdmin')->getTable(),
+        $this->dontSeeInDatabase(TicketitAdmin::getTable(),
             ['name' => $admin->name, 'ticketit_admin' => 1]
         );
     }
@@ -53,23 +59,23 @@ class ModelsTest extends TicketitTestCase
     {
         $created = $this->createStatus();
 
-        $this->SeeInDatabase(app('TicketitStatus')->getTable(),
+        $this->SeeInDatabase(TicketitStatus::getTable(),
             ['name' => $created->name, 'color' => $created->color]
         );
 
-        $status = app('TicketitStatus')->find(1);
+        $status = TicketitStatus::find(1);
 
         $status->name = 'status test';
         $status->color = 'red';
         $status->save();
 
-        $this->SeeInDatabase(app('TicketitStatus')->getTable(),
+        $this->SeeInDatabase(TicketitStatus::getTable(),
             ['name' => 'status test', 'color' => 'red']
         );
 
         $status->delete();
 
-        $this->dontSeeInDatabase(app('TicketitStatus')->getTable(),
+        $this->dontSeeInDatabase(TicketitStatus::getTable(),
             ['name' => 'status test', 'color' => 'red']
         );
     }
@@ -78,23 +84,23 @@ class ModelsTest extends TicketitTestCase
     {
         $created = $this->createPriority();
 
-        $this->SeeInDatabase(app('TicketitPriority')->getTable(),
+        $this->SeeInDatabase(TicketitPriority::getTable(),
             ['name' => $created->name, 'color' => $created->color]
         );
 
-        $priority = app('TicketitPriority')->find(1);
+        $priority = TicketitPriority::find(1);
 
         $priority->name = 'priority test';
         $priority->color = 'red';
         $priority->save();
 
-        $this->SeeInDatabase(app('TicketitPriority')->getTable(),
+        $this->SeeInDatabase(TicketitPriority::getTable(),
             ['name' => 'priority test', 'color' => 'red']
         );
 
         $priority->delete();
 
-        $this->dontSeeInDatabase(app('TicketitPriority')->getTable(),
+        $this->dontSeeInDatabase(TicketitPriority::getTable(),
             ['name' => 'priority test', 'color' => 'red']
         );
     }
@@ -103,23 +109,23 @@ class ModelsTest extends TicketitTestCase
     {
         $created = $this->createCategory();
 
-        $this->SeeInDatabase(app('TicketitCategory')->getTable(),
+        $this->SeeInDatabase(TicketitCategory::getTable(),
             ['name' => $created->name, 'color' => $created->color]
         );
 
-        $category = app('TicketitCategory')->find(1);
+        $category = TicketitCategory::find(1);
 
         $category->name = 'category test';
         $category->color = 'red';
         $category->save();
 
-        $this->SeeInDatabase(app('TicketitCategory')->getTable(),
+        $this->SeeInDatabase(TicketitCategory::getTable(),
             ['name' => 'category test', 'color' => 'red']
         );
 
         $category->delete();
 
-        $this->dontSeeInDatabase(app('TicketitCategory')->getTable(),
+        $this->dontSeeInDatabase(TicketitCategory::getTable(),
             ['name' => 'category test', 'color' => 'red']
         );
     }
@@ -166,7 +172,7 @@ class ModelsTest extends TicketitTestCase
         }
         $this->assertEquals([1,3], $user1->ownTickets()->lists('id')->toArray());
         // using ticket trait ticketable relation
-        $this->assertEquals($user2->name, app('TicketitTicket')->find(4)->ticketable->name);
+        $this->assertEquals($user2->name, TicketitTicket::find(4)->ticketable->name);
     }
 
     function test_can_list_agent_own_tickets()
@@ -181,7 +187,7 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals([1,3], $user->ownTickets()->lists('id')->toArray());
         $this->assertEquals([2,4], $agent->ownTickets()->lists('id')->toArray());
         // using ticket trait ticketable relation
-        $this->assertEquals($agent->name, app('TicketitTicket')->find(4)->ticketable->name);
+        $this->assertEquals($agent->name, TicketitTicket::find(4)->ticketable->name);
     }
 
     function test_can_list_agent_assigned_tickets()
@@ -197,7 +203,7 @@ class ModelsTest extends TicketitTestCase
         // get tickets using agent hasMany tickets relation
         $this->assertEquals([1], $agent1->assignedTickets()->lists('id')->toArray());
         // get tickets using ticket scope byAgent()
-        $this->assertEquals(2, app('TicketitTicket')->byAgent($agent2->id)->first()->id);
+        $this->assertEquals(2, TicketitTicket::byAgent($agent2->id)->first()->id);
     }
 
     function test_can_list_admin_own_tickets()
@@ -226,7 +232,7 @@ class ModelsTest extends TicketitTestCase
         // using status trait hasMany tickets relation
         $this->assertEquals([1], $status1->tickets()->lists('id')->toArray());
         // using ticket trait scope byStatus()
-        $this->assertEquals([2], app('TicketitTicket')->byStatus($status2->id)->lists('id')->toArray());
+        $this->assertEquals([2], TicketitTicket::byStatus($status2->id)->lists('id')->toArray());
     }
 
     function test_can_list_tickets_by_priority()
@@ -242,7 +248,7 @@ class ModelsTest extends TicketitTestCase
         // using priority trait hasMany tickets relation
         $this->assertEquals([1], $priority1->tickets()->lists('id')->toArray());
         // using ticket trait scope byPriority()
-        $this->assertEquals([2], app('TicketitTicket')->byPriority($priority2->id)->lists('id')->toArray());
+        $this->assertEquals([2], TicketitTicket::byPriority($priority2->id)->lists('id')->toArray());
     }
 
     function test_can_list_tickets_by_category()
@@ -258,7 +264,7 @@ class ModelsTest extends TicketitTestCase
         // using category trait hasMany tickets relation
         $this->assertEquals([1], $category1->tickets()->lists('id')->toArray());
         // using ticket trait scope byCategory()
-        $this->assertEquals([2], app('TicketitTicket')->byCategory($category2->id)->lists('id')->toArray());
+        $this->assertEquals([2], TicketitTicket::byCategory($category2->id)->lists('id')->toArray());
     }
 
     function test_user_agent_admin_can_create_a_comment()

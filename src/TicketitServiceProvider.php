@@ -27,9 +27,9 @@ class TicketitServiceProvider extends ServiceProvider
         Relation::morphMap(config('ticketit.models.morphmap'));
 
         // Load routes
-//        if (! $this->app->routesAreCached()) {
-//            require config('ticketit.routes.file');
-//        }
+        if (! $this->app->routesAreCached()) {
+            require __DIR__.'/routes.php';
+        }
         
         /** publish resources **/
         
@@ -53,6 +53,8 @@ class TicketitServiceProvider extends ServiceProvider
     {
         // Default core configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/core.php', 'ticketit.core');
+        // Default routes configuration file
+        $this->mergeConfigFrom(__DIR__.'/Config/routes.php', 'ticketit.routes');
         // Default models configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
         // Register model bindings from the configured models paths in Config/models.php

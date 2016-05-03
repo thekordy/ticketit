@@ -1,10 +1,6 @@
 <?php
 
-// Ticketit index page where we display all user tickets list
-Route::get(config('ticketit.routes.index.path'),
-    [
-        'as' => 'ticketit.index',
-        'uses' => config('ticketit.routes.index.action'),
-        'middleware' => config('ticketit.routes.index.middleware')
-    ]
+// Ticketit index page where we display all user tickets
+Route::get(config('ticketit.routes.tickets-index.path'),
+    array_merge(['as' => 'ticketit.index'], config('ticketit.routes.tickets-index.parameters'))
 );

@@ -25,10 +25,12 @@ class TicketitServiceProvider extends ServiceProvider
     {
         // Register morph map as configured in Config/models.php
         Relation::morphMap(config('ticketit.models.morphmap'));
-
-        // Load routes
-        if (! $this->app->routesAreCached()) {
-            require __DIR__.'/routes.php';
+        
+        // Load routes if enable is true in Config/routes.php
+        if (config('ticketit.routes.enable')) {
+            if (! $this->app->routesAreCached()) {
+                require __DIR__.'/routes.php';
+            }
         }
         
         /** publish resources **/

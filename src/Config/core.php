@@ -1,21 +1,18 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
-    | routes file
+    | Application/Website name
     |--------------------------------------------------------------------------
     |
-    | Used to handle all http requests for tickeit, if you want to change any of
-    | these routes or to replace controllers, copy the
-    | vendor/kordy/ticketit/src/routes.php to your app folder and change here the 
-    | new routes file full path.
+    | To be used in the views and other places, by default it gets the name from 
+    | url parameter at config/app.php file, then parse it for the name, and make 
+    | first char uppercase
+    | ex. url('http://mysite.com') or (in .env) APP_URL=http://mysite.com -> Mysite
+    | Of course you can change it here as you like.
+    | ex. 'site-name' => 'My Site Name',
     |
     */
-
-    'routes' => [
-        'file' => __DIR__.'/../routes.php',
-        'prefix' => 'admin'
-    ],
+    'site-name' => ucfirst(explode('.', parse_url(config('app.url'))['host'])[0]),
 ];

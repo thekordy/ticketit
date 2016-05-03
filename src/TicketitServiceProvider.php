@@ -32,6 +32,9 @@ class TicketitServiceProvider extends ServiceProvider
                 require __DIR__.'/routes.php';
             }
         }
+
+        // Load views
+        $this->loadViewsFrom(__DIR__.'/Resources/Views', 'ticketit');
         
         /** publish resources **/
         
@@ -44,6 +47,11 @@ class TicketitServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/Migrations/' => database_path('migrations')
         ], 'migrations');
+
+        // Publish the views files to the application resources/views/vendor folder
+        $this->publishes([
+            __DIR__.'/Resources/Views' => base_path('resources/views/vendor/ticketit')
+        ], 'views');
     }
 
     /**
@@ -59,6 +67,8 @@ class TicketitServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/routes.php', 'ticketit.routes');
         // Default models configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
+        // Default views configuration file
+        $this->mergeConfigFrom(__DIR__.'/Config/views.php', 'ticketit.views');
         // Register model bindings from the configured models paths in Config/models.php
         $this->registerModelBindings();
         // Register model Facades at Facades/

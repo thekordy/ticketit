@@ -29,7 +29,7 @@ return [
     
     /*
     |--------------------------------------------------------------------------
-    | ticketit.index
+    | ticketit.ticket.index
     |--------------------------------------------------------------------------
     |
     | It's the main index page where a full list of tickets are displayed for
@@ -37,7 +37,7 @@ return [
     |
     */
     'tickets-index' => [
-        'path' => '/tickets',
+        'path' => '/ticket',
         'parameters' => [
             'uses' => 'Kordy\Ticketit\Controllers\TicketsController@index',
             'middleware' => ($laravel_version == "5.2") ? ['web', 'auth'] : 'auth'

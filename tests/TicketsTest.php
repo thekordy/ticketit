@@ -22,13 +22,13 @@ class TicketsTest extends TicketitTestCase
     function test_can_see_index_page_insure_routes_config_works()
     {
         // auth middleware is enforced
-        $this->visit(route('ticketit.index'))
-            ->seePageIs(\URL::to('login'));
+        $this->visit(route('ticketit.ticket.index'))
+            ->seePageIs(\URL::to(config('ticketit.views.login-url')));
 
         $user = $this->createUser();
 
         $this->actingAs($user)
-            ->visit(route('ticketit.index'))
+            ->visit(route('ticketit.ticket.index'))
             ->see('tickets index');
     }
 }

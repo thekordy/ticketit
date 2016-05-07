@@ -1,14 +1,7 @@
 <?php
 
-namespace Kordy\Ticketit\Test;
-
 use Kordy\Ticketit\Traits\ModelsFakerOperationsTrait;
-use TicketitTicket;
-use TicketitAgent;
-use TicketitAdmin;
-use TicketitStatus;
-use TicketitPriority;
-use TicketitCategory;
+
 
 class ModelsTest extends TicketitTestCase
 {

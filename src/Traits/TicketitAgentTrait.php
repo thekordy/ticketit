@@ -72,4 +72,14 @@ trait TicketitAgentTrait
     {
         $this->categories()->detach($category);
     }
+
+    /**
+     * Check if this user is agent
+     * 
+     * @return bool
+     */
+    public function isAgent()
+    {
+        return !! $this->ticketit_agent;
+    }
 }

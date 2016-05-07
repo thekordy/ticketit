@@ -28,4 +28,14 @@ trait TicketitAdminTrait
         $this->save();
         return $this;
     }
+
+    /**
+     * Check if this user is admin
+     * 
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return !! $this->ticketit_admin;
+    }
 }

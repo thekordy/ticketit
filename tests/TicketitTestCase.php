@@ -11,7 +11,6 @@ use Illuminate\Foundation\Testing\TestCase;
 
 class TicketitTestCase extends TestCase
 {
-    use DatabaseMigrations;
 
     /**
      * The base URL to use while testing the application.
@@ -21,6 +20,8 @@ class TicketitTestCase extends TestCase
     protected $baseUrl = 'http://localhost';
 
     protected $user_model;
+    
+    protected $laravel_version;
 
     /**
      * Creates the application.
@@ -33,16 +34,19 @@ class TicketitTestCase extends TestCase
 
         $app->make(Kernel::class)->bootstrap();
 
-        // Run test migrations in the testing environment on sqlite on memory
-        $app['config']->set('database.default','sqlite');
-        $app['config']->set('database.connections.sqlite.database', ':memory:');
-
         return $app;
     }
 
     public function setUp()
     {
         parent::setUp();
+
+        // Run test migrations in the testing environment on sqlite on memory
+        $this->app['config']->set('database.default','sqlite');
+        $this->app['config']->set('database.connections.sqlite.database', ':memory:');
+        // run the migrations at testing setUp
+        $this->artisan('migrate');
+        $this->artisan('migrate', ['--path' => 'vendor/kordy/ticketit/src/Migrations']);
 
         // Set the baseUrl to the APP_URL configured in .env
         $this->baseUrl = $this->app->environment('APP_URL');
@@ -51,14 +55,9 @@ class TicketitTestCase extends TestCase
         $this->user_model = config('auth.model') ?: config('auth.providers.users.model');
     }
 
-    public function runDatabaseMigrations()
+    public function tearDown()
     {
-        // Run fresh migrations before every test
-        $this->artisan('migrate');
-        $this->artisan('migrate', ['--path' => 'vendor/kordy/ticketit/src/Migrations']);
-
-        $this->beforeApplicationDestroyed(function () {
-            $this->artisan('migrate:rollback');
-        });
+        // rollback migrations at testing finish
+        $this->artisan('migrate:rollback');
     }
 }

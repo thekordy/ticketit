@@ -29,18 +29,53 @@ return [
     
     /*
     |--------------------------------------------------------------------------
-    | ticketit.index
+    | ticketit.tickets.index
     |--------------------------------------------------------------------------
     |
-    | It's the main index page where a full list of tickets are displayed for
-    | the user.
+    | It's the main index page. Currently, it just redirects to 
+    | tickets/open
     |
     */
     'tickets-index' => [
         'path' => '/tickets',
         'parameters' => [
             'uses' => 'Kordy\Ticketit\Controllers\TicketsController@index',
-            'middleware' => ($laravel_version == "5.2") ? ['web', 'auth'] : 'auth'
+            'middleware' => ($laravel_version == "5.2") ? 
+                ['web', 'ticketit.authorize'] : 'ticketit.authorize'
+        ]
+    ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ticketit.tickets.open
+    |--------------------------------------------------------------------------
+    |
+    | Index page for user's open tickets. 
+    |
+    */
+    'tickets-open' => [
+        'path' => '/tickets/open',
+        'parameters' => [
+            'uses' => 'Kordy\Ticketit\Controllers\TicketsController@open',
+            'middleware' => ($laravel_version == "5.2") ? 
+                ['web', 'ticketit.authorize'] : 'ticketit.authorize'
+        ]
+    ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ticketit.edit.ticket
+    |--------------------------------------------------------------------------
+    |
+    | Ticket edit form.
+    |
+    */
+    'edit-ticket' => [
+        'path' => '/ticket/{id}/edit',
+        'parameters' => [
+            'uses' => 'Kordy\Ticketit\Controllers\TicketsController@edit',
+            'middleware' => ($laravel_version == "5.2") ? 
+                ['web', 'ticketit.authorize'] : 'ticketit.authorize'
         ]
     ]
 ];

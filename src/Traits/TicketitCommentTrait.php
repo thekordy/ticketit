@@ -2,15 +2,14 @@
 
 namespace Kordy\Ticketit\Traits;
 
-
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 trait TicketitCommentTrait
 {
     /**
-     * Ticket this comment belongs to
-     * 
+     * Ticket this comment belongs to.
+     *
      * @return BelongsTo
      */
     public function ticket()
@@ -19,8 +18,8 @@ trait TicketitCommentTrait
     }
 
     /**
-     * The owner of this comment 
-     * 
+     * The owner of this comment.
+     *
      * @return MorphTo
      */
     public function commentable()

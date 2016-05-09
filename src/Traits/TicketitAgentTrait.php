@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait TicketitAgentTrait
 {
-    
     /**
-     * Get all related categories this is member in
+     * Get all related categories this is member in.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -20,17 +19,17 @@ trait TicketitAgentTrait
     }
 
     /**
-     * Tickets assigned to this agent
-     * 
+     * Tickets assigned to this agent.
+     *
      * @return HasMany
      */
     public function assignedTickets()
     {
         return $this->hasMany(app('TicketitTicket'), 'agent_id');
     }
-    
+
     /**
-     * Add agent flag to this
+     * Add agent flag to this.
      *
      * @return $this
      */
@@ -38,11 +37,12 @@ trait TicketitAgentTrait
     {
         $this->ticketit_agent = 1;
         $this->save();
+
         return $this;
     }
 
     /**
-     * Remove agent flag to this
+     * Remove agent flag to this.
      *
      * @return $this
      */
@@ -50,13 +50,14 @@ trait TicketitAgentTrait
     {
         $this->ticketit_agent = 0;
         $this->save();
+
         return $this;
     }
 
     /**
-     * Add this to a category or to many categories
+     * Add this to a category or to many categories.
      *
-     * @param integer|object|array $category
+     * @param int|object|array $category
      */
     public function addToCategory($category)
     {
@@ -64,9 +65,9 @@ trait TicketitAgentTrait
     }
 
     /**
-     * Remove this from a category or many categories
+     * Remove this from a category or many categories.
      *
-     * @param integer|object|array $category
+     * @param int|object|array $category
      */
     public function removeFromCategory($category)
     {

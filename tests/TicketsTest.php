@@ -15,7 +15,7 @@ class TicketsTest extends TicketitTestCase
         $this->faker = $faker = \Faker\Factory::create();
     }
 
-    function test_can_see_index_page_insure_routes_config_works()
+    public function test_can_see_index_page_insure_routes_config_works()
     {
         // auth middleware is enforced
         $this->get(route('ticketit.index'))

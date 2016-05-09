@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 trait TicketitCategoryTrait
 {
     /**
-     * Get all agents belong to this category
+     * Get all agents belong to this category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMan
      */
@@ -19,8 +19,8 @@ trait TicketitCategoryTrait
     }
 
     /**
-     * Get tickets belongs to this category
-     * 
+     * Get tickets belongs to this category.
+     *
      * @return HasMany
      */
     public function tickets()
@@ -29,9 +29,9 @@ trait TicketitCategoryTrait
     }
 
     /**
-     * Add an agent or more to this category
+     * Add an agent or more to this category.
      *
-     * @param integer|object|array $agent
+     * @param int|object|array $agent
      */
     public function addAgent($agent)
     {
@@ -39,9 +39,9 @@ trait TicketitCategoryTrait
     }
 
     /**
-     * remove an agent or more from this category
+     * remove an agent or more from this category.
      *
-     * @param integer|object|array $agent
+     * @param int|object|array $agent
      */
     public function removeAgent($agent)
     {

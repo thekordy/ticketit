@@ -22,7 +22,7 @@ return [
     */
 
     'morphmap' => [
-        'user' => $user_model
+        'user' => $user_model,
     ],
 
     /*
@@ -35,20 +35,20 @@ return [
     | to your app folder, add the related trait to it, and replace this model path
     |
     */
-    
-    "user" => $user_model,
 
-    "agent" => $user_model,
+    'user' => $user_model,
 
-    "admin" => $user_model,
+    'agent' => $user_model,
 
-    "status" => \Kordy\Ticketit\Models\TicketitStatus::class,
+    'admin' => $user_model,
 
-    "priority" => \Kordy\Ticketit\Models\TicketitPriority::class,
+    'status' => \Kordy\Ticketit\Models\TicketitStatus::class,
 
-    "category" => \Kordy\Ticketit\Models\TicketitCategory::class,
+    'priority' => \Kordy\Ticketit\Models\TicketitPriority::class,
 
-    "ticket" => \Kordy\Ticketit\Models\TicketitTicket::class,
+    'category' => \Kordy\Ticketit\Models\TicketitCategory::class,
 
-    "comment" => \Kordy\Ticketit\Models\TicketitComment::class,
+    'ticket' => \Kordy\Ticketit\Models\TicketitTicket::class,
+
+    'comment' => \Kordy\Ticketit\Models\TicketitComment::class,
 ];

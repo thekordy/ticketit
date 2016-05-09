@@ -4,9 +4,8 @@ namespace Kordy\Ticketit\Traits;
 
 trait TicketitAdminTrait
 {
-    
     /**
-     * Add admin flag to this
+     * Add admin flag to this.
      *
      * @return $this
      */
@@ -14,11 +13,12 @@ trait TicketitAdminTrait
     {
         $this->ticketit_admin = 1;
         $this->save();
+
         return $this;
     }
 
     /**
-     * Remove admin flag from this
+     * Remove admin flag from this.
      *
      * @return $this
      */
@@ -26,6 +26,7 @@ trait TicketitAdminTrait
     {
         $this->ticketit_admin = 0;
         $this->save();
+
         return $this;
     }
 }

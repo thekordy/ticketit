@@ -2,9 +2,9 @@
 
 namespace Kordy\Ticketit;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Kordy\Ticketit\Facades\TicketitAdminFacade;
 use Kordy\Ticketit\Facades\TicketitAgentFacade;
 use Kordy\Ticketit\Facades\TicketitCategoryFacade;
@@ -25,16 +25,16 @@ class TicketitServiceProvider extends ServiceProvider
     {
         // Register morph map as configured in Config/models.php
         Relation::morphMap(config('ticketit.models.morphmap'));
-        
+
         // Load routes if enable is true in Config/routes.php
         if (config('ticketit.routes.enable')) {
-            if (! $this->app->routesAreCached()) {
+            if (!$this->app->routesAreCached()) {
                 require __DIR__.'/routes.php';
             }
         }
-        
-        /** publish resources **/
-        
+
+        /* publish resources **/
+
         // Publish the configuration file to the application config folder
         $this->publishes([
             __DIR__.'/Config/' => config_path('ticketit'),
@@ -42,7 +42,7 @@ class TicketitServiceProvider extends ServiceProvider
 
         // Publish the migrations files to the application database migrations folder
         $this->publishes([
-            __DIR__.'/Migrations/' => database_path('migrations')
+            __DIR__.'/Migrations/' => database_path('migrations'),
         ], 'migrations');
     }
 
@@ -64,6 +64,7 @@ class TicketitServiceProvider extends ServiceProvider
         // Register model Facades at Facades/
         $this->registerFacadesAliases();
     }
+
     /**
      * Bind the Permission and Role model into the IoC.
      */
@@ -71,10 +72,10 @@ class TicketitServiceProvider extends ServiceProvider
     {
         // Whenever call app('TicketitUser') load the model configured 'models[user]' in Config/models.php
         $this->app->bind('TicketitUser', config('ticketit.models.user'));
-        
+
         // Whenever call app('TicketitAgent') load the model configured 'agent' in Config/models.php
         $this->app->bind('TicketitAgent', config('ticketit.models.agent'));
-        
+
         // Whenever call app('TicketitAdmin') load the model configured 'admin' in Config/models.php
         $this->app->bind('TicketitAdmin', config('ticketit.models.admin'));
 
@@ -95,8 +96,8 @@ class TicketitServiceProvider extends ServiceProvider
     }
 
     /**
-     * Create aliases for the Model Bindings. 
-     * 
+     * Create aliases for the Model Bindings.
+     *
      * @see registerModelBindings
      */
     protected function registerFacadesAliases()

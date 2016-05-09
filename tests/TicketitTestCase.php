@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -19,12 +17,14 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
 
     /**
      * Creates the application.
-     * @return \Illuminate\Foundation\Application
+     *
      * @throws Exception
+     *
+     * @return \Illuminate\Foundation\Application
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../vendor/laravel/laravel/bootstrap/app.php';
+        $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
 
         $this->setEnv();
 
@@ -38,16 +38,15 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
         $laravel_version = substr($app::VERSION, 0, 3);
 
         switch ($laravel_version) {
-            case "5.1":
+            case '5.1':
                 $app['config']->set('auth.model', TestUserL51::class); //Laravel 5.1
                 break;
-            case "5.2":
+            case '5.2':
                 $app['config']->set('auth.providers.users.model', TestUserL52::class); //Laravel 5.2
                 break;
             default:
                 throw new Exception('This package supports only Laravel 5.1 and 5.2');
         }
-
 
         $app->register(Kordy\Ticketit\TicketitServiceProvider::class);
 
@@ -59,7 +58,7 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
         parent::setUp();
 
         // Get the user model from the Config/auth.php file
-        $this->user_model = config('auth.model') ? : config('auth.providers.users.model');
+        $this->user_model = config('auth.model') ?: config('auth.providers.users.model');
     }
 
     public function runDatabaseMigrations()
@@ -70,35 +69,33 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
         $fileSystem = new \Illuminate\Filesystem\Filesystem();
         $classFinder = new \Illuminate\Filesystem\ClassFinder();
 
-        foreach ($fileSystem->files(__DIR__ . "/../src/Migrations") as $file) {
+        foreach ($fileSystem->files(__DIR__.'/../src/Migrations') as $file) {
             $fileSystem->requireOnce($file);
             $migrationClass = $classFinder->findClass($file);
 
-            (new $migrationClass)->up();
+            (new $migrationClass())->up();
         }
 
         // no need of rolling back, since the database is in the memory, it's destroyed anyways
     }
 
     /**
-     * Set environment values. These usually go to .env file
+     * Set environment values. These usually go to .env file.
      */
     protected function setEnv()
     {
-        putenv('APP_KEY=' . Illuminate\Support\Str::random(32));
+        putenv('APP_KEY='.Illuminate\Support\Str::random(32));
 
         putenv('APP_ENV=testing');
         putenv('CACHE_DRIVER=array');
         putenv('SESSION_DRIVER=array');
         putenv('QUEUE_DRIVER=sync');
-
     }
-    
 }
 
 $laravel_version = substr(Illuminate\Foundation\Application::VERSION, 0, 3);
 
-/**
+/*
  * Copy of Laravel 5.2's default App\User
  */
 if ($laravel_version == '5.2') {
@@ -132,7 +129,7 @@ if ($laravel_version == '5.2') {
     }
 }
 
-/**
+/*
  * Copy of Laravel 5.1's default App\User
  * without CanResetPassword trait
  */

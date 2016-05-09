@@ -8,48 +8,48 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 trait TicketitTicketTrait
 {
     /**
-     * Ticket owner
-     * 
+     * Ticket owner.
+     *
      * @return BelongsTo
      */
     public function ticketable()
     {
         return $this->morphTo();
     }
-    
+
     /**
-     * Ticket agent
-     * 
+     * Ticket agent.
+     *
      * @return BelongsTo
      */
     public function agent()
     {
         return $this->belongsTo(app('TicketitAgent'), 'agent_id');
     }
-    
+
     /**
-     * Ticket status
-     * 
+     * Ticket status.
+     *
      * @return BelongsTo
      */
     public function status()
     {
         return $this->belongsTo(app('TicketitStatus'), 'status_id');
     }
-    
+
     /**
-     * Ticket priority
-     * 
+     * Ticket priority.
+     *
      * @return BelongsTo
      */
     public function priority()
     {
         return $this->belongsTo(app('TicketitPriority'), 'priority_id');
     }
-    
+
     /**
-     * Ticket category
-     * 
+     * Ticket category.
+     *
      * @return BelongsTo
      */
     public function category()
@@ -58,8 +58,8 @@ trait TicketitTicketTrait
     }
 
     /**
-     * Ticket comments
-     * 
+     * Ticket comments.
+     *
      * @return HasMany
      */
     public function comments()
@@ -68,10 +68,10 @@ trait TicketitTicketTrait
     }
 
     /**
-     * Filter tickets by agent_id
-     * 
+     * Filter tickets by agent_id.
+     *
      * @param $query
-     * @param integer $agent_id
+     * @param int $agent_id
      */
     public function scopeByAgent($query, $agent_id)
     {
@@ -79,10 +79,10 @@ trait TicketitTicketTrait
     }
 
     /**
-     * Filter tickets by status_id
-     * 
+     * Filter tickets by status_id.
+     *
      * @param $query
-     * @param integer $status_id
+     * @param int $status_id
      */
     public function scopeByStatus($query, $status_id)
     {
@@ -90,10 +90,10 @@ trait TicketitTicketTrait
     }
 
     /**
-     * Filter tickets by priority_id
-     * 
+     * Filter tickets by priority_id.
+     *
      * @param $query
-     * @param integer $priority_id
+     * @param int $priority_id
      */
     public function scopeByPriority($query, $priority_id)
     {
@@ -101,10 +101,10 @@ trait TicketitTicketTrait
     }
 
     /**
-     * Filter tickets by category_id
-     * 
+     * Filter tickets by category_id.
+     *
      * @param $query
-     * @param integer $category_id
+     * @param int $category_id
      */
     public function scopeByCategory($query, $category_id)
     {

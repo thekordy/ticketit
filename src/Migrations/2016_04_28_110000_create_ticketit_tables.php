@@ -40,7 +40,7 @@ class CreateTicketitTables extends Migration
                 // get agent table from the configured agent model in Config/ticketit/core.php
                 ->on(app('TicketitAgent')->getTable())
                 ->onDelete('cascade');
-            
+
             $table->primary(['category_id', 'agent_id']);
         });
 

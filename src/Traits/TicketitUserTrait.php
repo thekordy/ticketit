@@ -2,14 +2,12 @@
 
 namespace Kordy\Ticketit\Traits;
 
-
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait TicketitUserTrait
 {
-
     /**
-     * Comments by this user
+     * Comments by this user.
      *
      * @return MorphMany
      */
@@ -19,7 +17,7 @@ trait TicketitUserTrait
     }
 
     /**
-     * Tickets opened by this user
+     * Tickets opened by this user.
      *
      * @return MorphMany
      */

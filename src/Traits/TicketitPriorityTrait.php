@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 trait TicketitPriorityTrait
 {
     /**
-     * Get tickets of this priority
-     * 
+     * Get tickets of this priority.
+     *
      * @return HasMany
      */
     public function tickets()

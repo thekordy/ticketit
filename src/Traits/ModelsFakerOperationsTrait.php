@@ -2,31 +2,28 @@
 
 namespace Kordy\Ticketit\Traits;
 
-use TicketitTicket;
-use TicketitAgent;
 use TicketitAdmin;
-use TicketitStatus;
-use TicketitPriority;
+use TicketitAgent;
 use TicketitCategory;
+use TicketitPriority;
+use TicketitStatus;
 use TicketitUser;
 
 trait ModelsFakerOperationsTrait
 {
-
-
     /**
      * Create user account using faker
-     * TODO Make it dynamic or configurable with current user model in Config/models.php
+     * TODO Make it dynamic or configurable with current user model in Config/models.php.
      *
      * @return mixed
      */
     protected function createUser()
     {
         $user_data = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->safeEmail,
-            'password' => bcrypt(str_random(10)),
-            'remember_token' => str_random(10)
+            'name'           => $this->faker->name,
+            'email'          => $this->faker->safeEmail,
+            'password'       => bcrypt(str_random(10)),
+            'remember_token' => str_random(10),
         ];
 
         return TicketitUser::create($user_data);
@@ -34,16 +31,16 @@ trait ModelsFakerOperationsTrait
 
     /**
      * Create agent account using faker
-     * TODO Make it dynamic or configurable with current agent model in Config/models.php
+     * TODO Make it dynamic or configurable with current agent model in Config/models.php.
      *
      * @return mixed
      */
     protected function createAgent()
     {
         $agent_data = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => bcrypt(str_random(10))
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->email,
+            'password' => bcrypt(str_random(10)),
         ];
         $account = TicketitAgent::create($agent_data);
 
@@ -53,16 +50,16 @@ trait ModelsFakerOperationsTrait
 
     /**
      * Create admin account using faker
-     * TODO Make it dynamic or configurable with current admin model in Config/models.php
+     * TODO Make it dynamic or configurable with current admin model in Config/models.php.
      *
      * @return mixed
      */
     protected function createAdmin()
     {
         $admin_data = [
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => bcrypt(str_random(10))
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->email,
+            'password' => bcrypt(str_random(10)),
         ];
         $account = TicketitAdmin::create($admin_data);
 
@@ -71,41 +68,41 @@ trait ModelsFakerOperationsTrait
     }
 
     /**
-     * Create ticketit status using faker
+     * Create ticketit status using faker.
      *
      * @return mixed
      */
     protected function createStatus()
     {
         return TicketitStatus::create([
-            'name' => $this->faker->text(10),
-            'color' => $this->faker->hexcolor
+            'name'  => $this->faker->text(10),
+            'color' => $this->faker->hexcolor,
         ]);
     }
 
     /**
-     * Create ticketit priority using faker
+     * Create ticketit priority using faker.
      *
      * @return mixed
      */
     protected function createPriority()
     {
         return TicketitPriority::create([
-            'name' => $this->faker->text(10),
-            'color' => $this->faker->hexcolor
+            'name'  => $this->faker->text(10),
+            'color' => $this->faker->hexcolor,
         ]);
     }
 
     /**
-     * Create ticketit category using faker
+     * Create ticketit category using faker.
      *
      * @return mixed
      */
     protected function createCategory()
     {
         return TicketitCategory::create([
-            'name' => $this->faker->text(10),
-            'color' => $this->faker->hexcolor
+            'name'  => $this->faker->text(10),
+            'color' => $this->faker->hexcolor,
         ]);
     }
 

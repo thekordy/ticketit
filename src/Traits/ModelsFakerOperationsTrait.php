@@ -8,6 +8,7 @@ use TicketitAdmin;
 use TicketitStatus;
 use TicketitPriority;
 use TicketitCategory;
+use TicketitUser;
 
 trait ModelsFakerOperationsTrait
 {
@@ -21,7 +22,14 @@ trait ModelsFakerOperationsTrait
      */
     protected function createUser()
     {
-        return factory(config('ticketit.models.user'))->create();
+        $user_data = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->safeEmail,
+            'password' => bcrypt(str_random(10)),
+            'remember_token' => str_random(10)
+        ];
+
+        return TicketitUser::create($user_data);
     }
 
     /**

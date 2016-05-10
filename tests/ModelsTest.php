@@ -6,16 +6,6 @@ class ModelsTest extends TicketitTestCase
 {
     use ModelsFakerOperationsTrait;
 
-    protected $user_model;
-    protected $faker;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->user_model = config('ticketit.core.user_model');
-        $this->faker = $faker = \Faker\Factory::create();
-    }
 
     public function test_can_create_and_delete_agent_flag()
     {

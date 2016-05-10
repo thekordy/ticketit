@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
 {
     use DatabaseMigrations;
 
@@ -13,7 +13,12 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected $baseUrl = 'http://localhost';
 
-    protected $user_model;
+    protected $userClass;
+
+    /**
+     * @var Faker\Generator
+     */
+    protected $faker;
 
     /**
      * Creates the application.
@@ -24,7 +29,7 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
+        $app = require __DIR__ . '/../vendor/laravel/laravel/bootstrap/app.php';
 
         $this->setEnv();
 
@@ -57,8 +62,11 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
 
-        // Get the user model from the Config/auth.php file
-        $this->user_model = config('auth.model') ?: config('auth.providers.users.model');
+        // Get the user model from the Config/models.php file
+        // UNUSED!
+        $this->userClass = config('ticketit.users.model');
+
+        $this->faker = $faker = \Faker\Factory::create();
     }
 
     public function runDatabaseMigrations()
@@ -69,7 +77,7 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
         $fileSystem = new \Illuminate\Filesystem\Filesystem();
         $classFinder = new \Illuminate\Filesystem\ClassFinder();
 
-        foreach ($fileSystem->files(__DIR__.'/../src/Migrations') as $file) {
+        foreach ($fileSystem->files(__DIR__ . '/../src/Migrations') as $file) {
             $fileSystem->requireOnce($file);
             $migrationClass = $classFinder->findClass($file);
 
@@ -84,7 +92,7 @@ class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected function setEnv()
     {
-        putenv('APP_KEY='.Illuminate\Support\Str::random(32));
+        putenv('APP_KEY=' . Illuminate\Support\Str::random(32));
 
         putenv('APP_ENV=testing');
         putenv('CACHE_DRIVER=array');

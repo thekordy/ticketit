@@ -6,8 +6,8 @@ class TicketsTest extends TicketitTestCase
 {
     use ModelsFakerOperationsTrait;
 
-
-    public function test_can_see_index_page_insure_routes_config_works()
+    /** @test */
+    public function can_see_index_page_insure_routes_config_works()
     {
         // auth middleware is enforced
         $this->get(route('ticketit.index'))

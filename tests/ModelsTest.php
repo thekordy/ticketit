@@ -7,7 +7,8 @@ class ModelsTest extends TicketitTestCase
     use ModelsFakerOperationsTrait;
 
 
-    public function test_can_create_and_delete_agent_flag()
+    /** @test */
+    public function can_create_and_delete_agent_flag()
     {
         $agent = $this->createAgent();
 
@@ -22,7 +23,8 @@ class ModelsTest extends TicketitTestCase
         );
     }
 
-    public function test_can_create_and_delete_admin_flag()
+    /** @test */
+    public function can_create_and_delete_admin_flag()
     {
         $admin = $this->createAdmin();
 
@@ -37,7 +39,8 @@ class ModelsTest extends TicketitTestCase
         );
     }
 
-    public function test_can_crud_ticketit_statuses()
+    /** @test */
+    public function can_crud_ticketit_statuses()
     {
         $created = $this->createStatus();
 
@@ -62,7 +65,8 @@ class ModelsTest extends TicketitTestCase
         );
     }
 
-    public function test_can_crud_priorities()
+    /** @test */
+    public function can_crud_priorities()
     {
         $created = $this->createPriority();
 
@@ -87,7 +91,8 @@ class ModelsTest extends TicketitTestCase
         );
     }
 
-    public function test_can_crud_categories()
+    /** @test */
+    public function can_crud_categories()
     {
         $created = $this->createCategory();
 
@@ -112,7 +117,8 @@ class ModelsTest extends TicketitTestCase
         );
     }
 
-    public function test_can_add_and_remove_agent_from_category()
+    /** @test */
+    public function can_add_and_remove_agent_from_category()
     {
         $agent = $this->createAgent();
         $category = $this->createCategory();
@@ -137,13 +143,15 @@ class ModelsTest extends TicketitTestCase
         $this->assertNull($category2->agents()->get()->first());
     }
 
-    public function test_can_create_a_ticket()
+    /** @test */
+    public function can_create_a_ticket()
     {
         $ticket = $this->createTicket();
         $this->seeInDatabase($ticket->getTable(), ['subject' => $ticket->subject]);
     }
 
-    public function test_can_list_user_own_tickets()
+    /** @test */
+    public function can_list_user_own_tickets()
     {
         $user1 = $this->createUser();
         $user2 = $this->createUser();
@@ -157,7 +165,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals($user2->name, TicketitTicket::find(4)->ticketable->name);
     }
 
-    public function test_can_list_agent_own_tickets()
+    /** @test */
+    public function can_list_agent_own_tickets()
     {
         $user = $this->createUser();
         $agent = $this->createAgent();
@@ -172,7 +181,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals($agent->name, TicketitTicket::find(4)->ticketable->name);
     }
 
-    public function test_can_list_agent_assigned_tickets()
+    /** @test */
+    public function can_list_agent_assigned_tickets()
     {
         $user = $this->createUser();
         $agent1 = $this->createAgent();
@@ -188,7 +198,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals(2, TicketitTicket::byAgent($agent2->id)->first()->id);
     }
 
-    public function test_can_list_admin_own_tickets()
+    /** @test */
+    public function can_list_admin_own_tickets()
     {
         $user = $this->createUser();
         $admin = $this->createAdmin();
@@ -201,7 +212,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals([2, 4], $admin->ownTickets()->lists('id')->toArray());
     }
 
-    public function test_can_list_tickets_by_status()
+    /** @test */
+    public function can_list_tickets_by_status()
     {
         $user = $this->createUser();
         $status1 = $this->createStatus();
@@ -217,7 +229,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals([2], TicketitTicket::byStatus($status2->id)->lists('id')->toArray());
     }
 
-    public function test_can_list_tickets_by_priority()
+    /** @test */
+    public function can_list_tickets_by_priority()
     {
         $user = $this->createUser();
         $priority1 = $this->createPriority();
@@ -233,7 +246,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals([2], TicketitTicket::byPriority($priority2->id)->lists('id')->toArray());
     }
 
-    public function test_can_list_tickets_by_category()
+    /** @test */
+    public function can_list_tickets_by_category()
     {
         $user = $this->createUser();
         $category1 = $this->createCategory();
@@ -249,7 +263,8 @@ class ModelsTest extends TicketitTestCase
         $this->assertEquals([2], TicketitTicket::byCategory($category2->id)->lists('id')->toArray());
     }
 
-    public function test_user_agent_admin_can_create_a_comment()
+    /** @test */
+    public function user_agent_admin_can_create_a_comment()
     {
         $user = $this->createUser();
         $agent = $this->createAgent();

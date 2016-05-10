@@ -29,7 +29,7 @@ abstract class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../vendor/laravel/laravel/bootstrap/app.php';
+        $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
 
         $this->setEnv();
 
@@ -77,7 +77,7 @@ abstract class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
         $fileSystem = new \Illuminate\Filesystem\Filesystem();
         $classFinder = new \Illuminate\Filesystem\ClassFinder();
 
-        foreach ($fileSystem->files(__DIR__ . '/../src/Migrations') as $file) {
+        foreach ($fileSystem->files(__DIR__.'/../src/Migrations') as $file) {
             $fileSystem->requireOnce($file);
             $migrationClass = $classFinder->findClass($file);
 
@@ -92,7 +92,7 @@ abstract class TicketitTestCase extends Illuminate\Foundation\Testing\TestCase
      */
     protected function setEnv()
     {
-        putenv('APP_KEY=' . Illuminate\Support\Str::random(32));
+        putenv('APP_KEY='.Illuminate\Support\Str::random(32));
 
         putenv('APP_ENV=testing');
         putenv('CACHE_DRIVER=array');

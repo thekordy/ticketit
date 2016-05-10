@@ -6,7 +6,6 @@ class ModelsTest extends TicketitTestCase
 {
     use ModelsFakerOperationsTrait;
 
-
     /** @test */
     public function can_create_and_delete_agent_flag()
     {

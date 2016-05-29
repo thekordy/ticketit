@@ -45,6 +45,16 @@ class DashboardController extends Controller
         $ticketController = new TicketsController(new Ticket(), new Agent());
         $monthly_performance = $ticketController->monthlyPerfomance($indicator_period);
 
+        if(request()->has('cat_page')){
+            $active_tab = "cat";
+        }elseif(request()->has('agents_page')){
+            $active_tab = "agents";
+        }elseif(request()->has('users_page')){
+            $active_tab = "users";
+        }else{
+            $active_tab = "cat";
+        }
+
         return view(
             'ticketit::admin.index',
             compact(
@@ -56,7 +66,8 @@ class DashboardController extends Controller
                 'users',
                 'monthly_performance',
                 'categories_share',
-                'agents_share'
+                'agents_share',
+                'active_tab'
             ));
     }
 }

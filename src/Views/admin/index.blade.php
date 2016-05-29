@@ -117,19 +117,19 @@
                 {{--<h4><i class="glyphicon glyphicon-info-sign"></i> Tickets Activities</h4>--}}
                 {{--<hr />--}}
                 <ul class="nav nav-tabs nav-justified">
-                    <li class="active">
+                    <li class="{{$active_tab == "cat" ? "active" : ""}}">
                         <a data-toggle="pill" href="#information-panel-categories">
                             <i class="glyphicon glyphicon-folder-close"></i>
                             <small>{{ trans('ticketit::admin.index-categories') }}</small>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{$active_tab == "agents" ? "active"  : ""}}">
                         <a data-toggle="pill" href="#information-panel-agents">
                             <i class="glyphicon glyphicon-user"></i>
                             <small>{{ trans('ticketit::admin.index-agents') }}</small>
                         </a>
                     </li>
-                    <li>
+                    <li class="{{$active_tab == "users" ? "active" : ""}}">
                         <a data-toggle="pill" href="#information-panel-users">
                             <i class="glyphicon glyphicon-user"></i>
                             <small>{{ trans('ticketit::admin.index-users') }}</small>
@@ -138,7 +138,7 @@
                 </ul>
                 <br>
                 <div class="tab-content">
-                    <div id="information-panel-categories" class="list-group tab-pane fade in active">
+                    <div id="information-panel-categories" class="list-group tab-pane fade {{$active_tab == "cat" ? "in active" : ""}}">
                         <a href="#" class="list-group-item disabled">
                             <span>{{ trans('ticketit::admin.index-category') }}
                                 <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>
@@ -165,7 +165,7 @@
                         @endforeach
                         {!! $categories->render() !!}
                     </div>
-                    <div id="information-panel-agents" class="list-group tab-pane fade">
+                    <div id="information-panel-agents" class="list-group tab-pane fade {{$active_tab == "agents" ? "in active" : ""}}">
                         <a href="#" class="list-group-item disabled">
                             <span>{{ trans('ticketit::admin.index-agent') }}
                                 <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>
@@ -196,7 +196,7 @@
                         @endforeach
                         {!! $agents->render() !!}
                     </div>
-                    <div id="information-panel-users" class="list-group tab-pane fade">
+                    <div id="information-panel-users" class="list-group tab-pane fade {{$active_tab == "users" ? "in active" : ""}}">
                         <a href="#" class="list-group-item disabled">
                             <span>{{ trans('ticketit::admin.index-user') }}
                                 <span class="badge">{{ trans('ticketit::admin.index-total') }}</span>

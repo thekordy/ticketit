@@ -203,6 +203,7 @@ class InstallController extends Controller
     public function inactiveMigrations()
     {
         $inactiveMigrations = [];
+        $migration_arr = [];
 
         // Package Migrations
         $tables = $this->migrations_tables;

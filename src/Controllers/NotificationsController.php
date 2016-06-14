@@ -93,7 +93,7 @@ class NotificationsController extends Controller
                 $m->to($ticket->agent->email, $ticket->agent->name);
             }
 
-            $m->from($notification_owner->email, $notification_owner->name);
+            $m->replyTo($notification_owner->email, $notification_owner->name);
 
             $m->subject($subject);
         };

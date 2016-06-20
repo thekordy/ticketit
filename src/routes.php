@@ -6,11 +6,11 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
         //Ticket public route
         Route::get("$main_route_path/complete", 'Kordy\Ticketit\Controllers\TicketsController@indexComplete')
             ->name("$main_route-complete");
-        Route::get("$main_route_path/data/{id?}", 'Kordy\Ticketit\Controllers\TicketsController@data')
+    Route::get("$main_route_path/data/{id?}", 'Kordy\Ticketit\Controllers\TicketsController@data')
             ->name("$main_route.data");
 
-        $field_name = last(explode('/', $main_route_path));
-        Route::resource($main_route_path, 'Kordy\Ticketit\Controllers\TicketsController', [
+    $field_name = last(explode('/', $main_route_path));
+    Route::resource($main_route_path, 'Kordy\Ticketit\Controllers\TicketsController', [
             'names' => [
                 'index'   => $main_route.'.index',
                 'store'   => $main_route.'.store',
@@ -27,7 +27,7 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
 
         //Ticket Comments public route
         $field_name = last(explode('/', "$main_route_path-comment"));
-        Route::resource("$main_route_path-comment", 'Kordy\Ticketit\Controllers\CommentsController', [
+    Route::resource("$main_route_path-comment", 'Kordy\Ticketit\Controllers\CommentsController', [
             'names' => [
                 'index'   => "$main_route-comment.index",
                 'store'   => "$main_route-comment.store",
@@ -149,5 +149,4 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
         //Tickets demo data route (ex. http://url/tickets-admin/demo-seeds/)
         // Route::get("$admin_route/demo-seeds", 'Kordy\Ticketit\Controllers\InstallController@demoDataSeeder');
     });
-
 });

@@ -43,6 +43,7 @@ class ToolsController extends Controller
      * Determine if the current request URL and query string matches a pattern.
      *
      * @param  mixed  string
+     *
      * @return bool
      */
     public function fullUrlIs($match)

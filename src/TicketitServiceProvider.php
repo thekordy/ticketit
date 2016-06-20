@@ -94,7 +94,6 @@ class TicketitServiceProvider extends ServiceProvider
                     $notification = new NotificationsController();
                     $notification->newComment($comment);
                 }
-
             });
 
             // Send notification when ticket status is modified

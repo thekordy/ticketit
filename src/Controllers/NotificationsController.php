@@ -78,7 +78,6 @@ class NotificationsController extends Controller
     public function sendNotification($template, $data, $ticket, $notification_owner, $subject, $type)
     {
         $mail_callback = function ($m) use ($ticket, $notification_owner, $subject, $type) {
-
             if ($type != 'agent') {
                 $m->to($ticket->user->email, $ticket->user->name);
 

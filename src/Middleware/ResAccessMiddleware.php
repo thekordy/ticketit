@@ -28,10 +28,17 @@ class ResAccessMiddleware
                 return $next($request);
             }
         }
+        
+        $laravel_version_51 = version_compare(app()->version(), '5.2.0', '<');
 
         // if this is a ticket show page
         if ($request->route()->getName() == Setting::grab('main_route').'.show') {
-            $ticket_id = $request->route(Setting::grab('main_route'));
+            if ($laravel_version_51) {
+                $ticket_id = $request->route(Setting::grab('main_route'));
+            } else {
+                $ticket_id = $request->route('ticket');
+            }
+            
         }
 
         // if this is a new comment on a ticket

@@ -79,7 +79,53 @@ class TicketitServiceProvider extends ServiceProvider
                     $editor_locale = null;
                 } else {
                     if (strlen($editor_locale) == 2) {
-                        $editor_locale = $editor_locale.'-'.strtoupper($editor_locale);
+                         switch ($editor_locale){
+                            case 'ca':
+                                $editor_locale = 'ca-ES';
+                                break;
+                            case 'cs':
+                                $editor_locale = 'cs-CZ';
+                                break;
+                            case 'da':
+                                $editor_locale = 'da-DK';
+                                break;
+                            case 'fa':
+                                $editor_locale = 'fa-IR';
+                                break;
+                            case 'he':
+                                $editor_locale = 'he-IL';
+                                break;
+                            case 'ja':
+                                $editor_locale = 'ja-JP';
+                                break;
+                            case 'ko':
+                                $editor_locale = 'ko-KR';
+                                break;
+                            case 'nb':
+                                $editor_locale = 'nb-NO';
+                                break;
+                            case 'sl':
+                                $editor_locale = 'sl-SI';
+                                break;
+                            case 'sr':
+                                $editor_locale = 'sr-RS';
+                                break;
+                            case 'sv':
+                                $editor_locale = 'sv-SE';
+                                break;
+                            case 'uk':
+                                $editor_locale = 'uk-UA';
+                                break;
+                            case 'vi':
+                                $editor_locale = 'vi-VN';
+                                break;
+                            case 'zh':
+                                $editor_locale = 'zh-CN';
+                                break;
+                            default:
+                                $editor_locale = $editor_locale.'-'.strtoupper($editor_locale);
+                                break;
+                        }
                     }
                 }
 

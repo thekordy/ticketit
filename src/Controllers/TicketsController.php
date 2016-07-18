@@ -78,7 +78,7 @@ class TicketsController extends Controller
 
         $this->renderTicketTable($collection);
 
-        $collection->editColumn('updated_at', '{{ $updated_at->diffForHumans() }}');
+        $collection->editColumn('updated_at', '{!! \Carbon\Carbon::createFromFormat("Y-m-d H:i:s", $updated_at)->diffForHumans() !!}');
 
         return $collection->make(true);
     }

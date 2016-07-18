@@ -79,7 +79,7 @@ class TicketitServiceProvider extends ServiceProvider
                     $editor_locale = null;
                 } else {
                     if (strlen($editor_locale) == 2) {
-                         switch ($editor_locale){
+                        switch ($editor_locale) {
                             case 'ca':
                                 $editor_locale = 'ca-ES';
                                 break;

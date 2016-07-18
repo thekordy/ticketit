@@ -28,7 +28,7 @@ class ResAccessMiddleware
                 return $next($request);
             }
         }
-        
+
         $laravel_version_51 = version_compare(app()->version(), '5.2.0', '<');
 
         // if this is a ticket show page
@@ -38,7 +38,6 @@ class ResAccessMiddleware
             } else {
                 $ticket_id = $request->route('ticket');
             }
-            
         }
 
         // if this is a new comment on a ticket

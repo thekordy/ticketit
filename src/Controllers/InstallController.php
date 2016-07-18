@@ -204,7 +204,7 @@ class InstallController extends Controller
     {
         $inactiveMigrations = [];
         $migration_arr = [];
-        
+
         // Package Migrations
         $tables = $this->migrations_tables;
 

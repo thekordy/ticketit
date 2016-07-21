@@ -22,7 +22,9 @@ This package depends on several other packages that must be installed and proper
 Several features of Ticketit depend on specific configurations that must be configured correctly before you run Ticketit.
 
 #### Users, agents, and administration requirement
+
 Authentication and authorization are core functions of Ticketit and that requires: 
+
 1. Laravel authentication to be present and working ([v5.1 authentication quickstart](http://stackoverflow.com/questions/30980906/laravel-5-1-app-and-home-blade-php-missing/31018306#31018306), [v5.2 authentication quickstart](https://laravel.com/docs/5.2/authentication#authentication-quickstart))
 2. [Auzo](https://github.com/thekordy/auzo) and [Auzo Tools](https://github.com/thekordy/auzo-tools) packages for [ABAC](https://en.wikipedia.org/wiki/Attribute-Based_Access_Control) authorization management
 
@@ -80,6 +82,16 @@ class User extends Model implements AuthenticatableContract,
     ...
     
 ```
+
+## Configuration
+
+The system is fully customizable, you can replace any of the system functionality using your own models and controllers, adjust system models and controllers paths from the configuration files.
+
+`config/ticketit` directory index:
+
+- core.php (core settings like enable front-end routes)
+- models.php (models paths and settings)
+- routes.php (routes and controllers paths and middlewares)
 
 ## API
 
@@ -155,5 +167,6 @@ to
 7. close / reopen statuses
 8. nice admin dash with charts [optional]
 9. public issue opening (no registered user required) with captcha and tracking code [optional] [new]
+10. Multiple themes, to provide users with multiple options such as lite theme without javascript, another with vue.js, also developers can create their own theme for Ticketit without the need to overwrite the default views files. [optional]
 
-[optional] means it could be turned on/off in config files, the rest should belong to core functionality. The list might not be complete, feel free to edit my comment to improve it.
+[optional] means it could be turned on/off in config files, the rest should belong to core functionality.

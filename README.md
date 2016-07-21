@@ -1,4 +1,4 @@
-# Ticketit  v1.0 (THIS IS AN UNDER DEVELOPMENT FUTURE RELEASE - AND NOT FOR PRODUCTION)
+# Ticketit  v1.0 development is stopped and now we are working on the new [v2.0](https://github.com/thekordy/ticketit/tree/2.0) with a completely rewritten core.
 
 A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system. 
 It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 

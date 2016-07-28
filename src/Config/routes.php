@@ -10,22 +10,7 @@
 |
 */
 
-// to load 'web' middleware if Laravel version == "5.2"
-// ex: 'middleware' => ($laravel_version == "5.2") ? ['web', 'auth'] : 'auth'
-$laravel_version = substr(\App::VERSION(), 0, 3);
-
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | enable routes
-    |--------------------------------------------------------------------------
-    |
-    | Disable this (set it to false) if you will not use Ticketit controllers
-    | and features, Only models APIs Facades will be available.
-    |
-    */
-
-    'enable' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +25,7 @@ return [
         'path'       => '/tickets',
         'parameters' => [
             'uses'       => 'Kordy\Ticketit\Controllers\TicketsController@index',
-            'middleware' => ($laravel_version == '5.2') ? ['web', 'auth'] : 'auth',
+            'middleware' => 'auth',
         ],
     ],
 ];

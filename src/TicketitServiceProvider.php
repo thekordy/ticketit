@@ -27,7 +27,7 @@ class TicketitServiceProvider extends ServiceProvider
         Relation::morphMap(config('ticketit.models.morphmap'));
 
         // Load routes if enable is true in Config/routes.php
-        if (config('ticketit.routes.enable')) {
+        if (config('ticketit.core.enable_routes')) {
             if (!$this->app->routesAreCached()) {
                 require __DIR__.'/routes.php';
             }

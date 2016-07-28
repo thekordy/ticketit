@@ -1,8 +1,8 @@
 {
   "name": "kordy/ticketit",
-  "description": "A simple helpdesk tickets system for Laravel 5.1 and 5.2 which integrates smoothly with Laravel default users and auth system",
+  "description": "A simple helpdesk tickets system for Laravel 5.1 which integrates smoothly with Laravel default users and auth system",
   "type": "package",
-  "version": "2.0",
+  "version": "2.1",
   "license": "MIT",
   "keywords": ["laravel","helpdesk", "ticket", "support"],
   "authors": [
@@ -25,13 +25,13 @@
   },
   "autoload": {
     "psr-4": {
+      "Kordy\\Ticketit\\Tests\\": "tests/",
       "Kordy\\Ticketit\\": "src/"
     }
   },
   "autoload-dev": {
     "classmap": [
-      "src/Migrations/",
-      "tests/TicketitTestCase.php"
+      "src/Migrations/"
     ]
   }
 }

@@ -1,6 +1,9 @@
 <?php
 
+namespace Kordy\Ticketit\Tests;
+
 use Kordy\Ticketit\Traits\ModelsFakerOperationsTrait;
+use URL;
 
 class TicketsTest extends TicketitTestCase
 {
@@ -11,7 +14,7 @@ class TicketsTest extends TicketitTestCase
     {
         // auth middleware is enforced
         $this->get(route('ticketit.index'))
-            ->assertRedirectedTo(\URL::to('login'));
+            ->assertRedirectedTo(URL::to('auth/login'));
 
         $user = $this->createUser();
         $this->actingAs($user)

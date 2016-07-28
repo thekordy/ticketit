@@ -11,6 +11,8 @@ use TicketitUser;
 
 trait ModelsFakerOperationsTrait
 {
+    protected $faker;
+
     /**
      * Create user account using faker
      * TODO Make it dynamic or configurable with current user model in Config/models.php.

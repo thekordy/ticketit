@@ -1,8 +1,10 @@
 # This package is still under active development and not for a production usage!
 
-A simple helpdesk tickets system for Laravel v5.1 and v5.2 which integrates smoothly with Laravel default users and auth system.
+A simple helpdesk tickets system for Laravel v5.1 which integrates smoothly with Laravel default users and auth system.
 
-[Read more about Ticketit 2.0 directions and overview on code extensibility](https://github.com/thekordy/ticketit/issues/184#issuecomment-216339131)
+*For Laravel 5.2, use [Ticketit v2.2.x](#) 
+
+[Read more about Ticketit 2.1 directions and overview on code extensibility](https://github.com/thekordy/ticketit/issues/184#issuecomment-216339131)
 
 # Index:
 1. [Pre-installation Requirements](#pre-installation-requirements)
@@ -15,7 +17,7 @@ A simple helpdesk tickets system for Laravel v5.1 and v5.2 which integrates smoo
 ## Pre-installation Requirements
 This package depends on several other packages that must be installed and properly configured.
 
-1. [Laravel 5.1 or 5.2](https://laravel.com/docs/5.1#installation)
+1. [Laravel 5.1](https://laravel.com/docs/5.1#installation)
 
 ### Features Requirements
 Several features of Ticketit depend on specific configurations that must be configured correctly before you run Ticketit.
@@ -36,7 +38,7 @@ Authentication and authorization are core functions of Ticketit and that require
 
 Using composer command:
 ```bash
-composer require kordy/ticketit:2.0.x-dev
+composer require kordy/ticketit:2.1.x-dev
 ```
 
 Add Ticketit service provider to the `providers` section in `config/app.php` file
@@ -138,7 +140,7 @@ Ex.
     'tickets-index' => [
         'path' => '/tickets',
         'action' => 'Kordy\Ticketit\Controllers\TicketsController@index',
-        'middleware' => ($laravel_version == "5.2") ? ['web', 'auth'] : 'auth'
+        'middleware' => 'auth'
     ]
 ```
 
@@ -147,14 +149,14 @@ to
     'tickets-index' => [
         'path' => '/tickets',
         'action' => 'App\Http\Controllers\TicketsController@index',
-        'middleware' => ($laravel_version == "5.2") ? ['web', 'auth'] : 'auth'
+        'middleware' => 'auth'
     ]
 ```
 
 
 ## Roadmap
 
-[Join our discussion at Ticketit 2.0 directions post](https://github.com/thekordy/ticketit/issues/184#issuecomment-216339131)
+[Join our discussion at Ticketit 2.1 directions post](https://github.com/thekordy/ticketit/issues/184#issuecomment-216339131)
 
 1. index page with search / filter functionality
 2. agent management

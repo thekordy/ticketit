@@ -4,18 +4,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | routes file
+    | enable routes
     |--------------------------------------------------------------------------
     |
-    | Used to handle all http requests for tickeit, if you want to change any of
-    | these routes or to replace controllers, copy the
-    | vendor/kordy/ticketit/src/routes.php to your app folder and change here the
-    | new routes file full path.
+    | Disable this (set it to false) if you will not use Ticketit routes.
     |
     */
 
-    'routes' => [
-        'file'   => __DIR__.'/../routes.php',
-        'prefix' => 'admin',
-    ],
+    'enable_routes' => true,
 ];

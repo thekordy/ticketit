@@ -16,7 +16,6 @@ A simple helpdesk tickets system for Laravel v5.1 and v5.2 which integrates smoo
 This package depends on several other packages that must be installed and properly configured.
 
 1. [Laravel 5.1 or 5.2](https://laravel.com/docs/5.1#installation)
-2. [Auzo for authorization management](https://github.com/thekordy/auzo#installation)
 
 ### Features Requirements
 Several features of Ticketit depend on specific configurations that must be configured correctly before you run Ticketit.
@@ -26,7 +25,6 @@ Several features of Ticketit depend on specific configurations that must be conf
 Authentication and authorization are core functions of Ticketit and that requires: 
 
 1. Laravel authentication to be present and working ([v5.1 authentication quickstart](http://stackoverflow.com/questions/30980906/laravel-5-1-app-and-home-blade-php-missing/31018306#31018306), [v5.2 authentication quickstart](https://laravel.com/docs/5.2/authentication#authentication-quickstart))
-2. [Auzo](https://github.com/thekordy/auzo) and [Auzo Tools](https://github.com/thekordy/auzo-tools) packages for [ABAC](https://en.wikipedia.org/wiki/Attribute-Based_Access_Control) authorization management
 
 ## Installation
 
@@ -168,5 +166,6 @@ to
 8. nice admin dash with charts [optional]
 9. public issue opening (no registered user required) with captcha and tracking code [optional] [new]
 10. Multiple themes, to provide users with multiple options such as lite theme without javascript, another with vue.js, also developers can create their own theme for Ticketit without the need to overwrite the default views files. [optional]
+11. Using Laravel native authorization to authorize owner, agent, team, and admin actions 
 
 [optional] means it could be turned on/off in config files, the rest should belong to core functionality.

@@ -1,4 +1,6 @@
-# This package is still under active development and not for a production usage!
+# This package is deprecated! 
+
+## From now on, this package is splited into two versions, [Ticketit v2.1](https://github.com/thekordy/ticketit/tree/2.1) for Laravel v5.1, and Ticketit v2.2 for Laravel v5.2
 
 A simple helpdesk tickets system for Laravel v5.1 and v5.2 which integrates smoothly with Laravel default users and auth system.
 

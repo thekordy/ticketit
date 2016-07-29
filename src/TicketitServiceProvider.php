@@ -2,6 +2,7 @@
 
 namespace Kordy\Ticketit;
 
+use AuzoToolsPermissionRegistrar;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,12 @@ class TicketitServiceProvider extends ServiceProvider
     {
         // Register morph map as configured in Config/models.php
         Relation::morphMap(config('ticketit.models.morphmap'));
+
+        // Load ACL permissions
+        if (config('ticketit.core.acl_handler') == 'auzo-tools') {
+            $abilities_policies = config('ticketit.acl');
+            AuzoToolsPermissionRegistrar::registerPermissions($abilities_policies);
+        }
 
         // Load routes if enable is true in Config/routes.php
         if (config('ticketit.core.enable_routes')) {
@@ -59,6 +66,8 @@ class TicketitServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/routes.php', 'ticketit.routes');
         // Default models configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
+        // Default ACL configuration file
+        $this->mergeConfigFrom(__DIR__.'/Config/acl.php', 'ticketit.acl');
         // Register model bindings from the configured models paths in Config/models.php
         $this->registerModelBindings();
         // Register model Facades at Facades/

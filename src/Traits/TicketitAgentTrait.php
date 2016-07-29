@@ -55,6 +55,16 @@ trait TicketitAgentTrait
     }
 
     /**
+     * Check agent flag.
+     *
+     * @return boolean
+     */
+    public function isAgent()
+    {
+        return $this->ticketit_agent == 1;
+    }
+
+    /**
      * Add this to a category or to many categories.
      *
      * @param int|object|array $category

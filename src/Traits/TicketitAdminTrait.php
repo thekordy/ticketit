@@ -29,4 +29,14 @@ trait TicketitAdminTrait
 
         return $this;
     }
+
+    /**
+     * Check admin flag.
+     *
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->ticketit_admin == 1;
+    }
 }

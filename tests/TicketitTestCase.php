@@ -85,24 +85,6 @@ abstract class TicketitTestCase extends TestCase
         $this->faker = $faker = Factory::create();
     }
 
-    public function runDatabaseMigrations()
-    {
-        // Run fresh migrations before every test
-        $this->artisan('migrate');
-
-        $fileSystem = new Filesystem();
-        $classFinder = new ClassFinder();
-
-        foreach ($fileSystem->files(__DIR__.'/../src/Migrations') as $file) {
-            $fileSystem->requireOnce($file);
-            $migrationClass = $classFinder->findClass($file);
-
-            (new $migrationClass())->up();
-        }
-
-        // no need of rolling back, since the database is in the memory, it's destroyed anyways
-    }
-
     /**
      * Set environment values. These usually go to .env file.
      */

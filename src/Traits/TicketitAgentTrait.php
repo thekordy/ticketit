@@ -57,7 +57,7 @@ trait TicketitAgentTrait
     /**
      * Check agent flag.
      *
-     * @return boolean
+     * @return bool
      */
     public function isAgent()
     {

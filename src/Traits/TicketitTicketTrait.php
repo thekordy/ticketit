@@ -68,6 +68,26 @@ trait TicketitTicketTrait
     }
 
     /**
+     * Get open tickets.
+     *
+     * @param $query
+     */
+    public function scopeOpen($query)
+    {
+        $query->whereNull('closed_at');
+    }
+
+    /**
+     * Get closed tickets.
+     *
+     * @param $query
+     */
+    public function scopeClosed($query)
+    {
+        $query->whereNotNull('closed_at');
+    }
+
+    /**
      * Filter tickets by agent_id.
      *
      * @param $query

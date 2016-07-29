@@ -68,6 +68,8 @@ class CreateTicketitTables extends Migration
             $table->foreign('category_id')->references('id')->on('ticketit_categories');
 
             $table->timestamps();
+
+            $table->timestamp('closed_at')->nullable()->index();
         });
 
         Schema::create('ticketit_comments', function (Blueprint $table) {

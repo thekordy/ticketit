@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Tests;
 
 use Exception;
 use Faker\Factory;
+use Faker\Generator;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -14,7 +15,6 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Auth\Access\Authorizable as AuthorizableTrait;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase;
-use Faker\Generator;
 use Illuminate\Support\Str;
 use Kordy\Ticketit\TicketitServiceProvider;
 use Kordy\Ticketit\Traits\TicketitAdminTrait;

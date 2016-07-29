@@ -11,10 +11,10 @@ class TicketsAuthorizationTest extends TicketitTestCase
     use ModelsFakerOperationsTrait;
 
     protected $policies = [
-        'user' => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
-        'owner' => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
-        'agent' => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
-        'assigned' => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
+        'user'          => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
+        'owner'         => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
+        'agent'         => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
+        'assigned'      => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
         'assigned_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
         'category_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
         'administrator' => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
@@ -23,7 +23,7 @@ class TicketsAuthorizationTest extends TicketitTestCase
     /** @test */
     public function ticketit_policies_are_functional()
     {
-        $policies = new TicketPolicies;
+        $policies = new TicketPolicies();
 
         $cat1 = $this->createCategory();
         $cat2 = $this->createCategory();
@@ -60,8 +60,8 @@ class TicketsAuthorizationTest extends TicketitTestCase
         $agent1_id = $agent1->getKey();
         $ticket = $this->createTicket([
             'category_id' => $cat1_id,
-            'agent_id' => $agent1_id,
-            'user' => $user1,
+            'agent_id'    => $agent1_id,
+            'user'        => $user1,
         ]);
 
         $this->assertTrue($policies->isOwner($user1, null, $ticket));
@@ -83,7 +83,6 @@ class TicketsAuthorizationTest extends TicketitTestCase
     /** @test */
     public function ticketit_auzo_tools_authorization()
     {
-
         $cat1 = $this->createCategory();
         $cat2 = $this->createCategory();
 
@@ -105,14 +104,14 @@ class TicketsAuthorizationTest extends TicketitTestCase
         $agent1_id = $agent1->getKey();
         $ticket = $this->createTicket([
             'category_id' => $cat1_id,
-            'agent_id' => $agent1_id,
-            'user' => $user1,
+            'agent_id'    => $agent1_id,
+            'user'        => $user1,
         ]);
 
         // same as $abilities_policies = config('ticketit.acl')
         $abilities_policies = [
             'before' => [
-                $this->policies['administrator']
+                $this->policies['administrator'],
             ],
 
             'abilities' => [
@@ -120,18 +119,18 @@ class TicketsAuthorizationTest extends TicketitTestCase
                 'ticket.show' => [
                     $this->policies['owner'],
                     ['or' => $this->policies['assigned']],
-                    ['or' => $this->policies['assigned_team']]
+                    ['or' => $this->policies['assigned_team']],
                 ],
                 // Only the assigned agent can update the ticket
                 'ticket.update' => [
-                    $this->policies['assigned']
+                    $this->policies['assigned'],
                 ],
                 // To list all category tickets, it has to be agent and to be a member of this category team
                 'ticket.index.category' => [
                     $this->policies['agent'],
-                    $this->policies['category_team']
+                    $this->policies['category_team'],
                 ],
-            ]
+            ],
         ];
 
         // Load abilities to Laravel Gate

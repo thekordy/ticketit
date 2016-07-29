@@ -1,10 +1,10 @@
 <?php
 
 $policies = [
-    'user' => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
-    'owner' => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
-    'agent' => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
-    'assigned' => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
+    'user'          => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
+    'owner'         => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
+    'agent'         => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
+    'assigned'      => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
     'assigned_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
     'category_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
     'administrator' => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
@@ -46,7 +46,7 @@ return [
     */
 
     'before' => [
-        $policies['administrator']
+        $policies['administrator'],
     ],
 
     'abilities' => [
@@ -62,15 +62,15 @@ return [
         */
 
         'ticketit.index.own.all' => [
-            $policies['user']
+            $policies['user'],
         ],
 
         'ticketit.index.own.open' => [
-            $policies['user']
+            $policies['user'],
         ],
 
         'ticketit.index.own.closed' => [
-            $policies['user']
+            $policies['user'],
         ],
 
         /*
@@ -87,15 +87,15 @@ return [
         */
 
         'ticketit.index.category.all' => [
-            $policies['category_team']
+            $policies['category_team'],
         ],
 
         'ticketit.index.category.open' => [
-            $policies['category_team']
+            $policies['category_team'],
         ],
 
         'ticketit.index.category.closed' => [
-            $policies['category_team']
+            $policies['category_team'],
         ],
-    ]
+    ],
 ];

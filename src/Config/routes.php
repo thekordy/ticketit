@@ -35,11 +35,11 @@ return [
     |
     */
     'api.ticketit.index.own' => [
-        'path' => '/api/tickets/own',
+        'path'       => '/api/tickets/own',
         'parameters' => [
-            'uses' => 'Kordy\Ticketit\Controllers\TicketsApiController@indexOwn',
+            'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexOwn',
             'middleware' => 'auzo.acl:api.ticketit.index.own',
-            'as' => 'ticketit.index.own'
+            'as'         => 'ticketit.index.own',
         ],
     ],
 
@@ -56,11 +56,11 @@ return [
     |
     */
     'api.ticketit.index.assigned' => [
-        'path' => '/api/tickets/assigned',
+        'path'       => '/api/tickets/assigned',
         'parameters' => [
-            'uses' => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAssigned',
+            'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAssigned',
             'middleware' => 'auzo.acl:api.ticketit.index.assigned',
-            'as' => 'api.ticketit.index.assigned'
+            'as'         => 'api.ticketit.index.assigned',
         ],
     ],
 
@@ -77,11 +77,11 @@ return [
     |
     */
     'api.ticketit.index.category' => [
-        'path' => '/api/tickets/category/{id}',
+        'path'       => '/api/tickets/category/{id}',
         'parameters' => [
-            'uses' => 'Kordy\Ticketit\Controllers\TicketsApiController@indexCategory',
+            'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexCategory',
             'middleware' => 'auzo.acl:api.ticketit.index.category',
-            'as' => 'api.ticketit.index.category'
+            'as'         => 'api.ticketit.index.category',
         ],
     ],
 
@@ -98,11 +98,11 @@ return [
     |
     */
     'api.ticketit.index.all' => [
-        'path' => '/api/tickets/all',
+        'path'       => '/api/tickets/all',
         'parameters' => [
-            'uses' => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAll',
+            'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAll',
             'middleware' => 'auzo.acl:api.ticketit.index.all',
-            'as' => 'api.ticketit.index.all'
+            'as'         => 'api.ticketit.index.all',
         ],
     ],
 ];

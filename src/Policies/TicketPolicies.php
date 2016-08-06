@@ -39,7 +39,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model   (optional)
+     * @param object|null $model (optional)
      *
      * @return bool
      */
@@ -69,7 +69,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model   (optional)
+     * @param object|null $model (optional)
      *
      * @return bool
      */
@@ -87,7 +87,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model   (optional)
+     * @param object|null $model (optional)
      *
      * @return bool
      */
@@ -112,7 +112,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model   (optional)
+     * @param object|null $model (optional)
      *
      * @return bool
      */
@@ -141,7 +141,7 @@ class TicketPolicies
     {
         if ($model === null || $model instanceof Request) {
             $ticket_keyname = app('TicketitTicket')->getKeyName();
-            $ticket_id = request()->input($ticket_keyname);
+            $ticket_id = request()->route($ticket_keyname);
             $model = \TicketitTicket::findOrFail($ticket_id);
 
             return $model;
@@ -159,7 +159,7 @@ class TicketPolicies
     {
         if ($model === null || $model instanceof Request) {
             $category_keyname = app('TicketitCategory')->getKeyName();
-            $category_id = request()->input($category_keyname);
+            $category_id = request()->route($category_keyname);
             $model = \TicketitCategory::findOrFail($category_id);
 
             return $model;

@@ -56,21 +56,25 @@ return [
         | Own Tickets index
         |--------------------------------------------------------------------------
         |
-        | For the current logged in user to get a list of tickets created to him
-        | (by ticket user_id field)
+        | Get a list of tickets created for the logged in user (by ticketable_id)
         |
         */
 
-        'ticketit.index.own.all' => [
+        'api.ticketit.index.own' => [
             $policies['user'],
         ],
 
-        'ticketit.index.own.open' => [
-            $policies['user'],
-        ],
+        /*
+        |--------------------------------------------------------------------------
+        | Assigned Tickets index
+        |--------------------------------------------------------------------------
+        |
+        | Get a list of tickets assigned for the logged in agent (by ticket agent_id)
+        |
+        */
 
-        'ticketit.index.own.closed' => [
-            $policies['user'],
+        'api.ticketit.index.assigned' => [
+            $policies['agent'],
         ],
 
         /*
@@ -81,21 +85,29 @@ return [
         | Get all tickets for specific category
         | (by ticket category_id field)
         |
-        | Only $policies['user'], $policies['agent'] and $policies['categoryTeam']
-        | are applicable.
+        | Only $policies['user'], $policies['agent'], $policies['administrator']
+        | and $policies['categoryTeam'] are applicable.
         |
         */
 
-        'ticketit.index.category.all' => [
+        'api.ticketit.index.category' => [
             $policies['category_team'],
         ],
 
-        'ticketit.index.category.open' => [
-            $policies['category_team'],
-        ],
+        /*
+        |--------------------------------------------------------------------------
+        | All Tickets index
+        |--------------------------------------------------------------------------
+        |
+        | Get all tickets for all users
+        |
+        | Only $policies['user'], $policies['agent'], $policies['administrator']
+        | and $policies['categoryTeam'] are applicable.
+        |
+        */
 
-        'ticketit.index.category.closed' => [
-            $policies['category_team'],
+        'api.ticketit.index.all' => [
+            $policies['administrator'],
         ],
     ],
 ];

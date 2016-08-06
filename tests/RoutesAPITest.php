@@ -19,7 +19,7 @@ class RoutesAPITest extends TicketitTestCase
     }
 
     /**
-     * Index user owned tickets
+     * Index user owned tickets.
      *
      * @test
      */
@@ -37,18 +37,18 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($userOne)
             ->get($url)
             ->seeJson(
-                ["subject" => $ticketOne->subject]
+                ['subject' => $ticketOne->subject]
             )
             ->seeJson(
-                ["subject" => $ticketTwo->subject]
+                ['subject' => $ticketTwo->subject]
             )
             ->dontSeeJson(
-                ["subject" => $ticketThree->subject]
+                ['subject' => $ticketThree->subject]
             );
     }
 
     /**
-     * Index user owned tickets with GET filters
+     * Index user owned tickets with GET filters.
      *
      * @test
      */
@@ -65,18 +65,18 @@ class RoutesAPITest extends TicketitTestCase
         // filter by subject
         $subject = explode(' ', trim($ticketOne->subject));
         $this->actingAs($userOne)
-            ->get($url . '?subject=' . implode(' ', [$subject[0], $subject[1], $subject[2]]))
+            ->get($url.'?subject='.implode(' ', [$subject[0], $subject[1], $subject[2]]))
             ->seeJson(
-                ["subject" => $ticketOne->subject]
+                ['subject' => $ticketOne->subject]
             )
             ->dontSeeJson(
-                ["subject" => $ticketTwo->subject]
+                ['subject' => $ticketTwo->subject]
             );
         // Todo test remaining filters
     }
 
     /**
-     * Index agent assigned tickets with GET filters
+     * Index agent assigned tickets with GET filters.
      *
      * @test
      */
@@ -94,18 +94,18 @@ class RoutesAPITest extends TicketitTestCase
         // filter by subject
         $subject = explode(' ', trim($ticketOne->subject));
         $this->actingAs($agentOne)
-            ->get($url . '?subject=' . implode(' ', [$subject[0], $subject[1], $subject[2]]))
+            ->get($url.'?subject='.implode(' ', [$subject[0], $subject[1], $subject[2]]))
             ->seeJson(
-                ["subject" => $ticketOne->subject]
+                ['subject' => $ticketOne->subject]
             )
             ->dontSeeJson(
-                ["subject" => $ticketTwo->subject]
+                ['subject' => $ticketTwo->subject]
             );
         // Todo test remaining filters
     }
 
     /**
-     * Index tickets in specific category with GET filters
+     * Index tickets in specific category with GET filters.
      *
      * @test
      */
@@ -128,18 +128,18 @@ class RoutesAPITest extends TicketitTestCase
         // filter by subject
         $subject = explode(' ', trim($ticketOne->subject));
         $this->actingAs($agentOne)
-            ->get($url . '?subject=' . implode(' ', [$subject[0], $subject[1], $subject[2]]))
+            ->get($url.'?subject='.implode(' ', [$subject[0], $subject[1], $subject[2]]))
             ->seeJson(
-                ["subject" => $ticketOne->subject]
+                ['subject' => $ticketOne->subject]
             )
             ->dontSeeJson(
-                ["subject" => $ticketTwo->subject]
+                ['subject' => $ticketTwo->subject]
             );
         // Todo test remaining filters
     }
 
     /**
-     * Index all tickets
+     * Index all tickets.
      *
      * @test
      */
@@ -157,13 +157,13 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($admin)
             ->get($url)
             ->seeJson(
-                ["subject" => $ticketOne->subject]
+                ['subject' => $ticketOne->subject]
             )
             ->seeJson(
-                ["subject" => $ticketTwo->subject]
+                ['subject' => $ticketTwo->subject]
             )
             ->seeJson(
-                ["subject" => $ticketThree->subject]
+                ['subject' => $ticketThree->subject]
             );
         // Todo test remaining filters
     }

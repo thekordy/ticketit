@@ -12,7 +12,7 @@ class TicketsApiController extends Controller
 
     /**
      * Get list of user's own tickets
-     * It uses GET filter params to filter results
+     * It uses GET filter params to filter results.
      *
      * @return TicketitTicket
      */
@@ -28,7 +28,7 @@ class TicketsApiController extends Controller
 
     /**
      * Get list of agent's assigned tickets
-     * It uses GET filter params to filter results
+     * It uses GET filter params to filter results.
      *
      * @return TicketitTicket
      */
@@ -49,15 +49,16 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Get all tickets in a category
+     * Get all tickets in a category.
      *
      * @param $id
+     *
      * @return string
      */
     public function indexCategory($id)
     {
         // filter by passed category id
-        request()->merge(['category_id' => (int)$id]);
+        request()->merge(['category_id' => (int) $id]);
 
         // if a user_id filter is set, get only this user tickets, else get all users tickets
         $query = $this->getConditionalUserTicketsQuery();
@@ -71,7 +72,7 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Get all tickets
+     * Get all tickets.
      *
      * @return string
      */
@@ -89,7 +90,7 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Filter ticket query based on filters passed in GET parameters
+     * Filter ticket query based on filters passed in GET parameters.
      *
      * @param $query
      */
@@ -110,10 +111,10 @@ class TicketsApiController extends Controller
         $closed_after = request()->input('closed_after');
 
         if ($subject) {
-            $query->where('subject', 'like', '%' . $subject . '%');
+            $query->where('subject', 'like', '%'.$subject.'%');
         }
         if ($content) {
-            $query->where('content', 'like', '%' . $content . '%');
+            $query->where('content', 'like', '%'.$content.'%');
         }
         if ($agent_id) {
             $query->where('agent_id', $agent_id);
@@ -124,7 +125,7 @@ class TicketsApiController extends Controller
         if ($type) {
             if ($type == 'open') {
                 $query->whereNull('closed_at');
-            } elseif ($type == "closed") {
+            } elseif ($type == 'closed') {
                 $query->whereNotNull('closed_at');
             }
         }
@@ -149,14 +150,16 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Get all tickets for a specific user
+     * Get all tickets for a specific user.
      *
      * @param $user
+     *
      * @return mixed
      */
     protected function getUserTickets($user)
     {
         $query = $user->ownTickets()->with($this->get_with_relations);
+
         return $query;
     }
 
@@ -169,9 +172,11 @@ class TicketsApiController extends Controller
         if ($user_id) {
             $user = \TicketitUser::findOrFail($user_id);
             $query = $this->getUserTickets($user);
+
             return $query;
         } else {
             $query = TicketitTicket::with($this->get_with_relations);
+
             return $query;
         }
     }

@@ -39,7 +39,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model (optional)
+     * @param object|null $model   (optional)
      *
      * @return bool
      */
@@ -69,7 +69,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model (optional)
+     * @param object|null $model   (optional)
      *
      * @return bool
      */
@@ -87,7 +87,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model (optional)
+     * @param object|null $model   (optional)
      *
      * @return bool
      */
@@ -112,7 +112,7 @@ class TicketPolicies
      *
      * @param $user
      * @param string|null $ability (optional)
-     * @param object|null $model (optional)
+     * @param object|null $model   (optional)
      *
      * @return bool
      */

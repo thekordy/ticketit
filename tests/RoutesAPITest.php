@@ -3,20 +3,11 @@
 namespace Kordy\Ticketit\Tests;
 
 use Kordy\Ticketit\Traits\ModelsFakerOperationsTrait;
+use TicketitHelpers;
 
 class RoutesAPITest extends TicketitTestCase
 {
     use ModelsFakerOperationsTrait;
-
-    protected $routes = [];
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        // get all configured routes in config/ticketit/routes.php
-        $this->routes = config('ticketit.routes');
-    }
 
     /**
      * Index user owned tickets.
@@ -25,8 +16,7 @@ class RoutesAPITest extends TicketitTestCase
      */
     public function ticketit_index_own()
     {
-        $routeName = $this->routes['api.ticketit.index.own']['parameters']['as'];
-        $url = route($routeName);
+        $url = TicketitHelpers::getApiRoutePath('tickets.index.own');
 
         $userOne = $this->createUser();
 
@@ -54,8 +44,7 @@ class RoutesAPITest extends TicketitTestCase
      */
     public function ticketit_index_own_with_get_filters()
     {
-        $routeName = $this->routes['api.ticketit.index.own']['parameters']['as'];
-        $url = route($routeName);
+        $url = TicketitHelpers::getApiRoutePath('tickets.index.own');
 
         $userOne = $this->createUser();
 
@@ -82,8 +71,7 @@ class RoutesAPITest extends TicketitTestCase
      */
     public function ticketit_index_assigned_with_get_filters()
     {
-        $routeName = $this->routes['api.ticketit.index.assigned']['parameters']['as'];
-        $url = route($routeName);
+        $url = TicketitHelpers::getApiRoutePath('tickets.index.assigned');
 
         $agentOne = $this->createAgent();
 
@@ -113,8 +101,7 @@ class RoutesAPITest extends TicketitTestCase
     {
         $categoryOne = $this->createCategory();
 
-        $routeName = $this->routes['api.ticketit.index.category']['parameters']['as'];
-        $url = route($routeName, $categoryOne->getKey());
+        $url = TicketitHelpers::getApiRoutePath('tickets.index.category', $categoryOne->getKey());
 
         $agentOne = $this->createAgent();
         $agentTwo = $this->createAgent();
@@ -145,8 +132,7 @@ class RoutesAPITest extends TicketitTestCase
      */
     public function ticketit_index_all_with_get_filters()
     {
-        $routeName = $this->routes['api.ticketit.index.all']['parameters']['as'];
-        $url = route($routeName);
+        $url = TicketitHelpers::getApiRoutePath('tickets.index.all');
 
         $ticketOne = $this->createTicket();
         $ticketTwo = $this->createTicket();
@@ -166,5 +152,44 @@ class RoutesAPITest extends TicketitTestCase
                 ['subject' => $ticketThree->subject]
             );
         // Todo test remaining filters
+    }
+
+    /**
+     * Show a single ticket.
+     *
+     * @test
+     */
+    public function ticketit_owner_assigned_admin_show_single_ticket()
+    {
+        $categoryOne = $this->createCategory();
+
+        $userOne = $this->createUser();
+        $userTwo = $this->createUser();
+
+        $agentOne = $this->createAgent();
+        $agentTwo = $this->createAgent();
+        $agentThree = $this->createAgent();
+
+        $admin = $this->createAdmin();
+
+        $categoryOne->addAgent([$agentOne->getKey(), $agentTwo->getKey()]); // assigned team
+
+        $ticketOne = $this->createTicket([
+            'agent_id' => $agentOne->getKey(),
+            'category_id' => $categoryOne->getKey(),
+            'user' => $userOne
+        ]);
+
+        $url = TicketitHelpers::getApiRoutePath('ticket.show', $ticketOne->getKey());
+
+        // Allowed access
+        $this->actingAs($userOne)->get($url)->seeJson(['subject' => $ticketOne->subject]);
+        $this->actingAs($agentOne)->get($url)->seeJson(['subject' => $ticketOne->subject]);
+        $this->actingAs($agentTwo)->get($url)->seeJson(['subject' => $ticketOne->subject]);
+        $this->actingAs($admin)->get($url)->seeJson(['subject' => $ticketOne->subject]);
+
+        // Not allowed access
+        $this->actingAs($userTwo)->get($url)->seeStatusCode(403);
+        $this->actingAs($agentThree)->get($url)->seeStatusCode(403);
     }
 }

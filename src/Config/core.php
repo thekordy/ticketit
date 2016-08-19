@@ -4,14 +4,25 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | enable routes
+    | enable API routes
     |--------------------------------------------------------------------------
     |
-    | Disable this (set it to false) if you will not use Ticketit routes.
+    | Disable this (set it to false) if you will not use Ticketit API routes.
     |
     */
 
-    'enable_routes' => true,
+    'enable_api_routes' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | enable UI routes
+    |--------------------------------------------------------------------------
+    |
+    | Disable this (set it to false) if you will not use Ticketit UI routes.
+    |
+    */
+
+    'enable_ui_routes' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -37,4 +48,16 @@ return [
     */
 
     'acl_handler' => 'auzo-tools',
+
+    /*
+    |--------------------------------------------------------------------------
+    | helper functions
+    |--------------------------------------------------------------------------
+    |
+    | Helper class path. The helper class has helper functions that is being
+    | used in many places in the application.
+    |
+    */
+
+    'helpers' => Kordy\Ticketit\Helpers\TicketitHelpers::class,
 ];

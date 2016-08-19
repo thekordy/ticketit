@@ -90,6 +90,21 @@ class TicketsApiController extends Controller
     }
 
     /**
+     * Get a single ticket
+     *
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public function show($id)
+    {
+        $query = TicketitTicket::with($this->get_with_relations);
+
+        $ticket = $query->findOrFail($id);
+
+        return $ticket;
+    }
+
+    /**
      * Filter ticket query based on filters passed in GET parameters.
      *
      * @param $query
@@ -164,6 +179,8 @@ class TicketsApiController extends Controller
     }
 
     /**
+     * If user_id get parameter is passed, then filter only this user's tickets, else get all tickets
+     *
      * @return TicketitTicket
      */
     protected function getConditionalUserTicketsQuery()

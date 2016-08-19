@@ -60,7 +60,7 @@ return [
         |
         */
 
-        'api.ticketit.index.own' => [
+        'api.tickets.index.own' => [
             $policies['user'],
         ],
 
@@ -73,7 +73,7 @@ return [
         |
         */
 
-        'api.ticketit.index.assigned' => [
+        'api.tickets.index.assigned' => [
             $policies['agent'],
         ],
 
@@ -90,7 +90,7 @@ return [
         |
         */
 
-        'api.ticketit.index.category' => [
+        'api.tickets.index.category' => [
             $policies['category_team'],
         ],
 
@@ -106,8 +106,26 @@ return [
         |
         */
 
-        'api.ticketit.index.all' => [
+        'api.tickets.index.all' => [
             $policies['administrator'],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Show Ticket
+        |--------------------------------------------------------------------------
+        |
+        | Show a single ticket
+        |
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], and $policies['administrator'] are applicable.
+        |
+        */
+
+        'api.ticket.show' => [
+            $policies['owner'],
+            [ 'or' => $policies['assigned'] ],
+            [ 'or' => $policies['assigned_team'] ]
         ],
     ],
 ];

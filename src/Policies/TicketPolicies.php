@@ -45,7 +45,7 @@ class TicketPolicies
      */
     public function isOwner($user, $ability = null, $model = null)
     {
-        $model = $this->getTicketFromRequest($model);
+        $model = $this->getModelFromRequest($model, 'TicketitTicket');
 
         return $user instanceof $model->ticketable && $user->getKey() == $model->ticketable->getKey();
     }
@@ -77,7 +77,7 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getTicketFromRequest($model);
+        $model = $this->getModelFromRequest($model, 'TicketitTicket');
 
         return $user instanceof $agent_instance && $user->getKey() == $model->agent->getKey();
     }
@@ -95,7 +95,7 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getTicketFromRequest($model);
+        $model = $this->getModelFromRequest($model, 'TicketitTicket');
 
         if ($user instanceof $agent_instance) {
             $cat_key = $model->category->getKey();
@@ -120,7 +120,7 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getCategoryFromRequest($model);
+        $model = $this->getModelFromRequest($model, 'TicketitCategory');
 
         if ($user instanceof $agent_instance) {
             $cat_key = $model->getKey();
@@ -133,6 +133,28 @@ class TicketPolicies
     }
 
     /**
+     * Check passed model if null, then try to get it from the request route parameters
+     *
+     * @param $model
+     * @param $model_name
+     *
+     * @return mixed
+     */
+    private function getModelFromRequest($model, $model_name)
+    {
+        if ($model === null || $model instanceof Request) {
+            $model_keyname = app($model_name)->getKeyName();
+            $model_id = request()->route($model_keyname);
+            $model = app($model_name)->findOrFail($model_id);
+
+            return $model;
+        }
+
+        return $model;
+    }
+
+    /**
+     * Todo test and remove in favor of the getModelFromRequest
      * @param $model
      *
      * @return mixed
@@ -151,6 +173,7 @@ class TicketPolicies
     }
 
     /**
+     * Todo test and remove in favor of the getModelFromRequest
      * @param $model
      *
      * @return mixed

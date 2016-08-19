@@ -3,11 +3,12 @@
 namespace Kordy\Ticketit\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Kordy\AuzoTools\Traits\ModelFieldsPolicy;
 use Kordy\Ticketit\Traits\TicketitTicketTrait;
 
 class TicketitTicket extends Model
 {
-    use TicketitTicketTrait;
+    use TicketitTicketTrait, ModelFieldsPolicy;
 
     protected $fillable = [
         'subject',

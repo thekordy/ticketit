@@ -5,10 +5,8 @@
 @stop
 
 @section('content')
-    <div class="row">
-        @include('ticketit::shared.header')
-        @include('ticketit::tickets.index')
-    </div>
+    @include('ticketit::shared.header')
+    @include('ticketit::tickets.index')
 @stop
 
 @section('footer')

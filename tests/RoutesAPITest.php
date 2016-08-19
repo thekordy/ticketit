@@ -175,9 +175,9 @@ class RoutesAPITest extends TicketitTestCase
         $categoryOne->addAgent([$agentOne->getKey(), $agentTwo->getKey()]); // assigned team
 
         $ticketOne = $this->createTicket([
-            'agent_id' => $agentOne->getKey(),
+            'agent_id'    => $agentOne->getKey(),
             'category_id' => $categoryOne->getKey(),
-            'user' => $userOne
+            'user'        => $userOne,
         ]);
 
         $url = TicketitHelpers::getApiRoutePath('ticket.show', $ticketOne->getKey());

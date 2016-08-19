@@ -124,8 +124,8 @@ return [
 
         'api.ticket.show' => [
             $policies['owner'],
-            [ 'or' => $policies['assigned'] ],
-            [ 'or' => $policies['assigned_team'] ]
+            ['or' => $policies['assigned']],
+            ['or' => $policies['assigned_team']],
         ],
     ],
 ];

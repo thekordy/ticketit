@@ -1,7 +1,6 @@
 <?php
 
 if (config('ticketit.core.enable_api_routes')) {
-
     $api_routes = config('ticketit.routes.api');
 
     foreach ($api_routes as $api_route) {
@@ -13,4 +12,3 @@ if (config('ticketit.core.enable_ui_routes')) {
 
     // load UI routes
 }
-

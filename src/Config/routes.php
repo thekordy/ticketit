@@ -131,5 +131,5 @@ return [
                 'as'         => 'api.ticket.show',
             ],
         ],
-    ]
+    ],
 ];

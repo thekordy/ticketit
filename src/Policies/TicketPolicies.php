@@ -133,7 +133,7 @@ class TicketPolicies
     }
 
     /**
-     * Check passed model if null, then try to get it from the request route parameters
+     * Check passed model if null, then try to get it from the request route parameters.
      *
      * @param $model
      * @param $model_name
@@ -154,7 +154,8 @@ class TicketPolicies
     }
 
     /**
-     * Todo test and remove in favor of the getModelFromRequest
+     * Todo test and remove in favor of the getModelFromRequest.
+     *
      * @param $model
      *
      * @return mixed
@@ -173,7 +174,8 @@ class TicketPolicies
     }
 
     /**
-     * Todo test and remove in favor of the getModelFromRequest
+     * Todo test and remove in favor of the getModelFromRequest.
+     *
      * @param $model
      *
      * @return mixed

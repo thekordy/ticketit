@@ -14,7 +14,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_index_own()
+    public function user_can_get_index_of_own_tickets()
     {
         $url = TicketitHelpers::getApiRoutePath('tickets.index.own');
 
@@ -42,7 +42,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_index_own_with_get_filters()
+    public function user_can_get_index_of_own_tickets_with_get_filters()
     {
         $url = TicketitHelpers::getApiRoutePath('tickets.index.own');
 
@@ -69,7 +69,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_index_assigned_with_get_filters()
+    public function agent_can_get_index_of_assigned_tickets_with_get_filters()
     {
         $url = TicketitHelpers::getApiRoutePath('tickets.index.assigned');
 
@@ -97,7 +97,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_index_category_with_get_filters()
+    public function agent_can_get_index_of_assigned_category_with_get_filters()
     {
         $categoryOne = $this->createCategory();
 
@@ -130,7 +130,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_index_all_with_get_filters()
+    public function admin_can_index_all_tickets_with_get_filters()
     {
         $url = TicketitHelpers::getApiRoutePath('tickets.index.all');
 
@@ -159,7 +159,7 @@ class RoutesAPITest extends TicketitTestCase
      *
      * @test
      */
-    public function ticketit_owner_assigned_admin_show_single_ticket()
+    public function owner_assigned_admin_can_show_single_ticket()
     {
         $categoryOne = $this->createCategory();
 

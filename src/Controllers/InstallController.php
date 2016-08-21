@@ -50,7 +50,7 @@ class InstallController extends Controller
         ) {
             $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
             $inactive_migrations = $this->inactiveMigrations();
-            $users_list = User::lists('name', 'id')->toArray();
+            $users_list = User::pluck('name', 'id')->toArray();
 
             return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
         }
@@ -235,7 +235,7 @@ class InstallController extends Controller
         $seeder = new SettingsTableSeeder();
 
         // Package Settings
-        $installed_settings = DB::table('ticketit_settings')->lists('value', 'slug');
+        $installed_settings = DB::table('ticketit_settings')->pluck('value', 'slug');
 
         // Application active migrations
         $default_Settings = $seeder->getDefaults();

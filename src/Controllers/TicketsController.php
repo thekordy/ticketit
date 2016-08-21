@@ -154,8 +154,8 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $priorities = Models\Priority::lists('name', 'id');
-        $categories = Models\Category::lists('name', 'id');
+        $priorities = Models\Priority::pluck('name', 'id');
+        $categories = Models\Category::pluck('name', 'id');
 
         return view('ticketit::tickets.create', compact('priorities', 'categories'));
     }
@@ -200,9 +200,9 @@ class TicketsController extends Controller
     {
         $ticket = $this->tickets->find($id);
 
-        $status_lists = Models\Status::lists('name', 'id');
-        $priority_lists = Models\Priority::lists('name', 'id');
-        $category_lists = Models\Category::lists('name', 'id');
+        $status_lists = Models\Status::pluck('name', 'id');
+        $priority_lists = Models\Priority::pluck('name', 'id');
+        $category_lists = Models\Category::pluck('name', 'id');
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);

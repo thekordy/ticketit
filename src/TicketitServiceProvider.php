@@ -179,7 +179,7 @@ class TicketitServiceProvider extends ServiceProvider
             $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
             $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
             $this->publishes([__DIR__.'/Public' => public_path('vendor/ticketit')], 'public');
-//            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
+            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             // Check public assets are present, publish them if not
 //            $installer->publicAssets();
@@ -195,7 +195,7 @@ class TicketitServiceProvider extends ServiceProvider
                 || Request::path() == 'tickets-admin') {
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
-//            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
+            $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             $authMiddleware = Helpers\LaravelVersion::authMiddleware();
 
@@ -220,8 +220,6 @@ class TicketitServiceProvider extends ServiceProvider
             Route::get('/tickets-admin', function () {
                 return redirect()->route('tickets.install.index');
             });
-        } else {
-            $this->loadMigrationsFrom(__DIR__.'/Migrations');
         }
     }
 

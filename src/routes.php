@@ -21,7 +21,6 @@ if (config('ticketit.core.enable_api_routes')) {
                 Route::get($api_route['path'], $api_route['parameters']);
                 break;
         }
-
     }
 }
 

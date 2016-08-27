@@ -219,8 +219,8 @@ class RoutesAPITest extends TicketitTestCase
         $c = 1;
         while ($a > 0) {
             $this->createTicket([
-                'agent_id' => $agentTwo->getKey(),
-                'category_id' => $category->getKey()
+                'agent_id'    => $agentTwo->getKey(),
+                'category_id' => $category->getKey(),
             ]);
             // 5 tickets for agentThree outside categoryOne
             $this->createTicket(['agent_id' => $agentThree->getKey()]);
@@ -228,8 +228,8 @@ class RoutesAPITest extends TicketitTestCase
         }
         while ($b > 0) {
             $this->createTicket([
-                'agent_id' => $agentOne->getKey(),
-                'category_id' => $category->getKey()
+                'agent_id'    => $agentOne->getKey(),
+                'category_id' => $category->getKey(),
             ]);
             // 3 tickets for agentThree outside categoryOne
             $this->createTicket(['agent_id' => $agentThree->getKey()]);
@@ -238,23 +238,23 @@ class RoutesAPITest extends TicketitTestCase
         while ($c > 0) {
             // Only 1 ticket for agentThree inside CategoryOne
             $this->createTicket([
-                'agent_id' => $agentThree->getKey(),
-                'category_id' => $category->getKey()
+                'agent_id'    => $agentThree->getKey(),
+                'category_id' => $category->getKey(),
             ]);
             $c--;
         }
 
         $ticketData = [
-            'subject' => $this->faker->sentence(),
-            'content' => $this->faker->paragraph(),
+            'subject'     => $this->faker->sentence(),
+            'content'     => $this->faker->paragraph(),
             'category_id' => $category->getKey(),
-            '_token' => csrf_token()
+            '_token'      => csrf_token(),
         ];
         // auto assign to the least by counting only category tickets
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
             ->seeJson([
-                'agent_id' => "4" // agentThree least agent in categoryOne with least_local tickets count
+                'agent_id' => '4', // agentThree least agent in categoryOne with least_local tickets count
             ])
             ->seeStatusCode(200);
 
@@ -265,7 +265,7 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
             ->seeJson([
-                'agent_id' => "2" // agentOne least agent in categoryOne with least_local tickets count
+                'agent_id' => '2', // agentOne least agent in categoryOne with least_local tickets count
             ])
             ->seeStatusCode(200);
     }
@@ -293,9 +293,9 @@ class RoutesAPITest extends TicketitTestCase
         // missing subject, content, priority, and others are wrong data
         $ticketInvalidData = [
             'category_id' => 2, // not existed category
-            'status_id' => 3, // not authorized and not existed status
-            'agent_id' => 4, // not authorized and not existed agent
-            '_token' => csrf_token()
+            'status_id'   => 3, // not authorized and not existed status
+            'agent_id'    => 4, // not authorized and not existed agent
+            '_token'      => csrf_token(),
         ];
 
         $this->actingAs($user)
@@ -303,10 +303,10 @@ class RoutesAPITest extends TicketitTestCase
             ->seeStatusCode(422);
 
         $ticketValidData = [
-            'subject' => $this->faker->sentence(),
-            'content' => $this->faker->paragraph(),
+            'subject'     => $this->faker->sentence(),
+            'content'     => $this->faker->paragraph(),
             'category_id' => $category->getKey(),
-            '_token' => csrf_token()
+            '_token'      => csrf_token(),
         ];
 
         $this->actingAs($user)
@@ -343,17 +343,17 @@ class RoutesAPITest extends TicketitTestCase
             'status_id'     => $status->getKey(),  // unauthorized trying to set the status_id
             'priority_id'   => $priority->getKey(),  // unauthorized trying to set the priority_id
             'agent_id'      => $agent->getKey(),  // unauthorized trying to set the agent_id
-            '_token'        => csrf_token()
+            '_token'        => csrf_token(),
         ];
 
         $this->actingAs($user)
             ->json('POST', $url, $ticketInvalidData)
             ->seeJson([
-                "user_class"    => ["You are not authorized to modify user class !"],
-                "user_id"       => ["You are not authorized to modify user id !"],
-                "status_id"     => ["You are not authorized to modify status id !"],
-                "priority_id"   => ["You are not authorized to modify priority id !"],
-                "agent_id"      => ["You are not authorized to modify agent id !"],
+                'user_class'    => ['You are not authorized to modify user class !'],
+                'user_id'       => ['You are not authorized to modify user id !'],
+                'status_id'     => ['You are not authorized to modify status id !'],
+                'priority_id'   => ['You are not authorized to modify priority id !'],
+                'agent_id'      => ['You are not authorized to modify agent id !'],
             ])
             ->seeStatusCode(422);
 
@@ -366,15 +366,15 @@ class RoutesAPITest extends TicketitTestCase
             'status_id'     => $status->getKey(),
             'priority_id'   => $priority->getKey(),
             'agent_id'      => $agent->getKey(),
-            '_token'        => csrf_token()
+            '_token'        => csrf_token(),
         ];
 
         $this->actingAs($agent)
             ->json('POST', $url, $ticketValidData)
             ->seeJson([
-                "agent_id"          => 2,
-                "ticketable_type"   => "user",
-                "ticketable_id"     => 1,
+                'agent_id'          => 2,
+                'ticketable_type'   => 'user',
+                'ticketable_id'     => 1,
             ])
             ->seeStatusCode(200);
     }

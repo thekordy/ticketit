@@ -45,9 +45,9 @@ class TicketPolicies
      */
     public function isOwner($user, $ability = null, $model = null)
     {
-        $model = $this->getModelFromRequest($model, 'TicketitTicket');
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
-        return $user instanceof $model->ticketable && $user->getKey() == $model->ticketable->getKey();
+        return $user instanceof $ticket->ticketable && $user->getKey() == $ticket->ticketable->getKey();
     }
 
     /**
@@ -77,9 +77,9 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getModelFromRequest($model, 'TicketitTicket');
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
-        return $user instanceof $agent_instance && $user->getKey() == $model->agent->getKey();
+        return $user instanceof $agent_instance && $user->getKey() == $ticket->agent->getKey();
     }
 
     /**
@@ -95,11 +95,11 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getModelFromRequest($model, 'TicketitTicket');
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
         if ($user instanceof $agent_instance) {
-            $cat_key = $model->category->getKey();
-            $cat_keyName = $model->category->getKeyName();
+            $cat_key = $ticket->category->getKey();
+            $cat_keyName = $ticket->category->getKeyName();
 
             return $user->categories()->where($cat_keyName, $cat_key)->first() !== null;
         }
@@ -120,13 +120,35 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getModelFromRequest($model, 'TicketitCategory');
+        $category = $this->getModelFromRequest($model, 'TicketitCategory');
 
         if ($user instanceof $agent_instance) {
-            $cat_key = $model->getKey();
-            $cat_keyName = $model->getKeyName();
+            $cat_key = $category->getKey();
+            $cat_keyName = $category->getKeyName();
 
             return $user->categories()->where($cat_keyName, $cat_key)->first() !== null;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if user is isCategoryAdmin.
+     *
+     * @param $user
+     * @param string|null $ability (optional)
+     * @param object|null $model   (optional)
+     *
+     * @return bool
+     */
+    public function isCategoryAdmin($user, $ability = null, $model = null)
+    {
+        $agent_instance = app('TicketitAgent');
+
+        $category = $this->getModelFromRequest($model, 'TicketitCategory');
+
+        if ($user instanceof $agent_instance) {
+            return $category->admin_id == $user->getKey();
         }
 
         return false;
@@ -146,46 +168,6 @@ class TicketPolicies
             $model_keyname = app($model_name)->getKeyName();
             $model_id = request()->route($model_keyname);
             $model = app($model_name)->findOrFail($model_id);
-
-            return $model;
-        }
-
-        return $model;
-    }
-
-    /**
-     * Todo test and remove in favor of the getModelFromRequest.
-     *
-     * @param $model
-     *
-     * @return mixed
-     */
-    private function getTicketFromRequest($model)
-    {
-        if ($model === null || $model instanceof Request) {
-            $ticket_keyname = app('TicketitTicket')->getKeyName();
-            $ticket_id = request()->route($ticket_keyname);
-            $model = \TicketitTicket::findOrFail($ticket_id);
-
-            return $model;
-        }
-
-        return $model;
-    }
-
-    /**
-     * Todo test and remove in favor of the getModelFromRequest.
-     *
-     * @param $model
-     *
-     * @return mixed
-     */
-    private function getCategoryFromRequest($model)
-    {
-        if ($model === null || $model instanceof Request) {
-            $category_keyname = app('TicketitCategory')->getKeyName();
-            $category_id = request()->route($category_keyname);
-            $model = \TicketitCategory::findOrFail($category_id);
 
             return $model;
         }

@@ -1,13 +1,14 @@
 <?php
 
 $policies = [
-    'user'          => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
-    'owner'         => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
-    'agent'         => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
-    'assigned'      => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
-    'assigned_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
-    'category_team' => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
-    'administrator' => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
+    'user'              => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
+    'owner'             => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
+    'agent'             => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
+    'assigned'          => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
+    'assigned_team'     => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
+    'category_team'     => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
+    'category_admin'    => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryAdmin',
+    'administrator'     => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
 ];
 
 return [

@@ -71,6 +71,11 @@ class TicketitServiceProvider extends ServiceProvider
         $this->registerModelBindings();
         // Register model Facades at Facades/
         $this->registerFacadesAliases();
+
+        // Default requests validation configuration file. This must be loaded here after registerModelBindings
+        $this->mergeConfigFrom(__DIR__.'/Config/validation.php', 'ticketit.validation');
+        // Default ticket configuration file. This must be loaded here after registerModelBindings
+        $this->mergeConfigFrom(__DIR__.'/Config/ticket.php', 'ticketit.ticket');
     }
 
     /**

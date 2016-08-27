@@ -45,6 +45,7 @@ return [
         */
         'tickets.index.own' => [
             'path'       => '/api/tickets/own',
+            'method'     => 'get',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexOwn',
                 'middleware' => 'auzo.acl:tickets.index.own',
@@ -66,6 +67,7 @@ return [
         */
         'tickets.index.assigned' => [
             'path'       => '/api/tickets/assigned',
+            'method'     => 'get',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAssigned',
                 'middleware' => 'auzo.acl:tickets.index.assigned',
@@ -87,6 +89,7 @@ return [
         */
         'tickets.index.category' => [
             'path'       => '/api/tickets/category/{id}',
+            'method'     => 'get',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexCategory',
                 'middleware' => 'auzo.acl:tickets.index.category',
@@ -108,6 +111,7 @@ return [
         */
         'tickets.index.all' => [
             'path'       => '/api/tickets/all',
+            'method'     => 'get',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAll',
                 'middleware' => 'auzo.acl:tickets.index.all',
@@ -125,10 +129,29 @@ return [
         */
         'ticket.show' => [
             'path'       => '/api/tickets/{id}',
+            'method'     => 'get',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@show',
                 'middleware' => 'auzo.acl:ticket.show',
                 'as'         => 'api.ticket.show',
+            ],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | API ticket.store
+        |--------------------------------------------------------------------------
+        |
+        | Store a single ticket
+        |
+        */
+        'ticket.store' => [
+            'path'       => '/api/tickets/store',
+            'method'     => 'post',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@store',
+                'middleware' => 'auzo.acl:ticket.store',
+                'as'         => 'api.ticket.store',
             ],
         ],
     ],

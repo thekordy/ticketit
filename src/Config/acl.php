@@ -127,5 +127,50 @@ return [
             ['or' => $policies['assigned']],
             ['or' => $policies['assigned_team']],
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Store Ticket by user
+        |--------------------------------------------------------------------------
+        |
+        | Store a single ticket
+        |
+        | Only $policies['user'], $policies['agent'], and $policies['administrator']
+        | are applicable.
+        |
+        */
+
+        'ticket.store' => [
+            $policies['user'],
+            ['or' => $policies['agent']],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Store Ticket fields
+        |--------------------------------------------------------------------------
+        |
+        | Ticket Fields permissions
+        |
+        | Only $policies['user'], $policies['agent'], and $policies['administrator']
+        | are applicable.
+        |
+        */
+        // user_class and user_id allows user to create tickets for others
+        'ticket.store.user_class' => [
+            $policies['agent'],
+        ],
+        'ticket.store.user_id' => [
+            $policies['agent'],
+        ],
+        'ticket.store.status_id' => [
+            $policies['agent'],
+        ],
+        'ticket.store.priority_id' => [
+            $policies['agent'],
+        ],
+        'ticket.store.agent_id' => [
+            $policies['agent'],
+        ],
     ],
 ];

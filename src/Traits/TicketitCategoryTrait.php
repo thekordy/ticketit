@@ -9,13 +9,23 @@ trait TicketitCategoryTrait
     /**
      * Get all agents belong to this category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMan
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function agents()
     {
         return $this->belongsToMany(
             app('TicketitAgent'), 'ticketit_category_agent', 'category_id', 'agent_id'
         );
+    }
+
+    /**
+     * Get the  admin agent of this category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function admin()
+    {
+        return $this->belongsTo(app('TicketitAgent'), 'admin_id', 'id');
     }
 
     /**

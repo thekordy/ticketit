@@ -3,6 +3,12 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
+use DB;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Request;
+use TicketitCategory;
+use TicketitPriority;
+use TicketitStatus;
 use TicketitTicket;
 
 class TicketsApiController extends Controller
@@ -106,6 +112,26 @@ class TicketsApiController extends Controller
     }
 
     /**
+     * Create a single ticket for the logged in user
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function store(Request $request)
+    {
+        // get validation rules from config/ticketit/validation.php
+        $validation_rules = config('ticketit.validation.user_ticket_store.rules');
+
+        $this->validate($request, $validation_rules);
+
+        $ticket_data = $request->all();
+
+        $ticket = $this->createTicketableTicket($ticket_data, $request);
+
+        return $ticket;
+    }
+
+    /**
      * Filter ticket query based on filters passed in GET parameters.
      *
      * @param $query
@@ -121,6 +147,8 @@ class TicketsApiController extends Controller
         $type = request()->input('type');
         $status_id = request()->input('status_id');
         $priority_id = request()->input('priority_id');
+
+        // Todo check dates format
         $created_before = request()->input('created_before');
         $created_after = request()->input('created_after');
         $closed_before = request()->input('closed_before');
@@ -197,5 +225,196 @@ class TicketsApiController extends Controller
 
             return $query;
         }
+    }
+
+    /**
+     * Create a user ticket with polymorphic-relation
+     *
+     * @see https://laravel.com/docs/5.1/eloquent-relationships#polymorphic-relations
+     * @param $ticket_data
+     * @param Request $request
+     * @return TicketitTicket
+     */
+    protected function createTicketableTicket($ticket_data, $request)
+    {
+        $ticket_data = $this->setStatusAndPriorityIds($ticket_data, $request);
+
+        $ticket_data = $this->setAgentId($ticket_data, $request);
+
+        $ticket_data = $this->setTicketableUser($ticket_data, $request);
+
+        // it could be done using $user->ownTicket()->create() but it won't then be auditable
+        return TicketitTicket::create($ticket_data);
+    }
+
+    /**
+     * Set the user owner of the ticket, whether the logged in user or the passed post attr user_class and user_id
+     *
+     * @param $ticket_data
+     * @param Request $request
+     * @return array
+     */
+    protected function setTicketableUser($ticket_data, $request)
+    {
+        $user = \Auth::user();
+
+        // user_class relates to the custom morphmap settings in config/ticketit/models.php
+        if ($request->has('user_class')) {
+            $ticketable_class = $ticket_data['user_class'];
+        } else {
+            $ticketable_class = $user->ownTickets()->getMorphClass(); // 'user'
+        }
+
+        if ($request->has('user_id')) {
+            $ticketable_id_value = $ticket_data['user_id'];
+        } else {
+            $ticketable_id_value = $user->getKey(); // user primary key value
+        }
+
+        $ticketable_type = $user->ownTickets()->getPlainMorphType(); // 'ticketable_type'
+        $ticketable_id = $user->ownTickets()->getPlainForeignKey(); // 'ticktable_id'
+
+        if ($ticketable_type) {
+            $ticket_data[$ticketable_type] = $ticketable_class;
+            $ticket_data[$ticketable_id] = $ticketable_id_value;
+            return $ticket_data;
+        }
+        return $ticket_data;
+    }
+
+    /**
+     * @param $ticket_data
+     * @param Request $request
+     * @return array
+     */
+    protected function setStatusAndPriorityIds($ticket_data, $request)
+    {
+        // if not passed, set status_id as default_status_id in config/ticketit/ticket.php
+        if (!$request->has('status_id')) {
+
+            $default_status_id = config('ticketit.ticket.default_status_id');
+
+            switch ($default_status_id) {
+                case 'first':
+                    $status = TicketitStatus::orderBy('id', 'asc')->firstOrFail();
+                    break;
+                case 'last':
+                    $status = TicketitStatus::orderBy('id', 'desc')->firstOrFail();
+                    break;
+                default:
+                    $status = TicketitStatus::findOrFail($default_status_id);
+                    break;
+            }
+
+            $ticket_data['status_id'] = $status->getKey();
+        }
+
+        // if not passed, set status_id as default_priority_id in config/ticketit/ticket.php
+        if (!$request->has('priority_id')) {
+
+            $default_priority_id = config('ticketit.ticket.default_priority_id');
+
+            switch ($default_priority_id) {
+                case 'first':
+                    $priority = TicketitPriority::orderBy('id', 'asc')->firstOrFail();
+                    break;
+                case 'last':
+                    $priority = TicketitPriority::orderBy('id', 'desc')->firstOrFail();
+                    break;
+                default:
+                    $priority = TicketitPriority::findOrFail($default_priority_id);
+                    break;
+            }
+
+            $ticket_data['priority_id'] = $priority->getKey();
+        }
+
+        return $ticket_data;
+    }
+
+    /**
+     * Set agent for the ticket
+     *
+     * @param $ticket_data
+     * @param Request $request
+     * @return array
+     */
+    protected function setAgentId($ticket_data, $request)
+    {
+        // Find an agent in order as follow
+        // 1. use agent_id if it is set in the request
+        if ($request->has('agent_id')) {
+            return $ticket_data; // the agent_id is already set
+        }
+
+        // 2. see the category auto assign option
+        $category = TicketitCategory::findOrFail($ticket_data['category_id']);
+        $auto_assign_option = $category->auto_assign;
+        $agent_id = null;
+        switch ($auto_assign_option) {
+            case 'least_local':
+                // auto assign to the least assigned agent, counting only this category tickets
+                $agent = $this->leastLocalAgent($category);
+                $agent_id = $agent ? $agent->agent_id : null;
+                break;
+            case 'least_total':
+                // auto assign to the least assigned agent, counting all agent's open tickets
+                $agent = $this->leastTotalAgent($category);
+                $agent_id = $agent ? $agent->agent_id : null;
+                break;
+            case 'admin':
+                // assign to the category admin_id
+                $agent_id = $category->admin_id;
+                break;
+        }
+
+        // if no tickets count, assign to the first agent in the category
+        if (!$agent_id) {
+            $agent_id = $category->agents()->firstOrFail()->getKey();
+        }
+        $ticket_data['agent_id'] = $agent_id;
+
+        return $ticket_data;
+    }
+
+    /**
+     * Get the least assigned agent to specific category
+     *
+     * @param $category
+     * @return Builder
+     */
+    protected function leastLocalAgent($category)
+    {
+        $agent_key_name = app('TicketitAgent')->getKeyName();
+        $category_agents = $category->agents->pluck($agent_key_name);
+
+        return DB::table('ticketit_ticket')
+            ->select(DB::raw('count(*) as agent_count, agent_id'))
+            ->where('closed_at', null)
+            ->where('category_id', $category->getKey())
+            ->whereIn('agent_id', $category_agents)
+            ->groupBy('agent_id')
+            ->orderBy('agent_count', 'asc')
+            ->first();
+    }
+
+    /**
+     * Get the least assigned agent in total of agent's open tickets
+     *
+     * @param $category
+     * @return Builder
+     */
+    protected function leastTotalAgent($category)
+    {
+        $agent_key_name = app('TicketitAgent')->getKeyName();
+        $category_agents = $category->agents->pluck($agent_key_name);
+
+        return DB::table('ticketit_ticket')
+            ->select(DB::raw('count(*) as agent_count, agent_id'))
+            ->where('closed_at', null)
+            ->whereIn('agent_id', $category_agents)
+            ->groupBy('agent_id')
+            ->orderBy('agent_count', 'asc')
+            ->first();
     }
 }

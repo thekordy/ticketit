@@ -19,6 +19,16 @@ trait TicketitAgentTrait
     }
 
     /**
+     * Get all related categories under this agent administration.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function adminCategories()
+    {
+        return $this->hasMany(app('TicketitCategory'), 'admin_id', 'id');
+    }
+
+    /**
      * Tickets assigned to this agent.
      *
      * @return HasMany

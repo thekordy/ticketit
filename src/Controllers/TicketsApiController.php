@@ -112,9 +112,10 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Create a single ticket for the logged in user
+     * Create a single ticket for the logged in user.
      *
      * @param Request $request
+     *
      * @return mixed
      */
     public function store(Request $request)
@@ -228,11 +229,13 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Create a user ticket with polymorphic-relation
+     * Create a user ticket with polymorphic-relation.
      *
      * @see https://laravel.com/docs/5.1/eloquent-relationships#polymorphic-relations
+     *
      * @param $ticket_data
      * @param Request $request
+     *
      * @return TicketitTicket
      */
     protected function createTicketableTicket($ticket_data, $request)
@@ -248,10 +251,11 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Set the user owner of the ticket, whether the logged in user or the passed post attr user_class and user_id
+     * Set the user owner of the ticket, whether the logged in user or the passed post attr user_class and user_id.
      *
      * @param $ticket_data
      * @param Request $request
+     *
      * @return array
      */
     protected function setTicketableUser($ticket_data, $request)
@@ -277,21 +281,23 @@ class TicketsApiController extends Controller
         if ($ticketable_type) {
             $ticket_data[$ticketable_type] = $ticketable_class;
             $ticket_data[$ticketable_id] = $ticketable_id_value;
+
             return $ticket_data;
         }
+
         return $ticket_data;
     }
 
     /**
      * @param $ticket_data
      * @param Request $request
+     *
      * @return array
      */
     protected function setStatusAndPriorityIds($ticket_data, $request)
     {
         // if not passed, set status_id as default_status_id in config/ticketit/ticket.php
         if (!$request->has('status_id')) {
-
             $default_status_id = config('ticketit.ticket.default_status_id');
 
             switch ($default_status_id) {
@@ -311,7 +317,6 @@ class TicketsApiController extends Controller
 
         // if not passed, set status_id as default_priority_id in config/ticketit/ticket.php
         if (!$request->has('priority_id')) {
-
             $default_priority_id = config('ticketit.ticket.default_priority_id');
 
             switch ($default_priority_id) {
@@ -333,10 +338,11 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Set agent for the ticket
+     * Set agent for the ticket.
      *
      * @param $ticket_data
      * @param Request $request
+     *
      * @return array
      */
     protected function setAgentId($ticket_data, $request)
@@ -378,9 +384,10 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Get the least assigned agent to specific category
+     * Get the least assigned agent to specific category.
      *
      * @param $category
+     *
      * @return Builder
      */
     protected function leastLocalAgent($category)
@@ -399,9 +406,10 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Get the least assigned agent in total of agent's open tickets
+     * Get the least assigned agent in total of agent's open tickets.
      *
      * @param $category
+     *
      * @return Builder
      */
     protected function leastTotalAgent($category)

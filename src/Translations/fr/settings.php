@@ -11,7 +11,7 @@ $summernoteVersion = Kordy\Ticketit\Helpers\Cdn::Summernote;
 
 return [
 
-	'status_notification' => <<<'ENDHTML'
+    'status_notification' => <<<'ENDHTML'
 			<p>
 				<b>notification sur le statut</b>: envoyer des notifications par mel aux propriétaires et gestionnaires du ticket quand son statut change
 			</p>
@@ -33,5 +33,5 @@ ENDHTML
 			</p>
 ENDHTML
 
- 
+
 ];

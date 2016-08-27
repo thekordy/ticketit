@@ -47,7 +47,7 @@ return [
             'path'       => '/api/tickets/own',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexOwn',
-                'middleware' => 'auzo.acl:api.tickets.index.own',
+                'middleware' => 'auzo.acl:tickets.index.own',
                 'as'         => 'api.tickets.index.own',
             ],
         ],
@@ -68,7 +68,7 @@ return [
             'path'       => '/api/tickets/assigned',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAssigned',
-                'middleware' => 'auzo.acl:api.tickets.index.assigned',
+                'middleware' => 'auzo.acl:tickets.index.assigned',
                 'as'         => 'api.tickets.index.assigned',
             ],
         ],
@@ -89,7 +89,7 @@ return [
             'path'       => '/api/tickets/category/{id}',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexCategory',
-                'middleware' => 'auzo.acl:api.tickets.index.category',
+                'middleware' => 'auzo.acl:tickets.index.category',
                 'as'         => 'api.tickets.index.category',
             ],
         ],
@@ -110,7 +110,7 @@ return [
             'path'       => '/api/tickets/all',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@indexAll',
-                'middleware' => 'auzo.acl:api.tickets.index.all',
+                'middleware' => 'auzo.acl:tickets.index.all',
                 'as'         => 'api.tickets.index.all',
             ],
         ],
@@ -127,7 +127,7 @@ return [
             'path'       => '/api/tickets/{id}',
             'parameters' => [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@show',
-                'middleware' => 'auzo.acl:api.ticket.show',
+                'middleware' => 'auzo.acl:ticket.show',
                 'as'         => 'api.ticket.show',
             ],
         ],

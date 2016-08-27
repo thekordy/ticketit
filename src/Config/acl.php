@@ -60,7 +60,7 @@ return [
         |
         */
 
-        'api.tickets.index.own' => [
+        'tickets.index.own' => [
             $policies['user'],
         ],
 
@@ -73,7 +73,7 @@ return [
         |
         */
 
-        'api.tickets.index.assigned' => [
+        'tickets.index.assigned' => [
             $policies['agent'],
         ],
 
@@ -90,7 +90,7 @@ return [
         |
         */
 
-        'api.tickets.index.category' => [
+        'tickets.index.category' => [
             $policies['category_team'],
         ],
 
@@ -106,7 +106,7 @@ return [
         |
         */
 
-        'api.tickets.index.all' => [
+        'tickets.index.all' => [
             $policies['administrator'],
         ],
 
@@ -122,7 +122,7 @@ return [
         |
         */
 
-        'api.ticket.show' => [
+        'ticket.show' => [
             $policies['owner'],
             ['or' => $policies['assigned']],
             ['or' => $policies['assigned_team']],

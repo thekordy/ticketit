@@ -34,7 +34,7 @@ class TicketitServiceProvider extends ServiceProvider
             AuzoToolsPermissionRegistrar::registerPermissions($abilities_policies);
         }
 
-        // Load routes if enabled in config/ticketit/routes.php
+        // Load routes if enabled in config/ticketit/core.php
         if (!$this->app->routesAreCached()) {
             require __DIR__.'/routes.php';
         }

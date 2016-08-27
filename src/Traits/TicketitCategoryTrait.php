@@ -25,7 +25,7 @@ trait TicketitCategoryTrait
      */
     public function admin()
     {
-        return $this->belongsTo(app('TicketitAgent'), 'admin_id', 'id');
+        return $this->belongsTo(app('TicketitAgent'), 'admin_id');
     }
 
     /**

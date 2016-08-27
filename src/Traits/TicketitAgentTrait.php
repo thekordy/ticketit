@@ -25,7 +25,7 @@ trait TicketitAgentTrait
      */
     public function adminCategories()
     {
-        return $this->hasMany(app('TicketitCategory'), 'admin_id', 'id');
+        return $this->hasMany(app('TicketitCategory'), 'admin_id');
     }
 
     /**

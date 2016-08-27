@@ -67,6 +67,8 @@ class TicketitServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
         // Default ACL configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/acl.php', 'ticketit.acl');
+        // Default ticket configuration file.
+        $this->mergeConfigFrom(__DIR__.'/Config/ticket.php', 'ticketit.ticket');
         // Register model bindings from the configured models paths in config/ticketit/models.php
         $this->registerModelBindings();
         // Register model Facades at Facades/
@@ -74,8 +76,6 @@ class TicketitServiceProvider extends ServiceProvider
 
         // Default requests validation configuration file. This must be loaded here after registerModelBindings
         $this->mergeConfigFrom(__DIR__.'/Config/validation.php', 'ticketit.validation');
-        // Default ticket configuration file. This must be loaded here after registerModelBindings
-        $this->mergeConfigFrom(__DIR__.'/Config/ticket.php', 'ticketit.ticket');
     }
 
     /**

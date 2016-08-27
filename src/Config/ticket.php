@@ -1,8 +1,4 @@
 <?php
-
-$status_model = app('TicketitStatus');
-$priority_model = app('TicketitPriority');
-
 /*
 |--------------------------------------------------------------------------
 | Ticket configuration

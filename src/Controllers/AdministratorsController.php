@@ -86,7 +86,7 @@ class AdministratorsController extends Controller
 
         // Remove him from tickets categories as well
 
-        $administrator_cats = $administrator->categories->lists('id')->toArray();
+        $administrator_cats = $administrator->categories->pluck('id')->toArray();
         $administrator->categories()->detach($administrator_cats);
 
         return $administrator;

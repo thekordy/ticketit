@@ -118,7 +118,7 @@ class TicketitTableSeeder extends Seeder
                 } while ($rand_status == $this->default_closed_status_id);
 
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
-                $agents = $category->agents()->lists('name', 'id')->toArray();
+                $agents = $category->agents()->pluck('name', 'id')->toArray();
                 $agent_id = array_rand($agents);
                 $random_create = rand(1, $this->tickets_date_period);
 

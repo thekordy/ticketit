@@ -154,5 +154,23 @@ return [
                 'as'         => 'api.ticket.store',
             ],
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | API ticket.update
+        |--------------------------------------------------------------------------
+        |
+        | Store a single ticket
+        |
+        */
+        'ticket.update' => [
+            'path'       => '/api/tickets/{id}',
+            'method'     => 'put',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@update',
+                'middleware' => 'auzo.acl:ticket.update',
+                'as'         => 'api.ticket.update',
+            ],
+        ],
     ],
 ];

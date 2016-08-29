@@ -250,22 +250,22 @@ class RoutesAPITest extends TicketitTestCase
             'category_id' => $category->getKey(),
             '_token'      => csrf_token(),
         ];
-        // auto assign to the least by counting only category tickets
+        // auto assign to the least by counting all agent's tickets
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
             ->seeJson([
-                'agent_id' => '4', // agentThree least agent in categoryOne with least_local tickets count
+                'agent_id' => '2', // agentOne least agent in categoryOne with least_local tickets count
             ])
             ->seeStatusCode(200);
 
-        // auto assign to the least by counting all agent's tickets
-        $category->auto_assign = 'least_total';
+        // auto assign to the least by counting only category tickets
+        $category->auto_assign = 'least_local';
         $category->save();
 
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
             ->seeJson([
-                'agent_id' => '2', // agentOne least agent in categoryOne with least_local tickets count
+                'agent_id' => '4', // agentThree least agent in categoryOne with least_local tickets count
             ])
             ->seeStatusCode(200);
     }
@@ -330,6 +330,7 @@ class RoutesAPITest extends TicketitTestCase
         $priority = $this->createPriority();
         $user = $this->createUser();
         $agent = $this->createAgent();
+        $agent->addToCategory($category->getKey());
 
         // validation rules can be found at config/ticketit/validation.php
 
@@ -358,8 +359,8 @@ class RoutesAPITest extends TicketitTestCase
             ->seeStatusCode(422);
 
         $ticketValidData = [
-            'user_id'       => $user->getKey(), // unauthorized trying to set the user_id
-            'user_class'    => 'user',  // unauthorized trying to set the user_class
+            'user_id'       => $user->getKey(),
+            'user_class'    => 'user',
             'subject'       => $this->faker->sentence(),
             'content'       => $this->faker->paragraph(),
             'category_id'   => $category->getKey(),
@@ -376,6 +377,79 @@ class RoutesAPITest extends TicketitTestCase
                 'ticketable_type'   => 'user',
                 'ticketable_id'     => 1,
             ])
+            ->seeStatusCode(200);
+    }
+
+    /**
+     * Update a single ticket.
+     *
+     * @test
+     */
+    public function update_a_single_ticket()
+    {
+        \Session::start(); // for csrf_token to work
+
+        $category = $this->createCategory();
+        $categoryUpdate = $this->createCategory();
+        $status = $this->createStatus();
+        $priority = $this->createPriority();
+        $user = $this->createUser();
+        $agent = $this->createAgent();
+        $agent->addToCategory([$category->getKey(), $categoryUpdate->getKey()]);
+
+        $ticket = $this->createTicket(['user' => $user, 'category_id' => $category->getKey()]);
+
+        $url = TicketitHelpers::getApiRoutePath('ticket.update', $ticket->getKey());
+
+        // validation rules can be found at config/ticketit/validation.php
+
+        // missing subject, content, priority, and others are wrong data
+        $ticketAllFields = [
+            'user_id'       => $agent->getKey(),       // unauthorized
+            'user_class'    => 'user',  // unauthorized
+            'subject'       => $this->faker->sentence(),
+            'content'       => $this->faker->paragraph(),
+            'category_id'   => $categoryUpdate->getKey(), // unauthorized
+            'status_id'     => $status->getKey(),  // unauthorized
+            'priority_id'   => $priority->getKey(),  // unauthorized
+            'agent_id'      => $agent->getKey(),  // unauthorized
+            '_token'        => csrf_token(),
+        ];
+
+        $ticketUserFields = [
+            'subject'       => $this->faker->sentence(),
+            'content'       => $this->faker->paragraph(),
+            '_token'        => csrf_token(),
+        ];
+
+        $this->actingAs($user)
+            ->json('PUT', $url, $ticketAllFields)
+            ->seeJson([
+                'user_class'    => ['You are not authorized to modify user class !'],
+                'user_id'       => ['You are not authorized to modify user id !'],
+                'status_id'     => ['You are not authorized to modify status id !'],
+                'priority_id'   => ['You are not authorized to modify priority id !'],
+                'agent_id'      => ['You are not authorized to modify agent id !'],
+            ])
+            ->seeStatusCode(422);
+
+        $this->actingAs($user)
+            ->json('PUT', $url, $ticketUserFields)
+            ->seeJson([
+                'subject'   => $ticketUserFields['subject'],
+                'content'   => $ticketUserFields['content'],
+            ])
+            ->seeStatusCode(200);
+
+        $this->actingAs($agent)
+            ->json('PUT', $url, $ticketAllFields)
+            ->seeJson(['ticketable_type' => "user"])
+            ->seeJson(['ticketable_id' => "1"])
+            ->seeJson(['subject' => $ticketAllFields['subject']])
+            ->seeJson(['content' => $ticketAllFields['content']])
+            ->seeJson(['category_id' => $ticketAllFields['category_id']])
+            ->seeJson(['status_id' => $ticketAllFields['status_id']])
+            ->seeJson(['priority_id' => $ticketAllFields['priority_id']])
             ->seeStatusCode(200);
     }
 }

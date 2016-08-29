@@ -24,7 +24,7 @@ return [
     | Validation rules for new ticket requests
     |
     */
-    'user_ticket_store' => [
+    'ticket_store' => [
         /*
          * see https://laravel.com/docs/5.1/validation
          * see https://github.com/thekordy/auzo-tools/#controller-authorize-validation-rule
@@ -38,6 +38,31 @@ return [
             'status_id'     => 'auzo.can:ticket.store.status_id|exists:'.$status_model->getTable().','.$status_model->getKeyName(),
             'priority_id'   => 'auzo.can:ticket.store.priority_id|exists:'.$priority_model->getTable().','.$priority_model->getKeyName(),
             'agent_id'      => 'auzo.can:ticket.store.agent_id|exists:'.$agent_model->getTable().','.$agent_model->getKeyName(),
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ticket update request validation
+    |--------------------------------------------------------------------------
+    |
+    | Validation rules for update ticket requests
+    |
+    */
+    'ticket_update' => [
+        /*
+         * see https://laravel.com/docs/5.1/validation
+         * see https://github.com/thekordy/auzo-tools/#controller-authorize-validation-rule
+         */
+        'rules' => [
+            'user_class'    => 'auzo.can:ticket.update.user_class',
+            'user_id'       => 'auzo.can:ticket.update.user_id',
+            'subject'       => 'min:8',
+            'content'       => 'min:24',
+            'category_id'   => 'exists:'.$category_model->getTable().','.$category_model->getKeyName(),
+            'status_id'     => 'auzo.can:ticket.update.status_id|exists:'.$status_model->getTable().','.$status_model->getKeyName(),
+            'priority_id'   => 'auzo.can:ticket.update.priority_id|exists:'.$priority_model->getTable().','.$priority_model->getKeyName(),
+            'agent_id'      => 'auzo.can:ticket.update.agent_id|exists:'.$agent_model->getTable().','.$agent_model->getKeyName(),
         ],
     ],
 ];

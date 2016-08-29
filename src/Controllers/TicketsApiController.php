@@ -112,7 +112,7 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Create a single ticket for the logged in user.
+     * Create a single ticket.
      *
      * @param Request $request
      *
@@ -121,7 +121,7 @@ class TicketsApiController extends Controller
     public function store(Request $request)
     {
         // get validation rules from config/ticketit/validation.php
-        $validation_rules = config('ticketit.validation.user_ticket_store.rules');
+        $validation_rules = config('ticketit.validation.ticket_store.rules');
 
         $this->validate($request, $validation_rules);
 
@@ -131,6 +131,33 @@ class TicketsApiController extends Controller
 
         return $ticket;
     }
+
+    /**
+     * Update a ticket.
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return mixed
+     */
+    public function update(Request $request, $id)
+    {
+        $ticket = TicketitTicket::findOrFail($id);
+
+        // get validation rules from config/ticketit/validation.php
+        $validation_rules = config('ticketit.validation.ticket_update.rules');
+
+        $this->validate($request, $validation_rules);
+
+        $ticket_data = $request->all();
+
+        $ticket = $this->updateTicketableTicket($ticket_data, $request, $ticket);
+
+        return $ticket;
+    }
+
+    // Todo delete
+    // Todo close ticket
+    // Todo reopen ticket
 
     /**
      * Filter ticket query based on filters passed in GET parameters.
@@ -229,9 +256,7 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Create a user ticket with polymorphic-relation.
-     *
-     * @see https://laravel.com/docs/5.1/eloquent-relationships#polymorphic-relations
+     * Setup new ticket attributes and create it.
      *
      * @param $ticket_data
      * @param Request $request
@@ -248,6 +273,25 @@ class TicketsApiController extends Controller
 
         // it could be done using $user->ownTicket()->create() but it won't then be auditable
         return TicketitTicket::create($ticket_data);
+    }
+
+    /**
+     * Setup the ticket attributes and update it.
+     *
+     * @param $ticket_data
+     * @param Request $request
+     *
+     * @param $ticket
+     * @return TicketitTicket
+     */
+    protected function updateTicketableTicket($ticket_data, $request, $ticket)
+    {
+
+        $ticket_data = $this->setAgentId($ticket_data, $request, $ticket);
+
+        $ticket->update($ticket_data);
+
+        return $ticket;
     }
 
     /**
@@ -342,30 +386,44 @@ class TicketsApiController extends Controller
      *
      * @param $ticket_data
      * @param Request $request
-     *
+     * @param TicketitTicket|null $ticket (optional)
      * @return array
+     * @throws \Exception
      */
-    protected function setAgentId($ticket_data, $request)
+    protected function setAgentId($ticket_data, $request, $ticket = null)
     {
+        if ($request->has('category_id')) {
+            // get new category if passed in the update request
+            $category = TicketitCategory::findOrFail($ticket_data['category_id']);
+        } else {
+            // get current category
+            $category = TicketitCategory::findOrFail($ticket->category_id);
+        }
+
+        $agent_key_name = app('TicketitAgent')->getKeyName();
+        $category_agents = $category->agents->pluck($agent_key_name)->toArray();
+
         // Find an agent in order as follow
         // 1. use agent_id if it is set in the request
         if ($request->has('agent_id')) {
-            return $ticket_data; // the agent_id is already set
+            if (in_array($ticket_data['agent_id'], $category_agents)) {
+                return $ticket_data; // the agent_id is already set
+            }
+            throw new \Exception('The agent is not a member in the selected category');
         }
 
         // 2. see the category auto assign option
-        $category = TicketitCategory::findOrFail($ticket_data['category_id']);
         $auto_assign_option = $category->auto_assign;
         $agent_id = null;
         switch ($auto_assign_option) {
             case 'least_local':
                 // auto assign to the least assigned agent, counting only this category tickets
-                $agent = $this->leastLocalAgent($category);
+                $agent = $this->leastLocalAgent($category, $category_agents);
                 $agent_id = $agent ? $agent->agent_id : null;
                 break;
             case 'least_total':
                 // auto assign to the least assigned agent, counting all agent's open tickets
-                $agent = $this->leastTotalAgent($category);
+                $agent = $this->leastTotalAgent($category_agents);
                 $agent_id = $agent ? $agent->agent_id : null;
                 break;
             case 'admin':
@@ -387,14 +445,11 @@ class TicketsApiController extends Controller
      * Get the least assigned agent to specific category.
      *
      * @param $category
-     *
+     * @param array $category_agents
      * @return Builder
      */
-    protected function leastLocalAgent($category)
+    protected function leastLocalAgent($category, $category_agents)
     {
-        $agent_key_name = app('TicketitAgent')->getKeyName();
-        $category_agents = $category->agents->pluck($agent_key_name);
-
         return DB::table('ticketit_ticket')
             ->select(DB::raw('count(*) as agent_count, agent_id'))
             ->where('closed_at', null)
@@ -408,15 +463,11 @@ class TicketsApiController extends Controller
     /**
      * Get the least assigned agent in total of agent's open tickets.
      *
-     * @param $category
-     *
+     * @param array $category_agents
      * @return Builder
      */
-    protected function leastTotalAgent($category)
+    protected function leastTotalAgent($category_agents)
     {
-        $agent_key_name = app('TicketitAgent')->getKeyName();
-        $category_agents = $category->agents->pluck($agent_key_name);
-
         return DB::table('ticketit_ticket')
             ->select(DB::raw('count(*) as agent_count, agent_id'))
             ->where('closed_at', null)

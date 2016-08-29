@@ -19,7 +19,7 @@ class AddAdminIdAndAutoAssignToTicketitCategories extends Migration
                     ->references(app('TicketitAgent')->getKeyName())
                     ->on(app('TicketitAgent')->getTable());
 
-                $table->string('auto_assign')->default('least_local'); // options are 'least_local', 'least_total', 'admin'
+                $table->string('auto_assign')->default('least_total'); // options are 'least_local', 'least_total', 'admin'
             });
         }
     }

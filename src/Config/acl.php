@@ -151,7 +151,7 @@ return [
         | Store Ticket fields
         |--------------------------------------------------------------------------
         |
-        | Ticket Fields permissions
+        | Ticket Fields store  permissions
         |
         | Only $policies['user'], $policies['agent'], and $policies['administrator']
         | are applicable.
@@ -171,6 +171,51 @@ return [
             $policies['agent'],
         ],
         'ticket.store.agent_id' => [
+            $policies['agent'],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Ticket by user
+        |--------------------------------------------------------------------------
+        |
+        | Update a single ticket
+        |
+        | Only $policies['user'], $policies['agent'], and $policies['administrator']
+        | are applicable.
+        |
+        */
+
+        'ticket.update' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Ticket fields
+        |--------------------------------------------------------------------------
+        |
+        | Ticket Fields update permissions
+        |
+        | Only $policies['user'], $policies['agent'], and $policies['administrator']
+        | are applicable.
+        |
+        */
+        // user_class and user_id allows user to create tickets for others
+        'ticket.update.user_class' => [
+            $policies['agent'],
+        ],
+        'ticket.update.user_id' => [
+            $policies['agent'],
+        ],
+        'ticket.update.status_id' => [
+            $policies['agent'],
+        ],
+        'ticket.update.priority_id' => [
+            $policies['agent'],
+        ],
+        'ticket.update.agent_id' => [
             $policies['agent'],
         ],
     ],

@@ -452,4 +452,25 @@ class RoutesAPITest extends TicketitTestCase
             ->seeJson(['priority_id' => $ticketAllFields['priority_id']])
             ->seeStatusCode(200);
     }
+
+    /**
+     * Access ticket uses it token.
+     *
+     * @test
+     */
+    public function access_ticket_using_ticket_access_token()
+    {
+        $ticketOne = $this->createTicket();
+        $ticketTwo = $this->createTicket();
+
+        $this->json('GET', route('api.ticket.token.show', $ticketOne->access_token))
+            ->seeJson([
+                'subject' => $ticketOne->subject
+            ])
+            ->dontSeeJson([
+                'subject' => $ticketTwo->subject
+            ]);
+    }
+
+
 }

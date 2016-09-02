@@ -110,6 +110,7 @@ trait ModelsFakerOperationsTrait
 
     protected function createTicket($params = [])
     {
+        $params['access_token'] = isset($params['access_token']) ? $params['access_token'] : str_random(40);
         $params['subject'] = isset($params['subject']) ? $params['subject'] : $this->faker->text(30);
         $params['content'] = isset($params['content']) ? $params['content'] : $this->faker->text(200);
         $params['status_id'] = isset($params['status_id']) ? $params['status_id'] : $this->createStatus()->id;

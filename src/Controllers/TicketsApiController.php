@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
+use Auth;
 use DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
@@ -107,6 +108,22 @@ class TicketsApiController extends Controller
         $query = TicketitTicket::with($this->get_with_relations);
 
         $ticket = $query->findOrFail($id);
+
+        return $ticket;
+    }
+
+    /**
+     * Get a single ticket using its access token value.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
+    public function showByToken($token)
+    {
+        $query = TicketitTicket::with($this->get_with_relations);
+
+        $ticket = $query->where('access_token', $token)->firstOrFail();
 
         return $ticket;
     }
@@ -271,7 +288,10 @@ class TicketsApiController extends Controller
 
         $ticket_data = $this->setTicketableUser($ticket_data, $request);
 
+        $ticket_data = $this->generateAccessToken($ticket_data);
+
         // it could be done using $user->ownTicket()->create() but it won't then be auditable
+        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
         return TicketitTicket::create($ticket_data);
     }
 
@@ -289,6 +309,7 @@ class TicketsApiController extends Controller
 
         $ticket_data = $this->setAgentId($ticket_data, $request, $ticket);
 
+        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
         $ticket->update($ticket_data);
 
         return $ticket;
@@ -299,37 +320,34 @@ class TicketsApiController extends Controller
      *
      * @param $ticket_data
      * @param Request $request
-     *
      * @return array
+     * @throws \Exception
      */
     protected function setTicketableUser($ticket_data, $request)
     {
-        $user = \Auth::user();
-
-        // user_class relates to the custom morphmap settings in config/ticketit/models.php
-        if ($request->has('user_class')) {
-            $ticketable_class = $ticket_data['user_class'];
-        } else {
-            $ticketable_class = $user->ownTickets()->getMorphClass(); // 'user'
-        }
-
-        if ($request->has('user_id')) {
-            $ticketable_id_value = $ticket_data['user_id'];
-        } else {
-            $ticketable_id_value = $user->getKey(); // user primary key value
-        }
-
-        $ticketable_type = $user->ownTickets()->getPlainMorphType(); // 'ticketable_type'
-        $ticketable_id = $user->ownTickets()->getPlainForeignKey(); // 'ticktable_id'
-
-        if ($ticketable_type) {
-            $ticket_data[$ticketable_type] = $ticketable_class;
-            $ticket_data[$ticketable_id] = $ticketable_id_value;
+        if ($request->has('user_class') && $request->has('user_id')) {
+            // submitted for a user
+            $ticket_data['ticketable_type'] = $request->input('user_class');
+            $ticket_data['ticketable_id'] = $request->input('user_id');
 
             return $ticket_data;
-        }
 
-        return $ticket_data;
+        } elseif (Auth::check()) {
+            // submitted by a user for himself
+            $user = \Auth::user();
+
+            // user_class relates to the custom morphmap settings in config/ticketit/models.php
+            $ticketable_class = $user->ownTickets()->getMorphClass(); // 'user'
+            $ticketable_id_value = $user->getKey(); // user primary key value
+
+            $ticket_data['ticketable_type'] = $ticketable_class;
+            $ticket_data['ticketable_id'] = $ticketable_id_value;
+
+            return $ticket_data;
+
+        } else {
+            throw new \Exception('Could not determine a user for this ticket!');
+        }
     }
 
     /**
@@ -416,27 +434,25 @@ class TicketsApiController extends Controller
         $auto_assign_option = $category->auto_assign;
         $agent_id = null;
         switch ($auto_assign_option) {
+            case 'manual':
+                // manual assignment, to be assigned later by the category admin
+                $ticket_data['agent_id'] = null;
+                break;
             case 'least_local':
                 // auto assign to the least assigned agent, counting only this category tickets
                 $agent = $this->leastLocalAgent($category, $category_agents);
-                $agent_id = $agent ? $agent->agent_id : null;
+                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents()->firstOrFail()->getKey();
                 break;
             case 'least_total':
                 // auto assign to the least assigned agent, counting all agent's open tickets
                 $agent = $this->leastTotalAgent($category_agents);
-                $agent_id = $agent ? $agent->agent_id : null;
+                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents()->firstOrFail()->getKey();
                 break;
             case 'admin':
                 // assign to the category admin_id
-                $agent_id = $category->admin_id;
+                $ticket_data['agent_id'] = $category->admin_id;
                 break;
         }
-
-        // if no tickets count, assign to the first agent in the category
-        if (!$agent_id) {
-            $agent_id = $category->agents()->firstOrFail()->getKey();
-        }
-        $ticket_data['agent_id'] = $agent_id;
 
         return $ticket_data;
     }
@@ -475,5 +491,21 @@ class TicketsApiController extends Controller
             ->groupBy('agent_id')
             ->orderBy('agent_count', 'asc')
             ->first();
+    }
+
+    /**
+     * Generate a unique secured access token.
+     *
+     * @param $ticket_data
+     * @return mixed
+     */
+    protected function generateAccessToken($ticket_data)
+    {
+        do {
+            $unique_token = bin2hex(openssl_random_pseudo_bytes(40));
+        } while (TicketitTicket::where('access_token', $unique_token)->count() > 0);
+
+        $ticket_data['access_token'] = $unique_token;
+        return $ticket_data;
     }
 }

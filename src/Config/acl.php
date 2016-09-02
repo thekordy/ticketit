@@ -12,6 +12,15 @@ $policies = [
 ];
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Token access
+    |--------------------------------------------------------------------------
+    |
+    | Allow unauthenticated users to access tickets using their access_token.
+    |
+    */
+    'allow_token_access' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -157,7 +166,10 @@ return [
         | are applicable.
         |
         */
-        // user_class and user_id allows user to create tickets for others
+        // guest_ticket, user_class and user_id allows user to create tickets for others
+        'ticket.store.notification_email' => [
+            $policies['agent'],
+        ],
         'ticket.store.user_class' => [
             $policies['agent'],
         ],
@@ -202,7 +214,10 @@ return [
         | are applicable.
         |
         */
-        // user_class and user_id allows user to create tickets for others
+        // guest_ticket, user_class and user_id allows user to create tickets for others
+        'ticket.update.notification_email' => [
+            $policies['agent'],
+        ],
         'ticket.update.user_class' => [
             $policies['agent'],
         ],

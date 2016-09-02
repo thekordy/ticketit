@@ -172,5 +172,22 @@ return [
                 'as'         => 'api.ticket.update',
             ],
         ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | API ticket.token.show
+        |--------------------------------------------------------------------------
+        |
+        | Show a single ticket by its access token
+        |
+        */
+        'ticket.token.show' => [
+            'path'       => '/api/ticket/guest/{token}',
+            'method'     => 'get',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@showByToken',
+                'as'         => 'api.ticket.token.show',
+            ],
+        ],
     ],
 ];

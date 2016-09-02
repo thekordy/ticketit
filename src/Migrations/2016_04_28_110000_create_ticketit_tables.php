@@ -28,6 +28,12 @@ class CreateTicketitTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('color');
+            $table->integer('admin_id')->unsigned()->nullable();
+            $table->foreign('admin_id')
+                ->references(app('TicketitAgent')->getKeyName())
+                ->on(app('TicketitAgent')->getTable());
+            // options are 'least_local', 'least_total', 'admin', 'manual'
+            $table->string('auto_assign')->default('least_total');
         });
 
         Schema::create('ticketit_category_agent', function (Blueprint $table) {
@@ -50,10 +56,20 @@ class CreateTicketitTables extends Migration
             $table->string('subject')->index();
             $table->longText('content');
 
-            // enable different models to create tickets such as user, agent, admin, .. etc
-            $table->morphs('ticketable');
+            // for guest ticket access
+            $table->string('access_token', 40)->unique();
 
-            $table->integer('agent_id')->unsigned();
+            // for guest ticket access
+            $table->string('notification_email')->nullable();
+
+            // enable different models to create tickets such as user, agent, admin, .. etc or null for guests/emails
+            $table->string('ticketable_type')->nullable();
+            $table->integer('ticketable_id')->unsigned()->nullable();
+
+            $table->index(['ticketable_type', 'ticketable_id']);
+
+
+            $table->integer('agent_id')->unsigned()->nullable();
             $table->foreign('agent_id')
                 ->references(app('TicketitAgent')->getKeyName())
                 ->on(app('TicketitAgent')->getTable());

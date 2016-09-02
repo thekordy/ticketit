@@ -19,7 +19,10 @@ class TicketitTicket extends Model
         'status_id',
         'priority_id',
         'category_id',
+        'access_token',
+        'notification_email',
     ];
+    protected $hidden = ['access_token'];
     protected $table = 'ticketit_ticket';
     protected $dates = ['created_at', 'updated_at'];
 }

@@ -67,4 +67,5 @@ return [
             'agent_id'              => 'auzo.can:ticket.update.agent_id|exists:'.$agent_model->getTable().','.$agent_model->getKeyName(),
         ],
     ],
+
 ];

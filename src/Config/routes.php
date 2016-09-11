@@ -139,6 +139,23 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | API ticket.token.show
+        |--------------------------------------------------------------------------
+        |
+        | Show a single ticket by its access token
+        |
+        */
+        'ticket.token.show' => [
+            'path'       => '/api/ticket/token/{token}',
+            'method'     => 'get',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@showByToken',
+                'as'         => 'api.ticket.token.show',
+            ],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
         | API ticket.store
         |--------------------------------------------------------------------------
         |
@@ -175,18 +192,19 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | API ticket.token.show
+        | API ticket.destroy
         |--------------------------------------------------------------------------
         |
-        | Show a single ticket by its access token
+        | Store a single ticket
         |
         */
-        'ticket.token.show' => [
-            'path'       => '/api/ticket/guest/{token}',
-            'method'     => 'get',
+        'ticket.destroy' => [
+            'path'       => '/api/tickets/{id}',
+            'method'     => 'delete',
             'parameters' => [
-                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@showByToken',
-                'as'         => 'api.ticket.token.show',
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@destroy',
+                'middleware' => 'auzo.acl:ticket.destroy',
+                'as'         => 'api.ticket.destroy',
             ],
         ],
     ],

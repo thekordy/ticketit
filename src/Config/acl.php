@@ -1,14 +1,15 @@
 <?php
 
 $policies = [
-    'user'              => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
-    'owner'             => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
-    'agent'             => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
-    'assigned'          => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
-    'assigned_team'     => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
-    'category_team'     => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
-    'category_admin'    => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryAdmin',
-    'administrator'     => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
+    'user'                  => 'Kordy\Ticketit\Policies\TicketPolicies@isUser',
+    'owner'                 => 'Kordy\Ticketit\Policies\TicketPolicies@isOwner',
+    'agent'                 => 'Kordy\Ticketit\Policies\TicketPolicies@isAgent',
+    'assigned'              => 'Kordy\Ticketit\Policies\TicketPolicies@isAssigned',
+    'assigned_team'         => 'Kordy\Ticketit\Policies\TicketPolicies@isAssignedTeam',
+    'ticket_category_admin' => 'Kordy\Ticketit\Policies\TicketPolicies@isTicketCategoryAdmin',
+    'category_team'         => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryTeam',
+    'category_admin'        => 'Kordy\Ticketit\Policies\TicketPolicies@isCategoryAdmin',
+    'administrator'         => 'Kordy\Ticketit\Policies\TicketPolicies@isAdministrator',
 ];
 
 return [
@@ -39,9 +40,11 @@ return [
     | owner: the user who created the ticket
     | agent: any agent
     | assigned: the agent who is assigned to the ticket
-    | assignedTeam: agents who are in the same category as the assigned agent
-    | categoryTeam: agents who are assigned to specific category (cat id must
+    | ticket_category_admin: admin of the category that is set to the ticket
+    | assigned_Team: agents who are in the same category as the assigned agent
+    | category_team: agents who are assigned to specific category (cat id must
     |                be available in the request)
+    | category_admin: admin of specific category (user id == category admin_id)
     |
     */
 
@@ -95,8 +98,8 @@ return [
         | Get all tickets for specific category
         | (by ticket category_id field)
         |
-        | Only $policies['user'], $policies['agent'], $policies['administrator']
-        | and $policies['categoryTeam'] are applicable.
+        | Only $policies['user'], $policies['agent'], $policies['administrator'],
+        | $policies['category_team'], and $policies['category_admin'] are applicable.
         |
         */
 
@@ -111,8 +114,8 @@ return [
         |
         | Get all tickets for all users
         |
-        | Only $policies['user'], $policies['agent'], $policies['administrator']
-        | and $policies['categoryTeam'] are applicable.
+        | Only $policies['user'], $policies['agent'], $policies['administrator'],
+        | $policies['category_team'], and $policies['category_admin'] are applicable.
         |
         */
 
@@ -128,7 +131,8 @@ return [
         | Show a single ticket
         |
         | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
-        | $policies['agent'], and $policies['administrator'] are applicable.
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
         |
         */
 
@@ -193,8 +197,9 @@ return [
         |
         | Update a single ticket
         |
-        | Only $policies['user'], $policies['agent'], and $policies['administrator']
-        | are applicable.
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
         |
         */
 
@@ -210,8 +215,9 @@ return [
         |
         | Ticket Fields update permissions
         |
-        | Only $policies['user'], $policies['agent'], and $policies['administrator']
-        | are applicable.
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
         |
         */
         // guest_ticket, user_class and user_id allows user to create tickets for others
@@ -232,6 +238,23 @@ return [
         ],
         'ticket.update.agent_id' => [
             $policies['agent'],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Delete a Ticket
+        |--------------------------------------------------------------------------
+        |
+        | Delete a single ticket
+        |
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
+        |
+        */
+
+        'ticket.destroy' => [
+            $policies['ticket_category_admin']
         ],
     ],
 ];

@@ -117,7 +117,7 @@ class TicketsApiController extends Controller
      *
      * @param string $token
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function showByToken($token)
     {
@@ -144,7 +144,7 @@ class TicketsApiController extends Controller
 
         $ticket_data = $request->all();
 
-        $ticket = $this->createTicketableTicket($ticket_data, $request);
+        $ticket = $this->createTicketableTicket($ticket_data);
 
         return $ticket;
     }
@@ -167,14 +167,67 @@ class TicketsApiController extends Controller
 
         $ticket_data = $request->all();
 
-        $ticket = $this->updateTicketableTicket($ticket_data, $request, $ticket);
+        $ticket = $this->updateTicketableTicket($ticket_data, $ticket);
 
         return $ticket;
     }
 
-    // Todo delete
+    /**
+     * Setup new ticket attributes and create it.
+     *
+     * @param $ticket_data
+     *
+     * @return TicketitTicket
+     */
+    public function createTicketableTicket($ticket_data)
+    {
+        $ticket_data = $this->setStatusAndPriorityIds($ticket_data);
+
+        $ticket_data = $this->setAgentId($ticket_data);
+
+        $ticket_data = $this->setTicketableUser($ticket_data);
+
+        $ticket_data = $this->generateAccessToken($ticket_data);
+
+        // it could be done using $user->ownTicket()->create() but it won't then be auditable
+        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
+        return TicketitTicket::create($ticket_data);
+    }
+
+    /**
+     * Setup the ticket attributes and update it.
+     *
+     * @param $ticket_data
+     *
+     * @param $ticket
+     * @return TicketitTicket
+     */
+    public function updateTicketableTicket($ticket_data, $ticket)
+    {
+
+        $ticket_data = $this->setAgentId($ticket_data, $ticket);
+
+        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
+        $ticket->update($ticket_data);
+
+        return $ticket;
+    }
+
+    /**
+     * Destroy the given ticket.
+     *
+     * @param  string|int  $id
+     * @return int
+     */
+    public function destroy($id)
+    {
+        return TicketitTicket::destroy($id);
+    }
+
+    // Todo store for guests (token ticket with no user) with/without email verification
     // Todo close ticket
     // Todo reopen ticket
+    // Todo email notifications (configurable)
 
     /**
      * Filter ticket query based on filters passed in GET parameters.
@@ -273,62 +326,18 @@ class TicketsApiController extends Controller
     }
 
     /**
-     * Setup new ticket attributes and create it.
-     *
-     * @param $ticket_data
-     * @param Request $request
-     *
-     * @return TicketitTicket
-     */
-    protected function createTicketableTicket($ticket_data, $request)
-    {
-        $ticket_data = $this->setStatusAndPriorityIds($ticket_data, $request);
-
-        $ticket_data = $this->setAgentId($ticket_data, $request);
-
-        $ticket_data = $this->setTicketableUser($ticket_data, $request);
-
-        $ticket_data = $this->generateAccessToken($ticket_data);
-
-        // it could be done using $user->ownTicket()->create() but it won't then be auditable
-        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
-        return TicketitTicket::create($ticket_data);
-    }
-
-    /**
-     * Setup the ticket attributes and update it.
-     *
-     * @param $ticket_data
-     * @param Request $request
-     *
-     * @param $ticket
-     * @return TicketitTicket
-     */
-    protected function updateTicketableTicket($ticket_data, $request, $ticket)
-    {
-
-        $ticket_data = $this->setAgentId($ticket_data, $request, $ticket);
-
-        // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
-        $ticket->update($ticket_data);
-
-        return $ticket;
-    }
-
-    /**
      * Set the user owner of the ticket, whether the logged in user or the passed post attr user_class and user_id.
      *
      * @param $ticket_data
-     * @param Request $request
      * @return array
      * @throws \Exception
      */
-    protected function setTicketableUser($ticket_data, $request)
+    protected function setTicketableUser($ticket_data)
     {
-        if ($request->has('user_class') && $request->has('user_id')) {
+        if (! empty($ticket_data['user_class']) && ! empty($ticket_data['user_id'])) {
             // submitted for a user
-            $ticket_data['ticketable_type'] = $request->input('user_class');
-            $ticket_data['ticketable_id'] = $request->input('user_id');
+            $ticket_data['ticketable_type'] = $ticket_data['user_class'];
+            $ticket_data['ticketable_id'] = $ticket_data['user_id'];
 
             return $ticket_data;
 
@@ -351,15 +360,16 @@ class TicketsApiController extends Controller
     }
 
     /**
+     * Set status and priority to default if not set in the request
+     *
      * @param $ticket_data
-     * @param Request $request
      *
      * @return array
      */
-    protected function setStatusAndPriorityIds($ticket_data, $request)
+    protected function setStatusAndPriorityIds($ticket_data)
     {
         // if not passed, set status_id as default_status_id in config/ticketit/ticket.php
-        if (!$request->has('status_id')) {
+        if (empty($ticket_data['status_id'])) {
             $default_status_id = config('ticketit.ticket.default_status_id');
 
             switch ($default_status_id) {
@@ -378,7 +388,7 @@ class TicketsApiController extends Controller
         }
 
         // if not passed, set status_id as default_priority_id in config/ticketit/ticket.php
-        if (!$request->has('priority_id')) {
+        if (empty($ticket_data['priority_id'])) {
             $default_priority_id = config('ticketit.ticket.default_priority_id');
 
             switch ($default_priority_id) {
@@ -403,27 +413,17 @@ class TicketsApiController extends Controller
      * Set agent for the ticket.
      *
      * @param $ticket_data
-     * @param Request $request
      * @param TicketitTicket|null $ticket (optional)
      * @return array
      * @throws \Exception
      */
-    protected function setAgentId($ticket_data, $request, $ticket = null)
+    protected function setAgentId($ticket_data, $ticket = null)
     {
-        if ($request->has('category_id')) {
-            // get new category if passed in the update request
-            $category = TicketitCategory::findOrFail($ticket_data['category_id']);
-        } else {
-            // get current category
-            $category = TicketitCategory::findOrFail($ticket->category_id);
-        }
-
-        $agent_key_name = app('TicketitAgent')->getKeyName();
-        $category_agents = $category->agents->pluck($agent_key_name)->toArray();
+        list($category, $category_agents) = $this->getCategoryAgents($ticket_data, $ticket);
 
         // Find an agent in order as follow
         // 1. use agent_id if it is set in the request
-        if ($request->has('agent_id')) {
+        if (! empty($ticket_data['agent_id'])) {
             if (in_array($ticket_data['agent_id'], $category_agents)) {
                 return $ticket_data; // the agent_id is already set
             }
@@ -441,12 +441,12 @@ class TicketsApiController extends Controller
             case 'least_local':
                 // auto assign to the least assigned agent, counting only this category tickets
                 $agent = $this->leastLocalAgent($category, $category_agents);
-                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents()->firstOrFail()->getKey();
+                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents->first()->getKey();
                 break;
             case 'least_total':
                 // auto assign to the least assigned agent, counting all agent's open tickets
                 $agent = $this->leastTotalAgent($category_agents);
-                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents()->firstOrFail()->getKey();
+                $ticket_data['agent_id'] = $agent ? $agent->agent_id : $category->agents->first()->getKey();
                 break;
             case 'admin':
                 // assign to the category admin_id
@@ -507,5 +507,34 @@ class TicketsApiController extends Controller
 
         $ticket_data['access_token'] = $unique_token;
         return $ticket_data;
+    }
+
+    /**
+     * @param $ticket_data
+     * @param $ticket
+     * @return array
+     * @throws \Exception
+     */
+    protected function getCategoryAgents($ticket_data, $ticket)
+    {
+        if (! empty($ticket_data['category_id'])) {
+            // get new category if passed in the update request
+            $category = TicketitCategory::with('agents')->findOrFail($ticket_data['category_id']);
+        } else {
+            $ticket_ins = app('TicketitTicket');
+            if (!$ticket instanceof $ticket_ins) {
+                throw new \Exception('You have to pass the category id or ticket instance!');
+            }
+            // get current category
+            $category = TicketitCategory::with('agents')->findOrFail($ticket->category_id);
+        }
+
+        $agent_key_name = app('TicketitAgent')->getKeyName();
+        $category_agents = $category->agents->pluck($agent_key_name)->toArray();
+
+        if (empty($category_agents)) {
+            throw new \Exception($category->name . ' does not have agents, please assign at least one!');
+        }
+        return [$category, $category_agents];
     }
 }

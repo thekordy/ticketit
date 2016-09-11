@@ -472,5 +472,41 @@ class RoutesAPITest extends TicketitTestCase
             ]);
     }
 
+    /**
+     * Destroy a ticket
+     *
+     * @test
+     */
+    public function destroy_ticket()
+    {
+        \Session::start();
+
+        $user = $this->createUser();
+        $agent = $this->createAgent();
+        $categoryAdmin = $this->createAgent();
+
+        $categoy = $this->createCategory();
+        $categoy->addAgent([$agent->id, $categoryAdmin->getKey()]);
+        $categoy->assignAdmin($categoryAdmin->getKey());
+
+        $ticket = $this->createTicket([
+            'user' => $user,
+            'category_id' => $categoy->getKey(),
+            'agent_id' => $agent->getKey(),
+        ]);
+        // only this ticket category admin, can delete it (per acl.php config)
+        $this->actingAs($user)
+            ->json('delete', route('api.ticket.destroy', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(403);
+
+        $this->actingAs($agent)
+            ->json('delete', route('api.ticket.destroy', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(403);
+
+        $this->actingAs($categoryAdmin)
+            ->json('delete', route('api.ticket.destroy', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(200);
+    }
+
 
 }

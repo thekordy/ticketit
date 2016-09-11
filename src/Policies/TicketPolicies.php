@@ -155,6 +155,28 @@ class TicketPolicies
     }
 
     /**
+     * Check if user is isTicketCategoryAdmin.
+     *
+     * @param $user
+     * @param string|null $ability (optional)
+     * @param object|null $model   (optional)
+     *
+     * @return bool
+     */
+    public function isTicketCategoryAdmin($user, $ability = null, $model = null)
+    {
+        $agent_instance = app('TicketitAgent');
+
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
+
+        if ($user instanceof $agent_instance) {
+            return $ticket->category->admin_id == $user->getKey();
+        }
+
+        return false;
+    }
+
+    /**
      * Check passed model if null, then try to get it from the request route parameters.
      *
      * @param $model

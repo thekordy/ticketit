@@ -19,7 +19,7 @@ trait TicketitTicketTrait
 
     /**
      * Ticket user info.
-     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json.
      *
      * @return array|null
      */
@@ -28,11 +28,10 @@ trait TicketitTicketTrait
         $user = \TicketitUser::find($this->ticketable_id);
         if ($user) {
             return [
-                'name' => $user->name,
+                'name'  => $user->name,
                 'email' => $user->email,
             ];
         }
-        return null;
     }
 
     /**
@@ -47,7 +46,7 @@ trait TicketitTicketTrait
 
     /**
      * Ticket agent info.
-     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json.
      *
      * @return array|null
      */
@@ -59,7 +58,6 @@ trait TicketitTicketTrait
                 'name' => $agent->name,
             ];
         }
-        return null;
     }
 
     /**
@@ -74,7 +72,7 @@ trait TicketitTicketTrait
 
     /**
      * Ticket status info.
-     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json.
      *
      * @return array|null
      */
@@ -83,11 +81,10 @@ trait TicketitTicketTrait
         $status = \TicketitStatus::find($this->status_id);
         if ($status) {
             return [
-                'name' => $status->name,
+                'name'  => $status->name,
                 'color' => $status->color,
             ];
         }
-        return null;
     }
 
     /**
@@ -102,7 +99,7 @@ trait TicketitTicketTrait
 
     /**
      * Ticket priority info.
-     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json.
      *
      * @return array|null
      */
@@ -111,11 +108,10 @@ trait TicketitTicketTrait
         $priority = \TicketitPriority::find($this->priority_id);
         if ($priority) {
             return [
-                'name' => $priority->name,
+                'name'  => $priority->name,
                 'color' => $priority->color,
             ];
         }
-        return null;
     }
 
     /**
@@ -130,7 +126,7 @@ trait TicketitTicketTrait
 
     /**
      * Ticket category info.
-     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json.
      *
      * @return array|null
      */
@@ -139,11 +135,10 @@ trait TicketitTicketTrait
         $category = \TicketitCategory::find($this->category_id);
         if ($category) {
             return [
-                'name' => $category->name,
+                'name'  => $category->name,
                 'color' => $category->color,
             ];
         }
-        return null;
     }
 
     /**

@@ -52,12 +52,14 @@ trait TicketitCategoryTrait
      * Assign an agent as an admin to this category.
      *
      * @param int $agent_id
+     *
      * @return $this
      */
     public function assignAdmin($agent_id)
     {
         $this->admin_id = $agent_id;
         $this->save();
+
         return $this;
     }
 

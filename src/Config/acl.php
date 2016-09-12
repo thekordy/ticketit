@@ -315,7 +315,7 @@ return [
         */
 
         'ticket.destroy' => [
-            $policies['ticket_category_admin']
+            $policies['ticket_category_admin'],
         ],
 
         /*
@@ -333,7 +333,7 @@ return [
 
         'ticket.close' => [
             $policies['owner'],
-            ['or' => $policies['agent']]
+            ['or' => $policies['agent']],
         ],
 
         /*
@@ -351,7 +351,7 @@ return [
 
         'ticket.reopen' => [
             $policies['owner'],
-            ['or' => $policies['agent']]
+            ['or' => $policies['agent']],
         ],
     ],
 ];

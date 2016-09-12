@@ -152,7 +152,8 @@ class TicketsApiController extends Controller
      * Update a ticket.
      *
      * @param Request $request
-     * @param integer $id
+     * @param int     $id
+     *
      * @return mixed
      */
     public function update(Request $request, $id)
@@ -199,13 +200,12 @@ class TicketsApiController extends Controller
      * Setup the ticket attributes and update it.
      *
      * @param $ticket_data
-     *
      * @param $ticket
+     *
      * @return TicketitTicket
      */
     public function updateTicketableTicket($ticket_data, $ticket)
     {
-
         $ticket_data = $this->setAgentId($ticket_data, $ticket);
 
         // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
@@ -217,7 +217,8 @@ class TicketsApiController extends Controller
     /**
      * Destroy the given ticket.
      *
-     * @param  string|int  $id
+     * @param string|int $id
+     *
      * @return int
      */
     public function destroy($id)
@@ -228,7 +229,8 @@ class TicketsApiController extends Controller
     /**
      * Close the given ticket.
      *
-     * @param  string|int  $id
+     * @param string|int $id
+     *
      * @return mixed
      */
     public function close($id)
@@ -243,7 +245,8 @@ class TicketsApiController extends Controller
     /**
      * Reopen the given ticket.
      *
-     * @param  string|int  $id
+     * @param string|int $id
+     *
      * @return mixed
      */
     public function reopen($id)
@@ -358,18 +361,19 @@ class TicketsApiController extends Controller
      * Set the user owner of the ticket, whether the logged in user or the passed post attr user_class and user_id.
      *
      * @param $ticket_data
-     * @return array
+     *
      * @throws \Exception
+     *
+     * @return array
      */
     protected function setTicketableUser($ticket_data)
     {
-        if (! empty($ticket_data['user_class']) && ! empty($ticket_data['user_id'])) {
+        if (!empty($ticket_data['user_class']) && !empty($ticket_data['user_id'])) {
             // submitted for a user
             $ticket_data['ticketable_type'] = $ticket_data['user_class'];
             $ticket_data['ticketable_id'] = $ticket_data['user_id'];
 
             return $ticket_data;
-
         } elseif (Auth::check()) {
             // submitted by a user for himself
             $user = \Auth::user();
@@ -382,14 +386,13 @@ class TicketsApiController extends Controller
             $ticket_data['ticketable_id'] = $ticketable_id_value;
 
             return $ticket_data;
-
         } else {
             throw new \Exception('Could not determine a user for this ticket!');
         }
     }
 
     /**
-     * Set status and priority to default if not set in the request
+     * Set status and priority to default if not set in the request.
      *
      * @param $ticket_data
      *
@@ -443,8 +446,10 @@ class TicketsApiController extends Controller
      *
      * @param $ticket_data
      * @param TicketitTicket|null $ticket (optional)
-     * @return array
+     *
      * @throws \Exception
+     *
+     * @return array
      */
     protected function setAgentId($ticket_data, $ticket = null)
     {
@@ -452,7 +457,7 @@ class TicketsApiController extends Controller
 
         // Find an agent in order as follow
         // 1. use agent_id if it is set in the request
-        if (! empty($ticket_data['agent_id'])) {
+        if (!empty($ticket_data['agent_id'])) {
             if (in_array($ticket_data['agent_id'], $category_agents)) {
                 return $ticket_data; // the agent_id is already set
             }
@@ -491,6 +496,7 @@ class TicketsApiController extends Controller
      *
      * @param $category
      * @param array $category_agents
+     *
      * @return Builder
      */
     protected function leastLocalAgent($category, $category_agents)
@@ -509,6 +515,7 @@ class TicketsApiController extends Controller
      * Get the least assigned agent in total of agent's open tickets.
      *
      * @param array $category_agents
+     *
      * @return Builder
      */
     protected function leastTotalAgent($category_agents)
@@ -526,6 +533,7 @@ class TicketsApiController extends Controller
      * Generate a unique secured access token.
      *
      * @param $ticket_data
+     *
      * @return mixed
      */
     protected function generateAccessToken($ticket_data)
@@ -535,18 +543,21 @@ class TicketsApiController extends Controller
         } while (TicketitTicket::where('access_token', $unique_token)->count() > 0);
 
         $ticket_data['access_token'] = $unique_token;
+
         return $ticket_data;
     }
 
     /**
      * @param $ticket_data
      * @param $ticket
-     * @return array
+     *
      * @throws \Exception
+     *
+     * @return array
      */
     protected function getCategoryAgents($ticket_data, $ticket)
     {
-        if (! empty($ticket_data['category_id'])) {
+        if (!empty($ticket_data['category_id'])) {
             // get new category if passed in the update request
             $category = TicketitCategory::with('agents')->findOrFail($ticket_data['category_id']);
         } else {
@@ -562,8 +573,9 @@ class TicketsApiController extends Controller
         $category_agents = $category->agents->pluck($agent_key_name)->toArray();
 
         if (empty($category_agents)) {
-            throw new \Exception($category->name . ' does not have agents, please assign at least one!');
+            throw new \Exception($category->name.' does not have agents, please assign at least one!');
         }
+
         return [$category, $category_agents];
     }
 }

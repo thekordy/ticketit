@@ -260,7 +260,7 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($user)
             ->json('GET', $last_ticket_url)
             ->seeJson([
-                'agent_info' => ['name' => $agentOne->name]  // agentOne least agent in total tickets count
+                'agent_info' => ['name' => $agentOne->name],  // agentOne least agent in total tickets count
             ]);
 
         // auto assign to the least by counting only category tickets
@@ -276,7 +276,7 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($user)
             ->json('Get', $last_ticket_url)
             ->seeJson([
-                'agent_info' => ['name' => $agentThree->name] // agentThree least agent in categoryOne with least_local tickets count
+                'agent_info' => ['name' => $agentThree->name], // agentThree least agent in categoryOne with least_local tickets count
             ]);
     }
 
@@ -456,7 +456,7 @@ class RoutesAPITest extends TicketitTestCase
 
         $this->actingAs($agent)
             ->json('Get', $ticket_show_url)
-            ->seeJson(['user_info' => ["email" => $user->email, "name" => $user->name]])
+            ->seeJson(['user_info' => ['email' => $user->email, 'name' => $user->name]])
             ->seeJson(['subject' => $ticketAllFields['subject']])
             ->seeJson(['content' => $ticketAllFields['content']])
             ->seeJson(['category_info' => ['color' => $categoryUpdate->color, 'name' => $categoryUpdate->name]])
@@ -476,15 +476,15 @@ class RoutesAPITest extends TicketitTestCase
 
         $this->json('GET', route('api.ticket.token.show', $ticketOne->access_token))
             ->seeJson([
-                'subject' => $ticketOne->subject
+                'subject' => $ticketOne->subject,
             ])
             ->dontSeeJson([
-                'subject' => $ticketTwo->subject
+                'subject' => $ticketTwo->subject,
             ]);
     }
 
     /**
-     * Destroy a ticket
+     * Destroy a ticket.
      *
      * @test
      */
@@ -501,9 +501,9 @@ class RoutesAPITest extends TicketitTestCase
         $categoy->assignAdmin($categoryAdmin->getKey());
 
         $ticket = $this->createTicket([
-            'user' => $user,
+            'user'        => $user,
             'category_id' => $categoy->getKey(),
-            'agent_id' => $agent->getKey(),
+            'agent_id'    => $agent->getKey(),
         ]);
         // only this ticket category admin, can delete it (per acl.php config)
         $this->actingAs($user)
@@ -520,7 +520,7 @@ class RoutesAPITest extends TicketitTestCase
     }
 
     /**
-     * Close a ticket
+     * Close a ticket.
      *
      * @test
      */
@@ -559,7 +559,7 @@ class RoutesAPITest extends TicketitTestCase
     }
 
     /**
-     * Close a ticket
+     * Close a ticket.
      *
      * @test
      */
@@ -600,6 +600,4 @@ class RoutesAPITest extends TicketitTestCase
         $ticket = \TicketitTicket::find(1);
         $this->assertTrue($ticket->closed_at == null);
     }
-
-
 }

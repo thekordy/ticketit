@@ -18,6 +18,24 @@ trait TicketitTicketTrait
     }
 
     /**
+     * Ticket user info.
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     *
+     * @return array|null
+     */
+    public function getUserInfoAttribute()
+    {
+        $user = \TicketitUser::find($this->ticketable_id);
+        if ($user) {
+            return [
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
+        }
+        return null;
+    }
+
+    /**
      * Ticket agent.
      *
      * @return BelongsTo
@@ -25,6 +43,23 @@ trait TicketitTicketTrait
     public function agent()
     {
         return $this->belongsTo(app('TicketitAgent'), 'agent_id');
+    }
+
+    /**
+     * Ticket agent info.
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     *
+     * @return array|null
+     */
+    public function getAgentInfoAttribute()
+    {
+        $agent = \TicketitAgent::find($this->agent_id);
+        if ($agent) {
+            return [
+                'name' => $agent->name,
+            ];
+        }
+        return null;
     }
 
     /**
@@ -38,6 +73,24 @@ trait TicketitTicketTrait
     }
 
     /**
+     * Ticket status info.
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     *
+     * @return array|null
+     */
+    public function getStatusInfoAttribute()
+    {
+        $status = \TicketitStatus::find($this->status_id);
+        if ($status) {
+            return [
+                'name' => $status->name,
+                'color' => $status->color,
+            ];
+        }
+        return null;
+    }
+
+    /**
      * Ticket priority.
      *
      * @return BelongsTo
@@ -48,6 +101,24 @@ trait TicketitTicketTrait
     }
 
     /**
+     * Ticket priority info.
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     *
+     * @return array|null
+     */
+    public function getPriorityInfoAttribute()
+    {
+        $priority = \TicketitPriority::find($this->priority_id);
+        if ($priority) {
+            return [
+                'name' => $priority->name,
+                'color' => $priority->color,
+            ];
+        }
+        return null;
+    }
+
+    /**
      * Ticket category.
      *
      * @return BelongsTo
@@ -55,6 +126,24 @@ trait TicketitTicketTrait
     public function category()
     {
         return $this->belongsTo(app('TicketitCategory'), 'category_id');
+    }
+
+    /**
+     * Ticket category info.
+     * more info: https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+     *
+     * @return array|null
+     */
+    public function getCategoryInfoAttribute()
+    {
+        $category = \TicketitCategory::find($this->category_id);
+        if ($category) {
+            return [
+                'name' => $category->name,
+                'color' => $category->color,
+            ];
+        }
+        return null;
     }
 
     /**

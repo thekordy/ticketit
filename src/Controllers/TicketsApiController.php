@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Kordy\Ticketit\Helpers\TicketitResponseTransformer;
 use TicketitCategory;
 use TicketitPriority;
 use TicketitStatus;
@@ -105,9 +106,9 @@ class TicketsApiController extends Controller
      */
     public function show($id)
     {
-        $query = TicketitTicket::with($this->get_with_relations);
+        $ticket = TicketitTicket::findOrFail($id);
 
-        $ticket = $query->findOrFail($id);
+        $ticket->hideFieldsByPolicy('ticket.show');
 
         return $ticket;
     }
@@ -121,9 +122,7 @@ class TicketsApiController extends Controller
      */
     public function showByToken($token)
     {
-        $query = TicketitTicket::with($this->get_with_relations);
-
-        $ticket = $query->where('access_token', $token)->firstOrFail();
+        $ticket = TicketitTicket::where('access_token', $token)->firstOrFail();
 
         return $ticket;
     }
@@ -146,7 +145,7 @@ class TicketsApiController extends Controller
 
         $ticket = $this->createTicketableTicket($ticket_data);
 
-        return $ticket;
+        return TicketitResponseTransformer::respond(['id' => $ticket->getKey()]);
     }
 
     /**
@@ -167,9 +166,9 @@ class TicketsApiController extends Controller
 
         $ticket_data = $request->all();
 
-        $ticket = $this->updateTicketableTicket($ticket_data, $ticket);
+        $this->updateTicketableTicket($ticket_data, $ticket);
 
-        return $ticket;
+        return TicketitResponseTransformer::respondSuccess();
     }
 
     /**
@@ -191,7 +190,9 @@ class TicketsApiController extends Controller
 
         // it could be done using $user->ownTicket()->create() but it won't then be auditable
         // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
-        return TicketitTicket::create($ticket_data);
+        $ticket = TicketitTicket::create($ticket_data);
+
+        return $ticket;
     }
 
     /**
@@ -208,7 +209,7 @@ class TicketsApiController extends Controller
         $ticket_data = $this->setAgentId($ticket_data, $ticket);
 
         // this should be safe enough by using config/ticketit/validation.php in combination with the model fillable
-        $ticket->update($ticket_data);
+        $ticket = $ticket->update($ticket_data);
 
         return $ticket;
     }
@@ -224,9 +225,37 @@ class TicketsApiController extends Controller
         return TicketitTicket::destroy($id);
     }
 
+    /**
+     * Close the given ticket.
+     *
+     * @param  string|int  $id
+     * @return mixed
+     */
+    public function close($id)
+    {
+        $ticket = TicketitTicket::findOrFail($id);
+        $ticket->closed_at = new \DateTime('now');
+        $ticket->save();
+
+        return TicketitResponseTransformer::respondSuccess();
+    }
+
+    /**
+     * Reopen the given ticket.
+     *
+     * @param  string|int  $id
+     * @return mixed
+     */
+    public function reopen($id)
+    {
+        $ticket = TicketitTicket::findOrFail($id);
+        $ticket->closed_at = null;
+        $ticket->save();
+
+        return TicketitResponseTransformer::respondSuccess();
+    }
+
     // Todo store for guests (token ticket with no user) with/without email verification
-    // Todo close ticket
-    // Todo reopen ticket
     // Todo email notifications (configurable)
 
     /**
@@ -300,7 +329,7 @@ class TicketsApiController extends Controller
      */
     protected function getUserTickets($user)
     {
-        $query = $user->ownTickets()->with($this->get_with_relations);
+        $query = $user->ownTickets();
 
         return $query;
     }

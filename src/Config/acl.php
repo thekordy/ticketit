@@ -144,6 +144,67 @@ return [
 
         /*
         |--------------------------------------------------------------------------
+        | Show Ticket fields
+        |--------------------------------------------------------------------------
+        |
+        | Ticket Fields show  permissions
+        |
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
+        |
+        */
+        'ticket.show.id' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.subject' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.content' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.notification_email' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.status_info' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.priority_info' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.category_info' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.agent_info' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.user_info' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.created_at' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.updated_at' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+        'ticket.show.closed_at' => [
+            $policies['owner'],
+            ['or' => $policies['agent']],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
         | Store Ticket by user
         |--------------------------------------------------------------------------
         |
@@ -255,6 +316,42 @@ return [
 
         'ticket.destroy' => [
             $policies['ticket_category_admin']
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Close a Ticket
+        |--------------------------------------------------------------------------
+        |
+        | Close a single ticket
+        |
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
+        |
+        */
+
+        'ticket.close' => [
+            $policies['owner'],
+            ['or' => $policies['agent']]
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reopen a Ticket
+        |--------------------------------------------------------------------------
+        |
+        | Reopen a single ticket
+        |
+        | Only $policies['owner'], $policies['assigned'], $policies['assigned_team'],
+        | $policies['agent'], $policies['ticket_category_admin'],
+        | and $policies['administrator'] are applicable.
+        |
+        */
+
+        'ticket.reopen' => [
+            $policies['owner'],
+            ['or' => $policies['agent']]
         ],
     ],
 ];

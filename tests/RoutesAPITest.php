@@ -253,10 +253,15 @@ class RoutesAPITest extends TicketitTestCase
         // auto assign to the least by counting all agent's tickets
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
-            ->seeJson([
-                'agent_id' => '2', // agentOne least agent in categoryOne with least_local tickets count
-            ])
             ->seeStatusCode(200);
+
+        $last_ticket_url = TicketitHelpers::getApiRoutePath('ticket.show', 18);
+
+        $this->actingAs($user)
+            ->json('GET', $last_ticket_url)
+            ->seeJson([
+                'agent_info' => ['name' => $agentOne->name]  // agentOne least agent in total tickets count
+            ]);
 
         // auto assign to the least by counting only category tickets
         $category->auto_assign = 'least_local';
@@ -264,10 +269,15 @@ class RoutesAPITest extends TicketitTestCase
 
         $this->actingAs($user)
             ->json('POST', $url, $ticketData)
-            ->seeJson([
-                'agent_id' => '4', // agentThree least agent in categoryOne with least_local tickets count
-            ])
             ->seeStatusCode(200);
+
+        $last_ticket_url = TicketitHelpers::getApiRoutePath('ticket.show', 19);
+
+        $this->actingAs($user)
+            ->json('Get', $last_ticket_url)
+            ->seeJson([
+                'agent_info' => ['name' => $agentThree->name] // agentThree least agent in categoryOne with least_local tickets count
+            ]);
     }
 
     /**
@@ -372,11 +382,6 @@ class RoutesAPITest extends TicketitTestCase
 
         $this->actingAs($agent)
             ->json('POST', $url, $ticketValidData)
-            ->seeJson([
-                'agent_id'          => 2,
-                'ticketable_type'   => 'user',
-                'ticketable_id'     => 1,
-            ])
             ->seeStatusCode(200);
     }
 
@@ -400,6 +405,7 @@ class RoutesAPITest extends TicketitTestCase
         $ticket = $this->createTicket(['user' => $user, 'category_id' => $category->getKey()]);
 
         $url = TicketitHelpers::getApiRoutePath('ticket.update', $ticket->getKey());
+        $ticket_show_url = TicketitHelpers::getApiRoutePath('ticket.show', $ticket->getKey());
 
         // validation rules can be found at config/ticketit/validation.php
 
@@ -435,22 +441,27 @@ class RoutesAPITest extends TicketitTestCase
 
         $this->actingAs($user)
             ->json('PUT', $url, $ticketUserFields)
+            ->seeStatusCode(200);
+
+        $this->actingAs($user)
+            ->json('GET', $ticket_show_url)
             ->seeJson([
                 'subject'   => $ticketUserFields['subject'],
                 'content'   => $ticketUserFields['content'],
-            ])
-            ->seeStatusCode(200);
+            ]);
 
         $this->actingAs($agent)
             ->json('PUT', $url, $ticketAllFields)
-            ->seeJson(['ticketable_type' => "user"])
-            ->seeJson(['ticketable_id' => "1"])
+            ->seeStatusCode(200);
+
+        $this->actingAs($agent)
+            ->json('Get', $ticket_show_url)
+            ->seeJson(['user_info' => ["email" => $user->email, "name" => $user->name]])
             ->seeJson(['subject' => $ticketAllFields['subject']])
             ->seeJson(['content' => $ticketAllFields['content']])
-            ->seeJson(['category_id' => $ticketAllFields['category_id']])
-            ->seeJson(['status_id' => $ticketAllFields['status_id']])
-            ->seeJson(['priority_id' => $ticketAllFields['priority_id']])
-            ->seeStatusCode(200);
+            ->seeJson(['category_info' => ['color' => $categoryUpdate->color, 'name' => $categoryUpdate->name]])
+            ->seeJson(['status_info' => ['color' => $status->color, 'name' => $status->name]])
+            ->seeJson(['priority_info' => ['color' => $priority->color, 'name' => $priority->name]]);
     }
 
     /**
@@ -506,6 +517,88 @@ class RoutesAPITest extends TicketitTestCase
         $this->actingAs($categoryAdmin)
             ->json('delete', route('api.ticket.destroy', $ticket->getKey()), ['_token' => csrf_token()])
             ->seeStatusCode(200);
+    }
+
+    /**
+     * Close a ticket
+     *
+     * @test
+     */
+    public function close_ticket()
+    {
+        \Session::start();
+
+        $user = $this->createUser();
+        $anotherUser = $this->createUser();
+        $agent = $this->createAgent();
+
+        $ticket = $this->createTicket([
+            'user' => $user,
+        ]);
+
+        // only this ticket owner and any agent, can close it (per acl.php config)
+        $this->actingAs($anotherUser)
+            ->json('put', route('api.ticket.close', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(403);
+
+        $this->actingAs($user)
+            ->json('put', route('api.ticket.close', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(200);
+
+        $ticket = \TicketitTicket::find(1);
+        $this->assertTrue($ticket->closed_at != null);
+        $ticket->closed_at = new \DateTime('now');
+        $ticket->save();
+
+        $this->actingAs($agent)
+            ->json('put', route('api.ticket.close', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(200);
+
+        $ticket = \TicketitTicket::find(1);
+        $this->assertTrue($ticket->closed_at != null);
+    }
+
+    /**
+     * Close a ticket
+     *
+     * @test
+     */
+    public function reopen_ticket()
+    {
+        \Session::start();
+
+        $user = $this->createUser();
+        $anotherUser = $this->createUser();
+        $agent = $this->createAgent();
+
+        $ticket = $this->createTicket([
+            'user' => $user,
+        ]);
+        $ticket->closed_at = new \DateTime('now');
+        $ticket->save();
+
+        // only this ticket owner and any agent, can close it (per acl.php config)
+        $this->actingAs($anotherUser)
+            ->json('put', route('api.ticket.reopen', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(403);
+
+        $this->actingAs($user)
+            ->json('put', route('api.ticket.reopen', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(200);
+
+        $ticket = \TicketitTicket::find(1);
+        $this->assertTrue($ticket->closed_at == null);
+
+        // close it
+        $ticket->closed_at = new \DateTime('now');
+        $ticket->save();
+
+        $this->actingAs($agent)
+            ->json('put', route('api.ticket.reopen', $ticket->getKey()), ['_token' => csrf_token()])
+            ->seeStatusCode(200);
+
+        $ticket = \TicketitTicket::find(1);
+        $this->assertTrue($ticket->closed_at == null);
     }
 
 

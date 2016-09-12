@@ -195,7 +195,7 @@ return [
         | API ticket.destroy
         |--------------------------------------------------------------------------
         |
-        | Store a single ticket
+        | Delete a single ticket
         |
         */
         'ticket.destroy' => [
@@ -205,6 +205,42 @@ return [
                 'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@destroy',
                 'middleware' => 'auzo.acl:ticket.destroy',
                 'as'         => 'api.ticket.destroy',
+            ],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | API ticket.close
+        |--------------------------------------------------------------------------
+        |
+        | Close a single ticket
+        |
+        */
+        'ticket.close' => [
+            'path'       => '/api/tickets/{id}/close',
+            'method'     => 'put',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@close',
+                'middleware' => 'auzo.acl:ticket.close',
+                'as'         => 'api.ticket.close',
+            ],
+        ],
+
+        /*
+        |--------------------------------------------------------------------------
+        | API ticket.reopen
+        |--------------------------------------------------------------------------
+        |
+        | Reopen a closed ticket
+        |
+        */
+        'ticket.reopen' => [
+            'path'       => '/api/tickets/{id}/reopen',
+            'method'     => 'put',
+            'parameters' => [
+                'uses'       => 'Kordy\Ticketit\Controllers\TicketsApiController@reopen',
+                'middleware' => 'auzo.acl:ticket.reopen',
+                'as'         => 'api.ticket.reopen',
             ],
         ],
     ],

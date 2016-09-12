@@ -22,7 +22,17 @@ class TicketitTicket extends Model
         'access_token',
         'notification_email',
     ];
+
     protected $hidden = ['access_token'];
     protected $table = 'ticketit_ticket';
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at', 'closed_at'];
+
+    // see https://laravel.com/docs/5.1/eloquent-serialization#appending-values-to-json
+    protected $appends = [
+        'status_info',
+        'priority_info',
+        'category_info',
+        'agent_info',
+        'user_info',
+    ];
 }

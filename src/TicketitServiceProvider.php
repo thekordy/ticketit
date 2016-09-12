@@ -10,6 +10,7 @@ use Kordy\Ticketit\Facades\TicketitAdminFacade;
 use Kordy\Ticketit\Facades\TicketitAgentFacade;
 use Kordy\Ticketit\Facades\TicketitCategoryFacade;
 use Kordy\Ticketit\Facades\TicketitCommentFacade;
+use Kordy\Ticketit\Facades\TicketitHelpersFacade;
 use Kordy\Ticketit\Facades\TicketitPriorityFacade;
 use Kordy\Ticketit\Facades\TicketitStatusFacade;
 use Kordy\Ticketit\Facades\TicketitTicketFacade;
@@ -24,7 +25,7 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Register morph map as configured in Config/models.php
+        // Register morph map as configured in config/ticketit/models.php
         Relation::morphMap(config('ticketit.models.morphmap'));
 
         // Load ACL permissions
@@ -33,11 +34,9 @@ class TicketitServiceProvider extends ServiceProvider
             AuzoToolsPermissionRegistrar::registerPermissions($abilities_policies);
         }
 
-        // Load routes if enable is true in Config/routes.php
-        if (config('ticketit.core.enable_routes')) {
-            if (!$this->app->routesAreCached()) {
-                require __DIR__.'/routes.php';
-            }
+        // Load routes if enabled in config/ticketit/core.php
+        if (!$this->app->routesAreCached()) {
+            require __DIR__.'/routes.php';
         }
 
         /* publish resources **/
@@ -68,10 +67,15 @@ class TicketitServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/Config/models.php', 'ticketit.models');
         // Default ACL configuration file
         $this->mergeConfigFrom(__DIR__.'/Config/acl.php', 'ticketit.acl');
-        // Register model bindings from the configured models paths in Config/models.php
+        // Default ticket configuration file.
+        $this->mergeConfigFrom(__DIR__.'/Config/ticket.php', 'ticketit.ticket');
+        // Register model bindings from the configured models paths in config/ticketit/models.php
         $this->registerModelBindings();
         // Register model Facades at Facades/
         $this->registerFacadesAliases();
+
+        // Default requests validation configuration file. This must be loaded here after registerModelBindings
+        $this->mergeConfigFrom(__DIR__.'/Config/validation.php', 'ticketit.validation');
     }
 
     /**
@@ -79,29 +83,32 @@ class TicketitServiceProvider extends ServiceProvider
      */
     protected function registerModelBindings()
     {
-        // Whenever call app('TicketitUser') load the model configured 'models[user]' in Config/models.php
+        // Whenever call app('TicketitUser') load the model configured 'models[user]' in config/ticketit/models.php
         $this->app->bind('TicketitUser', config('ticketit.models.user'));
 
-        // Whenever call app('TicketitAgent') load the model configured 'agent' in Config/models.php
+        // Whenever call app('TicketitAgent') load the model configured 'agent' in config/ticketit/models.php
         $this->app->bind('TicketitAgent', config('ticketit.models.agent'));
 
-        // Whenever call app('TicketitAdmin') load the model configured 'admin' in Config/models.php
+        // Whenever call app('TicketitAdmin') load the model configured 'admin' in config/ticketit/models.php
         $this->app->bind('TicketitAdmin', config('ticketit.models.admin'));
 
-        // Whenever call app('TicketitStatus') load the model configured 'status' in Config/models.php
+        // Whenever call app('TicketitStatus') load the model configured 'status' in config/ticketit/models.php
         $this->app->bind('TicketitStatus', config('ticketit.models.status'));
 
-        // Whenever call app('TicketitPriority') load the model configured 'priority' in Config/models.php
+        // Whenever call app('TicketitPriority') load the model configured 'priority' in config/ticketit/models.php
         $this->app->bind('TicketitPriority', config('ticketit.models.priority'));
 
-        // Whenever call app('TicketitCategory') load the model configured 'category' in Config/models.php
+        // Whenever call app('TicketitCategory') load the model configured 'category' in config/ticketit/models.php
         $this->app->bind('TicketitCategory', config('ticketit.models.category'));
 
-        // Whenever call app('Ticketit') load the model configured 'ticketit' in Config/models.php
+        // Whenever call app('Ticketit') load the model configured 'ticketit' in config/ticketit/models.php
         $this->app->bind('TicketitTicket', config('ticketit.models.ticket'));
 
-        // Whenever call app('TicketitComment') load the model configured 'comment' in Config/models.php
+        // Whenever call app('TicketitComment') load the model configured 'comment' in config/ticketit/models.php
         $this->app->bind('TicketitComment', config('ticketit.models.comment'));
+
+        // Whenever call app('TicketitHelpers') load the class configured 'helpers' in config/ticketit/core.php
+        $this->app->bind('TicketitHelpers', config('ticketit.core.helpers'));
     }
 
     /**
@@ -120,5 +127,6 @@ class TicketitServiceProvider extends ServiceProvider
         $loader->alias('TicketitCategory', TicketitCategoryFacade::class);
         $loader->alias('TicketitTicket', TicketitTicketFacade::class);
         $loader->alias('TicketitComment', TicketitCommentFacade::class);
+        $loader->alias('TicketitHelpers', TicketitHelpersFacade::class);
     }
 }

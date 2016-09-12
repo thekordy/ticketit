@@ -45,9 +45,9 @@ class TicketPolicies
      */
     public function isOwner($user, $ability = null, $model = null)
     {
-        $model = $this->getTicketFromRequest($model);
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
-        return $user instanceof $model->ticketable && $user->getKey() == $model->ticketable->getKey();
+        return $user instanceof $ticket->ticketable && $user->getKey() == $ticket->ticketable->getKey();
     }
 
     /**
@@ -77,9 +77,9 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getTicketFromRequest($model);
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
-        return $user instanceof $agent_instance && $user->getKey() == $model->agent->getKey();
+        return $user instanceof $agent_instance && $user->getKey() == $ticket->agent->getKey();
     }
 
     /**
@@ -95,11 +95,11 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getTicketFromRequest($model);
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
 
         if ($user instanceof $agent_instance) {
-            $cat_key = $model->category->getKey();
-            $cat_keyName = $model->category->getKeyName();
+            $cat_key = $ticket->category->getKey();
+            $cat_keyName = $ticket->category->getKeyName();
 
             return $user->categories()->where($cat_keyName, $cat_key)->first() !== null;
         }
@@ -120,11 +120,11 @@ class TicketPolicies
     {
         $agent_instance = app('TicketitAgent');
 
-        $model = $this->getCategoryFromRequest($model);
+        $category = $this->getModelFromRequest($model, 'TicketitCategory');
 
         if ($user instanceof $agent_instance) {
-            $cat_key = $model->getKey();
-            $cat_keyName = $model->getKeyName();
+            $cat_key = $category->getKey();
+            $cat_keyName = $category->getKeyName();
 
             return $user->categories()->where($cat_keyName, $cat_key)->first() !== null;
         }
@@ -133,34 +133,63 @@ class TicketPolicies
     }
 
     /**
-     * @param $model
+     * Check if user is isCategoryAdmin.
      *
-     * @return mixed
+     * @param $user
+     * @param string|null $ability (optional)
+     * @param object|null $model   (optional)
+     *
+     * @return bool
      */
-    private function getTicketFromRequest($model)
+    public function isCategoryAdmin($user, $ability = null, $model = null)
     {
-        if ($model === null || $model instanceof Request) {
-            $ticket_keyname = app('TicketitTicket')->getKeyName();
-            $ticket_id = request()->input($ticket_keyname);
-            $model = \TicketitTicket::findOrFail($ticket_id);
+        $agent_instance = app('TicketitAgent');
 
-            return $model;
+        $category = $this->getModelFromRequest($model, 'TicketitCategory');
+
+        if ($user instanceof $agent_instance) {
+            return $category->admin_id == $user->getKey();
         }
 
-        return $model;
+        return false;
     }
 
     /**
+     * Check if user is isTicketCategoryAdmin.
+     *
+     * @param $user
+     * @param string|null $ability (optional)
+     * @param object|null $model   (optional)
+     *
+     * @return bool
+     */
+    public function isTicketCategoryAdmin($user, $ability = null, $model = null)
+    {
+        $agent_instance = app('TicketitAgent');
+
+        $ticket = $this->getModelFromRequest($model, 'TicketitTicket');
+
+        if ($user instanceof $agent_instance) {
+            return $ticket->category->admin_id == $user->getKey();
+        }
+
+        return false;
+    }
+
+    /**
+     * Check passed model if null, then try to get it from the request route parameters.
+     *
      * @param $model
+     * @param $model_name
      *
      * @return mixed
      */
-    private function getCategoryFromRequest($model)
+    private function getModelFromRequest($model, $model_name)
     {
         if ($model === null || $model instanceof Request) {
-            $category_keyname = app('TicketitCategory')->getKeyName();
-            $category_id = request()->input($category_keyname);
-            $model = \TicketitCategory::findOrFail($category_id);
+            $model_keyname = app($model_name)->getKeyName();
+            $model_id = request()->route($model_keyname);
+            $model = app($model_name)->findOrFail($model_id);
 
             return $model;
         }

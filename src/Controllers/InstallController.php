@@ -236,6 +236,10 @@ class InstallController extends Controller
 
         // Package Settings
         $installed_settings = DB::table('ticketit_settings')->pluck('value', 'slug');
+        
+        if(!is_array($installed_settings)) {
+            $installed_settings = $installed_settings->toArray();
+        }
 
         // Application active migrations
         $default_Settings = $seeder->getDefaults();

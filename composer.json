@@ -18,6 +18,10 @@
         {
             "name": "Ahmed Kordy",
             "email": "ahmed@kordy.info"
+        },
+        {
+            "name": "Balázs Kovács",
+            "email": "balping314@gmail.com"
         }
     ],
     "autoload": {

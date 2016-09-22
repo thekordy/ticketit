@@ -65,9 +65,4 @@ http://ticketit.kordy.info/tickets
 Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.
 
 **Project contributors (the project heros):**
-* [Brian Royer](https://github.com/FusionDesign)
-* [Lee Nielsen](https://github.com/fishmad)
-* [balping](https://github.com/balping)
-* [Anderson de Oliveira Machado](https://github.com/andersondeoliveiramachado)
-* [datune](https://github.com/datune)
-* [tmcdon89](https://github.com/tmcdon89)
+https://github.com/thekordy/ticketit/graphs/contributors

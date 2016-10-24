@@ -50,7 +50,12 @@ class InstallController extends Controller
         ) {
             $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
             $inactive_migrations = $this->inactiveMigrations();
-            $users_list = User::pluck('name', 'id')->toArray();
+            // if Laravel v5.2 or 5.3
+            if (version_compare(app()->version(), '5.2.0', '>=')) {
+                $users_list = User::pluck('name', 'id')->toArray();
+            } else { // if Laravel v5.1
+                $users_list = User::lists('name', 'id')->toArray();
+            }
 
             return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
         }
@@ -235,8 +240,13 @@ class InstallController extends Controller
         $seeder = new SettingsTableSeeder();
 
         // Package Settings
-        $installed_settings = DB::table('ticketit_settings')->pluck('value', 'slug');
-        
+        // if Laravel v5.2 or 5.3
+        if (version_compare(app()->version(), '5.2.0', '>=')) {
+            $installed_settings = DB::table('ticketit_settings')->pluck('value', 'slug');
+        } else { // if Laravel 5.1
+            $installed_settings = DB::table('ticketit_settings')->lists('value', 'slug');
+        }
+
         if(!is_array($installed_settings)) {
             $installed_settings = $installed_settings->toArray();
         }

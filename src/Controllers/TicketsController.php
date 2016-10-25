@@ -10,8 +10,6 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
-use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -169,6 +167,7 @@ class TicketsController extends Controller
      * Store a newly created ticket and auto assign an agent for it.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)

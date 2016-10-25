@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Category;
-use Kordy\Ticketit\Requests\PrepareCategoryRequest;
 
 class CategoriesController extends Controller
 {
@@ -42,7 +41,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'     => 'required',
+            'name'      => 'required',
             'color'     => 'required',
         ]);
 
@@ -84,13 +83,14 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name'     => 'required',
+            'name'      => 'required',
             'color'     => 'required',
         ]);
 

@@ -3,15 +3,12 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
-use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Configuration;
 use Kordy\Ticketit\Models\Setting;
-use Kordy\Ticketit\Requests\PrepareConfigurationStoreRequest;
-use Kordy\Ticketit\Requests\PrepareConfigurationUpdateRequest;
 
 class ConfigurationsController extends Controller
 {
@@ -29,7 +26,7 @@ class ConfigurationsController extends Controller
         'email.template', 'email.header', 'email.signoff', 'email.signature', 'email.dashboard',
         'email.google_plus_link', 'email.facebook_link', 'email.twitter_link', 'email.footer', 'email.footer_link',
         'email.color_body_bg', 'email.color_header_bg', 'email.color_content_bg', 'email.color_footer_bg',
-        'email.color_button_bg',];
+        'email.color_button_bg', ];
       $tickets_section = ['default_status_id', 'default_close_status_id', 'default_reopen_status_id', 'paginate_items'];
       $perms_section = ['agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
       $editor_section = ['editor_enabled', 'include_font_awesome', 'editor_html_highlighter', 'codemirror_theme',
@@ -69,12 +66,13 @@ class ConfigurationsController extends Controller
       return view('ticketit::admin.configuration.create');
   }
 
-    /**
-     * Store a newly created Configuration in storage.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+  /**
+   * Store a newly created Configuration in storage.
+   *
+   * @param Request $request
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
   public function store(Request $request)
   {
       $input = $request->all();
@@ -103,13 +101,14 @@ class ConfigurationsController extends Controller
       return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
   }
 
-    /**
-     * Update the specified Configuration in storage.
-     *
-     * @param  int $id
-     * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
-     */
+  /**
+   * Update the specified Configuration in storage.
+   *
+   * @param  int $id
+   * @param Request $request
+   *
+   * @return $this|\Illuminate\Http\RedirectResponse
+   */
   public function update(Request $request, $id)
   {
       $configuration = Configuration::findOrFail($id);

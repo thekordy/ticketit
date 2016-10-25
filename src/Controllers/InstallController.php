@@ -214,7 +214,7 @@ class InstallController extends Controller
         $tables = $this->migrations_tables;
 
         // Application active migrations
-        $migrations = DB::select('select * from ' . DB::getTablePrefix() . 'migrations');
+        $migrations = DB::select('select * from '.DB::getTablePrefix().'migrations');
 
         foreach ($migrations as $migration_parent) { // Count active package migrations
             $migration_arr [] = $migration_parent->migration;
@@ -247,7 +247,7 @@ class InstallController extends Controller
             $installed_settings = DB::table('ticketit_settings')->lists('value', 'slug');
         }
 
-        if(!is_array($installed_settings)) {
+        if (!is_array($installed_settings)) {
             $installed_settings = $installed_settings->toArray();
         }
 

@@ -262,7 +262,7 @@ class SettingsTableSeeder extends Seeder
             ],
 
             /*
-             * Choose custom routes file
+             * Set custom routes file
              *
              * Useful if you want to replace any of the Ticketit components
              *

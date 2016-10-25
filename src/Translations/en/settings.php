@@ -133,4 +133,11 @@ ENDHTML
 			<p>Full docs: <a target="_blank" href="http://htmlpurifier.org/docs">http://htmlpurifier.org/docs</a></p>
 ENDHTML
 
+    , 'routes' => <<<'ENDHTML'
+			<p>Set custom routes file</p>
+			<p>
+				Useful if you want to replace any of the Ticketit components
+			</p>
+ENDHTML
+
 ];

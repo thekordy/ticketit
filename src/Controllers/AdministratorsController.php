@@ -85,8 +85,12 @@ class AdministratorsController extends Controller
         $administrator->save();
 
         // Remove him from tickets categories as well
+        if (version_compare(app()->version(), '5.2.0', '>=')) {
+            $administrator_cats = $administrator->categories->pluck('id')->toArray();
+        } else { // if Laravel 5.1
+            $administrator_cats = $administrator->categories->lists('id')->toArray();
+        }
 
-        $administrator_cats = $administrator->categories->pluck('id')->toArray();
         $administrator->categories()->detach($administrator_cats);
 
         return $administrator;

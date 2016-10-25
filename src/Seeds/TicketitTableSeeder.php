@@ -118,7 +118,13 @@ class TicketitTableSeeder extends Seeder
                 } while ($rand_status == $this->default_closed_status_id);
 
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
-                $agents = $category->agents()->pluck('name', 'id')->toArray();
+
+                if (version_compare(app()->version(), '5.2.0', '>=')) {
+                    $agents = $category->agents()->pluck('name', 'id')->toArray();
+                } else { // if Laravel 5.1
+                    $agents = $category->agents()->lists('name', 'id')->toArray();
+                }
+
                 $agent_id = array_rand($agents);
                 $random_create = rand(1, $this->tickets_date_period);
 

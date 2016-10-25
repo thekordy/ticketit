@@ -154,8 +154,13 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $priorities = Models\Priority::pluck('name', 'id');
-        $categories = Models\Category::pluck('name', 'id');
+        if (version_compare(app()->version(), '5.2.0', '>=')) {
+            $priorities = Models\Priority::pluck('name', 'id');
+            $categories = Models\Category::pluck('name', 'id');
+        } else { // if Laravel 5.1
+            $priorities = Models\Priority::lists('name', 'id');
+            $categories = Models\Category::lists('name', 'id');
+        }
 
         return view('ticketit::tickets.create', compact('priorities', 'categories'));
     }
@@ -206,9 +211,15 @@ class TicketsController extends Controller
     {
         $ticket = $this->tickets->find($id);
 
-        $status_lists = Models\Status::pluck('name', 'id');
-        $priority_lists = Models\Priority::pluck('name', 'id');
-        $category_lists = Models\Category::pluck('name', 'id');
+        if (version_compare(app()->version(), '5.3.0', '>=')) {
+            $status_lists = Models\Status::pluck('name', 'id');
+            $priority_lists = Models\Priority::pluck('name', 'id');
+            $category_lists = Models\Category::pluck('name', 'id');
+        } else { // if Laravel 5.1
+            $status_lists = Models\Status::lists('name', 'id');
+            $priority_lists = Models\Priority::lists('name', 'id');
+            $category_lists = Models\Category::lists('name', 'id');
+        }
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);

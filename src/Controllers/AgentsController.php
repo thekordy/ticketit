@@ -85,8 +85,12 @@ class AgentsController extends Controller
         $agent->save();
 
         // Remove him from tickets categories as well
+        if (version_compare(app()->version(), '5.2.0', '>=')) {
+            $agent_cats = $agent->categories->pluck('id')->toArray();
+        } else { // if Laravel 5.1
+            $agent_cats = $agent->categories->lists('id')->toArray();
+        }
 
-        $agent_cats = $agent->categories->pluck('id')->toArray();
         $agent->categories()->detach($agent_cats);
 
         return $agent;

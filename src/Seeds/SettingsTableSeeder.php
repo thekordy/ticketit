@@ -261,6 +261,15 @@ class SettingsTableSeeder extends Seeder
                 'URI.AllowedSchemes'   => ['data' => true, 'http' => true, 'https' => true, 'mailto' => true, 'ftp' => true],
             ],
 
+            /*
+             * Choose custom routes file
+             *
+             * Useful if you want to replace any of the Ticketit components
+             *
+             * Default: __DIR__.'/routes.php'
+             */
+            'routes' => base_path('vendor/kordy/ticketit/src').'/routes.php',
+
         ];
     }
 }

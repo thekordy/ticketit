@@ -24,12 +24,12 @@ class ConfigurationsController extends Controller
   {
       $configurations = Configuration::all();
       $configurations_by_sections = ['init' => [], 'email' => [], 'tickets' => [], 'perms' => [], 'editor' => [], 'other' => []];
-      $init_section = ['main_route', 'main_route_path', 'admin_route', 'admin_route_path', 'master_template'];
+      $init_section = ['main_route', 'main_route_path', 'admin_route', 'admin_route_path', 'master_template', 'routes'];
       $email_section = ['status_notification', 'comment_notification', 'queue_emails', 'assigned_notification',
         'email.template', 'email.header', 'email.signoff', 'email.signature', 'email.dashboard',
         'email.google_plus_link', 'email.facebook_link', 'email.twitter_link', 'email.footer', 'email.footer_link',
         'email.color_body_bg', 'email.color_header_bg', 'email.color_content_bg', 'email.color_footer_bg',
-        'email.color_button_bg', ];
+        'email.color_button_bg',];
       $tickets_section = ['default_status_id', 'default_close_status_id', 'default_reopen_status_id', 'paginate_items'];
       $perms_section = ['agent_restrict', 'close_ticket_perm', 'reopen_ticket_perm'];
       $editor_section = ['editor_enabled', 'include_font_awesome', 'editor_html_highlighter', 'codemirror_theme',

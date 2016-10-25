@@ -38,12 +38,16 @@ class CommentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PrepareCommentStoreRequest $request
-     *
-     * @return Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PrepareCommentStoreRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'ticket_id'   => 'required|exists:ticketit,id',
+            'content'     => 'required|min:6',
+        ]);
+
         $comment = new Models\Comment();
 
         $comment->setPurifiedContent($request->get('content'));

@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
 use Cache;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -68,14 +69,13 @@ class ConfigurationsController extends Controller
       return view('ticketit::admin.configuration.create');
   }
 
-  /**
-   * Store a newly created Configuration in storage.
-   *
-   * @param PrepareConfigurationStoreRequest $request
-   *
-   * @return Response
-   */
-  public function store(PrepareConfigurationStoreRequest $request)
+    /**
+     * Store a newly created Configuration in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+  public function store(Request $request)
   {
       $input = $request->all();
 
@@ -83,7 +83,7 @@ class ConfigurationsController extends Controller
       $configuration->create($input);
 
       Session::flash('configuration', 'Setting saved successfully.');
-      Cache::forget('settings'); // refresh cached settings
+      \Cache::forget('settings'); // refresh cached settings
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }
 
@@ -103,15 +103,14 @@ class ConfigurationsController extends Controller
       return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
   }
 
-  /**
-   * Update the specified Configuration in storage.
-   *
-   * @param  int              $id
-   * @param PrepareConfigurationUpdateRequest $request
-   *
-   * @return Response
-   */
-  public function update(PrepareConfigurationUpdateRequest $request, $id)
+    /**
+     * Update the specified Configuration in storage.
+     *
+     * @param  int $id
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+  public function update(Request $request, $id)
   {
       $configuration = Configuration::findOrFail($id);
 
@@ -130,7 +129,7 @@ class ConfigurationsController extends Controller
       $configuration->update(['value' => $value, 'lang' => $request->lang]);
 
       Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
-      Cache::forget('settings'); // refresh cached settings
+      \Cache::forget('settings'); // refresh cached settings
     //return redirect(route('ticketit::admin.configuration.index'));
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }

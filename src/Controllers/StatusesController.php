@@ -36,11 +36,15 @@ class StatusesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PrepareStatusRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $status = new Status();
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
@@ -79,12 +83,16 @@ class StatusesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PrepareStatusRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 

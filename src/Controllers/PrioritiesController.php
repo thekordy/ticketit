@@ -36,11 +36,15 @@ class PrioritiesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PreparePriorityRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $priority = new Priority();
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
@@ -79,12 +83,16 @@ class PrioritiesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PreparePriorityRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $priority = Priority::findOrFail($id);
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 

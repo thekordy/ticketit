@@ -164,11 +164,17 @@ class TicketsController extends Controller
      * Store a newly created ticket and auto assign an agent for it.
      *
      * @param Request $request
-     *
-     * @return Response redirect to index
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(PrepareTicketStoreRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'subject'     => 'required|min:3',
+            'content'     => 'required|min:6',
+            'priority_id' => 'required|exists:ticketit_priorities,id',
+            'category_id' => 'required|exists:ticketit_categories,id',
+        ]);
+
         $ticket = new Ticket();
 
         $ticket->subject = $request->subject;
@@ -229,8 +235,17 @@ class TicketsController extends Controller
      *
      * @return Response
      */
-    public function update(PrepareTicketUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'subject'     => 'required|min:3',
+            'content'     => 'required|min:6',
+            'priority_id' => 'required|exists:ticketit_priorities,id',
+            'category_id' => 'required|exists:ticketit_categories,id',
+            'status_id'   => 'required|exists:ticketit_statuses,id',
+            'agent_id'    => 'required',
+        ]);
+
         $ticket = $this->tickets->findOrFail($id);
 
         $ticket->subject = $request->subject;

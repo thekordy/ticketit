@@ -39,8 +39,13 @@ class CategoriesController extends Controller
      *
      * @return Response
      */
-    public function store(PrepareCategoryRequest $request)
+    public function store(Request $request)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $category = new Category();
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
@@ -79,12 +84,16 @@ class CategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PrepareCategoryRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name'     => 'required',
+            'color'     => 'required',
+        ]);
+
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 

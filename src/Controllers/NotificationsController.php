@@ -97,6 +97,8 @@ class NotificationsController extends Controller
             $m->subject($subject);
         };
 
+        // TODO: this will not work in 5.4, need to rewrite this using mailables
+
         if (Setting::grab('queue_emails') == 'yes') {
             Mail::queue($template, $data, $mail_callback);
         } else {

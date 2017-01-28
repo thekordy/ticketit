@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 
 class NotificationsController extends Controller
 {
@@ -77,32 +78,52 @@ class NotificationsController extends Controller
      */
     public function sendNotification($template, $data, $ticket, $notification_owner, $subject, $type)
     {
-        $mail_callback = function ($m) use ($ticket, $notification_owner, $subject, $type) {
-            if ($type != 'agent') {
-                $m->to($ticket->user->email, $ticket->user->name);
+        /**
+         * @var User
+         */
+        $to = null;
 
-                if ($ticket->user->email != $notification_owner->email) {
-                    $m->to($ticket->user->email, $ticket->user->name);
-                }
+        if ($type != 'agent') {
+            $to = $ticket->user;
 
-                if ($ticket->agent->email != $notification_owner->email) {
-                    $m->to($ticket->agent->email, $ticket->agent->name);
-                }
-            } else {
-                $m->to($ticket->agent->email, $ticket->agent->name);
+            if ($ticket->user->email != $notification_owner->email) {
+                $to = $ticket->user;
             }
 
-            $m->replyTo($notification_owner->email, $notification_owner->name);
-
-            $m->subject($subject);
-        };
-
-        // TODO: this will not work in 5.4, need to rewrite this using mailables
-
-        if (Setting::grab('queue_emails') == 'yes') {
-            Mail::queue($template, $data, $mail_callback);
+            if ($ticket->agent->email != $notification_owner->email) {
+                $to = $ticket->agent;
+            }
         } else {
-            Mail::send($template, $data, $mail_callback);
+            $to = $ticket->agent;
         }
+
+        if(LaravelVersion::lt('5.4')){
+
+            $mail_callback = function ($m) use ($to, $notification_owner, $subject) {
+            
+                $m->to($to->email, $to->name);
+
+                $m->replyTo($notification_owner->email, $notification_owner->name);
+
+                $m->subject($subject);
+            };
+
+            if (Setting::grab('queue_emails') == 'yes') {
+                Mail::queue($template, $data, $mail_callback);
+            } else {
+                Mail::send($template, $data, $mail_callback);
+            }
+
+        }elseif(LaravelVersion::min('5.4')){
+            $mail = new \Kordy\Ticketit\Mail\TicketitNotification($template, $data, $notification_owner, $subject);
+
+            if (Setting::grab('queue_emails') == 'yes') {
+                Mail::to($to)->queue($mail);
+            } else {
+                Mail::to($to)->send($mail);
+            }
+        }
+
+        
     }
 }

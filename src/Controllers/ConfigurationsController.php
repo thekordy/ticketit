@@ -88,7 +88,7 @@ class ConfigurationsController extends Controller
   /**
    * Show the form for editing the specified Configuration.
    *
-   * @param  int $id
+   * @param int $id
    *
    * @return Response
    */
@@ -104,7 +104,7 @@ class ConfigurationsController extends Controller
   /**
    * Update the specified Configuration in storage.
    *
-   * @param  int $id
+   * @param int     $id
    * @param Request $request
    *
    * @return $this|\Illuminate\Http\RedirectResponse

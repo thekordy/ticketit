@@ -33,5 +33,4 @@ ENDHTML
 			</p>
 ENDHTML
 
-
 ];

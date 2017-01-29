@@ -217,13 +217,12 @@ class InstallController extends Controller
         $migrations = DB::select('select * from '.DB::getTablePrefix().'migrations');
 
         foreach ($migrations as $migration_parent) { // Count active package migrations
-            $migration_arr [] = $migration_parent->migration;
+            $migration_arr[] = $migration_parent->migration;
         }
-
 
         foreach ($tables as $table) {
             if (!in_array($table, $migration_arr)) {
-                $inactiveMigrations [] = $table;
+                $inactiveMigrations[] = $table;
             }
         }
 

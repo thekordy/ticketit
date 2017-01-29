@@ -8,7 +8,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 2. Users can create tickets, keep track of their tickets status, giving comments, and close their own tickets (access permissions are configurable)
 3. Auto assigning agents to tickets, the system searches for agents in specific department and auto select the agent with lowest queue
 4. Simple admin panel 
-5. Localization (Arabic, Brazilian Portuguese, English, Hungarian, and Germany language packs are included)
+5. Localization (Arabic, Brazilian Portuguese, English, Hungarian, Germany, and Spanish language packs are included)
 6. Very simple installation and integration process
 7. Admin dashboard with statistics and performance tracking graphs
 8. Simple text editor for tickets descriptions and comments allows images upload
@@ -18,9 +18,9 @@ It will integrate into your current Laravel project within minutes, and you can 
 ## Requirements
 **First Make sure you have got this Laravel setup working:**
 
-1. [Laravel 5.1](http://laravel.com/docs/5.1#installation) or [Laravel 5.2](http://laravel.com/docs/5.2#installation)
-2. [Users table](http://laravel.com/docs/5.2/authentication)
-3. [Laravel email configuration](http://laravel.com/docs/5.2/mail#sending-mail)
+1. [Laravel 5.1+](http://laravel.com/docs/5.4#installation)
+2. [Users table](http://laravel.com/docs/5.4/authentication)
+3. [Laravel email configuration](http://laravel.com/docs/5.4/mail#sending-mail)
 4. Bootstrap 3+
 5. Jquery
 
@@ -61,8 +61,8 @@ Default ticketit admin route: http://your-project-url/tickets-admin
 ## Live Demo
 http://ticketit.kordy.info/tickets
 
-## Credits
+## Project contributors (the project heros):
+
 Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.
 
-**Project contributors (the project heros):**
 https://github.com/thekordy/ticketit/graphs/contributors

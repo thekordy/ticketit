@@ -44,4 +44,4 @@
         });
     </script>
     @include('ticketit::tickets.partials.summernote')
-@endsection
+@append

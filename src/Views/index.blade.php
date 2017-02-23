@@ -59,4 +59,4 @@
 	        ]
 	    });
 	</script>
-@endsection
+@append

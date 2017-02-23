@@ -84,4 +84,4 @@
 
         });
     </script>
-@stop
+@append

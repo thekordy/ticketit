@@ -52,4 +52,4 @@
 
 @section('footer')
     @include('ticketit::tickets.partials.summernote')
-@endsection
+@append

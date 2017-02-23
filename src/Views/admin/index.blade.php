@@ -314,4 +314,4 @@
         }
     </script>
     @endif
-@stop
+@append

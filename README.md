@@ -15,7 +15,15 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 [Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.3-Features)
 
-## Requirements
+## Quick installation
+
+If you'd like to install Ticketit as a standalone app, use our [quick installer](https://github.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
+
+However if you'd like to include Ticketit in your existing project, skip to the [next section](#installation-manual).
+
+## Installation (manual):
+
+### Requirements
 **First Make sure you have got this Laravel setup working:**
 
 1. [Laravel 5.1+](http://laravel.com/docs/5.4#installation)
@@ -30,7 +38,9 @@ It will integrate into your current Laravel project within minutes, and you can 
 2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
 3. [HTML Purifier](https://github.com/mewebstudio/Purifier)
 
-## Installation (4-8 minutes):
+
+### Installation steps (4-8 minutes)
+
 
 Step 1. Run this code via your terminal (1-2 minutes)
 ```shell

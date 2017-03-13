@@ -187,6 +187,31 @@ class Ticket extends Model
             $subquery->where('agent_id', $id)->orWhere('user_id', $id);
         });
     }
+	
+	
+	/**
+     * Get all visible tickets for agent.
+     *
+     * @param $query
+     * @param $id
+     *
+     * @return mixed
+     */
+	public function scopeVisibleForAgent($query, $id)
+    {
+        // Depends on agent_restrict
+		if (Setting::grab('agent_restrict') == 0){
+			// Returns all tickets on Categories where Agent with $id belongs to.
+			return $query->whereHas('category',function($q1) use($id){
+				$q1->whereHas('agents',function($q2) use($id){
+					$q2->where('id',$id);
+				});
+			});
+		}else{
+			// Returns all tickets Owned by Agent with $id only
+			return $query->where('agent_id', $id);
+		}
+    }
 
     /**
      * Sets the agent with the lowest tickets assigned in specific category.

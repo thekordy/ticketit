@@ -287,7 +287,7 @@ class Agent extends User
 				$q1->whereHas('agents',function($q2) use($id){
 					$q2->where('id',$id);
 				});
-			});
+			})->orderBy('name','ASC');
 		}else{
 			return $query->where('id',$id);
 		}		

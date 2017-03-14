@@ -49,6 +49,18 @@ class Ticket extends Model
     {
         return $query->whereNull('completed_at');
     }
+	
+	/**
+     * Get specified ticket list (active or complete)
+     *
+     * @return Collection
+     */
+	public function scopeTicketList($query,$list)
+	{
+		if ($list=="active") return $query->Active($query);
+		if ($list=="complete") return $query->Complete($query);
+		return false;
+	}
 
     /**
      * Get Ticket status.
@@ -188,6 +200,25 @@ class Ticket extends Model
         });
     }
 	
+	/**
+     * Get all visible tickets for specified username
+     *
+     * @param $query
+     * @param $id
+     *
+     * @return mixed
+     */
+	/*public function scopeVisibleFor($query, $id)
+	{
+		if (Agent::isAdmin()){
+			return $query;
+		}elseif(Agent::isAgent($id)){
+			return $query->VisibleForAgent($id);
+		}else{
+			return $query->UserTickets($id);
+		}
+	}*/
+	 
 	
 	/**
      * Get all visible tickets for agent.
@@ -209,7 +240,7 @@ class Ticket extends Model
 			});
 		}else{
 			// Returns all tickets Owned by Agent with $id only
-			return $query->where('agent_id', $id);
+			return $query->AgentTickets($id);
 		}
     }
 

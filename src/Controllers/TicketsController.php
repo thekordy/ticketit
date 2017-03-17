@@ -129,8 +129,8 @@ class TicketsController extends Controller
     public function index()
     {
         $complete = false;
-
-        return view('ticketit::index', compact('complete'));
+		
+        return view('ticketit::index', ['complete'=>$complete,'counts'=>$this->ticketCounts($complete)]);
     }
 
     /**
@@ -142,8 +142,27 @@ class TicketsController extends Controller
     {
         $complete = true;
 
-        return view('ticketit::index', compact('complete'));
+        return view('ticketit::index',['complete'=>$complete,'counts'=>$this->ticketCounts($complete)]);
     }
+	
+	/**
+     * Calculates Tickets counts to show.
+     *
+     * @return
+     */	
+	public function ticketCounts($complete){
+		$counts=[];		
+
+		if ($this->agent->isAdmin() or ($this->agent->isAgent() and Setting::grab('agent_restrict')==0)){
+			// Ticket counts for each visible Agent
+						
+			$counts['agent']=Agent::Visible()->withCount(['agentTotalTickets'=>function($q)use($complete){
+				$q->ListComplete($complete);
+			}])->get();
+		}		
+		
+		return $counts;
+	}
 
     /**
      * Show the form for creating a new resource.

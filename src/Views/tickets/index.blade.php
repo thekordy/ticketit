@@ -1,3 +1,14 @@
+@if (isset($counts['agent']))
+<div class="panel panel-default">
+    <div class="panel-body text-left">
+	<span>Agent: </span>
+	<a href="filter/agent/remove" class="btn btn-info btn-sm">All <span class="badge">?</span></a>	
+	@foreach ($counts['agent'] as $ag)	
+		<a href="filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
+	@endforeach 
+</div></div>
+@endif
+
 <div class="panel panel-default">
 
     <div class="panel-heading">

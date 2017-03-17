@@ -283,7 +283,7 @@ class Agent extends User
 	public function scopeVisible($query)
 	{
 		if (auth()->user()->ticketit_admin) {
-			return $query;
+			return $query->orderBy('name','ASC');
 		}elseif (auth()->user()->ticketit_agent) {
 			return $query->VisibleForAgent(auth()->user()->id);
 		}else{

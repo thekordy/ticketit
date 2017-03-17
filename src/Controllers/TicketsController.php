@@ -152,10 +152,15 @@ class TicketsController extends Controller
      */	
 	public function ticketCounts($complete){
 		$counts=[];		
-
+		
 		if ($this->agent->isAdmin() or ($this->agent->isAgent() and Setting::grab('agent_restrict')==0)){
-			// Ticket counts for each visible Agent
-						
+			
+			// Ticket count for all visible Agents
+			$counts['total_agent']=Ticket::ListComplete($complete)->whereHas('agent',function($q){
+				$q->Visible();
+			})->count();
+			
+			// Ticket counts for each visible Agent						
 			$counts['agent']=Agent::Visible()->withCount(['agentTotalTickets'=>function($q)use($complete){
 				$q->ListComplete($complete);
 			}])->get();

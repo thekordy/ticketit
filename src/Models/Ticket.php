@@ -55,11 +55,10 @@ class Ticket extends Model
      *
      * @return Collection
      */
-	public function scopeTicketList($query,$list)
-	{
-		if ($list=="active") return $query->Active($query);
-		if ($list=="complete") return $query->Complete($query);
-		return false;
+	public function scopeListComplete($query,$complete)
+	{		
+		if ($complete==false) return $query->Active($query);
+		return $query->Complete($query);
 	}
 
     /**

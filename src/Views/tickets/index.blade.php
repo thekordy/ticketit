@@ -1,5 +1,5 @@
 @if (isset($counts['agent']))
-<div class="panel panel-default">
+<div id="agent_panel" class="panel panel-default">
     <div class="panel-body text-left">
 	<span>Agent: </span>
 	@if (session('ticketit_filter_agent')!="")

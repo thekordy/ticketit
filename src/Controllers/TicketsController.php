@@ -31,26 +31,16 @@ class TicketsController extends Controller
     public function data(Datatables $datatables, $complete = false)
     {
         $user = $this->agent->find(auth()->user()->id);
-
-        if ($user->isAdmin()) {
-            if ($complete) {
-                $collection = Ticket::complete();
-            } else {
-                $collection = Ticket::active();
-            }
-        } elseif ($user->isAgent()) {
-            if ($complete) {
-                $collection = Ticket::complete()->agentUserTickets($user->id);
-            } else {
-                $collection = Ticket::active()->agentUserTickets($user->id);
-            }
-        } else {
-            if ($complete) {
-                $collection = Ticket::userTickets($user->id)->complete();
-            } else {
-                $collection = Ticket::userTickets($user->id)->active();
-            }
-        }
+		
+		$collection = Ticket::ListComplete($complete)->Visible();
+		
+		// Agent filter
+		if (session('ticketit_filter_agent')!=""){
+			$agentid=session('ticketit_filter_agent');
+			$collection =$collection->whereHas('agent',function($q)use($agentid){
+				$q->where('id',$agentid);
+			});
+		}
 
         $collection
             ->join('users', 'users.id', '=', 'ticketit.user_id')
@@ -156,13 +146,11 @@ class TicketsController extends Controller
 		if ($this->agent->isAdmin() or ($this->agent->isAgent() and Setting::grab('agent_restrict')==0)){
 			
 			// Ticket count for all visible Agents
-			$counts['total_agent']=Ticket::ListComplete($complete)->whereHas('agent',function($q){
-				$q->Visible();
-			})->count();
+			$counts['total_agent']=Ticket::ListComplete($complete)->Visible()->count();
 			
 			// Ticket counts for each visible Agent						
 			$counts['agent']=Agent::Visible()->withCount(['agentTotalTickets'=>function($q)use($complete){
-				$q->ListComplete($complete);
+				$q->ListComplete($complete)->Visible();
 			}])->get();
 		}		
 		

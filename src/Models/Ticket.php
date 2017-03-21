@@ -200,25 +200,25 @@ class Ticket extends Model
     }
 	
 	/**
-     * Get all visible tickets for specified username
+     * Get all visible tickets for current user
      *
      * @param $query
      * @param $id
      *
      * @return mixed
      */
-	/*public function scopeVisibleFor($query, $id)
+	public function scopeVisible($query)
 	{
-		if (Agent::isAdmin()){
+		if (auth()->user()->ticketit_admin) {
 			return $query;
-		}elseif(Agent::isAgent($id)){
-			return $query->VisibleForAgent($id);
+		}elseif (auth()->user()->ticketit_agent) {
+			return $query->VisibleForAgent(auth()->user()->id);
 		}else{
-			return $query->UserTickets($id);
+			return $query->UserTickets(auth()->user()->id);
 		}
-	}*/
-	 
-	
+		
+	}
+		
 	/**
      * Get all visible tickets for agent.
      *

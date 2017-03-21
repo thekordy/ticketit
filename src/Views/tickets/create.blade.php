@@ -5,10 +5,11 @@
 @include('ticketit::shared.header')
     <div class="well bs-component">
         {!! CollectiveForm::open([
-                        'route'=>$setting->grab('main_route').'.store',
-                        'method' => 'POST',
-                        'class' => 'form-horizontal'
-                        ]) !!}
+            'route'=>$setting->grab('main_route').'.store',
+            'method' => 'POST',
+            'class' => 'form-horizontal',
+            'enctype' => 'multipart/form-data',
+        ]) !!}
             <legend>{!! trans('ticketit::lang.create-new-ticket') !!}</legend>
             <div class="form-group">
                 {!! CollectiveForm::label('subject', trans('ticketit::lang.subject') . trans('ticketit::lang.colon'), ['class' => 'col-lg-2 control-label']) !!}
@@ -22,6 +23,12 @@
                 <div class="col-lg-10">
                     {!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => '5', 'required' => 'required']) !!}
                     <span class="help-block">{!! trans('ticketit::lang.create-ticket-describe-issue') !!}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                {!! CollectiveForm::label('attachments', trans('ticketit::lang.attachments') . trans('ticketit::lang.colon'), ['class' => 'col-lg-2 control-label']) !!}
+                <div class="col-lg-10">
+                    {!! CollectiveForm::file('attachments[]', ['class' => 'form-control', 'multiple']) !!}
                 </div>
             </div>
             <div class="form-inline row">

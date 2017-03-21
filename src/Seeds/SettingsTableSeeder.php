@@ -270,6 +270,12 @@ class SettingsTableSeeder extends Seeder
              */
             'routes' => base_path('vendor/kordy/ticketit/src').'/routes.php',
 
+            /*
+             * Defines relative path under storage_path() where to store attached files
+             *
+             * Default: <storage_path>/ticketit_attachments
+             */
+            'attachments_path' => 'ticketit_attachments',
         ];
     }
 }

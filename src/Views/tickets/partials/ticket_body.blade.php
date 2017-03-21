@@ -88,6 +88,15 @@
             <div class="col-md-12">
                 <p> {!! $ticket->html !!} </p>
             </div>
+
+            @if($ticket->attachments->count() > 0)
+                <div class="col-md-12">
+                    <hr>
+                    @foreach($ticket->attachments as $attachment)
+                        @include('ticketit::tickets.partials.attachment', ['attachment' => $attachment])
+                    @endforeach
+                </div>
+            @endif
         </div>
         {!! CollectiveForm::open([
                         'method' => 'DELETE',

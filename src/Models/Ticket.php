@@ -2,11 +2,17 @@
 
 namespace Kordy\Ticketit\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Date\Date;
 use Kordy\Ticketit\Traits\ContentEllipse;
 use Kordy\Ticketit\Traits\Purifiable;
 
+/**
+ * @property Attachment[]|Collection attachments
+ *
+ * @see Ticket::attachments()
+ */
 class Ticket extends Model
 {
     use ContentEllipse;
@@ -108,6 +114,15 @@ class Ticket extends Model
     public function comments()
     {
         return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
+    }
+
+    /**
+     * Ticket attachments (NOT including its comments attachments).
+     */
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class, 'ticket_id')
+            ->whereNull('comment_id');
     }
 
 //    /**

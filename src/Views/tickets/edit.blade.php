@@ -2,10 +2,11 @@
     <div class="modal-dialog model-lg" role="document">
         <div class="modal-content">
             {!! CollectiveForm::model($ticket, [
-                 'route' => [$setting->grab('main_route').'.update', $ticket->id],
-                 'method' => 'PATCH',
-                 'class' => 'form-horizontal'
-             ]) !!}
+                    'route' => [$setting->grab('main_route').'.update', $ticket->id],
+                    'method' => 'PATCH',
+                    'class' => 'form-horizontal',
+                    'enctype' => 'multipart/form-data',
+                ]) !!}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">{{ trans('ticketit::lang.flash-x') }}</span></button>
                 <h4 class="modal-title" id="ticket-edit-modal-Label">{{ $ticket->subject }}</h4>
@@ -22,6 +23,20 @@
                         ]) !!}
                     </div>
                     {{--@endif--}}
+
+                    {{--Attachments--}}
+                    <div class="form-group">
+                        <ul class="list-group">
+                            @foreach($ticket->attachments as $attachment)
+                                @include('ticketit::tickets.partials.attachment-small', ['attachment' => $attachment])
+                            @endforeach
+                            <li class="list-group-item">
+                                {!! CollectiveForm::file('attachments[]', ['class' => 'form-control', 'multiple']) !!}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"></div>
 
                     <div class="form-group col-lg-6">
                         {!! CollectiveForm::label('priority_id', trans('ticketit::lang.priority') . trans('ticketit::lang.colon'), ['class' => 'col-lg-4 control-label']) !!}

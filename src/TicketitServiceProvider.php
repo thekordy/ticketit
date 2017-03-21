@@ -243,6 +243,7 @@ class TicketitServiceProvider extends ServiceProvider
          */
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('CollectiveForm', 'Collective\Html\FormFacade');
+        $loader->alias('CollectiveHtml', 'Collective\Html\HtmlFacade');
 
         /*
          * Register htmlify command. Need to run this when upgrading from <=0.2.2

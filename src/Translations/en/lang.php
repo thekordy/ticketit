@@ -46,6 +46,7 @@ return [
   'btn-edit'                         => 'Edit',
   'btn-mark-complete'                => 'Mark Complete',
   'btn-submit'                       => 'Submit',
+  'btn-download'                     => 'Download',
 
   'agent'                            => 'Agent',
   'category'                         => 'Category',
@@ -63,6 +64,7 @@ return [
   'responsible'                      => 'Responsible',
   'status'                           => 'Status',
   'subject'                          => 'Subject',
+  'attachments'                      => 'Attachments',
 
  /*
   *  Page specific

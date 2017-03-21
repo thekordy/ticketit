@@ -12,6 +12,13 @@
                     <p> {!! $comment->html !!} </p>
                 </div>
             </div>
+            @if($comment->attachments->count() > 0)
+                <div class="panel-footer">
+                    @foreach($comment->attachments as $attachment)
+                        @include('ticketit::tickets.partials.attachment', ['attachment' => $attachment])
+                    @endforeach
+                </div>
+            @endif
         </div>
     @endforeach
 @endif

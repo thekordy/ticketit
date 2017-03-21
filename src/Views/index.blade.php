@@ -50,7 +50,9 @@
 	            { data: 'subject', name: 'subject' },
 	            { data: 'status', name: 'ticketit_statuses.name' },
 	            { data: 'updated_at', name: 'ticketit.updated_at' },
-            	{ data: 'agent', name: 'users.name' },
+            	@if (session('ticketit_filter_agent')=="" || (!$u->isAgent() && !$u->isAdmin()))
+					{ data: 'agent', name: 'users.name' },
+				@endif				
 	            @if( $u->isAgent() || $u->isAdmin() )
 		            { data: 'priority', name: 'ticketit_priorities.name' },
 	            	{ data: 'owner', name: 'users.name' },

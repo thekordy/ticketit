@@ -55,8 +55,10 @@
 				@endif				
 	            @if( $u->isAgent() || $u->isAdmin() )
 		            { data: 'priority', name: 'ticketit_priorities.name' },
-	            	{ data: 'owner', name: 'users.name' },
-		            { data: 'category', name: 'ticketit_categories.name' }
+	            	@if (session('ticketit_filter_owner')=="")
+						{ data: 'owner', name: 'users.name' },
+		            @endif
+					{ data: 'category', name: 'ticketit_categories.name' }
 	            @endif
 	        ]
 	    });

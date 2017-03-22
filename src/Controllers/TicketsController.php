@@ -164,7 +164,15 @@ class TicketsController extends Controller
 		if ($this->agent->isAdmin() or $this->agent->isAgent()){
 			// All visible Tickets (depends on selected Agent)
 			echo session('ticketit_filter_agent');
-			$counts['owner']['all']=session('ticketit_filter_agent')==""?$counts['total_agent']:Ticket::ListComplete($complete)->AgentTickets(session('ticketit_filter_agent'))->Visible()->count();
+			if (session('ticketit_filter_agent')==""){
+				if (isset($counts['total_agent'])){
+					$counts['owner']['all']=$counts['total_agent'];
+				}else{
+					$counts['owner']['all']=Ticket::ListComplete($complete)->AgentTickets(auth()->user()->id)->count();
+				}				
+			}else{
+				$counts['owner']['all']=Ticket::ListComplete($complete)->AgentTickets(session('ticketit_filter_agent'))->Visible()->count();
+			}
 			
 			// Current user Tickets
 			$me=Ticket::ListComplete($complete)->userTickets(auth()->user()->id);

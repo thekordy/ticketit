@@ -32,7 +32,7 @@ class TicketsController extends Controller
     {
         $user = $this->agent->find(auth()->user()->id);
 		
-		$collection = Ticket::ListComplete($complete)->Visible();
+		$collection = Ticket::ListComplete($complete);
 		
 		// Agent filter
 		if (session('ticketit_filter_agent')!=""){
@@ -40,6 +40,13 @@ class TicketsController extends Controller
 			$collection =$collection->whereHas('agent',function($q)use($agentid){
 				$q->where('id',$agentid);
 			});
+		}
+		
+		// Owner filter
+		if (session('ticketit_filter_owner')=="me"){
+			$collection=$collection->UserTickets(auth()->user()->id);
+		}else{
+			$collection=$collection->Visible();
 		}
 
         $collection
@@ -152,7 +159,18 @@ class TicketsController extends Controller
 			$counts['agent']=Agent::Visible()->withCount(['agentTotalTickets'=>function($q)use($complete){
 				$q->ListComplete($complete)->Visible();
 			}])->get();
-		}		
+		}
+
+		if ($this->agent->isAdmin() or $this->agent->isAgent()){
+			// All visible Tickets (depends on selected Agent)
+			echo session('ticketit_filter_agent');
+			$counts['owner']['all']=session('ticketit_filter_agent')==""?$counts['total_agent']:Ticket::ListComplete($complete)->AgentTickets(session('ticketit_filter_agent'))->Visible()->count();
+			
+			// Current user Tickets
+			$me=Ticket::ListComplete($complete)->userTickets(auth()->user()->id);
+			if (session('ticketit_filter_agent')!="") $me=$me->AgentTickets(session('ticketit_filter_agent'));
+			$counts['owner']['me']=$me->count();			
+		}
 		
 		return $counts;
 	}

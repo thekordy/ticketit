@@ -73,6 +73,12 @@ return [
 
 // tickets/____
   'index-my-tickets'                 => 'My Tickets',
+  'index-all-tickets'                => 'All Tickets',
+  'index-other-agent-tickets'        => 'Tickets for :agent',
+  'index-current-agent-tickets'      => 'Tickets for me',
+  'index-agent-my-tickets'           => 'My Tickets for :agent',
+  'index-current-agent-my-tickets'   => 'My Tickets for me',
+  
   'btn-create-new-ticket'            => 'Create new ticket',
   'index-complete-none'              => 'There are no complete tickets',
   'index-active-check'               => 'Be sure to check Active Tickets if you cannot find your ticket.',

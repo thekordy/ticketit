@@ -10,6 +10,7 @@
 	@foreach ($counts['agent'] as $ag)	
 		@if ($ag->id==session('ticketit_filter_agent'))
 			<button class="btn btn-info btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></button>
+			<?php $agent_name=$ag->name;?>
 		@else
 			<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
 		@endif
@@ -27,7 +28,23 @@
 			 <a href="{{ session('ticketit_filter_owner')=='me'?'#':action('\Kordy\Ticketit\Controllers\TicketsController@index').'/filter/owner/me' }}" class="btn {{ session('ticketit_filter_owner')=='me'?'btn-warning':'btn-default' }} btn-sm">Me <span class="badge">{{ $counts['owner']['me'] }}</span></a>
 			</div>
 		@endif
-		<h2>{{ trans('ticketit::lang.index-my-tickets') }}
+		<h2>@if (session('ticketit_filter_owner')=="me")
+				@if (session('ticketit_filter_agent')=="")
+					{{ trans('ticketit::lang.index-my-tickets') }}
+				@elseif (session('ticketit_filter_agent')==auth()->user()->id)
+					{{ trans('ticketit::lang.index-current-agent-my-tickets') }}
+				@else
+					{{ trans('ticketit::lang.index-agent-my-tickets',['agent'=>$agent_name]) }}
+				@endif
+			@else
+				@if (session('ticketit_filter_agent')=="")
+					{{ trans('ticketit::lang.index-all-tickets') }}
+				@elseif (session('ticketit_filter_agent')==auth()->user()->id)
+					{{ trans('ticketit::lang.index-current-agent-tickets') }}
+				@else
+					{{ trans('ticketit::lang.index-other-agent-tickets',['agent'=>$agent_name]) }}
+				@endif
+			@endif		
             {!! link_to_route($setting->grab('main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>

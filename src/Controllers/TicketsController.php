@@ -164,7 +164,6 @@ class TicketsController extends Controller
 
         if ($this->agent->isAdmin() or $this->agent->isAgent()) {
             // All visible Tickets (depends on selected Agent)
-            echo session('ticketit_filter_agent');
             if (session('ticketit_filter_agent') == '') {
                 if (isset($counts['total_agent'])) {
                     $counts['owner']['all'] = $counts['total_agent'];

@@ -12,10 +12,13 @@ use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
+use Kordy\Ticketit\Traits\Purifiable;
 
 class TicketsController extends Controller
 {
-    protected $tickets;
+    use Purifiable;
+	
+	protected $tickets;
     protected $agent;
 
     public function __construct(Ticket $tickets, Agent $agent)
@@ -172,7 +175,10 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $a_content=$this->purifyHtml($request->get('content'));		
+		$request->merge(['content'=>$a_content['content']]);
+		
+		$this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
@@ -182,8 +188,9 @@ class TicketsController extends Controller
         $ticket = new Ticket();
 
         $ticket->subject = $request->subject;
-
-        $ticket->setPurifiedContent($request->get('content'));
+        
+		$ticket->content=$a_content['content'];
+		$ticket->html=$a_content['html'];
 
         $ticket->priority_id = $request->priority_id;
         $ticket->category_id = $request->category_id;
@@ -196,7 +203,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+        #return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
 
     /**
@@ -247,7 +254,10 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $a_content=$this->purifyHtml($request->get('content'));
+		$request->merge(['content'=>$a_content['content']]);
+		
+		$this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
@@ -260,7 +270,8 @@ class TicketsController extends Controller
 
         $ticket->subject = $request->subject;
 
-        $ticket->setPurifiedContent($request->get('content'));
+        $ticket->content=$a_content['content'];
+		$ticket->html=$a_content['html'];
 
         $ticket->status_id = $request->status_id;
         $ticket->category_id = $request->category_id;

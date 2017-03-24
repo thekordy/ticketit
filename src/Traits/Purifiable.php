@@ -8,17 +8,17 @@ use Mews\Purifier\Facades\Purifier;
 trait Purifiable
 {
     /**
-     * Updates the content and html attribute of the given model.
+     * Returns an array with both filtered and excluded html
      *
      * @param string $rawHtml
      *
-     * @return \Illuminate\Database\Eloquent\Model $this
+     * @return array
      */
-    public function setPurifiedContent($rawHtml)
+    public function purifyHtml($rawHtml)
     {
-        $this->content = Purifier::clean($rawHtml, ['HTML.Allowed' => '']);
-        $this->html = Purifier::clean($rawHtml, Setting::grab('purifier_config'));
+        $a_html['content']= Purifier::clean($rawHtml, ['HTML.Allowed' => '']);
+        $a_html['html']= Purifier::clean($rawHtml, Setting::grab('purifier_config'));
 
-        return $this;
+        return $a_html;
     }
 }

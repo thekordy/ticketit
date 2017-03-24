@@ -176,7 +176,10 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
         $a_content=$this->purifyHtml($request->get('content'));		
-		$request->merge(['content'=>$a_content['content']]);
+		$request->merge([
+			'subject'=>trim($request->get('subject')),
+			'content'=>$a_content['content']
+		]);
 		
 		$this->validate($request, [
             'subject'     => 'required|min:3',
@@ -255,7 +258,10 @@ class TicketsController extends Controller
     public function update(Request $request, $id)
     {
         $a_content=$this->purifyHtml($request->get('content'));
-		$request->merge(['content'=>$a_content['content']]);
+		$request->merge([
+			'subject'=>trim($request->get('subject')),
+			'content'=>$a_content['content']
+		]);
 		
 		$this->validate($request, [
             'subject'     => 'required|min:3',

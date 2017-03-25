@@ -66,6 +66,8 @@ Default ticketit front route: http://your-project-url/tickets
 
 Default ticketit admin route: http://your-project-url/tickets-admin
 
+**Note:** Make sure you have created at least one status, one prority, and one category before you start creating tickets.
+
 ## Documentation
 [Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
 

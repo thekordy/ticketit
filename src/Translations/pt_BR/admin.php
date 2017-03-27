@@ -120,7 +120,7 @@ return [
     'config-index-initial'          => 'Inicial', // New
     'config-index-tickets'          => 'Chamados', // New
     'config-index-notifications'    => 'Notificações', // New
-    'config-index-permissions'      => 'Permissãos', // New
+    'config-index-permissions'      => 'Permissões', // New
     'config-index-other'            => 'Outras', // New
     'config-create-title'           => 'Criar: Nova Configuração Global', // New
     'config-create-subtitle'        => 'Criar Configuração', // New

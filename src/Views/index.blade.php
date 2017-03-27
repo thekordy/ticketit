@@ -14,7 +14,13 @@
 	<script src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script src="//cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
 	<script>
-	    $('.table').DataTable({
+	    $(function(){
+			$('#select_agent').select2().on("change", function (e) {				
+				window.location.href="{{ URL::to('/').'/'.$setting->grab('main_route') }}"+$(this).val();				
+			});
+		});
+		
+		$('.table').DataTable({
 	        processing: false,
 	        serverSide: true,
 	        responsive: true,

@@ -1,21 +1,37 @@
 @if (isset($counts['agent']))
 <div id="agent_panel" class="panel panel-default">
     <div class="panel-body text-left">
-	<span>Agent: </span>
-	@if (session('ticketit_filter_agent')!="")
-		<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/remove" class="btn btn-default btn-sm">All <span class="badge">{{$counts['total_agent']}}</span></a>
+	<span>Agent: </span>			
+	@if (count($counts['agent'])>4)
+		<select id="select_agent" style="width: 20%">
+		<option value="/filter/agent/remove">All</option>
+		@foreach ($counts['agent'] as $ag)			
+			<option value="/filter/agent/{{$ag->id}}"
+			@if ($ag->id==session('ticketit_filter_agent'))
+				<?php $agent_name=$ag->name;?>
+				selected="selected"
+			@endif
+			>{{$ag->name}} ({!!$ag->agent_total_tickets_count !!})</option>		
+		@endforeach
+		</select>
 	@else
-		<button class="btn btn-info btn-sm">All <span class="badge">{{$counts['total_agent']}}</span></button>
-	@endif		
-	@foreach ($counts['agent'] as $ag)	
-		@if ($ag->id==session('ticketit_filter_agent'))
-			<button class="btn btn-info btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></button>
-			<?php $agent_name=$ag->name;?>
+		@if (session('ticketit_filter_agent')!="")
+			<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/remove" class="btn btn-default btn-sm">All <span class="badge">{{$counts['total_agent']}}</span></a>
 		@else
-			<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
-		@endif
-		
-	@endforeach 
+			<button class="btn btn-info btn-sm">All <span class="badge">{{$counts['total_agent']}}</span></button>
+		@endif	
+	
+		@foreach ($counts['agent'] as $ag)
+			@if ($ag->id==session('ticketit_filter_agent'))
+				<button class="btn btn-info btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></button>
+				<?php $agent_name=$ag->name;?>
+			@else
+				<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
+			@endif
+			
+		@endforeach
+	@endif
+	 
 </div></div>
 @endif
 

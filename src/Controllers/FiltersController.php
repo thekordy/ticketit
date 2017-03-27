@@ -5,14 +5,16 @@ namespace Kordy\Ticketit\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Category;
 
 class FiltersController extends Controller
 {
     public function manage(Request $request, $filter, $value)
     {
+
         //### PENDING: User permissions check or redirect back
 
-        if (in_array($filter, ['agent', 'owner']) == true) {
+        if (in_array($filter, ['agent', 'category', 'owner']) == true) {
             if ($value == 'remove') {
                 // Delete filter
                 $request->session()->forget('ticketit_filter_'.$filter);
@@ -24,7 +26,13 @@ class FiltersController extends Controller
                     if (Agent::where('id', $value)->count() == 1) {
                         $add = true;
                     }
-                }
+				}
+
+				if ($filter=="category"){
+					if (Category::where('id', $value)->count() == 1) {
+						$add = true;
+					}
+				}                
 
                 if ($filter == 'owner') {
                     if ($value == 'me') {

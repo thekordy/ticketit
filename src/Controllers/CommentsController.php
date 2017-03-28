@@ -10,8 +10,8 @@ use Kordy\Ticketit\Traits\Purifiable;
 class CommentsController extends Controller
 {
     use Purifiable;
-	
-	public function __construct()
+
+    public function __construct()
     {
         $this->middleware('Kordy\Ticketit\Middleware\IsAdminMiddleware', ['only' => ['edit', 'update', 'destroy']]);
         $this->middleware('Kordy\Ticketit\Middleware\ResAccessMiddleware', ['only' => 'store']);
@@ -46,18 +46,18 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        $a_content=$this->purifyHtml($request->get('content'));
-		$request->merge(['content'=>$a_content['content']]);
-		
-		$this->validate($request, [
+        $a_content = $this->purifyHtml($request->get('content'));
+        $request->merge(['content'=>$a_content['content']]);
+
+        $this->validate($request, [
             'ticket_id'   => 'required|exists:ticketit,id',
             'content'     => 'required|min:6',
         ]);
 
         $comment = new Models\Comment();
 
-        $comment->content=$a_content['content'];
-		$comment->html=$a_content['html'];
+        $comment->content = $a_content['content'];
+        $comment->html = $a_content['html'];
 
         $comment->ticket_id = $request->get('ticket_id');
         $comment->user_id = \Auth::user()->id;

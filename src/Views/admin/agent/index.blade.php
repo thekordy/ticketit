@@ -29,7 +29,7 @@
                         <td>{{ trans('ticketit::admin.table-id') }}</td>
                         <td>{{ trans('ticketit::admin.table-name') }}</td>
                         <td>{{ trans('ticketit::admin.table-categories') }}</td>
-						<td>Autoassign on categories</td>                        
+						<td>{{ trans('ticketit::admin.table-categories-autoassign') }}</td>                        
                         <td>{{ trans('ticketit::admin.table-remove-agent') }}</td>
                     </tr>
                 </thead>
@@ -49,19 +49,16 @@
                                 </span>
                             @endforeach
 							
-							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#CategoriesPopupAgent{{ $agent->id }}">
-							  Edit
-							</button>
+							<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#CategoriesPopupAgent{{ $agent->id }}">{{ trans('ticketit::admin.btn-edit')}}</button>
 							
 							<div class="modal fade" id="CategoriesPopupAgent{{ $agent->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 							  <div class="modal-dialog" role="document">
 								<div class="modal-content">
 								  <div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<h4 class="modal-title" id="myModalLabel">Agent categories</h4>
+									<h4 class="modal-title" id="myModalLabel">{{ trans('ticketit::admin.agent-edit-title',['agent'=>$agent->name]) }}</h4>
 								  </div>
-								  <div class="modal-body">
-								  <h3 class="pull-left">Agent: {{ $agent->name }}</h3>
+								  <div class="modal-body">								  
 									{!! CollectiveForm::open([
                                             'method' => 'PATCH',
                                             'route' => [
@@ -70,9 +67,9 @@
                                                         ],
                                             ]) !!}
 									<table class="table table-hover table-striped">
-										<thead><th>Category</th>
-										<th>Active</th>
-										<th>Autoassign enabled</th></thead>
+										<thead><th>{{ trans('ticketit::admin.agent-edit-table-category') }}</th>
+										<th>{{ trans('ticketit::admin.agent-edit-table-active') }}</th>
+										<th>{{ trans('ticketit::admin.agent-edit-table-autoassign') }}</th></thead>
 										<tbody>
 										@foreach($categories as $agent_cat)
 											<tr>

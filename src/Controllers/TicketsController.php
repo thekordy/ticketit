@@ -149,9 +149,19 @@ class TicketsController extends Controller
         $counts = [];
 
         if ($this->agent->isAdmin() or ($this->agent->isAgent() and Setting::grab('agent_restrict') == 0)) {
-
-            // Ticket count for all visible Agents
-            $counts['total_agent'] = Ticket::listComplete($complete)->visible()->count();
+			// Ticket count for all categories / agents
+			$counts['total_category'] = $counts['total_agent'] = Ticket::ListComplete($complete)->Visible()->count();
+			
+			// Ticket count for each Category
+			if ($this->agent->isAdmin()){
+				$counts['category']=Category::orderBy('name')->withCount(['tickets'=>function ($q) use ($complete) {
+					$q->ListComplete($complete);			
+				}])->get();
+			}else{
+				$counts['category']=Agent::where('id',auth()->user()->id)->firstOrFail()->categories()->orderBy('name')->withCount(['tickets'=>function ($q) use ($complete) {
+					$q->ListComplete($complete);			
+				}])->get();
+			}
 
             // Ticket counts for each visible Agent
             $counts['agent'] = Agent::visible()->withCount(['agentTotalTickets'=> function ($q) use ($complete) {

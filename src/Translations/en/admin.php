@@ -83,12 +83,12 @@ return [
   'agent-create-add-agents'       => 'Add Agents',
   'agent-create-no-users'         => 'There are no user accounts, create user accounts first.',
   'agent-create-select-user'      => 'Select user accounts to be added as agents',
-  
+
 // tickets-admin/agent/edit
-  'agent-edit-title'			  => 'Categories for :agent',
-  'agent-edit-table-category'	  => 'Category',
-  'agent-edit-table-active'		  => 'Active',
-  'agent-edit-table-autoassign'	  => 'Autoassign',
+  'agent-edit-title'                 => 'Categories for :agent',
+  'agent-edit-table-category'        => 'Category',
+  'agent-edit-table-active'          => 'Active',
+  'agent-edit-table-autoassign'      => 'Autoassign',
 
 // tickets-admin/administrators/____
   'administrator-index-title'                   => 'Administrator Management',  //new

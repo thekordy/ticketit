@@ -130,6 +130,22 @@
                 </tbody>
             </table>
         @endif
-    </div>
-	<script src="{!! asset('vendor/ticketit/js/agent_index.js') !!}"></script>
+    </div>	
+@stop
+
+@section('footer')
+<script type="text/javascript">
+	$(function(){
+		$('.jquery_agent_cat').click(function(){
+			var checked=$(this).hasClass('checked');
+			if (checked){
+				$(this).removeClass('checked');
+				$('#'+$(this).attr('id')+"_auto").prop('checked',false).prop('disabled','disabled');			
+			}else{
+				$(this).addClass('checked');
+				$('#'+$(this).attr('id')+"_auto").prop('checked','checked').prop('disabled',false);
+			}
+		});
+	});
+</script>
 @stop

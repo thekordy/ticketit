@@ -206,7 +206,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
 
-        #return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
     }
 
     /**

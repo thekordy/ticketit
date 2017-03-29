@@ -3,8 +3,8 @@
     <div class="panel-body text-left">
 	<span>Category: </span> 
 	@if (count($counts['category'])>2)
-		<select id="select_agent" style="width: 20%">
-		<option value="/filter/category/remove">All</option>
+		<select class="nav_filter_select" style="width: 20%">
+		<option value="/filter/category/remove">All ({{$counts['total_category']}})</option>
 		@foreach ($counts['category'] as $cat)			
 			<option value="/filter/category/{{$cat->id}}"
 			@if ($cat->id==session('ticketit_filter_category'))
@@ -33,8 +33,8 @@
 	
 	<span>Agent: </span> 
 	@if (count($counts['agent'])>4)
-		<select id="select_agent" style="width: 20%">
-		<option value="/filter/agent/remove">All</option>
+		<select class="nav_filter_select" style="width: 20%">
+		<option value="/filter/agent/remove">All ({{$counts['total_agent']}})</option>
 		@foreach ($counts['agent'] as $ag)			
 			<option value="/filter/agent/{{$ag->id}}"
 			@if ($ag->id==session('ticketit_filter_agent'))

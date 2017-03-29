@@ -15,7 +15,7 @@
 	<script src="//cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
 	<script>
 	    $(function(){
-			$('#select_agent').select2().on("change", function (e) {				
+			$('.nav_filter_select').select2().on("change", function (e) {				
 				window.location.href="{{ URL::to('/').'/'.$setting->grab('main_route') }}"+$(this).val();				
 			});
 		});

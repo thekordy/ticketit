@@ -138,7 +138,7 @@ return [
 
     // TicketsController
     'the-ticket-has-been-created'      => 'O Chamado foi Criado!',
-    'the-ticket-has-been-modified'     => 'O Chamdo foi Modificado!',
+    'the-ticket-has-been-modified'     => 'O Chamado foi Modificado!',
     'the-ticket-has-been-deleted'      => 'O Chamado :name foi Excluido!',
     'the-ticket-has-been-completed'    => 'O Chamado :name foi Finalizado!',
     'the-ticket-has-been-reopened'     => 'O Chamado :name foi Re-aberto!',

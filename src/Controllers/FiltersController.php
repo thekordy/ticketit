@@ -26,13 +26,13 @@ class FiltersController extends Controller
                     if (Agent::where('id', $value)->count() == 1) {
                         $add = true;
                     }
-				}
+                }
 
-				if ($filter=="category"){
-					if (Category::where('id', $value)->count() == 1) {
-						$add = true;
-					}
-				}                
+                if ($filter == 'category') {
+                    if (Category::where('id', $value)->count() == 1) {
+                        $add = true;
+                    }
+                }
 
                 if ($filter == 'owner') {
                     if ($value == 'me') {

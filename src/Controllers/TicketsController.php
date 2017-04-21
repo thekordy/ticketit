@@ -125,11 +125,11 @@ class TicketsController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $complete = false;
 
-        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($complete)]);
+        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($request, $complete)]);
     }
 
     /**
@@ -137,11 +137,11 @@ class TicketsController extends Controller
      *
      * @return Response
      */
-    public function indexComplete()
+    public function indexComplete(Request $request)
     {
         $complete = true;
 
-        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($complete)]);
+        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($request, $complete)]);
     }
 
     /**
@@ -149,7 +149,7 @@ class TicketsController extends Controller
      *
      * @return
      */
-    public function ticketCounts($complete)
+    public function ticketCounts($request, $complete)
     {
         $counts = [];
 		$category = session('ticketit_filter_category')=="" ? null : session('ticketit_filter_category');
@@ -194,10 +194,10 @@ class TicketsController extends Controller
 		
 		// Forget agent if it doesn't exist in current category
 		$agent=session('ticketit_filter_agent');
-		if ($counts['agent']::filter(function($q) use($agent){
+		if ($counts['agent']->filter(function($q) use($agent){
 			return $q->id==$agent;
 		})->count()==0){
-			session('ticketit_filter_agent')="";
+			$request->session()->forget('ticketit_filter_agent');
 		}		
 
         if ($this->agent->isAdmin() or $this->agent->isAgent()) {

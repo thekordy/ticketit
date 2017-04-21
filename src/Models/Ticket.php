@@ -245,6 +245,23 @@ class Ticket extends Model
         }
     }
 
+	/**
+     * Get all tickets in specified category
+     *
+     * @param $query
+     * @param $id
+     *
+     * @return mixed
+     */
+	public function scopeInCategory($query,$id = null)
+	{
+		if (isset($id)){
+			return $query->where('category_id',$id);
+		}else{
+			return $query;
+		}
+	}	
+	
     /**
      * Sets the agent with the lowest tickets assigned in specific category.
      *

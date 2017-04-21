@@ -2,13 +2,14 @@
 <div id="agent_panel" class="panel panel-default">
     <div class="panel-body text-left">
 	<span>Category: </span> 
+	<?php $agent_name="prova";?>
 	@if (count($counts['category'])>2)
 		<select class="nav_filter_select" style="width: 20%">
 		<option value="/filter/category/remove">All ({{$counts['total_category']}})</option>
 		@foreach ($counts['category'] as $cat)			
 			<option value="/filter/category/{{$cat->id}}"
 			@if ($cat->id==session('ticketit_filter_category'))
-				<?php $agent_name=$cat->name;?>
+				<?php $category_name="<span style=\"color: ".$cat->color."\">".$cat->name."</span>";?>
 				selected="selected"
 			@endif
 			>{{$cat->name}} ({!!$cat->tickets_count !!})</option>		
@@ -24,7 +25,7 @@
 		@foreach ($counts['category'] as $cat)
 			@if ($cat->id==session('ticketit_filter_category'))
 				<button class="btn btn-success btn-sm">{{$cat->name}} <span class="badge">{!!$cat->tickets_count !!}</span></button>
-				<?php $agent_name=$cat->name;?>
+				<?php $category_name=$cat->name;?>
 			@else
 				<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/category/{{$cat->id}}" class="btn btn-default btn-sm">{{$cat->name}} <span class="badge">{!!$cat->tickets_count !!}</span></a>
 			@endif			
@@ -38,7 +39,7 @@
 		@foreach ($counts['agent'] as $ag)			
 			<option value="/filter/agent/{{$ag->id}}"
 			@if ($ag->id==session('ticketit_filter_agent'))
-				<?php $agent_name=$ag->name;?>
+				<?php $agent_name="<u>".$ag->name."</u>";?>
 				selected="selected"
 			@endif
 			>{{$ag->name}} ({!!$ag->agent_total_tickets_count !!})</option>		
@@ -54,7 +55,7 @@
 		@foreach ($counts['agent'] as $ag)
 			@if ($ag->id==session('ticketit_filter_agent'))
 				<button class="btn btn-info btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></button>
-				<?php $agent_name=$ag->name;?>
+				<?php $agent_name="<u>".$ag->name."</u>";?>
 			@else
 				<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
 			@endif			
@@ -73,23 +74,26 @@
 			 <a href="{{ session('ticketit_filter_owner')=='me'?'#':action('\Kordy\Ticketit\Controllers\TicketsController@index').'/filter/owner/me' }}" class="btn {{ session('ticketit_filter_owner')=='me'?'btn-warning':'btn-default' }} btn-sm">Me <span class="badge">{{ $counts['owner']['me'] }}</span></a>
 			</div>
 		@endif
-		<h2>@if (session('ticketit_filter_owner')=="me")
-				@if (session('ticketit_filter_agent')=="")
-					{{ trans('ticketit::lang.index-my-tickets') }}
-				@elseif (session('ticketit_filter_agent')==auth()->user()->id)
-					{{ trans('ticketit::lang.index-current-agent-my-tickets') }}
-				@else
-					{{ trans('ticketit::lang.index-agent-my-tickets',['agent'=>$agent_name]) }}
-				@endif
-			@else
-				@if (session('ticketit_filter_agent')=="")
-					{{ trans('ticketit::lang.index-all-tickets') }}
-				@elseif (session('ticketit_filter_agent')==auth()->user()->id)
-					{{ trans('ticketit::lang.index-current-agent-tickets') }}
-				@else
-					{{ trans('ticketit::lang.index-other-agent-tickets',['agent'=>$agent_name]) }}
-				@endif
-			@endif		
+		<h2><?php
+		
+		
+		$cons='ticketit::lang.index';
+		$vars=array();
+		
+		if (session('ticketit_filter_agent')==auth()->user()->id){
+			$cons.="-current-agent";
+		}elseif (session('ticketit_filter_agent')!=""){
+			$cons.="-other-agent";
+			$vars['agent']=$agent_name;
+		}		
+		
+		$cons.=session('ticketit_filter_owner')=="me"?"-my-tickets":"-tickets";
+
+		if (session('ticketit_filter_category')!=""){
+			$cons.="-in";
+			$vars['category']=$category_name;
+		}
+		echo trans($cons,$vars);?>
             {!! link_to_route($setting->grab('main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>

@@ -25,6 +25,9 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
             ],
         ]);
 
+    Route::get("$main_route_path/download-attachment/{id}", 'Kordy\Ticketit\Controllers\TicketsController@downloadAttachment')
+        ->name("$main_route.download-attachment");
+
         //Ticket Comments public route
         $field_name = last(explode('/', "$main_route_path-comment"));
     Route::resource("$main_route_path-comment", 'Kordy\Ticketit\Controllers\CommentsController', [

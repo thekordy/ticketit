@@ -4,12 +4,18 @@ namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
 use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Attachment;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Log;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -177,26 +183,52 @@ class TicketsController extends Controller
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
             'category_id' => 'required|exists:ticketit_categories,id',
+            'attachments' => 'array',
         ]);
 
-        $ticket = new Ticket();
+        DB::transaction(function () use ($request) {
+            $ticket = new Ticket();
+            $ticket->subject = $request->subject;
+            $ticket->priority_id = $request->priority_id;
+            $ticket->category_id = $request->category_id;
+            $ticket->status_id = Setting::grab('default_status_id');
+            $ticket->user_id = auth()->user()->id;
+            $ticket->setPurifiedContent($request->get('content'));
+            $ticket->autoSelectAgent();
 
-        $ticket->subject = $request->subject;
+            $ticket->save();
 
-        $ticket->setPurifiedContent($request->get('content'));
-
-        $ticket->priority_id = $request->priority_id;
-        $ticket->category_id = $request->category_id;
-
-        $ticket->status_id = Setting::grab('default_status_id');
-        $ticket->user_id = auth()->user()->id;
-        $ticket->autoSelectAgent();
-
-        $ticket->save();
+            $this->saveAttachments($ticket, $request->attachments);
+        });
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+    }
+
+    public function downloadAttachment($attachment_id)
+    {
+        /** @var Agent $user */
+        $user = $this->agent->find(auth()->user()->id);
+
+        /** @var Attachment $attachment */
+        $attachment = Attachment::query()
+            ->where('id', $attachment_id)
+            ->whereHas('ticket', function ($ticketQuery) use ($user) {
+                // Ensure user has permissions to access the ticket
+
+                if ($user->isAdmin()) {
+                    // No restriction for admin
+                } elseif ($user->isAgent()) {
+                    $ticketQuery->agentUserTickets($user->id);
+                } else {
+                    $ticketQuery->userTickets($user->id);
+                }
+            })
+            ->firstOrFail();
+
+        return response()
+            ->download($attachment->file_path, $attachment->original_filename);
     }
 
     /**
@@ -254,25 +286,30 @@ class TicketsController extends Controller
             'category_id' => 'required|exists:ticketit_categories,id',
             'status_id'   => 'required|exists:ticketit_statuses,id',
             'agent_id'    => 'required',
+            'attachments' => 'array',
         ]);
 
-        $ticket = $this->tickets->findOrFail($id);
+        DB::transaction(function () use ($request, $id) {
+            $ticket = $this->tickets->findOrFail($id);
 
-        $ticket->subject = $request->subject;
+            $ticket->subject = $request->subject;
 
-        $ticket->setPurifiedContent($request->get('content'));
+            $ticket->setPurifiedContent($request->get('content'));
 
-        $ticket->status_id = $request->status_id;
-        $ticket->category_id = $request->category_id;
-        $ticket->priority_id = $request->priority_id;
+            $ticket->status_id = $request->status_id;
+            $ticket->category_id = $request->category_id;
+            $ticket->priority_id = $request->priority_id;
 
-        if ($request->input('agent_id') == 'auto') {
-            $ticket->autoSelectAgent();
-        } else {
-            $ticket->agent_id = $request->input('agent_id');
-        }
+            if ($request->input('agent_id') == 'auto') {
+                $ticket->autoSelectAgent();
+            } else {
+                $ticket->agent_id = $request->input('agent_id');
+            }
 
-        $ticket->save();
+            $ticket->save();
+
+            $this->saveAttachments($ticket, $request->attachments);
+        });
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
 
@@ -496,5 +533,37 @@ class TicketsController extends Controller
         $performance_average = $performance_count / $counter;
 
         return $performance_average;
+    }
+
+    protected function saveAttachments(Ticket $ticket, array $attachments)
+    {
+        foreach ($attachments as $uploadedFile) {
+            /** @var UploadedFile $uploadedFile */
+            if (is_null($uploadedFile)) {
+                // No files attached
+                break;
+            }
+
+            if (!$uploadedFile instanceof UploadedFile) {
+                Log::error('File object expected, given: '.print_r($uploadedFile, true));
+                throw new InvalidArgumentException();
+            }
+
+            $attachments_path = Setting::grab('attachments_path');
+            $file_name = auth()->user()->id.'_'.$ticket->id.'_'.md5(Str::random().$uploadedFile->getClientOriginalName());
+            $file_directory = storage_path($attachments_path);
+
+            $attachment = new Attachment();
+            $attachment->ticket_id = $ticket->id;
+            $attachment->uploaded_by_id = $ticket->user_id;
+            $attachment->original_filename = $uploadedFile->getClientOriginalName() ?: '';
+            $attachment->bytes = $uploadedFile->getSize();
+            $attachment->mimetype = $uploadedFile->getMimeType() ?: '';
+            $attachment->file_path = $file_directory.DIRECTORY_SEPARATOR.$file_name;
+            $attachment->save();
+
+            // Should be called when you no need anything from this file, otherwise it fails with Exception that file does not exists (old path being used)
+            $uploadedFile->move(storage_path($attachments_path), $file_name);
+        }
     }
 }

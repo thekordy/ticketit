@@ -1,7 +1,7 @@
 @if (isset($counts['agent']))
 <div id="agent_panel" class="panel panel-default">
     <div class="panel-body text-left">
-	<span>Category: </span> 
+	<span class="title category">Category:</span> 
 	<?php $agent_name="prova";?>
 	@if (count($counts['category'])>2)
 		<select class="nav_filter_select" style="width: 20%">
@@ -21,7 +21,8 @@
 		@else
 			<button class="btn btn-success btn-sm">All <span class="badge">{{$counts['total_category']}}</span></button>
 		@endif
-	
+		
+		<div class="btn-group filter-buttons">
 		@foreach ($counts['category'] as $cat)
 			@if ($cat->id==session('ticketit_filter_category'))
 				<button class="btn btn-success btn-sm">{{$cat->name}} <span class="badge">{!!$cat->tickets_count !!}</span></button>
@@ -30,9 +31,10 @@
 				<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/category/{{$cat->id}}" class="btn btn-default btn-sm">{{$cat->name}} <span class="badge">{!!$cat->tickets_count !!}</span></a>
 			@endif			
 		@endforeach
+		</div>
 	@endif
 	
-	<span>Agent: </span> 
+	<span class="title agent">Agent:</span> 
 	@if (count($counts['agent'])>4)
 		<select class="nav_filter_select" style="width: 20%">
 		<option value="/filter/agent/remove">All ({{$counts['total_agent']}})</option>
@@ -52,6 +54,7 @@
 			<button class="btn btn-info btn-sm">All <span class="badge">{{$counts['total_agent']}}</span></button>
 		@endif
 	
+		<div class="btn-group filter-buttons">
 		@foreach ($counts['agent'] as $ag)
 			@if ($ag->id==session('ticketit_filter_agent'))
 				<button class="btn btn-info btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></button>
@@ -60,6 +63,7 @@
 				<a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}/filter/agent/{{$ag->id}}" class="btn btn-default btn-sm">{{$ag->name}} <span class="badge">{!!$ag->agent_total_tickets_count !!}</span></a>
 			@endif			
 		@endforeach
+		</div>
 	@endif
 	 
 </div></div>

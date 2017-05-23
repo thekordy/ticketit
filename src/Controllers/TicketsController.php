@@ -10,6 +10,7 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -78,6 +79,12 @@ class TicketsController extends Controller
 
         $collection->editColumn('updated_at', '{!! \Carbon\Carbon::createFromFormat("Y-m-d H:i:s", $updated_at)->diffForHumans() !!}');
 
+        // method rawColumns was introduced in laravel-datatables 7, which is only compatible with >L5.4
+        // in previous laravel-datatables versions escaping columns wasn't defaut
+        if(LaravelVersion::min('5.4')){
+            $collection->rawColumns(['subject', 'status', 'priority', 'category', 'agent']);
+        }
+
         return $collection->make(true);
     }
 
@@ -93,21 +100,21 @@ class TicketsController extends Controller
 
         $collection->editColumn('status', function ($ticket) {
             $color = $ticket->color_status;
-            $status = $ticket->status;
+            $status = e($ticket->status);
 
             return "<div style='color: $color'>$status</div>";
         });
 
         $collection->editColumn('priority', function ($ticket) {
             $color = $ticket->color_priority;
-            $priority = $ticket->priority;
+            $priority = e($ticket->priority);
 
             return "<div style='color: $color'>$priority</div>";
         });
 
         $collection->editColumn('category', function ($ticket) {
             $color = $ticket->color_category;
-            $category = $ticket->category;
+            $category = e($ticket->category);
 
             return "<div style='color: $color'>$category</div>";
         });
@@ -115,7 +122,7 @@ class TicketsController extends Controller
         $collection->editColumn('agent', function ($ticket) {
             $ticket = $this->tickets->find($ticket->id);
 
-            return $ticket->agent->name;
+            return e($ticket->agent->name);
         });
 
         return $collection;

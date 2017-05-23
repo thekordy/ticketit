@@ -11,11 +11,14 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Traits\Purifiable;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
 class TicketsController extends Controller
 {
+    use Purifiable;
+
     protected $tickets;
     protected $agent;
 
@@ -179,6 +182,12 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        $a_content = $this->purifyHtml($request->get('content'));
+        $request->merge([
+            'subject'=> trim($request->get('subject')),
+            'content'=> $a_content['content'],
+        ]);
+
         $this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
@@ -190,7 +199,8 @@ class TicketsController extends Controller
 
         $ticket->subject = $request->subject;
 
-        $ticket->setPurifiedContent($request->get('content'));
+        $ticket->content = $a_content['content'];
+        $ticket->html = $a_content['html'];
 
         $ticket->priority_id = $request->priority_id;
         $ticket->category_id = $request->category_id;
@@ -254,6 +264,12 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $a_content = $this->purifyHtml($request->get('content'));
+        $request->merge([
+            'subject'=> trim($request->get('subject')),
+            'content'=> $a_content['content'],
+        ]);
+
         $this->validate($request, [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
@@ -267,7 +283,8 @@ class TicketsController extends Controller
 
         $ticket->subject = $request->subject;
 
-        $ticket->setPurifiedContent($request->get('content'));
+        $ticket->content = $a_content['content'];
+        $ticket->html = $a_content['html'];
 
         $ticket->status_id = $request->status_id;
         $ticket->category_id = $request->category_id;

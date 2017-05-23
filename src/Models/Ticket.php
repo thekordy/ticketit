@@ -5,12 +5,10 @@ namespace Kordy\Ticketit\Models;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Date\Date;
 use Kordy\Ticketit\Traits\ContentEllipse;
-use Kordy\Ticketit\Traits\Purifiable;
 
 class Ticket extends Model
 {
     use ContentEllipse;
-    use Purifiable;
 
     protected $table = 'ticketit';
     protected $dates = ['completed_at'];

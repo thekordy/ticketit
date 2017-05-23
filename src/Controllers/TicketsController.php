@@ -5,12 +5,12 @@ namespace Kordy\Ticketit\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Helpers\LaravelVersion;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Engines\EloquentEngine;
 
@@ -81,7 +81,7 @@ class TicketsController extends Controller
 
         // method rawColumns was introduced in laravel-datatables 7, which is only compatible with >L5.4
         // in previous laravel-datatables versions escaping columns wasn't defaut
-        if(LaravelVersion::min('5.4')){
+        if (LaravelVersion::min('5.4')) {
             $collection->rawColumns(['subject', 'status', 'priority', 'category', 'agent']);
         }
 

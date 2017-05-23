@@ -14,7 +14,13 @@
 	<script src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script src="//cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
 	<script>
-	    $('.table').DataTable({
+	    $(function(){
+			$('.nav_filter_select').select2().on("change", function (e) {				
+				window.location.href="{{ URL::to('/').'/'.$setting->grab('main_route') }}"+$(this).val();				
+			});
+		});
+		
+		$('.table').DataTable({
 	        processing: false,
 	        serverSide: true,
 	        responsive: true,
@@ -50,11 +56,17 @@
 	            { data: 'subject', name: 'subject' },
 	            { data: 'status', name: 'ticketit_statuses.name' },
 	            { data: 'updated_at', name: 'ticketit.updated_at' },
-            	{ data: 'agent', name: 'users.name' },
+            	@if (session('ticketit_filter_agent')=="" || (!$u->isAgent() && !$u->isAdmin()))
+					{ data: 'agent', name: 'users.name' },
+				@endif				
 	            @if( $u->isAgent() || $u->isAdmin() )
 		            { data: 'priority', name: 'ticketit_priorities.name' },
-	            	{ data: 'owner', name: 'users.name' },
-		            { data: 'category', name: 'ticketit_categories.name' }
+	            	@if (session('ticketit_filter_owner')=="")
+						{ data: 'owner', name: 'users.name' },
+		            @endif
+					@if (session('ticketit_filter_category')=="")
+						{ data: 'category', name: 'ticketit_categories.name' }
+					@endif
 	            @endif
 	        ]
 	    });

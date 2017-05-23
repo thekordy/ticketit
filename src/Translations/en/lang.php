@@ -73,6 +73,18 @@ return [
 
 // tickets/____
   'index-my-tickets'                 => 'My Tickets',
+  'index-my-tickets-in'              => 'My Tickets in :category',
+  'index-tickets'                    => 'All Tickets',
+  'index-tickets-in'                 => 'All Tickets in :category',
+  'index-other-agent-tickets'        => 'Tickets for :agent',
+  'index-other-agent-tickets-in'     => 'Tickets for :agent in :category',
+  'index-current-agent-tickets'      => 'Tickets for me',
+  'index-current-agent-tickets-in'   => 'Tickets for me in :category',
+  'index-other-agent-my-tickets'     => 'My Tickets for :agent',
+  'index-other-agent-my-tickets-in'  => 'My Tickets for :agent in :category',
+  'index-current-agent-my-tickets'   => 'My Tickets for me',
+  'index-current-agent-my-tickets-in'=> 'My Tickets for me in :category',
+
   'btn-create-new-ticket'            => 'Create new ticket',
   'index-complete-none'              => 'There are no complete tickets',
   'index-active-check'               => 'Be sure to check Active Tickets if you cannot find your ticket.',

@@ -1,4 +1,7 @@
 {{-- Load the css file to the header --}}
+<link rel="StyleSheet" href="{{asset('vendor/ticketit/css/select2.min.css')}}">
+<script type="text/javascript" src="{{asset('vendor/ticketit/js/select2.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('vendor/ticketit/js/i18n/'.App::getLocale().'.js')}}"></script>
 <script type="text/javascript">
     function loadCSS(filename) {
         var file = document.createElement("link");

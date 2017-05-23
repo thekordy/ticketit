@@ -58,6 +58,8 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
             'as'   => $main_route.'agentselectlist',
             'uses' => 'Kordy\Ticketit\Controllers\TicketsController@agentSelectList',
         ]);
+
+        Route::get("$main_route_path/filter/{filter}/{value}", 'Kordy\Ticketit\Controllers\FiltersController@manage');
     });
 
     Route::group(['middleware' => 'Kordy\Ticketit\Middleware\IsAdminMiddleware'], function () use ($admin_route, $admin_route_path) {

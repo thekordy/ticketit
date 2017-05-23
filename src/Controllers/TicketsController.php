@@ -33,24 +33,18 @@ class TicketsController extends Controller
     {
         $user = $this->agent->find(auth()->user()->id);
 
-        if ($user->isAdmin()) {
-            if ($complete) {
-                $collection = Ticket::complete();
-            } else {
-                $collection = Ticket::active();
-            }
-        } elseif ($user->isAgent()) {
-            if ($complete) {
-                $collection = Ticket::complete()->agentUserTickets($user->id);
-            } else {
-                $collection = Ticket::active()->agentUserTickets($user->id);
-            }
+        $collection = Ticket::listComplete($complete);
+
+        // Agent filter
+        if (session('ticketit_filter_agent') != '') {
+            $collection = $collection->agentTickets(session('ticketit_filter_agent'));
+        }
+
+        // Owner filter
+        if (session('ticketit_filter_owner') == 'me') {
+            $collection = $collection->userTickets(auth()->user()->id);
         } else {
-            if ($complete) {
-                $collection = Ticket::userTickets($user->id)->complete();
-            } else {
-                $collection = Ticket::userTickets($user->id)->active();
-            }
+            $collection = $collection->visible();
         }
 
         $collection
@@ -137,7 +131,7 @@ class TicketsController extends Controller
     {
         $complete = false;
 
-        return view('ticketit::index', compact('complete'));
+        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($complete)]);
     }
 
     /**
@@ -149,7 +143,50 @@ class TicketsController extends Controller
     {
         $complete = true;
 
-        return view('ticketit::index', compact('complete'));
+        return view('ticketit::index', ['complete'=>$complete, 'counts'=>$this->ticketCounts($complete)]);
+    }
+
+    /**
+     * Calculates Tickets counts to show.
+     *
+     * @return
+     */
+    public function ticketCounts($complete)
+    {
+        $counts = [];
+
+        if ($this->agent->isAdmin() or ($this->agent->isAgent() and Setting::grab('agent_restrict') == 0)) {
+
+            // Ticket count for all visible Agents
+            $counts['total_agent'] = Ticket::listComplete($complete)->visible()->count();
+
+            // Ticket counts for each visible Agent
+            $counts['agent'] = Agent::visible()->withCount(['agentTotalTickets'=> function ($q) use ($complete) {
+                $q->listComplete($complete)->visible();
+            }])->get();
+        }
+
+        if ($this->agent->isAdmin() or $this->agent->isAgent()) {
+            // All visible Tickets (depends on selected Agent)
+            if (session('ticketit_filter_agent') == '') {
+                if (isset($counts['total_agent'])) {
+                    $counts['owner']['all'] = $counts['total_agent'];
+                } else {
+                    $counts['owner']['all'] = Ticket::listComplete($complete)->agentTickets(auth()->user()->id)->count();
+                }
+            } else {
+                $counts['owner']['all'] = Ticket::listComplete($complete)->agentTickets(session('ticketit_filter_agent'))->visible()->count();
+            }
+
+            // Current user Tickets
+            $me = Ticket::listComplete($complete)->userTickets(auth()->user()->id);
+            if (session('ticketit_filter_agent') != '') {
+                $me = $me->agentTickets(session('ticketit_filter_agent'));
+            }
+            $counts['owner']['me'] = $me->count();
+        }
+
+        return $counts;
     }
 
     /**

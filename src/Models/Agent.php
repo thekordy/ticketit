@@ -270,4 +270,45 @@ class Agent extends User
     {
         return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'user_id')->whereNull('completed_at');
     }
+
+    /**
+     * Get all Visible agents for current user.
+     *
+     * @param $query
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function scopeVisible($query)
+    {
+        if (auth()->user()->ticketit_admin) {
+            return $query->orderBy('name', 'ASC');
+        } elseif (auth()->user()->ticketit_agent) {
+            return $query->VisibleForAgent(auth()->user()->id);
+        } else {
+            return $query->where('1', '=', '0');
+        }
+    }
+
+    /**
+     * Get all agents from the categories where Agent $id belongs to.
+     *
+     * @param $query
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function scopeVisibleForAgent($query, $id)
+    {
+        // Depends on agent_restrict
+        if (Setting::grab('agent_restrict') == 0) {
+            return $query->whereHas('categories', function ($q1) use ($id) {
+                $q1->whereHas('agents', function ($q2) use ($id) {
+                    $q2->where('id', $id);
+                });
+            })->orderBy('name', 'ASC');
+        } else {
+            return $query->where('id', $id);
+        }
+    }
 }

@@ -81,43 +81,43 @@ class NotificationsController extends Controller
         /**
          * @var User
          */
-        $to = null;
+        $a_to = [];
 
         if ($type != 'agent') {
-            $to = $ticket->user;
-
-            if ($ticket->user->email != $notification_owner->email) {
-                $to = $ticket->user;
-            }
+            $a_to[] = $ticket->user;
 
             if ($ticket->agent->email != $notification_owner->email) {
-                $to = $ticket->agent;
+                $a_to[] = $ticket->agent;
             }
         } else {
-            $to = $ticket->agent;
+            $a_to[] = $ticket->agent;
         }
 
         if (LaravelVersion::lt('5.4')) {
-            $mail_callback = function ($m) use ($to, $notification_owner, $subject) {
-                $m->to($to->email, $to->name);
+            foreach ($a_to as $to) {
+                $mail_callback = function ($m) use ($to, $notification_owner, $subject) {
+                    $m->to($to->email, $to->name);
 
-                $m->replyTo($notification_owner->email, $notification_owner->name);
+                    $m->replyTo($notification_owner->email, $notification_owner->name);
 
-                $m->subject($subject);
-            };
+                    $m->subject($subject);
+                };
 
-            if (Setting::grab('queue_emails') == 'yes') {
-                Mail::queue($template, $data, $mail_callback);
-            } else {
-                Mail::send($template, $data, $mail_callback);
+                if (Setting::grab('queue_emails') == 'yes') {
+                    Mail::queue($template, $data, $mail_callback);
+                } else {
+                    Mail::send($template, $data, $mail_callback);
+                }
             }
         } elseif (LaravelVersion::min('5.4')) {
-            $mail = new \Kordy\Ticketit\Mail\TicketitNotification($template, $data, $notification_owner, $subject);
+            foreach ($a_to as $to) {
+                $mail = new \Kordy\Ticketit\Mail\TicketitNotification($template, $data, $notification_owner, $subject);
 
-            if (Setting::grab('queue_emails') == 'yes') {
-                Mail::to($to)->queue($mail);
-            } else {
-                Mail::to($to)->send($mail);
+                if (Setting::grab('queue_emails') == 'yes') {
+                    Mail::to($to)->queue($mail);
+                } else {
+                    Mail::to($to)->send($mail);
+                }
             }
         }
     }

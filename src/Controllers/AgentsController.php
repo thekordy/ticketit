@@ -6,15 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 
 class AgentsController extends Controller
 {
     public function index()
     {
-        $agents = Agent::agents()->get();
+        $agents = Agent::agents()->with('categories')->get();
+        $categories = Category::get();
 
-        return view('ticketit::admin.agent.index', compact('agents'));
+        return view('ticketit::admin.agent.index', compact('agents', 'categories'));
     }
 
     public function create()
@@ -104,8 +106,20 @@ class AgentsController extends Controller
      */
     public function syncAgentCategories($id, Request $request)
     {
-        $form_cats = ($request->input('agent_cats') == null) ? [] : $request->input('agent_cats');
+        $form_cats = $fc = ($request->input('agent_cats') == null) ? [] : $request->input('agent_cats');
+        $form_auto = ($request->input('agent_cats_autoassign') == null) ? [] : $request->input('agent_cats_autoassign');
+
+        // Attach Autoassign parameter
+        if ($form_cats) {
+            $form_cats = [];
+            foreach ($fc as $cat) {
+                $form_cats[$cat] = ['autoassign'=>(in_array($cat, $form_auto) ? '1' : '0')];
+            }
+        }
+
         $agent = Agent::find($id);
+
+        // Update Agent Categories in ticketit_categories_users
         $agent->categories()->sync($form_cats);
     }
 }

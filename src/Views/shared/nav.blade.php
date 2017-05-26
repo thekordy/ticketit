@@ -4,13 +4,13 @@
             <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}">
                 <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
                     <span class="badge">
-                         <?php 
-                            if ($u->isAdmin()) {
+                         <?php
+                            if (\Auth::user()->isAdmin()) {
                                 echo Kordy\Ticketit\Models\Ticket::active()->count();
-                            } elseif ($u->isAgent()) {
-                                echo Kordy\Ticketit\Models\Ticket::active()->agentUserTickets($u->id)->count();
+                            } elseif (\Auth::user()->isAgent()) {
+                                echo Kordy\Ticketit\Models\Ticket::active()->agentUserTickets(\Auth::id())->count();
                             } else {
-                                echo Kordy\Ticketit\Models\Ticket::userTickets($u->id)->active()->count();
+                                echo Kordy\Ticketit\Models\Ticket::userTickets(\Auth::id())->active()->count();
                             }
                         ?>
                     </span>
@@ -19,20 +19,20 @@
             <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete')) ? "active" : "" !!}">
                 <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                     <span class="badge">
-                        <?php 
-                            if ($u->isAdmin()) {
+                        <?php
+                            if (\Auth::user()->isAdmin()) {
                                 echo Kordy\Ticketit\Models\Ticket::complete()->count();
-                            } elseif ($u->isAgent()) {
-                                echo Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets($u->id)->count();
+                            } elseif (\Auth::user()->isAgent()) {
+                                echo Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets(\Auth::id())->count();
                             } else {
-                                echo Kordy\Ticketit\Models\Ticket::userTickets($u->id)->complete()->count();
+                                echo Kordy\Ticketit\Models\Ticket::userTickets(\Auth::id())->complete()->count();
                             }
                         ?>
                     </span>
                 </a>
             </li>
 
-            @if($u->isAdmin())
+            @if(\Auth::user()->isAdmin())
                 <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\DashboardController@index')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
                     <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
                 </li>

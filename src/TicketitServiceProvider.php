@@ -36,12 +36,12 @@ class TicketitServiceProvider extends ServiceProvider
         if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
             view()->composer('*', function ($view) {
-                if (auth()->check()) {
-                    $u = \Cache::remember('user_agent', \Carbon\Carbon::now()->addSeconds(10), function () {
-                        return Agent::find(auth()->user()->id);
-                    });
-                    $view->with('u', $u);
-                }
+                // if (auth()->check()) {
+                //     $u = \Cache::remember('user_agent', \Carbon\Carbon::now()->addSeconds(10), function () {
+                //         return Agent::find(auth()->user()->id);
+                //     });
+                //     $view->with('u', $u);
+                // }
                 $setting = new Setting();
                 $view->with('setting', $setting);
             });

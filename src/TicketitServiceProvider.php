@@ -38,7 +38,7 @@ class TicketitServiceProvider extends ServiceProvider
             view()->composer('*', function ($view) {
                 if (auth()->check()) {
                     $u = \Cache::remember('user_agent', \Carbon\Carbon::now()->addSeconds(10), function () {
-                        return Agent::find(auth()->user()->id);;
+                        return Agent::find(auth()->user()->id);
                     });
                     $view->with('u', $u);
                 }

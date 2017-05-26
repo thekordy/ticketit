@@ -1,13 +1,13 @@
 # Ticketit
 
-A simple helpdesk tickets system for Laravel 5.1+ (5.1, 5.2, 5.3 and 5.4) which integrates smoothly with Laravel default users and auth system. 
-It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 
+A simple helpdesk tickets system for Laravel 5.1+ (5.1, 5.2, 5.3 and 5.4) which integrates smoothly with Laravel default users and auth system.
+It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system.
 
 ## Features:
 1. Three main users roles users, agents, and admins
 2. Users can create tickets, keep track of their tickets status, giving comments, and close their own tickets (access permissions are configurable)
 3. Auto assigning agents to tickets, the system searches for agents in specific department and auto select the agent with lowest queue
-4. Simple admin panel 
+4. Simple admin panel
 5. Localization (Arabic, Brazilian Portuguese, Deutsch (German), English, Farsi, French, Hungarian, Persian, Russian, and Spanish language packs are included)
 6. Very simple installation and integration process
 7. Admin dashboard with statistics and performance tracking graphs
@@ -51,8 +51,10 @@ Step 2. After install, you have to add this line on your `config/app.php` in Ser
 ```php
 	Kordy\Ticketit\TicketitServiceProvider::class,
 ```
-
-Step 3. [Check if App\User exists](https://github.com/thekordy/ticketit/wiki/Make-sure-that-App%5CUser-exists)
+Step 3. [Check if App\User exists](https://github.com/thekordy/ticketit/wiki/Make-sure-that-App%5CUser-exists) and add TicketitAgent trait to your user model
+```php
+	use \Kordy\Ticketit\Traits\TicketitAgent;
+```
 
 Step 4. Make sure you have [authentication](https://laravel.com/docs/5.4/authentication#introduction) set up. In 5.2+, you can use `php artisan make:auth`
 

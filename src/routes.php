@@ -1,5 +1,8 @@
 <?php
-
+$main_route = Kordy\Ticketit\Models\Setting::grab('main_route');
+$main_route_path = Kordy\Ticketit\Models\Setting::grab('main_route_path');
+$admin_route = Kordy\Ticketit\Models\Setting::grab('admin_route');
+$admin_route_path = Kordy\Ticketit\Models\Setting::grab('admin_route_path');
 Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddleware()], function () use ($main_route, $main_route_path, $admin_route, $admin_route_path) {
 
     //Route::group(['middleware' => '', function () use ($main_route) {

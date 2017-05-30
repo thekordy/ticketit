@@ -10,6 +10,7 @@
         "yajra/laravel-datatables-oracle": "^6.0|^7.0",
         "jenssegers/date": "^3.0",
         "mews/purifier": "^2.0",
+        "arcanedev/support": "~4.1",
         "doctrine/dbal": "^2.5"
 
     },

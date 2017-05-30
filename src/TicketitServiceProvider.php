@@ -189,7 +189,7 @@ class TicketitServiceProvider extends ServiceProvider
 
             //include Setting::grab('routes');
             //kk
-            $this->loadRoutesFrom(Setting::grab('routes'));
+            //$this->loadRoutesFrom(Setting::grab('routes'));
         } elseif (Request::path() == 'tickets-install'
                 || Request::path() == 'tickets-upgrade'
                 || Request::path() == 'tickets'

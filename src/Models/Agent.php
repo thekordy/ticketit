@@ -170,9 +170,9 @@ class Agent extends User
     public function agentTickets($complete = false)
     {
         if ($complete) {
-            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNotNull('completed_at');
+            return Ticket::orWhere('agent_id', '=', auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->whereNotNull('completed_at');
         } else {
-            return $this->hasMany('Kordy\Ticketit\Models\Ticket', 'agent_id')->whereNull('completed_at');
+            return Ticket::orWhere('agent_id', '=', auth()->user()->id)->orWhere('user_id','=',auth()->user()->id)->whereNull('completed_at');
         }
     }
 

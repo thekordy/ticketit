@@ -92,7 +92,7 @@ class TicketsController extends Controller
     {
         $collection->editColumn('subject', function ($ticket) {
             return (string) link_to_route(
-                Setting::grab('main_route').'.show',
+                'ticketit::' . Setting::grab('main_route').'.show',
                 $ticket->subject,
                 $ticket->id
             );
@@ -283,7 +283,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
 
-        return redirect()->route(Setting::grab('main_route').'.show', $id);
+        return redirect()->route('ticketit::' . Setting::grab('main_route').'.show', $id);
     }
 
     /**
@@ -301,7 +301,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-deleted', ['name' => $subject]));
 
-        return redirect()->route(Setting::grab('main_route').'.index');
+        return redirect()->route('ticketit::' .Setting::grab('main_route').'.index');
     }
 
     /**
@@ -326,10 +326,10 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-completed', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route').'.index');
+            return redirect()->route('ticketit::' .Setting::grab('main_route').'.index');
         }
 
-        return redirect()->route(Setting::grab('main_route').'.index')
+        return redirect()->route('ticketit::' .Setting::grab('main_route').'.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
@@ -355,10 +355,10 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-reopened', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route').'.index');
+            return redirect()->route('ticketit::' .Setting::grab('main_route').'.index');
         }
 
-        return redirect()->route(Setting::grab('main_route').'.index')
+        return redirect()->route('ticketit::' .Setting::grab('main_route').'.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 

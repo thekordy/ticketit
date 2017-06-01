@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Traits;
 
 use App\User;
+use Kordy\Ticketit\Models\Setting;
 use Auth;
 
 trait TicketitAgent

@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = \Cache::remember('ticketit::categories', 60, function() {
+        $categories = \Cache::remember('ticketit::categories', 60, function () {
             return Category::all();
         });
 

@@ -132,7 +132,7 @@ class InstallController extends Controller
 
             $this->settingsSeeder($master);
         }
-        \Cache::forget('settings');
+        \Cache::forget('ticketit::settings');
     }
 
     /**

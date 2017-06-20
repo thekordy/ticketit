@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Cache;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models;
@@ -153,19 +154,40 @@ class TicketsController extends Controller
     }
 
     /**
+     * Returns priorities, categories and statuses lists in this order
+     * Decouple it with list()
+     *
+     * @return array
+     */
+    protected function PCS()
+    {
+        $priorities = Cache::remember('ticketit::priorities', 60, function() {
+            return Models\Priority::all();
+        });
+
+        $categories = Cache::remember('ticketit::categories', 60, function() {
+            return Models\Category::all();
+        });
+
+        $statuses = Cache::remember('ticketit::statuses', 60, function() {
+            return Models\Status::all();
+        });
+
+        if (LaravelVersion::min('5.3.0')) {
+            return [$priorities->pluck('name', 'id'), $categories->pluck('name', 'id'), $statuses->pluck('name', 'id')];
+        } else {
+            return [$priorities->lists('name', 'id'), $categories->lists('name', 'id'), $statuses->lists('name', 'id')];
+        }
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
     public function create()
     {
-        if (version_compare(app()->version(), '5.2.0', '>=')) {
-            $priorities = Models\Priority::pluck('name', 'id');
-            $categories = Models\Category::pluck('name', 'id');
-        } else { // if Laravel 5.1
-            $priorities = Models\Priority::lists('name', 'id');
-            $categories = Models\Category::lists('name', 'id');
-        }
+        list($priorities, $categories) = $this->PCS();
 
         return view('ticketit::tickets.create', compact('priorities', 'categories'));
     }
@@ -217,15 +239,7 @@ class TicketsController extends Controller
     {
         $ticket = $this->tickets->find($id);
 
-        if (version_compare(app()->version(), '5.3.0', '>=')) {
-            $status_lists = Models\Status::pluck('name', 'id');
-            $priority_lists = Models\Priority::pluck('name', 'id');
-            $category_lists = Models\Category::pluck('name', 'id');
-        } else { // if Laravel 5.1
-            $status_lists = Models\Status::lists('name', 'id');
-            $priority_lists = Models\Priority::lists('name', 'id');
-            $category_lists = Models\Category::lists('name', 'id');
-        }
+        list($priority_lists, $category_lists, $status_lists) = $this->PCS();
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);

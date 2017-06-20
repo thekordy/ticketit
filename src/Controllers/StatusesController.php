@@ -16,7 +16,9 @@ class StatusesController extends Controller
      */
     public function index()
     {
-        $statuses = Status::all();
+        $statuses = \Cache::remember('ticketit::statuses', 60, function() {
+            return Status::all();
+        });
 
         return view('ticketit::admin.status.index', compact('statuses'));
     }
@@ -49,6 +51,8 @@ class StatusesController extends Controller
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
         Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
+
+        \Cache::forget('ticketit::statuses');
 
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
@@ -99,6 +103,8 @@ class StatusesController extends Controller
 
         Session::flash('status', trans('ticketit::lang.status-name-has-been-modified', ['name' => $request->name]));
 
+        \Cache::forget('ticketit::statuses');
+
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }
 
@@ -116,6 +122,8 @@ class StatusesController extends Controller
         $status->delete();
 
         Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
+
+        \Cache::forget('ticketit::statuses');
 
         return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
     }

@@ -16,7 +16,9 @@ class PrioritiesController extends Controller
      */
     public function index()
     {
-        $priorities = Priority::all();
+        $priorities = \Cache::remember('ticketit::priorities', 60, function() {
+            return Priority::all();
+        });
 
         return view('ticketit::admin.priority.index', compact('priorities'));
     }
@@ -49,6 +51,8 @@ class PrioritiesController extends Controller
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-created', ['name' => $request->name]));
+
+        \Cache::forget('ticketit::priorities');
 
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
@@ -99,6 +103,8 @@ class PrioritiesController extends Controller
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-modified', ['name' => $request->name]));
 
+        \Cache::forget('ticketit::priorities');
+
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }
 
@@ -116,6 +122,8 @@ class PrioritiesController extends Controller
         $priority->delete();
 
         Session::flash('status', trans('ticketit::lang.priority-name-has-been-deleted', ['name' => $name]));
+
+        \Cache::forget('ticketit::priorities');
 
         return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
     }

@@ -42,7 +42,7 @@ class TicketitServiceProvider extends ServiceProvider
 
             view()->composer('ticketit::*', function ($view) use (&$u) {
                 if (auth()->check()) {
-                    if($u === null) {
+                    if ($u === null) {
                         $u = Agent::find(auth()->user()->id);
                     }
                     $view->with('u', $u);

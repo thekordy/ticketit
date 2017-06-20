@@ -113,7 +113,7 @@ class Agent extends User
      */
     public static function isAdmin()
     {
-        return (auth()->check() && auth()->user()->ticketit_admin);
+        return auth()->check() && auth()->user()->ticketit_admin;
     }
 
     /**

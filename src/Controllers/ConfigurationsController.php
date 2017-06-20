@@ -128,7 +128,9 @@ class ConfigurationsController extends Controller
       $configuration->update(['value' => $value, 'lang' => $request->lang]);
 
       Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
-      \Cache::forget('ticketit::settings'); // refresh cached settings
+      // refresh cached settings
+      \Cache::forget('ticketit::settings');
+      \Cache::forget('ticketit::settings.' . $configuration->slug);
     //return redirect(route('ticketit::admin.configuration.index'));
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }

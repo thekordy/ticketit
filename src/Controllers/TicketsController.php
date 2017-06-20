@@ -3,8 +3,8 @@
 namespace Kordy\Ticketit\Controllers;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Cache;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models;
@@ -155,21 +155,21 @@ class TicketsController extends Controller
 
     /**
      * Returns priorities, categories and statuses lists in this order
-     * Decouple it with list()
+     * Decouple it with list().
      *
      * @return array
      */
     protected function PCS()
     {
-        $priorities = Cache::remember('ticketit::priorities', 60, function() {
+        $priorities = Cache::remember('ticketit::priorities', 60, function () {
             return Models\Priority::all();
         });
 
-        $categories = Cache::remember('ticketit::categories', 60, function() {
+        $categories = Cache::remember('ticketit::categories', 60, function () {
             return Models\Category::all();
         });
 
-        $statuses = Cache::remember('ticketit::statuses', 60, function() {
+        $statuses = Cache::remember('ticketit::statuses', 60, function () {
             return Models\Status::all();
         });
 

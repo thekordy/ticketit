@@ -35,9 +35,16 @@ class TicketitServiceProvider extends ServiceProvider
         // if a migration or new setting is missing scape to the installation
         if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
-            view()->composer('*', function ($view) {
+            // Send settings to views under $setting
+
+            //cache $u
+            $u = null;
+
+            view()->composer('ticketit::*', function ($view) use (&$u) {
                 if (auth()->check()) {
-                    $u = Agent::find(auth()->user()->id);
+                    if($u === null) {
+                        $u = Agent::find(auth()->user()->id);
+                    }
                     $view->with('u', $u);
                 }
                 $setting = new Setting();

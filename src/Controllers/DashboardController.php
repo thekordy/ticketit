@@ -13,7 +13,7 @@ class DashboardController extends Controller
     {
         $tickets_count = Ticket::count();
         $open_tickets_count = Ticket::whereNull('completed_at')->count();
-        $closed_tickets_count = Ticket::whereNotNull('completed_at')->count();
+        $closed_tickets_count = $tickets_count - $open_tickets_count;
 
         // Per Category pagination
         $categories = Category::paginate(10, ['*'], 'cat_page');

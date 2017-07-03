@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Middleware;
 
 use Closure;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Setting;
 
@@ -29,11 +30,9 @@ class ResAccessMiddleware
             }
         }
 
-        $laravel_version_51 = version_compare(app()->version(), '5.2.0', '<');
-
         // if this is a ticket show page
         if ($request->route()->getName() == Setting::grab('main_route').'.show') {
-            if ($laravel_version_51) {
+            if (LaravelVersion::lt('5.2.0')) {
                 $ticket_id = $request->route(Setting::grab('main_route'));
             } else {
                 $ticket_id = $request->route('ticket');

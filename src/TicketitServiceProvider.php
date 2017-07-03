@@ -35,13 +35,18 @@ class TicketitServiceProvider extends ServiceProvider
         // if a migration or new setting is missing scape to the installation
         if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
-            view()->composer('*', function ($view) {
-                // if (auth()->check()) {
-                //     $u = \Cache::remember('user_agent', \Carbon\Carbon::now()->addSeconds(10), function () {
-                //         return Agent::find(auth()->user()->id);
-                //     });
-                //     $view->with('u', $u);
-                // }
+            // Send settings to views under $setting
+
+            //cache $u
+            $u = null;
+
+            view()->composer('ticketit::*', function ($view) use (&$u) {
+                if (auth()->check()) {
+                    if ($u === null) {
+                        $u = Agent::find(auth()->user()->id);
+                    }
+                    $view->with('u', $u);
+                }
                 $setting = new Setting();
                 $view->with('setting', $setting);
             });
@@ -186,10 +191,11 @@ class TicketitServiceProvider extends ServiceProvider
             // Check public assets are present, publish them if not
 //            $installer->publicAssets();
 
-
-            //include Setting::grab('routes');
-            //kk
-            //$this->loadRoutesFrom(Setting::grab('routes'));
+            $main_route = Setting::grab('main_route');
+            $main_route_path = Setting::grab('main_route_path');
+            $admin_route = Setting::grab('admin_route');
+            $admin_route_path = Setting::grab('admin_route_path');
+            include Setting::grab('routes');
         } elseif (Request::path() == 'tickets-install'
                 || Request::path() == 'tickets-upgrade'
                 || Request::path() == 'tickets'

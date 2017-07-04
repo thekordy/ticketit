@@ -16,7 +16,7 @@ class StatusesController extends Controller
      */
     public function index()
     {
-        $statuses = \Cache::remember('ticketit::statuses', 60, function() {
+        $statuses = \Cache::remember('ticketit::statuses', 60, function () {
             return Status::all();
         });
 

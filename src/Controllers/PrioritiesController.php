@@ -16,7 +16,7 @@ class PrioritiesController extends Controller
      */
     public function index()
     {
-        $priorities = \Cache::remember('ticketit::priorities', 60, function() {
+        $priorities = \Cache::remember('ticketit::priorities', 60, function () {
             return Priority::all();
         });
 

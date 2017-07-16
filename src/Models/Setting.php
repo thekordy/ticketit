@@ -48,7 +48,7 @@ class Setting extends Model
          */
  //       Cache::flush();
 
-        $setting = Cache::remember('ticketit::settings.' . $slug, 60, function () use ($slug) {
+        $setting = Cache::remember('ticketit::settings.'.$slug, 60, function () use ($slug) {
             $settings = Cache::remember('ticketit::settings', 60, function () {
                 return Table::all();
             });
@@ -69,8 +69,6 @@ class Setting extends Model
         });
 
         return $setting;
-
-        
     }
 
     /**

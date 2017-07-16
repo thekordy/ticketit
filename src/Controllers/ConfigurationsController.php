@@ -130,7 +130,7 @@ class ConfigurationsController extends Controller
       Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
       // refresh cached settings
       \Cache::forget('ticketit::settings');
-      \Cache::forget('ticketit::settings.' . $configuration->slug);
+      \Cache::forget('ticketit::settings.'.$configuration->slug);
     //return redirect(route('ticketit::admin.configuration.index'));
     return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
   }

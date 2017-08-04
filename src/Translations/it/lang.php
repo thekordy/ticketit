@@ -7,88 +7,88 @@ return [
   */
 
   'nav-active-tickets'               => 'Tickets Attivi',
-  'nav-completed-tickets'            => 'Completed Tickets',
+  'nav-completed-tickets'            => 'Tickets Completati',
 
   // Tables
   'table-id'                         => '#',
-  'table-subject'                    => 'Subject',
-  'table-owner'                      => 'Owner',
-  'table-status'                     => 'Status',
-  'table-last-updated'               => 'Last Updated',
-  'table-priority'                   => 'Priority',
-  'table-agent'                      => 'Agent',
-  'table-category'                   => 'Category',
+  'table-subject'                    => 'Oggetto',
+  'table-owner'                      => 'Proprietario',
+  'table-status'                     => 'Stato',
+  'table-last-updated'               => 'Ultimo Aggiornamento',
+  'table-priority'                   => 'Priorità',
+  'table-agent'                      => 'Agente',
+  'table-category'                   => 'Categoria',
 
   // Datatables
   'table-decimal'                    => '',
-  'table-empty'                      => 'No data available in table',
-  'table-info'                       => 'Showing _START_ to _END_ of _TOTAL_ entries',
-  'table-info-empty'                 => 'Showing 0 to 0 of 0 entries',
-  'table-info-filtered'              => '(filtered from _MAX_ total entries)',
+  'table-empty'                      => 'Nessun dato disponibile.',
+  'table-info'                       => 'Visualizza da _START_ a _END_ di _TOTAL_',
+  'table-info-empty'                 => 'Visualizza da 0 a 0 di 0 elementi',
+  'table-info-filtered'              => '(filtrati da _MAX_ totali elementi)',
   'table-info-postfix'               => '',
   'table-thousands'                  => ',',
-  'table-length-menu'                => 'Show _MENU_ entries',
-  'table-loading-results'            => 'Loading...',
-  'table-processing'                 => 'Processing...',
-  'table-search'                     => 'Search:',
-  'table-zero-records'               => 'No matching records found',
-  'table-paginate-first'             => 'First',
-  'table-paginate-last'              => 'Last',
-  'table-paginate-next'              => 'Next',
-  'table-paginate-prev'              => 'Previous',
-  'table-aria-sort-asc'              => ': activate to sort column ascending',
-  'table-aria-sort-desc'             => ': activate to sort column descending',
+  'table-length-menu'                => 'Mostra _MENU_ elementi',
+  'table-loading-results'            => 'Caricamento...',
+  'table-processing'                 => 'Sto Processando...',
+  'table-search'                     => 'Cerca:',
+  'table-zero-records'               => 'Nessun risultato disponibile',
+  'table-paginate-first'             => 'Primo',
+  'table-paginate-last'              => 'Ultimo',
+  'table-paginate-next'              => 'Prossimo',
+  'table-paginate-prev'              => 'Precedente',
+  'table-aria-sort-asc'              => ': attiva per ordinare la colonna in modo ascendente',
+  'table-aria-sort-desc'             => ': attiva per ordinare la colonna in modo discendente',
 
-  'btn-back'                         => 'Back',
-  'btn-cancel'                       => 'Cancel', // NEW
-  'btn-close'                        => 'Close',
-  'btn-delete'                       => 'Delete',
-  'btn-edit'                         => 'Edit',
-  'btn-mark-complete'                => 'Mark Complete',
-  'btn-submit'                       => 'Submit',
+  'btn-back'                         => 'Indietro',
+  'btn-cancel'                       => 'Annulla', // NEW
+  'btn-close'                        => 'Chiudi',
+  'btn-delete'                       => 'Cancella',
+  'btn-edit'                         => 'Modifica',
+  'btn-mark-complete'                => 'Segna Completato',
+  'btn-submit'                       => 'Invia',
 
-  'agent'                            => 'Agent',
-  'category'                         => 'Category',
+  'agent'                            => 'Agente',
+  'category'                         => 'Categoria',
   'colon'                            => ': ',
-  'comments'                         => 'Comments',
-  'created'                          => 'Created',
-  'description'                      => 'Description',
+  'comments'                         => 'Commenti',
+  'created'                          => 'Creato',
+  'description'                      => 'Descrzione',
   'flash-x'                          => '×', // &times;
-  'last-update'                      => 'Last Update',
-  'no-replies'                       => 'No replies.',
-  'owner'                            => 'Owner',
-  'priority'                         => 'Priority',
-  'reopen-ticket'                    => 'Reopen Ticket',
-  'reply'                            => 'Reply',
-  'responsible'                      => 'Responsible',
-  'status'                           => 'Status',
-  'subject'                          => 'Subject',
+  'last-update'                      => 'Ultimo Aggiornamento',
+  'no-replies'                       => 'Nessuna replica.',
+  'owner'                            => 'Proprietario',
+  'priority'                         => 'Priorità',
+  'reopen-ticket'                    => 'Riapri Ticket',
+  'reply'                            => 'Rispondi',
+  'responsible'                      => 'Responsabile',
+  'status'                           => 'Stato',
+  'subject'                          => 'Oggetto',
 
  /*
   *  Page specific
   */
 
 // ____
-  'index-title'                      => 'Helpdesk main page',
+  'index-title'                      => 'Pagina Principale Sistema Supporto',
 
 // tickets/____
-  'index-my-tickets'                 => 'My Tickets',
-  'btn-create-new-ticket'            => 'Create new ticket',
-  'index-complete-none'              => 'There are no complete tickets',
+  'index-my-tickets'                 => 'Miei Tickets',
+  'btn-create-new-ticket'            => 'Crea una nuova richiesta di Assistenza',
+  'index-complete-none'              => 'Non ci sono tickets completati',
   'index-active-check'               => 'Be sure to check Active Tickets if you cannot find your ticket.',
-  'index-active-none'                => 'There are no active tickets,',
-  'index-create-new-ticket'          => 'create new ticket',
+  'index-active-none'                => 'non ci sono tickets attivi,',
+  'index-create-new-ticket'          => 'crea nuovo Ticket',
   'index-complete-check'             => 'Be sure to check Complete Tickets if you cannot find your ticket.',
 
-  'create-ticket-title'              => 'New Ticket Form',
-  'create-new-ticket'                => 'Create New Ticket',
+  'create-ticket-title'              => 'Modulo Nuova Richiesta di Assistenza',
+  'create-new-ticket'                => 'Crea nuovo Ticket',
   'create-ticket-brief-issue'        => 'A brief of your issue ticket',
-  'create-ticket-describe-issue'     => 'Describe your issue here in details',
+  'create-ticket-describe-issue'     => 'Descrivi il tuo problema nei dettagli',
 
   'show-ticket-title'                => 'Ticket',
-  'show-ticket-js-delete'            => 'Are you sure you want to delete: ',
-  'show-ticket-modal-delete-title'   => 'Delete Ticket',
-  'show-ticket-modal-delete-message' => 'Are you sure you want to delete ticket: :subject?',
+  'show-ticket-js-delete'            => 'Sei sicuro di voler elimianre: ',
+  'show-ticket-modal-delete-title'   => 'Elimina Ticket',
+  'show-ticket-modal-delete-message' => 'Sei sicuro di voler eliminare il ticket di assistenza: :subject?',
 
  /*
   *  Controllers
@@ -102,48 +102,48 @@ return [
   'administrators-is-removed-from-team'             => 'Removed administrator\s :name from the administrators team', // New
 
 // CategoriesController
-  'category-name-has-been-created'   => 'The category :name has been created!',
-  'category-name-has-been-modified'  => 'The category :name has been modified!',
-  'category-name-has-been-deleted'   => 'The category :name has been deleted!',
+  'category-name-has-been-created'   => 'La categoria :name è stata creata!',
+  'category-name-has-been-modified'  => 'La categoria :name è stata modificata!',
+  'category-name-has-been-deleted'   => 'La categoria :name è stata eliminata!',
 
 // PrioritiesController
-  'priority-name-has-been-created'   => 'The priority :name has been created!',
-  'priority-name-has-been-modified'  => 'The priority :name has been modified!',
-  'priority-name-has-been-deleted'   => 'The priority :name has been deleted!',
-  'priority-all-tickets-here'        => 'All priority related tickets here',
+  'priority-name-has-been-created'   => 'La Priorità :name è stata creata!',
+  'priority-name-has-been-modified'  => 'La Priorità :name è stata modificata!',
+  'priority-name-has-been-deleted'   => 'La Priorità :name è stata eliminata!',
+  'priority-all-tickets-here'        => 'La Priorità related tickets here',
 
 // StatusesController
-  'status-name-has-been-created'   => 'The status :name has been created!',
-  'status-name-has-been-modified'  => 'The status :name has been modified!',
-  'status-name-has-been-deleted'   => 'The status :name has been deleted!',
+  'status-name-has-been-created'   => 'Lo Stato :name è stato creato!',
+  'status-name-has-been-modified'  => 'Lo Stato :name è stato modificato!',
+  'status-name-has-been-deleted'   => 'Lo Stato :name è stato eliminato!',
   'status-all-tickets-here'        => 'All status related tickets here',
 
 // CommentsController
-  'comment-has-been-added-ok'        => 'Comment has been added successfully',
+  'comment-has-been-added-ok'        => 'Il Commento è stato salvato correttamente',
 
 // NotificationsController
-  'notify-new-comment-from'          => 'New comment from ',
-  'notify-on'                        => ' on ',
+  'notify-new-comment-from'          => 'Nuovo Commento da ',
+  'notify-on'                        => ' in ',
   'notify-status-to-complete'        => ' status to Complete',
   'notify-status-to'                 => ' status to ',
-  'notify-transferred'               => ' transferred ',
-  'notify-to-you'                    => ' to you',
-  'notify-created-ticket'            => ' created ticket ',
-  'notify-updated'                   => ' updated ',
+  'notify-transferred'               => ' trasferiti ',
+  'notify-to-you'                    => ' a te',
+  'notify-created-ticket'            => ' ticket creato ',
+  'notify-updated'                   => ' aggiornato ',
 
  // TicketsController
-  'the-ticket-has-been-created'      => 'The ticket has been created!',
-  'the-ticket-has-been-modified'     => 'The ticket has been modified!',
-  'the-ticket-has-been-deleted'      => 'The ticket :name has been deleted!',
-  'the-ticket-has-been-completed'    => 'The ticket :name has been completed!',
-  'the-ticket-has-been-reopened'     => 'The ticket :name has been reopened!',
-  'you-are-not-permitted-to-do-this' => 'You are not permitted to do this action!',
+  'the-ticket-has-been-created'      => 'Il ticket è stato creato!',
+  'the-ticket-has-been-modified'     => 'Il ticket è stato modificato!',
+  'the-ticket-has-been-deleted'      => 'Il ticket :name è stato eliminato!',
+  'the-ticket-has-been-completed'    => 'Il ticket :name è stato completato!',
+  'the-ticket-has-been-reopened'     => 'Il ticket :name è stato riaperto!',
+  'you-are-not-permitted-to-do-this' => 'Non hai i permessi necessari per questa operazione!',
 
  /*
  *  Middlewares
  */
 
  //  IsAdminMiddleware IsAgentMiddleware ResAccessMiddleware
-  'you-are-not-permitted-to-access'     => 'You are not permitted to access this page!',
+  'you-are-not-permitted-to-access'     => 'Non hai i permessi necessari per accedere a questa pagina!',
 
 ];

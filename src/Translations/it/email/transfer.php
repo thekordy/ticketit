@@ -2,6 +2,6 @@
 
 return [
 
-'data' => '<b>:name</b> has transferred the ticket "<b>:subject</b>" from :agent in :old_category to you in :new_category<br>',
+'data' => '<b>:name</b> ha trasferito il ticket di assistenza  "<b>:subject</b>" da :agent in :old_category a te in :new_category<br>',
 
 ];

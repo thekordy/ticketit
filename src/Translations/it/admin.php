@@ -5,38 +5,38 @@ return [
  /*
   *  Constants
   */
-  'nav-settings'                  => 'Settings',
-  'nav-agents'                    => 'Agents',
-  'nav-dashboard'                 => 'Dashboard',
-  'nav-categories'                => 'Categories',
-  'nav-priorities'                => 'Priorities',
-  'nav-statuses'                  => 'Statuses',
-  'nav-configuration'             => 'Configuration',
-  'nav-administrator'             => 'Administrator',  //new
+  'nav-settings'                  => 'Impostazioni',
+  'nav-agents'                    => 'Agenti',
+  'nav-dashboard'                 => 'Scrivania',
+  'nav-categories'                => 'Categorie',
+  'nav-priorities'                => 'Priorità',
+  'nav-statuses'                  => 'Stati',
+  'nav-configuration'             => 'Configurazione',
+  'nav-administrator'             => 'Amministratore',  //new
 
   'table-hash'                    => '#',
   'table-id'                      => 'ID',
-  'table-name'                    => 'Name',
-  'table-action'                  => 'Action',
-  'table-categories'              => 'Categories',
-  'table-join-category'           => 'Joined Categories',
-  'table-remove-agent'            => 'Remove from agents',
-  'table-remove-administrator'    => 'Remove from administrators', // New
+  'table-name'                    => 'Nome',
+  'table-action'                  => 'Azione',
+  'table-categories'              => 'Categorie',
+  'table-join-category'           => 'Categorie Collegate',
+  'table-remove-agent'            => 'Rimuovi dagli agenti',
+  'table-remove-administrator'    => 'Rimuovi da amministratori', // New
 
   'table-slug'                    => 'Slug',
-  'table-default'                 => 'Default Value',
-  'table-value'                   => 'My Value',
-  'table-lang'                    => 'Lang',
-  'table-edit'                    => 'Edit',
+  'table-default'                 => 'Valore Predefinito',
+  'table-value'                   => 'Mio Valore',
+  'table-lang'                    => 'Lingua',
+  'table-edit'                    => 'Modifica',
 
-  'btn-back'                      => 'Back',
-  'btn-delete'                    => 'Delete',
-  'btn-edit'                      => 'Edit',
-  'btn-join'                      => 'Join',
-  'btn-remove'                    => 'Remove',
-  'btn-submit'                    => 'Submit',
-  'btn-save'                      => 'Save',
-  'btn-update'                    => 'Update',
+  'btn-back'                      => 'Indietro',
+  'btn-delete'                    => 'Elimina',
+  'btn-edit'                      => 'Modifica',
+  'btn-join'                      => 'Collega',
+  'btn-remove'                    => 'Rimuovi',
+  'btn-submit'                    => 'Invia',
+  'btn-save'                      => 'Salva',
+  'btn-update'                    => 'Aggiorna',
 
   'colon'                         => ': ',
 
@@ -45,117 +45,117 @@ return [
   */
 
 // tickets-admin/____
-  'index-title'                         => 'Tickets System Dashboard',
-  'index-empty-records'                 => 'No tickets yet',
-  'index-total-tickets'                 => 'Total tickets',
-  'index-open-tickets'                  => 'Open tickets',
-  'index-closed-tickets'                => 'Closed tickets',
-  'index-performance-indicator'         => 'Performance Indicator',
-  'index-periods'                       => 'Periods',
-  'index-3-months'                      => '3 months',
-  'index-6-months'                      => '6 months',
+  'index-title'                         => 'Scrivania Sistema Richiesta Assistenza',
+  'index-empty-records'                 => 'Nessun tickets ancora',
+  'index-total-tickets'                 => 'Tickets totali',
+  'index-open-tickets'                  => 'Tickets aperti',
+  'index-closed-tickets'                => 'Tickets chiusi',
+  'index-performance-indicator'         => 'Indicatore delle Performances',
+  'index-periods'                       => 'Periodi',
+  'index-3-months'                      => '3 mesi',
+  'index-6-months'                      => '6 mesi',
   'index-12-months'                     => '12 months',
-  'index-tickets-share-per-category'    => 'Tickets share per category',
-  'index-tickets-share-per-agent'       => 'Tickets share per agent',
-  'index-categories'                    => 'Categories',
-  'index-category'                      => 'Category',
-  'index-agents'                        => 'Agents',
-  'index-agent'                         => 'Agent',
-  'index-administrators'                => 'Administrators',  //new
-  'index-administrator'                 => 'Administrator',  //new
-  'index-users'                         => 'Users',
-  'index-user'                          => 'User',
+  'index-tickets-share-per-category'    => 'Tickets condivisi per categoria',
+  'index-tickets-share-per-agent'       => 'Tickets condivisi per agente',
+  'index-categories'                    => 'Categorie',
+  'index-category'                      => 'Categoria',
+  'index-agents'                        => 'Agenti',
+  'index-agent'                         => 'Agente',
+  'index-administrators'                => 'Amministratori',  //new
+  'index-administrator'                 => 'Amministratore',  //new
+  'index-users'                         => 'Utenti',
+  'index-user'                          => 'Utente',
   'index-tickets'                       => 'Tickets',
-  'index-open'                          => 'Open',
-  'index-closed'                        => 'Closed',
-  'index-total'                         => 'Total',
-  'index-month'                         => 'Month',
-  'index-performance-chart'             => 'How many days in average to resolve a ticket?',
-  'index-categories-chart'              => 'Tickets distribution per category',
-  'index-agents-chart'                  => 'Tickets distribution per Agent',
+  'index-open'                          => 'Aperto',
+  'index-closed'                        => 'Chiuso',
+  'index-total'                         => 'Totale',
+  'index-month'                         => 'Mese',
+  'index-performance-chart'             => 'In media, in quanti giorni risolvi un ticket?',
+  'index-categories-chart'              => 'Tickets distrituiti per categoria',
+  'index-agents-chart'                  => 'Tickets distribuiti per agente',
 
 // tickets-admin/agent/____
-  'agent-index-title'             => 'Agent Management',
-  'btn-create-new-agent'          => 'Create new agent',
-  'agent-index-no-agents'         => 'There are no agents, ',
-  'agent-index-create-new'        => 'Add agents',
-  'agent-create-title'            => 'Add Agent',
-  'agent-create-add-agents'       => 'Add Agents',
-  'agent-create-no-users'         => 'There are no user accounts, create user accounts first.',
-  'agent-create-select-user'      => 'Select user accounts to be added as agents',
+  'agent-index-title'             => 'Gestione Agente',
+  'btn-create-new-agent'          => 'Crea nuovo Agente',
+  'agent-index-no-agents'         => 'Non ci sono agenti, ',
+  'agent-index-create-new'        => 'Aggiungi agenti',
+  'agent-create-title'            => 'Aggiungi agente',
+  'agent-create-add-agents'       => 'Aggiungi Agenti',
+  'agent-create-no-users'         => 'Non ci sono account utente, crea prima un account utente.',
+  'agent-create-select-user'      => 'Seleziona un account utente da aggiungere agli agenti',
 
 // tickets-admin/administrators/____
-  'administrator-index-title'                   => 'Administrator Management',  //new
-  'btn-create-new-administrator'                => 'Create new administrator',  //new
-  'administrator-index-no-administrators'       => 'There are no administrators, ',  //new
-  'administrator-index-create-new'              => 'Add administrators',  //new
-  'administrator-create-title'                  => 'Add Administrator',  //new
-  'administrator-create-add-administrators'     => 'Add Administrators',  //new
-  'administrator-create-no-users'               => 'There are no user accounts, create user accounts first.',  //new
-  'administrator-create-select-user'            => 'Select user accounts to be added as administrators',  //new
+  'administrator-index-title'                   => 'Gestione Amministratori',  //new
+  'btn-create-new-administrator'                => 'Crea Nuovo Amministratore',  //new
+  'administrator-index-no-administrators'       => 'Non ci sono Amministratori, ',  //new
+  'administrator-index-create-new'              => 'Aggiungi Amministratori',  //new
+  'administrator-create-title'                  => 'Aggiungi Amministratori',  //new
+  'administrator-create-add-administrators'     => 'Aggiungi Amministratori',  //new
+  'administrator-create-no-users'               => 'Non ci sono account Amministratori, crea un account prima.',  //new
+  'administrator-create-select-user'            => 'Seleziona un account da aggiungere agli amministratori',  //new
 
 // tickets-admin/category/____
-  'category-index-title'          => 'Categories Management',
-  'btn-create-new-category'       => 'Create new category',
-  'category-index-no-categories'  => 'There are no categories, ',
-  'category-index-create-new'     => 'create new category',
-  'category-index-js-delete'      => 'Are you sure you want to delete the category: ',
-  'category-create-title'         => 'Create New Category',
-  'category-create-name'          => 'Name',
-  'category-create-color'         => 'Color',
-  'category-edit-title'           => 'Edit Category: :name',
+  'category-index-title'          => 'Gestione Categorie',
+  'btn-create-new-category'       => 'Crea nuova Categoria',
+  'category-index-no-categories'  => 'Non ci sono Categorie, ',
+  'category-index-create-new'     => 'Crea nuova categoria',
+  'category-index-js-delete'      => 'Sei davvero sicuro di voler elimianre la categoria: ',
+  'category-create-title'         => 'Crea nuova Categoria',
+  'category-create-name'          => 'Nome',
+  'category-create-color'         => 'Colore',
+  'category-edit-title'           => 'Modifica Categoria: :name',
 
 // tickets-admin/priority/____
-  'priority-index-title'          => 'Priorities Management',
-  'btn-create-new-priority'       => 'Create new priority',
-  'priority-index-no-priorities'  => 'There are no priorities, ',
-  'priority-index-create-new'     => 'create new priority',
-  'priority-index-js-delete'      => 'Are you sure you want to delete the priority: ',
-  'priority-create-title'         => 'Create New Priority',
-  'priority-create-name'          => 'Name',
-  'priority-create-color'         => 'Color',
-  'priority-edit-title'           => 'Edit Priority: :name',
+  'priority-index-title'          => 'Gestione Priorità',
+  'btn-create-new-priority'       => 'Crea nuova Priorita',
+  'priority-index-no-priorities'  => 'non ci sono Priorità, ',
+  'priority-index-create-new'     => 'Crea nuova priorità',
+  'priority-index-js-delete'      => 'Sei davvero sicuro di voler eliminare la priorità: ',
+  'priority-create-title'         => 'Crea Nuova Priorità',
+  'priority-create-name'          => 'Nome',
+  'priority-create-color'         => 'Colore',
+  'priority-edit-title'           => 'Modifica Priorità: :name',
 
 // tickets-admin/status/____
-  'status-index-title'            => 'Statuses Management',
-  'btn-create-new-status'         => 'Create new status',
+  'status-index-title'            => 'Gestione Stati',
+  'btn-create-new-status'         => 'Crea Nuovo Stato',
   'status-index-no-statuses'      => 'There are no statues,',
-  'status-index-create-new'       => 'create new status',
-  'status-index-js-delete'        => 'Are you sure you want to delete the status: ',
-  'status-create-title'           => 'Create New Status',
-  'status-create-name'            => 'Name',
-  'status-create-color'           => 'Color',
-  'status-edit-title'             => 'Edit Status: :name',
+  'status-index-create-new'       => 'Crea nuovi Stati',
+  'status-index-js-delete'        => 'Sei sicuro di voler elimianre lo stato: ',
+  'status-create-title'           => 'Crea Nuovo Stato',
+  'status-create-name'            => 'Nome',
+  'status-create-color'           => 'Colore',
+  'status-edit-title'             => 'Modifica Stato: :name',
 
 // tickets-admin/configuration/____
-  'config-index-title'            => 'Configuration Settings',
-  'config-index-subtitle'         => 'Settings',
-  'btn-create-new-config'         => 'Add new setting',
+  'config-index-title'            => 'Gestione delle Impostazioni',
+  'config-index-subtitle'         => 'Impostazioni',
+  'btn-create-new-config'         => 'Aggiungi nuova impostazione',
   'config-index-no-settings'      => 'There are no settings,',
-  'config-index-initial'          => 'Initial',
+  'config-index-initial'          => 'Iniziali',
   'config-index-tickets'          => 'Tickets',
-  'config-index-notifications'    => 'Notifications',
-  'config-index-permissions'      => 'Permissions',
+  'config-index-notifications'    => 'Notifiche',
+  'config-index-permissions'      => 'Permessi',
   'config-index-editor'           => 'Editor', //Added: 2016.01.14
-  'config-index-other'            => 'Other',
+  'config-index-other'            => 'Altri',
   'config-create-title'           => 'Create: New Global Setting',
   'config-create-subtitle'        => 'Create Setting',
   'config-edit-title'             => 'Edit: Global Configuration',
   'config-edit-subtitle'          => 'Edit Setting',
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',
-  'config-edit-default'           => 'Default value',
-  'config-edit-value'             => 'My value',
-  'config-edit-language'          => 'Language',
-  'config-edit-unserialize'       => 'Get the array values, and change the values',
+  'config-edit-default'           => 'Valore Predefinito',
+  'config-edit-value'             => 'Mio Valore',
+  'config-edit-language'          => 'Lingua',
+  'config-edit-unserialize'       => 'Get the array values, e cambia i valori',
   'config-edit-serialize'         => 'Get the serialized string of the changed values (to be entered in the field)',
-  'config-edit-should-serialize'  => 'Serialize', //Added: 2016-01-16
-  'config-edit-eval-warning'      => 'When checked, the server will run eval()!
+  'config-edit-should-serialize'  => 'Serialilzza', //Added: 2016-01-16
+  'config-edit-eval-warning'      => 'Quando selezionato, il server run eval()!
   									  Don\'t use this if eval() is disabled on your server or if you don\'t exactly know what you are doing!
   									  Exact code executed:', //Added: 2016-01-16
   'config-edit-reenter-password'  => 'Re-enter your password', //Added: 2016-01-16
-  'config-edit-auth-failed'       => 'Password mismatch', //Added: 2016-01-16
-  'config-edit-eval-error'        => 'Invalid value', //Added: 2016-01-16
-  'config-edit-tools'             => 'Tools:',
+  'config-edit-auth-failed'       => 'Password non corrispondono', //Added: 2016-01-16
+  'config-edit-eval-error'        => 'Valore non Valido', //Added: 2016-01-16
+  'config-edit-tools'             => 'Strumenti:',
 
 ];

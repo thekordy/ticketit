@@ -10,7 +10,7 @@ namespace Kordy\Ticketit\Helpers;
  */
 class Cdn
 {
-    const CodeMirror = '5.27.4';
+    const CodeMirror = '5.28.0';
     const Summernote = '0.8.6';
     const FontAwesome = '4.7.0';
 }

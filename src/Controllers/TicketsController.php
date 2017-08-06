@@ -237,7 +237,7 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
-        $ticket = $this->tickets->find($id);
+        $ticket = $this->tickets->findOrFail($id);
 
         list($priority_lists, $category_lists, $status_lists) = $this->PCS();
 

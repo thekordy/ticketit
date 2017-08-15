@@ -110,7 +110,7 @@ class Ticket extends Model
         return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
     }
 
-//    /**
+    //    /**
     //     * Get Ticket audits
     //     *
     //     * @return \Illuminate\Database\Eloquent\Relations\HasMany

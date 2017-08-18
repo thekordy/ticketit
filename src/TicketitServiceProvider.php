@@ -189,7 +189,7 @@ class TicketitServiceProvider extends ServiceProvider
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             // Check public assets are present, publish them if not
-//            $installer->publicAssets();
+            //            $installer->publicAssets();
 
             $main_route = Setting::grab('main_route');
             $main_route_path = Setting::grab('main_route_path');

@@ -31,7 +31,7 @@ class TicketsController extends Controller
 
     public function data($complete = false)
     {
-        if(LaravelVersion::min('5.5')){
+        if(LaravelVersion::min('5.4')){
             $datatables = app(\Yajra\DataTables\DataTables::class);
         }else{
             $datatables = app(\Yajra\Datatables\Datatables::class);

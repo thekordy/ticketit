@@ -12,11 +12,11 @@ use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Controllers\ToolsController;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Helpers\LaravelVersion;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -244,9 +244,9 @@ class TicketitServiceProvider extends ServiceProvider
          */
         $this->app->register(\Collective\Html\HtmlServiceProvider::class);
 
-        if(LaravelVersion::min('5.5')){
+        if (LaravelVersion::min('5.5')) {
             $this->app->register(\Yajra\DataTables\DataTablesServiceProvider::class);
-        }else{
+        } else {
             $this->app->register(\Yajra\Datatables\DatatablesServiceProvider::class);
         }
 

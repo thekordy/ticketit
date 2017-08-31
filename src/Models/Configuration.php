@@ -18,19 +18,19 @@ class Configuration extends Model
     'default',
   ];
 
-  // Null lang column if no value is being stored.
+    // Null lang column if no value is being stored.
 
-  public function setLangAttribute($lang)
-  {
-      $this->attributes['lang'] = trim($lang) !== '' ? $lang : null;
-  }
+    public function setLangAttribute($lang)
+    {
+        $this->attributes['lang'] = trim($lang) !== '' ? $lang : null;
+    }
 
-  /**
-   * The attributes that should be casted to native types.
-   *
-   * @var array
-   */
-  protected $casts = [
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
     'id'         => 'integer',
     'lang'       => 'string',
     'slug'       => 'string',

@@ -13,7 +13,6 @@ use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
 
-
 class TicketsController extends Controller
 {
     protected $tickets;
@@ -31,9 +30,9 @@ class TicketsController extends Controller
 
     public function data($complete = false)
     {
-        if(LaravelVersion::min('5.5')){
+        if (LaravelVersion::min('5.5')) {
             $datatables = app(\Yajra\DataTables\DataTables::class);
-        }else{
+        } else {
             $datatables = app(\Yajra\Datatables\Datatables::class);
         }
 

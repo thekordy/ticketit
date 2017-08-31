@@ -68,6 +68,7 @@ class InstallController extends Controller
             return view('ticketit::install.upgrade', compact('inactive_migrations', 'inactive_settings'));
         }
         \Log::emergency('Ticketit needs upgrade, admin should login and visit ticketit-install to activate the upgrade');
+
         throw new \Exception('Ticketit needs upgrade, admin should login and visit ticketit install route');
     }
 
@@ -104,6 +105,7 @@ class InstallController extends Controller
             return redirect('/'.Setting::grab('main_route'));
         }
         \Log::emergency('Ticketit upgrade path access: Only admin is allowed to upgrade');
+
         throw new \Exception('Ticketit upgrade path access: Only admin is allowed to upgrade');
     }
 

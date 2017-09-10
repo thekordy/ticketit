@@ -27,14 +27,14 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!Schema::hasTable('migrations')) {
+        if (! Schema::hasTable('migrations')) {
             // Database isn't installed yet.
             return;
         }
         $installer = new InstallController();
 
         // if a migration or new setting is missing scape to the installation
-        if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
+        if (empty($installer->inactiveMigrations()) && ! $installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
             // Send settings to views under $setting
 
@@ -131,11 +131,7 @@ class TicketitServiceProvider extends ServiceProvider
             $admin_route = Setting::grab('admin_route');
             $admin_route_path = Setting::grab('admin_route_path');
             include Setting::grab('routes');
-        } elseif (Request::path() == 'tickets-install'
-                || Request::path() == 'tickets-upgrade'
-                || Request::path() == 'tickets'
-                || Request::path() == 'tickets-admin'
-                || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
+        } elseif (Request::path() == 'tickets-install' || Request::path() == 'tickets-upgrade' || Request::path() == 'tickets' || Request::path() == 'tickets-admin' || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
@@ -144,18 +140,18 @@ class TicketitServiceProvider extends ServiceProvider
 
             Route::get('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.index',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@index',
+                'as' => 'tickets.install.index',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@index',
             ]);
             Route::post('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.setup',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@setup',
+                'as' => 'tickets.install.setup',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup',
             ]);
             Route::get('/tickets-upgrade', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.upgrade',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@upgrade',
+                'as' => 'tickets.install.upgrade',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@upgrade',
             ]);
             Route::get('/tickets', function () {
                 return redirect()->route('tickets.install.index');

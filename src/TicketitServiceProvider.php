@@ -230,6 +230,9 @@ class TicketitServiceProvider extends ServiceProvider
                 return redirect()->route('tickets.install.index');
             });
         }
+
+        \Config::set('widgetize.enable_cache', true);
+        \Config::set('widgetize.debug_info', false);
     }
 
     /**

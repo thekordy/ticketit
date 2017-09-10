@@ -52,7 +52,7 @@ class SummerNote
                 'zh' => 'zh-CN',
             ];
 
-            $editor_locale = array_get($t, $editor_locale . '-' . strtoupper($editor_locale));
+            $editor_locale = array_get($t, $editor_locale, $editor_locale . '-' . strtoupper($editor_locale));
         }
 
         return $editor_locale;

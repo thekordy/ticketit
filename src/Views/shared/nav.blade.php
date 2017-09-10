@@ -1,4 +1,4 @@
-<?php $currentAction = \Route::currentRouteAction(); ?>
+<?php $currentAction = $data['currentAction']  ?>
 <div class="panel panel-default">
     <div class="panel-body">
         <ul class="nav nav-pills">
@@ -15,7 +15,7 @@
                 </a>
             </li>
 
-            @if($u->isAdmin())
+            @if($data['isAdmin'])
                 <li role="presentation"
                     class="{!! ('Kordy\Ticketit\Controllers\DashboardController@index' === $currentAction) || Request::is($data['admin_route'].'/indicator*') ? "active" : "" !!}">
                     <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>

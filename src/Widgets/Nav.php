@@ -13,8 +13,10 @@ class Nav
     public function data($uid, $admin_route)
     {
         $agent = Agent::find($uid);
+        $isAdmin = $agent->isAdmin();
+        $currentAction = \Route::currentRouteAction();
 
-        if ($agent->isAdmin()) {
+        if ($isAdmin) {
             $active = Ticket::active()->count();
             $complete  = Ticket::complete()->count();
         } elseif ($agent->isAgent()) {
@@ -25,6 +27,6 @@ class Nav
             $complete = Ticket::userTickets($uid)->complete()->count();
         }
 
-        return compact('active','complete', 'admin_route');
+        return compact('active','complete', 'admin_route', 'isAdmin', 'currentAction');
     }
 }

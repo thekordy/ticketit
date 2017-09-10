@@ -1,8 +1,8 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h2>{{ trans('ticketit::lang.index-my-tickets') }}
-            {!! link_to_route($setting->grab('main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
+        <h2>{{ tkTrans('index-my-tickets') }}
+            {!! link_to_route($setting->grab('main_route').'.create', tkTrans('btn-create-new-ticket'), null, ['class' => 'btn btn-primary pull-right']) !!}
         </h2>
     </div>
 

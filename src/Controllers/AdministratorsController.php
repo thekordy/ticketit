@@ -29,7 +29,7 @@ class AdministratorsController extends Controller
         $administrators_list = $this->addAdministrators($request->input('administrators'));
         $administrators_names = implode(',', $administrators_list);
 
-        Session::flash('status', trans('ticketit::lang.administrators-are-added-to-administrators', ['names' => $administrators_names]));
+        Session::flash('status', tkTrans('administrators-are-added-to-administrators', ['names' => $administrators_names]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
     }
@@ -38,7 +38,7 @@ class AdministratorsController extends Controller
     {
         $this->syncAdministratorCategories($id, $request);
 
-        Session::flash('status', trans('ticketit::lang.administrators-joined-categories-ok'));
+        Session::flash('status', tkTrans('administrators-joined-categories-ok'));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
     }
@@ -47,7 +47,7 @@ class AdministratorsController extends Controller
     {
         $administrator = $this->removeAdministrator($id);
 
-        Session::flash('status', trans('ticketit::lang.administrators-is-removed-from-team', ['name' => $administrator->name]));
+        Session::flash('status', tkTrans('administrators-is-removed-from-team', ['name' => $administrator->name]));
 
         return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
     }

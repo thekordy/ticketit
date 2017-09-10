@@ -1,15 +1,15 @@
 <table class="table table-condensed table-stripe ddt-responsive" class="ticketit-table">
     <thead>
         <tr>
-            <td>{{ trans('ticketit::lang.table-id') }}</td>
-            <td>{{ trans('ticketit::lang.table-subject') }}</td>
-            <td>{{ trans('ticketit::lang.table-status') }}</td>
-            <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
-            <td>{{ trans('ticketit::lang.table-agent') }}</td>
+            <td>{{ tkTrans('table-id') }}</td>
+            <td>{{ tkTrans('table-subject') }}</td>
+            <td>{{ tkTrans('table-status') }}</td>
+            <td>{{ tkTrans('table-last-updated') }}</td>
+            <td>{{ tkTrans('table-agent') }}</td>
           @if( $u->isAgent() || $u->isAdmin() )
-            <td>{{ trans('ticketit::lang.table-priority') }}</td>
-            <td>{{ trans('ticketit::lang.table-owner') }}</td>
-            <td>{{ trans('ticketit::lang.table-category') }}</td>
+            <td>{{ tkTrans('table-priority') }}</td>
+            <td>{{ tkTrans('table-owner') }}</td>
+            <td>{{ tkTrans('table-category') }}</td>
           @endif
         </tr>
     </thead>

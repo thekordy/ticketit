@@ -50,7 +50,7 @@ class CategoriesController extends Controller
         $category = new Category();
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', tkTrans('category-name-has-been-created', ['name' => $request->name]));
 
         \Cache::forget('ticketit::categories');
 
@@ -101,7 +101,7 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', tkTrans('category-name-has-been-modified', ['name' => $request->name]));
 
         \Cache::forget('ticketit::categories');
 
@@ -121,7 +121,7 @@ class CategoriesController extends Controller
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', tkTrans('category-name-has-been-deleted', ['name' => $name]));
 
         \Cache::forget('ticketit::categories');
 

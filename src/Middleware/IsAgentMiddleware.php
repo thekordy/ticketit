@@ -22,6 +22,6 @@ class IsAgentMiddleware
         }
 
         return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-access'));
+            ->with('warning', tkTrans('you-are-not-permitted-to-access'));
     }
 }

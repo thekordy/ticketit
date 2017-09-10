@@ -50,7 +50,7 @@ class StatusesController extends Controller
         $status = new Status();
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', tkTrans('status-name-has-been-created', ['name' => $request->name]));
 
         \Cache::forget('ticketit::statuses');
 
@@ -66,7 +66,7 @@ class StatusesController extends Controller
      */
     public function show($id)
     {
-        return trans('ticketit::lang.status-all-tickets-here');
+        return tkTrans('status-all-tickets-here');
     }
 
     /**
@@ -101,7 +101,7 @@ class StatusesController extends Controller
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', tkTrans('status-name-has-been-modified', ['name' => $request->name]));
 
         \Cache::forget('ticketit::statuses');
 
@@ -121,7 +121,7 @@ class StatusesController extends Controller
         $name = $status->name;
         $status->delete();
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', tkTrans('status-name-has-been-deleted', ['name' => $name]));
 
         \Cache::forget('ticketit::statuses');
 

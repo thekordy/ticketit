@@ -2,7 +2,7 @@
     <div class="panel-body">
         <ul class="nav nav-pills">
             <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}">
-                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
+                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ tkTrans('nav-active-tickets') }}
                     <span class="badge">
                          <?php 
                             if ($u->isAdmin()) {
@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete')) ? "active" : "" !!}">
-                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
+                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ tkTrans('nav-completed-tickets') }}
                     <span class="badge">
                         <?php 
                             if ($u->isAdmin()) {

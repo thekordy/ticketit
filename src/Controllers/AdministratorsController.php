@@ -14,14 +14,14 @@ class AdministratorsController extends Controller
     {
         $administrators = Agent::admins();
 
-        return view('ticketit::admin.administrator.index', compact('administrators'));
+        return tkView('admin.administrator.index', compact('administrators'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::admin.administrator.create', compact('users'));
+        return tkView('admin.administrator.create', compact('users'));
     }
 
     public function store(Request $request)

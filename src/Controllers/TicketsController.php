@@ -142,7 +142,7 @@ class TicketsController extends Controller
     {
         $complete = false;
 
-        return view('ticketit::index', compact('complete'));
+        return tkView('index', compact('complete'));
     }
 
     /**
@@ -154,7 +154,7 @@ class TicketsController extends Controller
     {
         $complete = true;
 
-        return view('ticketit::index', compact('complete'));
+        return tkView('index', compact('complete'));
     }
 
     /**
@@ -193,7 +193,7 @@ class TicketsController extends Controller
     {
         list($priorities, $categories) = $this->PCS();
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return tkView('tickets.create', compact('priorities', 'categories'));
     }
 
     /**
@@ -257,7 +257,7 @@ class TicketsController extends Controller
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::tickets.show',
+        return tkView('tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm'));
     }

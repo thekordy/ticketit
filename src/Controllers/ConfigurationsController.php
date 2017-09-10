@@ -53,7 +53,7 @@ class ConfigurationsController extends Controller
             }
         }
 
-        return view('ticketit::admin.configuration.index', compact('configurations', 'configurations_by_sections'));
+        return tkView('admin.configuration.index', compact('configurations', 'configurations_by_sections'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ConfigurationsController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.configuration.create');
+        return tkView('admin.configuration.create');
     }
 
     /**
@@ -98,7 +98,7 @@ class ConfigurationsController extends Controller
         $should_serialize = Setting::is_serialized($configuration->value);
         $default_serialized = Setting::is_serialized($configuration->default);
 
-        return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
+        return tkView('admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
     }
 
     /**

@@ -20,7 +20,7 @@ class CategoriesController extends Controller
             return Category::all();
         });
 
-        return view('ticketit::admin.category.index', compact('categories'));
+        return tkView('admin.category.index', compact('categories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.category.create');
+        return tkView('admin.category.create');
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('ticketit::admin.category.edit', compact('category'));
+        return tkView('admin.category.edit', compact('category'));
     }
 
     /**

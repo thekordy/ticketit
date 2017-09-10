@@ -57,7 +57,7 @@ class InstallController extends Controller
                 $users_list = User::lists('name', 'id')->toArray();
             }
 
-            return view('ticketit::install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
+            return tkView('install.index', compact('views_files_list', 'inactive_migrations', 'users_list'));
         }
 
         // other than that, Upgrade to a new version, installing new migrations and new settings slugs
@@ -65,7 +65,7 @@ class InstallController extends Controller
             $inactive_migrations = $this->inactiveMigrations();
             $inactive_settings = $this->inactiveSettings();
 
-            return view('ticketit::install.upgrade', compact('inactive_migrations', 'inactive_settings'));
+            return tkView('install.upgrade', compact('inactive_migrations', 'inactive_settings'));
         }
         \Log::emergency('Ticketit needs upgrade, admin should login and visit ticketit-install to activate the upgrade');
 

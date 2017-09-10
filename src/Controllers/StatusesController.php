@@ -20,7 +20,7 @@ class StatusesController extends Controller
             return Status::all();
         });
 
-        return view('ticketit::admin.status.index', compact('statuses'));
+        return tkView('admin.status.index', compact('statuses'));
     }
 
     /**
@@ -30,7 +30,7 @@ class StatusesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.status.create');
+        return tkView('admin.status.create');
     }
 
     /**
@@ -80,7 +80,7 @@ class StatusesController extends Controller
     {
         $status = Status::findOrFail($id);
 
-        return view('ticketit::admin.status.edit', compact('status'));
+        return tkView('admin.status.edit', compact('status'));
     }
 
     /**

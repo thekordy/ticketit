@@ -13,3 +13,24 @@ if (!function_exists('tkTrans')) {
         return trans('ticketit::lang.'.$key, $replace, $locale);
     }
 }
+
+if (! function_exists('tkView')) {
+    /**
+     * Get the evaluated view contents for the given view.
+     *
+     * @param  string  $view
+     * @param  array   $data
+     * @param  array   $mergeData
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    function tkView($view, $data = [], $mergeData = [])
+    {
+        $factory = app(ViewFactory::class);
+
+        if (func_num_args() === 0) {
+            return $factory;
+        }
+
+        return view('ticketit::'.$view, $data, $mergeData);
+    }
+}

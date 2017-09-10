@@ -49,3 +49,18 @@ if (! function_exists('tkView')) {
         return view('ticketit::'.$view, $data, $mergeData);
     }
 }
+
+if (! function_exists('tkAction')) {
+    /**
+     * Generate the URL to a controller action.
+     *
+     * @param  string  $name
+     * @param  array   $parameters
+     * @param  bool    $absolute
+     * @return string
+     */
+    function tkAction($name, $parameters = [], $absolute = true)
+    {
+        return action('\Kordy\Ticketit\Controllers\\'.$name, $parameters, $absolute);
+    }
+}

@@ -276,6 +276,6 @@ class InstallController extends Controller
         $seeder->run();
         session()->flash('status', 'Demo tickets, users, and agents are seeded!');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+        return redirect(tkAction('TicketsController@index'));
     }
 }

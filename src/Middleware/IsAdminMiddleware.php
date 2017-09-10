@@ -21,7 +21,7 @@ class IsAdminMiddleware
             return $next($request);
         }
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
+        return redirect(tkAction('TicketsController@index'))
             ->with('warning', tkTrans('you-are-not-permitted-to-access'));
     }
 }

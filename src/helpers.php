@@ -61,6 +61,6 @@ if (! function_exists('tkAction')) {
      */
     function tkAction($name, $parameters = [], $absolute = true)
     {
-        return action('\Kordy\Ticketit\Controllers\\'.$name, $parameters, $absolute);
+        return action('\\Kordy\\Ticketit\\Controllers\\'.$name, $parameters, $absolute);
     }
 }

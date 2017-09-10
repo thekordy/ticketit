@@ -1,5 +1,5 @@
 <?php
-namespace Kordy\Ticketit\Widgetize;
+namespace Kordy\Ticketit\Widgets;
 
 use Kordy\Ticketit\Models\Priority;
 

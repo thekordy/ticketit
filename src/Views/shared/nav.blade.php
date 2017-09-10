@@ -5,39 +5,19 @@
             <li role="presentation"
                 class="{!! ('Kordy\Ticketit\Controllers\TicketsController@index' == $currentAction) ? "active" : "" !!}">
                 <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
-                    <span class="badge">
-                         <?php
-                        if ($u->isAdmin()) {
-                            echo Kordy\Ticketit\Models\Ticket::active()->count();
-                        } elseif ($u->isAgent()) {
-                            echo Kordy\Ticketit\Models\Ticket::active()->agentUserTickets($u->id)->count();
-                        } else {
-                            echo Kordy\Ticketit\Models\Ticket::userTickets($u->id)->active()->count();
-                        }
-                        ?>
-                    </span>
+                    <span class="badge">{!! $data['active'] !!} </span>
                 </a>
             </li>
             <li role="presentation" class="{!! ('Kordy\Ticketit\Controllers\TicketsController@indexComplete' == $currentAction) ? "active" : "" !!}">
 
                 <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
-                    <span class="badge">
-                        <?php
-                        if ($u->isAdmin()) {
-                            echo Kordy\Ticketit\Models\Ticket::complete()->count();
-                        } elseif ($u->isAgent()) {
-                            echo Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets($u->id)->count();
-                        } else {
-                            echo Kordy\Ticketit\Models\Ticket::userTickets($u->id)->complete()->count();
-                        }
-                        ?>
-                    </span>
+                    <span class="badge"> {!! $data['complete'] !!} </span>
                 </a>
             </li>
 
             @if($u->isAdmin())
                 <li role="presentation"
-                    class="{!! ('Kordy\Ticketit\Controllers\DashboardController@index' === $currentAction) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
+                    class="{!! ('Kordy\Ticketit\Controllers\DashboardController@index' === $currentAction) || Request::is($data['admin_route'].'/indicator*') ? "active" : "" !!}">
                     <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
                 </li>
                 <?php

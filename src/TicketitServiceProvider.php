@@ -266,5 +266,7 @@ class TicketitServiceProvider extends ServiceProvider
             return new Htmlify();
         });
         $this->commands('command.kordy.ticketit.htmlify');
+
+        $this->app->register('Imanghafoori\Widgets\WidgetsServiceProvider');
     }
 }

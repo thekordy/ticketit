@@ -16,11 +16,7 @@ class PrioritiesController extends Controller
      */
     public function index()
     {
-        $priorities = \Cache::remember('ticketit::priorities', 60, function () {
-            return Priority::all();
-        });
-
-        return tkView('admin.priority.index', compact('priorities'));
+        return tkView('admin.priority.index');
     }
 
     /**
@@ -52,7 +48,7 @@ class PrioritiesController extends Controller
 
         Session::flash('status', tkTrans('priority-name-has-been-created', ['name' => $request->name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
         return redirect(tkAction('PrioritiesController@index'));
     }
@@ -103,7 +99,7 @@ class PrioritiesController extends Controller
 
         Session::flash('status', tkTrans('priority-name-has-been-modified', ['name' => $request->name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
         return redirect(tkAction('PrioritiesController@index'));
     }
@@ -123,7 +119,7 @@ class PrioritiesController extends Controller
 
         Session::flash('status', tkTrans('priority-name-has-been-deleted', ['name' => $name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
         return redirect(tkAction('PrioritiesController@index'));
     }

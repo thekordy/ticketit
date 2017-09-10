@@ -7,7 +7,9 @@ use Kordy\Ticketit\Models\Setting;
 class SummerNote
 {
     public $template = 'ticketit::tickets.partials.summernote';
+
     public $cacheLifeTime = 0;
+
     public $cacheTags = [];
 
     public function data($codemirror_enabled, $codemirror_theme, $editor_enabled)
@@ -17,7 +19,6 @@ class SummerNote
 
         return compact('editor_locale', 'editor_options', 'codemirror_theme', 'codemirror_enabled', 'editor_enabled');
     }
-
 
     /**
      * @return mixed|null|string
@@ -52,7 +53,7 @@ class SummerNote
                 'zh' => 'zh-CN',
             ];
 
-            $editor_locale = array_get($t, $editor_locale, $editor_locale . '-' . strtoupper($editor_locale));
+            $editor_locale = array_get($t, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
         }
 
         return $editor_locale;

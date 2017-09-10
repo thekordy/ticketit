@@ -20,7 +20,7 @@ class CategoriesController extends Controller
             return Category::all();
         });
 
-        return view('ticketit::admin.category.index', compact('categories'));
+        return tkView('admin.category.index', compact('categories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.category.create');
+        return tkView('admin.category.create');
     }
 
     /**
@@ -50,11 +50,11 @@ class CategoriesController extends Controller
         $category = new Category();
         $category->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', tkTrans('category-name-has-been-created', ['name' => $request->name]));
 
         \Cache::forget('ticketit::categories');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
+        return redirect(tkAction('CategoriesController@index'));
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        return view('ticketit::admin.category.edit', compact('category'));
+        return tkView('admin.category.edit', compact('category'));
     }
 
     /**
@@ -101,11 +101,11 @@ class CategoriesController extends Controller
         $category = Category::findOrFail($id);
         $category->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', tkTrans('category-name-has-been-modified', ['name' => $request->name]));
 
         \Cache::forget('ticketit::categories');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
+        return redirect(tkAction('CategoriesController@index'));
     }
 
     /**
@@ -121,10 +121,10 @@ class CategoriesController extends Controller
         $name = $category->name;
         $category->delete();
 
-        Session::flash('status', trans('ticketit::lang.category-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', tkTrans('category-name-has-been-deleted', ['name' => $name]));
 
         \Cache::forget('ticketit::categories');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\CategoriesController@index');
+        return redirect(tkAction('CategoriesController@index'));
     }
 }

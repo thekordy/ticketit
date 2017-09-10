@@ -20,7 +20,7 @@ class StatusesController extends Controller
             return Status::all();
         });
 
-        return view('ticketit::admin.status.index', compact('statuses'));
+        return tkView('admin.status.index', compact('statuses'));
     }
 
     /**
@@ -30,7 +30,7 @@ class StatusesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.status.create');
+        return tkView('admin.status.create');
     }
 
     /**
@@ -50,11 +50,11 @@ class StatusesController extends Controller
         $status = new Status();
         $status->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', tkTrans('status-name-has-been-created', ['name' => $request->name]));
 
         \Cache::forget('ticketit::statuses');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
+        return redirect(tkAction('StatusesController@index'));
     }
 
     /**
@@ -66,7 +66,7 @@ class StatusesController extends Controller
      */
     public function show($id)
     {
-        return trans('ticketit::lang.status-all-tickets-here');
+        return tkTrans('status-all-tickets-here');
     }
 
     /**
@@ -80,7 +80,7 @@ class StatusesController extends Controller
     {
         $status = Status::findOrFail($id);
 
-        return view('ticketit::admin.status.edit', compact('status'));
+        return tkView('admin.status.edit', compact('status'));
     }
 
     /**
@@ -101,11 +101,11 @@ class StatusesController extends Controller
         $status = Status::findOrFail($id);
         $status->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', tkTrans('status-name-has-been-modified', ['name' => $request->name]));
 
         \Cache::forget('ticketit::statuses');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
+        return redirect(tkAction('StatusesController@index'));
     }
 
     /**
@@ -121,10 +121,10 @@ class StatusesController extends Controller
         $name = $status->name;
         $status->delete();
 
-        Session::flash('status', trans('ticketit::lang.status-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', tkTrans('status-name-has-been-deleted', ['name' => $name]));
 
         \Cache::forget('ticketit::statuses');
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\StatusesController@index');
+        return redirect(tkAction('StatusesController@index'));
     }
 }

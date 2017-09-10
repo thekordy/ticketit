@@ -1,7 +1,7 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::lang.index-title') }}
+    {{ tkTrans('index-title') }}
 @stop
 
 @section('content')
@@ -20,27 +20,27 @@
         	lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
 	        ajax: '{!! route($setting->grab('main_route').'.data', $complete) !!}',
 	        language: {
-				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
-				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
-				info:           "{{ trans('ticketit::lang.table-info') }}",
-				infoEmpty:      "{{ trans('ticketit::lang.table-info-empty') }}",
-				infoFiltered:   "{{ trans('ticketit::lang.table-info-filtered') }}",
-				infoPostFix:    "{{ trans('ticketit::lang.table-info-postfix') }}",
-				thousands:      "{{ trans('ticketit::lang.table-thousands') }}",
-				lengthMenu:     "{{ trans('ticketit::lang.table-length-menu') }}",
-				loadingRecords: "{{ trans('ticketit::lang.table-loading-results') }}",
-				processing:     "{{ trans('ticketit::lang.table-processing') }}",
-				search:         "{{ trans('ticketit::lang.table-search') }}",
-				zeroRecords:    "{{ trans('ticketit::lang.table-zero-records') }}",
+				decimal:        "{{ tkTrans('table-decimal') }}",
+				emptyTable:     "{{ tkTrans('table-empty') }}",
+				info:           "{{ tkTrans('table-info') }}",
+				infoEmpty:      "{{ tkTrans('table-info-empty') }}",
+				infoFiltered:   "{{ tkTrans('table-info-filtered') }}",
+				infoPostFix:    "{{ tkTrans('table-info-postfix') }}",
+				thousands:      "{{ tkTrans('table-thousands') }}",
+				lengthMenu:     "{{ tkTrans('table-length-menu') }}",
+				loadingRecords: "{{ tkTrans('table-loading-results') }}",
+				processing:     "{{ tkTrans('table-processing') }}",
+				search:         "{{ tkTrans('table-search') }}",
+				zeroRecords:    "{{ tkTrans('table-zero-records') }}",
 				paginate: {
-					first:      "{{ trans('ticketit::lang.table-paginate-first') }}",
-					last:       "{{ trans('ticketit::lang.table-paginate-last') }}",
-					next:       "{{ trans('ticketit::lang.table-paginate-next') }}",
-					previous:   "{{ trans('ticketit::lang.table-paginate-prev') }}"
+					first:      "{{ tkTrans('table-paginate-first') }}",
+					last:       "{{ tkTrans('table-paginate-last') }}",
+					next:       "{{ tkTrans('table-paginate-next') }}",
+					previous:   "{{ tkTrans('table-paginate-prev') }}"
 				},
 				aria: {
-					sortAscending:  "{{ trans('ticketit::lang.table-aria-sort-asc') }}",
-					sortDescending: "{{ trans('ticketit::lang.table-aria-sort-desc') }}"
+					sortAscending:  "{{ tkTrans('table-aria-sort-asc') }}",
+					sortDescending: "{{ tkTrans('table-aria-sort-desc') }}"
 				},
 			},
 	        columns: [

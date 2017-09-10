@@ -14,14 +14,14 @@ class AdministratorsController extends Controller
     {
         $administrators = Agent::admins();
 
-        return view('ticketit::admin.administrator.index', compact('administrators'));
+        return tkView('admin.administrator.index', compact('administrators'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::admin.administrator.create', compact('users'));
+        return tkView('admin.administrator.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -29,27 +29,27 @@ class AdministratorsController extends Controller
         $administrators_list = $this->addAdministrators($request->input('administrators'));
         $administrators_names = implode(',', $administrators_list);
 
-        Session::flash('status', trans('ticketit::lang.administrators-are-added-to-administrators', ['names' => $administrators_names]));
+        Session::flash('status', tkTrans('administrators-are-added-to-administrators', ['names' => $administrators_names]));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
+        return redirect(tkAction('AdministratorsController@index'));
     }
 
     public function update($id, Request $request)
     {
         $this->syncAdministratorCategories($id, $request);
 
-        Session::flash('status', trans('ticketit::lang.administrators-joined-categories-ok'));
+        Session::flash('status', tkTrans('administrators-joined-categories-ok'));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
+        return redirect(tkAction('AdministratorsController@index'));
     }
 
     public function destroy($id)
     {
         $administrator = $this->removeAdministrator($id);
 
-        Session::flash('status', trans('ticketit::lang.administrators-is-removed-from-team', ['name' => $administrator->name]));
+        Session::flash('status', tkTrans('administrators-is-removed-from-team', ['name' => $administrator->name]));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AdministratorsController@index');
+        return redirect(tkAction('AdministratorsController@index'));
     }
 
     /**

@@ -14,14 +14,14 @@ class AgentsController extends Controller
     {
         $agents = Agent::agents()->get();
 
-        return view('ticketit::admin.agent.index', compact('agents'));
+        return tkView('admin.agent.index', compact('agents'));
     }
 
     public function create()
     {
         $users = Agent::paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::admin.agent.create', compact('users'));
+        return tkView('admin.agent.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -29,27 +29,27 @@ class AgentsController extends Controller
         $agents_list = $this->addAgents($request->input('agents'));
         $agents_names = implode(',', $agents_list);
 
-        Session::flash('status', trans('ticketit::lang.agents-are-added-to-agents', ['names' => $agents_names]));
+        Session::flash('status', tkTrans('agents-are-added-to-agents', ['names' => $agents_names]));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
+        return redirect(tkAction('AgentsController@index'));
     }
 
     public function update($id, Request $request)
     {
         $this->syncAgentCategories($id, $request);
 
-        Session::flash('status', trans('ticketit::lang.agents-joined-categories-ok'));
+        Session::flash('status', tkTrans('agents-joined-categories-ok'));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
+        return redirect(tkAction('AgentsController@index'));
     }
 
     public function destroy($id)
     {
         $agent = $this->removeAgent($id);
 
-        Session::flash('status', trans('ticketit::lang.agents-is-removed-from-team', ['name' => $agent->name]));
+        Session::flash('status', tkTrans('agents-is-removed-from-team', ['name' => $agent->name]));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
+        return redirect(tkAction('AgentsController@index'));
     }
 
     /**

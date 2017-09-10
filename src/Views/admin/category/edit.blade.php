@@ -1,5 +1,5 @@
 @extends($master)
-@section('page', trans('ticketit::admin.category-edit-title', ['name' => ucwords($category->name)]))
+@section('page', tkAdminTrans('category-edit-title', ['name' => ucwords($category->name)]))
 
 @section('content')
     @include('ticketit::shared.header')
@@ -9,7 +9,7 @@
                                     'method' => 'PATCH',
                                     'class' => 'form-horizontal'
                                     ]) !!}
-        <legend>{{ trans('ticketit::admin.category-edit-title', ['name' => ucwords($category->name)]) }}</legend>
+        <legend>{{ tkAdminTrans('category-edit-title', ['name' => ucwords($category->name)]) }}</legend>
         @include('ticketit::admin.category.form', ['update', true])
         {!! CollectiveForm::close() !!}
     </div>

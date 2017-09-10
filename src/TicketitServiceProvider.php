@@ -266,5 +266,9 @@ class TicketitServiceProvider extends ServiceProvider
             return new Htmlify();
         });
         $this->commands('command.kordy.ticketit.htmlify');
+
+        $this->app->singleton('tkSettings', function ($app) {
+            return new Setting();
+        });
     }
 }

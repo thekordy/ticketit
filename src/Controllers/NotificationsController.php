@@ -19,7 +19,7 @@ class NotificationsController extends Controller
         $data = ['comment' => serialize($comment), 'ticket' => serialize($ticket)];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            trans('ticketit::lang.notify-new-comment-from').$notification_owner->name.trans('ticketit::lang.notify-on').$ticket->subject, 'comment');
+            tkTrans('notify-new-comment-from').$notification_owner->name.tkTrans('notify-on').$ticket->subject, 'comment');
     }
 
     public function ticketStatusUpdated(Ticket $ticket, Ticket $original_ticket)
@@ -34,10 +34,10 @@ class NotificationsController extends Controller
 
         if (strtotime($ticket->completed_at)) {
             $this->sendNotification($template, $data, $ticket, $notification_owner,
-                $notification_owner->name.trans('ticketit::lang.notify-updated').$ticket->subject.trans('ticketit::lang.notify-status-to-complete'), 'status');
+                $notification_owner->name.tkTrans('notify-updated').$ticket->subject.tkTrans('notify-status-to-complete'), 'status');
         } else {
             $this->sendNotification($template, $data, $ticket, $notification_owner,
-                $notification_owner->name.trans('ticketit::lang.notify-updated').$ticket->subject.trans('ticketit::lang.notify-status-to').$ticket->status->name, 'status');
+                $notification_owner->name.tkTrans('notify-updated').$ticket->subject.tkTrans('notify-status-to').$ticket->status->name, 'status');
         }
     }
 
@@ -52,7 +52,7 @@ class NotificationsController extends Controller
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name.trans('ticketit::lang.notify-transferred').$ticket->subject.trans('ticketit::lang.notify-to-you'), 'agent');
+            $notification_owner->name.tkTrans('notify-transferred').$ticket->subject.tkTrans('notify-to-you'), 'agent');
     }
 
     public function newTicketNotifyAgent(Ticket $ticket)
@@ -65,7 +65,7 @@ class NotificationsController extends Controller
         ];
 
         $this->sendNotification($template, $data, $ticket, $notification_owner,
-            $notification_owner->name.trans('ticketit::lang.notify-created-ticket').$ticket->subject, 'agent');
+            $notification_owner->name.tkTrans('notify-created-ticket').$ticket->subject, 'agent');
     }
 
     /**

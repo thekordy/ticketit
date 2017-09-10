@@ -6,7 +6,7 @@
             {!! CollectiveForm::hidden('ticket_id', $ticket->id ) !!}
 
             <fieldset>
-                <legend>{!! trans('ticketit::lang.reply') !!}</legend>
+                <legend>{!! tkTrans('reply') !!}</legend>
                 <div class="form-group">
                     <div class="col-lg-12">
                         {!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => "3"]) !!}
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="text-right col-md-12">
-                    {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                    {!! CollectiveForm::submit( tkTrans('btn-submit'), ['class' => 'btn btn-primary']) !!}
                 </div>
 
             </fieldset>

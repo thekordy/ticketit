@@ -16,11 +16,7 @@ class PrioritiesController extends Controller
      */
     public function index()
     {
-        $priorities = \Cache::remember('ticketit::priorities', 60, function () {
-            return Priority::all();
-        });
-
-        return view('ticketit::admin.priority.index', compact('priorities'));
+        return tkView('admin.priority.index');
     }
 
     /**
@@ -30,7 +26,7 @@ class PrioritiesController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.priority.create');
+        return tkView('admin.priority.create');
     }
 
     /**
@@ -50,11 +46,11 @@ class PrioritiesController extends Controller
         $priority = new Priority();
         $priority->create(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-created', ['name' => $request->name]));
+        Session::flash('status', tkTrans('priority-name-has-been-created', ['name' => $request->name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
+        return redirect(tkAction('PrioritiesController@index'));
     }
 
     /**
@@ -66,7 +62,7 @@ class PrioritiesController extends Controller
      */
     public function show($id)
     {
-        return trans('ticketit::lang.priority-all-tickets-here');
+        return tkTrans('priority-all-tickets-here');
     }
 
     /**
@@ -80,7 +76,7 @@ class PrioritiesController extends Controller
     {
         $priority = Priority::findOrFail($id);
 
-        return view('ticketit::admin.priority.edit', compact('priority'));
+        return tkView('admin.priority.edit', compact('priority'));
     }
 
     /**
@@ -101,11 +97,11 @@ class PrioritiesController extends Controller
         $priority = Priority::findOrFail($id);
         $priority->update(['name' => $request->name, 'color' => $request->color]);
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('status', tkTrans('priority-name-has-been-modified', ['name' => $request->name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
+        return redirect(tkAction('PrioritiesController@index'));
     }
 
     /**
@@ -121,10 +117,10 @@ class PrioritiesController extends Controller
         $name = $priority->name;
         $priority->delete();
 
-        Session::flash('status', trans('ticketit::lang.priority-name-has-been-deleted', ['name' => $name]));
+        Session::flash('status', tkTrans('priority-name-has-been-deleted', ['name' => $name]));
 
-        \Cache::forget('ticketit::priorities');
+        expire_widgets(['priority']);
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\PrioritiesController@index');
+        return redirect(tkAction('PrioritiesController@index'));
     }
 }

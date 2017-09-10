@@ -53,7 +53,7 @@ class ConfigurationsController extends Controller
             }
         }
 
-        return view('ticketit::admin.configuration.index', compact('configurations', 'configurations_by_sections'));
+        return tkView('admin.configuration.index', compact('configurations', 'configurations_by_sections'));
     }
 
     /**
@@ -63,7 +63,7 @@ class ConfigurationsController extends Controller
      */
     public function create()
     {
-        return view('ticketit::admin.configuration.create');
+        return tkView('admin.configuration.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class ConfigurationsController extends Controller
 
         Session::flash('configuration', 'Setting saved successfully.');
         \Cache::forget('ticketit::settings'); // refresh cached settings
-        return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
+        return redirect(tkAction('ConfigurationsController@index'));
     }
 
     /**
@@ -98,7 +98,7 @@ class ConfigurationsController extends Controller
         $should_serialize = Setting::is_serialized($configuration->value);
         $default_serialized = Setting::is_serialized($configuration->default);
 
-        return view('ticketit::admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
+        return tkView('admin.configuration.edit', compact('configuration', 'should_serialize', 'default_serialized'));
     }
 
     /**
@@ -118,20 +118,20 @@ class ConfigurationsController extends Controller
         if ($request->serialize) {
             //if(!Hash::check($request->password, Auth::user()->password)){
             if (!Auth::attempt($request->only('password'), false, false)) {
-                return back()->withErrors([trans('ticketit::admin.config-edit-auth-failed')]);
+                return back()->withErrors([tkAdminTrans('config-edit-auth-failed')]);
             }
             if (false === eval('$value = serialize('.$value.');')) {
-                return back()->withErrors([trans('ticketit::admin.config-edit-eval-error')]);
+                return back()->withErrors([tkAdminTrans('config-edit-eval-error')]);
             }
         }
 
         $configuration->update(['value' => $value, 'lang' => $request->lang]);
 
-        Session::flash('configuration', trans('ticketit::lang.configuration-name-has-been-modified', ['name' => $request->name]));
+        Session::flash('configuration', tkTrans('configuration-name-has-been-modified', ['name' => $request->name]));
         // refresh cached settings
         \Cache::forget('ticketit::settings');
         \Cache::forget('ticketit::settings.'.$configuration->slug);
         //return redirect(route('ticketit::admin.configuration.index'));
-        return redirect()->action('\Kordy\Ticketit\Controllers\ConfigurationsController@index');
+        return redirect(tkAction('ConfigurationsController@index'));
     }
 }

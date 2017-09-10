@@ -1,24 +1,24 @@
 @extends($master)
 
 @section('page')
-    {{ trans('ticketit::admin.config-edit-subtitle') }}
+    {{ tkAdminTrans('config-edit-subtitle') }}
 @stop
 
 @section('content')
     @include('ticketit::shared.header')
      <div class="panel panel-default">
       <div class="panel-heading">
-        <h3>{{ trans('ticketit::admin.config-edit-title') }}
+        <h3>{{ tkAdminTrans('config-edit-title') }}
           <div class="panel-nav pull-right" style="margin-top: -7px;">          
               {!! link_to_route(
                   $setting->grab('admin_route').'.configuration.index',
-                  trans('ticketit::admin.btn-back'), null,
+                  tkAdminTrans('btn-back'), null,
                   ['class' => 'btn btn-default'])
               !!}
               {{--
               {!! link_to_route(
                   $setting->grab('admin_route').'.configuration.create',
-                  trans('ticketit::admin.btn-create-new-config'), null,
+                  tkAdminTrans('btn-create-new-config'), null,
                   ['class' => 'btn btn-primary'])
               !!}
               --}}
@@ -29,13 +29,13 @@
         <div class="form-horizontal">
 {!! CollectiveForm::model($configuration, ['route' => [$setting->grab('admin_route').'.configuration.update', $configuration->id], 'method' => 'patch']) !!}
              <div class="well">
-                 <b>{{ trans('ticketit::admin.config-edit-tools') }}</b><br>
+                 <b>{{ tkAdminTrans('config-edit-tools') }}</b><br>
                  <a href="https://www.functions-online.com/unserialize.html" target="_blank">
-                     {{ trans('ticketit::admin.config-edit-unserialize') }}
+                     {{ tkAdminTrans('config-edit-unserialize') }}
                  </a>
                  <br>
                  <a href="https://www.functions-online.com/serialize.html" target="_blank">
-                     {{ trans('ticketit::admin.config-edit-serialize') }}
+                     {{ tkAdminTrans('config-edit-serialize') }}
                  </a>
              </div>
 
@@ -47,7 +47,7 @@
 
               <!-- ID Field -->
               <div class="form-group">
-                  {!! CollectiveForm::label('id', trans('ticketit::admin.config-edit-id') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                  {!! CollectiveForm::label('id', tkAdminTrans('config-edit-id') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                   <div class="col-sm-9">
                       {!! CollectiveForm::text('id', null, ['class' => 'form-control', 'disabled']) !!}
                   </div>
@@ -55,14 +55,14 @@
 
               <!-- Slug Field -->
               <div class="form-group">
-                  {!! CollectiveForm::label('slug', trans('ticketit::admin.config-edit-slug') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                  {!! CollectiveForm::label('slug', tkAdminTrans('config-edit-slug') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                   <div class="col-sm-9">
                       {!! CollectiveForm::text('slug', null, ['class' => 'form-control', 'disabled']) !!}
                   </div>
               </div>
 
               <div class="form-group">
-                  {!! CollectiveForm::label('default', trans('ticketit::admin.config-edit-default') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                  {!! CollectiveForm::label('default', tkAdminTrans('config-edit-default') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                   <div class="col-sm-9">
                       @if(!$default_serialized)
                           {!! CollectiveForm::text('default', null, ['class' => 'form-control', 'disabled']) !!}
@@ -75,7 +75,7 @@
 
               <!-- Value Field -->
               <div class="form-group">
-                  {!! CollectiveForm::label('value', trans('ticketit::admin.config-edit-value') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                  {!! CollectiveForm::label('value', tkAdminTrans('config-edit-value') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                   <div class="col-sm-9">
                       @if(!$should_serialize)
                             {!! CollectiveForm::text('value', null, ['class' => 'form-control']) !!}
@@ -87,7 +87,7 @@
 
             <!-- Serialize Field -->
             <div class="form-group">
-                {!! CollectiveForm::label('serialize', trans('ticketit::admin.config-edit-should-serialize') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                {!! CollectiveForm::label('serialize', tkAdminTrans('config-edit-should-serialize') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-9">
                     {!! CollectiveForm::checkbox('serialize', 1, $should_serialize, ['class' => 'form-control', 'onchange' =>  'changeSerialize(this)',]) !!}
                     <span class="help-block" style="color: red;">@lang('ticketit::admin.config-edit-eval-warning') <code>eval('$value = serialize(' . $value . ');')</code></span>
@@ -96,7 +96,7 @@
 
             <!-- Password Field -->
             <div id="serialize-password" class="form-group">
-                {!! CollectiveForm::label('password', trans('ticketit::admin.config-edit-reenter-password') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                {!! CollectiveForm::label('password', tkAdminTrans('config-edit-reenter-password') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                 <div class="col-sm-9">
                     {!! CollectiveForm::password('password', ['class' => 'form-control']) !!}
                 </div>
@@ -104,7 +104,7 @@
 
               <!-- Lang Field -->
               <div class="form-group">
-                  {!! CollectiveForm::label('lang', trans('ticketit::admin.config-edit-language') . trans('ticketit::admin.colon'), ['class' => 'col-sm-2 control-label']) !!}
+                  {!! CollectiveForm::label('lang', tkAdminTrans('config-edit-language') . tkAdminTrans('colon'), ['class' => 'col-sm-2 control-label']) !!}
                   <div class="col-sm-9">
                       {!! CollectiveForm::text('lang', null, ['class' => 'form-control']) !!}
                   </div>
@@ -113,7 +113,7 @@
               <!-- Submit Field -->
               <div class="form-group">
                   <div class="col-sm-10 col-sm-offset-2">
-                    {!! CollectiveForm::submit(trans('ticketit::admin.btn-submit'), ['class' => 'btn btn-primary']) !!}
+                    {!! CollectiveForm::submit(tkAdminTrans('btn-submit'), ['class' => 'btn btn-primary']) !!}
                   </div>
               </div>
 

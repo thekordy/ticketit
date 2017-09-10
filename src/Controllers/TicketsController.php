@@ -142,7 +142,7 @@ class TicketsController extends Controller
     {
         $complete = false;
 
-        return view('ticketit::index', compact('complete'));
+        return tkView('index', compact('complete'));
     }
 
     /**
@@ -154,7 +154,7 @@ class TicketsController extends Controller
     {
         $complete = true;
 
-        return view('ticketit::index', compact('complete'));
+        return tkView('index', compact('complete'));
     }
 
     /**
@@ -193,7 +193,7 @@ class TicketsController extends Controller
     {
         list($priorities, $categories) = $this->PCS();
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return tkView('tickets.create', compact('priorities', 'categories'));
     }
 
     /**
@@ -227,9 +227,9 @@ class TicketsController extends Controller
 
         $ticket->save();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-created'));
+        session()->flash('status', tkTrans('the-ticket-has-been-created'));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index');
+        return redirect(tkAction('TicketsController@index'));
     }
 
     /**
@@ -257,7 +257,7 @@ class TicketsController extends Controller
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::tickets.show',
+        return tkView('tickets.show',
             compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm'));
     }
@@ -299,7 +299,7 @@ class TicketsController extends Controller
 
         $ticket->save();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
+        session()->flash('status', tkTrans('the-ticket-has-been-modified'));
 
         return redirect()->route(Setting::grab('main_route').'.show', $id);
     }
@@ -317,7 +317,7 @@ class TicketsController extends Controller
         $subject = $ticket->subject;
         $ticket->delete();
 
-        session()->flash('status', trans('ticketit::lang.the-ticket-has-been-deleted', ['name' => $subject]));
+        session()->flash('status', tkTrans('the-ticket-has-been-deleted', ['name' => $subject]));
 
         return redirect()->route(Setting::grab('main_route').'.index');
     }
@@ -342,13 +342,13 @@ class TicketsController extends Controller
             $subject = $ticket->subject;
             $ticket->save();
 
-            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-completed', ['name' => $subject]));
+            session()->flash('status', tkTrans('the-ticket-has-been-completed', ['name' => $subject]));
 
             return redirect()->route(Setting::grab('main_route').'.index');
         }
 
         return redirect()->route(Setting::grab('main_route').'.index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+            ->with('warning', tkTrans('you-are-not-permitted-to-do-this'));
     }
 
     /**
@@ -371,13 +371,13 @@ class TicketsController extends Controller
             $subject = $ticket->subject;
             $ticket->save();
 
-            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-reopened', ['name' => $subject]));
+            session()->flash('status', tkTrans('the-ticket-has-been-reopened', ['name' => $subject]));
 
             return redirect()->route(Setting::grab('main_route').'.index');
         }
 
         return redirect()->route(Setting::grab('main_route').'.index')
-            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+            ->with('warning', tkTrans('you-are-not-permitted-to-do-this'));
     }
 
     public function agentSelectList($category_id, $ticket_id)

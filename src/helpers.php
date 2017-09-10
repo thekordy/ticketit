@@ -14,6 +14,21 @@ if (!function_exists('tkTrans')) {
     }
 }
 
+if (!function_exists('tkAdminTrans')) {
+    /**
+     * Translate the given message.
+     *
+     * @param  string  $key
+     * @param  array   $replace
+     * @param  string  $locale
+     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     */
+    function tkAdminTrans($key, $replace = [], $locale = null)
+    {
+        return trans('ticketit::admin.'.$key, $replace, $locale);
+    }
+}
+
 if (! function_exists('tkView')) {
     /**
      * Get the evaluated view contents for the given view.

@@ -1,7 +1,7 @@
 @extends($master)
 
 @section('page')
-{{ trans('ticketit::admin.config-index-title') }}
+{{ tkAdminTrans('config-index-title') }}
 @stop
 
 @section('content')
@@ -9,31 +9,31 @@
         <!-- configuration -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>{{ trans('ticketit::admin.config-index-title') }}
+        <h3>{{ tkAdminTrans('config-index-title') }}
             <div class="panel-nav pull-right" style="margin-top: -7px;">
                 {!! link_to_route(
                     $setting->grab('admin_route').'.configuration.index',
-                    trans('ticketit::admin.btn-back'), null,
+                    tkAdminTrans('btn-back'), null,
                     ['class' => 'btn btn-default'])
                 !!}
                 {!! link_to_route(
                     $setting->grab('admin_route').'.configuration.create',
-                    trans('ticketit::admin.btn-create-new-config'), null,
+                    tkAdminTrans('btn-create-new-config'), null,
                     ['class' => 'btn btn-primary'])
                 !!}
             </div>
         </h3>
     </div>
     @if($configurations->isEmpty())
-        <div class="well text-center">{{ trans('ticketit::admin.config-index-no-settings') }}</div>
+        <div class="well text-center">{{ tkAdminTrans('config-index-no-settings') }}</div>
     @else
         <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a data-toggle="tab" href="#init-configs">{{ trans('ticketit::admin.config-index-initial') }}</a></li>
-            <li><a data-toggle="tab" href="#ticket-configs">{{ trans('ticketit::admin.config-index-tickets') }}</a></li>
-            <li><a data-toggle="tab" href="#email-configs">{{ trans('ticketit::admin.config-index-notifications') }}</a></li>
-            <li><a data-toggle="tab" href="#perms-configs">{{ trans('ticketit::admin.config-index-permissions') }}</a></li>
-            <li><a data-toggle="tab" href="#editor-configs">{{ trans('ticketit::admin.config-index-editor') }}</a></li>
-            <li><a data-toggle="tab" href="#other-configs">{{ trans('ticketit::admin.config-index-other') }}</a></li>
+            <li class="active"><a data-toggle="tab" href="#init-configs">{{ tkAdminTrans('config-index-initial') }}</a></li>
+            <li><a data-toggle="tab" href="#ticket-configs">{{ tkAdminTrans('config-index-tickets') }}</a></li>
+            <li><a data-toggle="tab" href="#email-configs">{{ tkAdminTrans('config-index-notifications') }}</a></li>
+            <li><a data-toggle="tab" href="#perms-configs">{{ tkAdminTrans('config-index-permissions') }}</a></li>
+            <li><a data-toggle="tab" href="#editor-configs">{{ tkAdminTrans('config-index-editor') }}</a></li>
+            <li><a data-toggle="tab" href="#other-configs">{{ tkAdminTrans('config-index-other') }}</a></li>
         </ul>
     <br />
         <div class="tab-content">

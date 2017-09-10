@@ -34,7 +34,7 @@
 
             @if($u->isAdmin())
                 <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\DashboardController@index')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
-                    <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
+                    <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ tkAdminTrans('nav-dashboard') }}</a>
                 </li>
 
                 <li role="presentation" class="dropdown {!!
@@ -47,26 +47,26 @@
                     ? "active" : "" !!}">
 
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        {{ trans('ticketit::admin.nav-settings') }} <span class="caret"></span>
+                        {{ tkAdminTrans('nav-settings') }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\StatusesController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\StatusesController@index') }}">{{ trans('ticketit::admin.nav-statuses') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\StatusesController@index') }}">{{ tkAdminTrans('nav-statuses') }}</a>
                         </li>
                         <li role="presentation"  class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\PrioritiesController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\PrioritiesController@index') }}">{{ trans('ticketit::admin.nav-priorities') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\PrioritiesController@index') }}">{{ tkAdminTrans('nav-priorities') }}</a>
                         </li>
                         <li role="presentation"  class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\AgentsController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\AgentsController@index') }}">{{ trans('ticketit::admin.nav-agents') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\AgentsController@index') }}">{{ tkAdminTrans('nav-agents') }}</a>
                         </li>
                         <li role="presentation"  class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\CategoriesController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\CategoriesController@index') }}">{{ trans('ticketit::admin.nav-categories') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\CategoriesController@index') }}">{{ tkAdminTrans('nav-categories') }}</a>
                         </li>
                         <li role="presentation"  class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\ConfigurationsController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\ConfigurationsController@index') }}">{{ trans('ticketit::admin.nav-configuration') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\ConfigurationsController@index') }}">{{ tkAdminTrans('nav-configuration') }}</a>
                         </li>
                         <li role="presentation"  class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\AdministratorsController@index').'*') ? "active" : "" !!}">
-                            <a href="{{ action('\Kordy\Ticketit\Controllers\AdministratorsController@index')}}">{{ trans('ticketit::admin.nav-administrator') }}</a>
+                            <a href="{{ action('\Kordy\Ticketit\Controllers\AdministratorsController@index')}}">{{ tkAdminTrans('nav-administrator') }}</a>
                         </li>
                     </ul>
                 </li>

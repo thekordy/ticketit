@@ -1,12 +1,12 @@
 <?php
 
-namespace Kordy\Ticketit\Widgets;
+namespace Kordy\Ticketit\Views\widgets;
 
 use Kordy\Ticketit\Models\Setting;
 
 class SummerNote
 {
-    public $template = 'ticketit::tickets.partials.summernote';
+    public $template = 'ticketit::widgets.summerNoteTpl';
 
     public $cacheLifeTime = 0;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Kordy\Ticketit\Widgets;
+namespace Kordy\Ticketit\Views\shared;
 
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Ticket;
 
 class Nav
 {
-    public $template = 'ticketit::shared.nav';
+    public $template = 'ticketit::shared.navTpl';
 
     public $cacheLifeTime = 0;
 

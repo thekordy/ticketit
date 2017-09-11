@@ -7,7 +7,7 @@
 @section('content')
     @include('ticketit::shared.header')
     <div class="panel panel-default">
-        @widget('\Kordy\Ticketit\Widgets\CategoryIndex', ['admin_route' => $setting->grab('admin_route')])
+        @widget('\Kordy\Ticketit\Views\admin\category\widgets\CategoryIndex', ['admin_route' => $setting->grab('admin_route')])
     </div>
 @stop
 @section('footer')

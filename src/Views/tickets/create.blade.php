@@ -51,5 +51,5 @@
 @endsection
 
 @section('footer')
-    @widget('\Kordy\Ticketit\Widgets\SummerNote')
+    @widget('\Kordy\Ticketit\Views\widgets\SummerNote')
 @append

@@ -1,12 +1,12 @@
 <?php
 
-namespace Kordy\Ticketit\Widgets;
+namespace Kordy\Ticketit\Views\admin\category\widgets;
 
 use Kordy\Ticketit\Models\Category;
 
 class CategoryIndex
 {
-    public $template = 'ticketit::admin.category.widgets.index_table';
+    public $template = 'ticketit::admin.category.widgets.CategoryIndexTpl';
 
     public $cacheLifeTime = 60;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Kordy\Ticketit\Widgets;
+namespace Kordy\Ticketit\Views\admin\priority\widgets;
 
 use Kordy\Ticketit\Models\Priority;
 
 class PriorityIndex
 {
-    public $template = 'ticketit::admin.priority.widgets.index_table';
+    public $template = 'ticketit::admin.priority.widgets.PriorityIndexTpl';
 
     public $cacheLifeTime = 60;
 

@@ -2,6 +2,7 @@
 
 namespace Kordy\Ticketit\Widgets;
 
+use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Ticket;
 
 class Nav

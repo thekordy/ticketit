@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($data['priorities']as $priority)
+        @foreach($data['priorities'] as $priority)
             <tr>
                 <td style="vertical-align: middle">
                     {{ $priority->id }}

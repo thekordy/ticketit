@@ -8,7 +8,7 @@
     </h2>
 </div>
 
-@if ($data['priorities']->isEmpty())
+@if (($data['priorities'])->isEmpty())
     <h3 class="text-center">{{ trans('ticketit::admin.priority-index-no-priorities') }}
         {!! link_to_route($data['admin_route'].'.priority.create', trans('ticketit::admin.priority-index-create-new')) !!}
     </h3>
@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($data['priorities ']as $priority)
+        @foreach($data['priorities']as $priority)
             <tr>
                 <td style="vertical-align: middle">
                     {{ $priority->id }}

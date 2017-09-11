@@ -14,6 +14,6 @@ class CategoryIndex
 
     public function data($admin_route)
     {
-        return ['admin_route' => $admin_route, 'priorities' => Category::all()];
+        return ['admin_route' => $admin_route, 'categories' => Category::all()];
     }
 }

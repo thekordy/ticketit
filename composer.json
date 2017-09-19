@@ -29,5 +29,12 @@
       "Kordy\\Ticketit\\Tests\\": "tests/",
       "Kordy\\Ticketit\\": "src/"
     }
+  },
+  "extra": {
+   "laravel": {
+     "providers": [
+      "Kordy\\Ticketit\\TicketitServiceProvider"
+   ]
+   }
   }
 }

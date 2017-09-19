@@ -33,7 +33,7 @@
   "extra": {
    "laravel": {
      "providers": [
-      "Kordy\Ticketit\TicketitServiceProvider"
+      "Kordy\\Ticketit\\TicketitServiceProvider"
    ]
    }
   }

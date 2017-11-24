@@ -73,15 +73,15 @@ return [
 
 // tickets/____
   'index-my-tickets'                 => 'Mes Tickets',
-  'btn-create-new-ticket'            => 'Créé un nouveau ticket',
+  'btn-create-new-ticket'            => 'Créer un nouveau ticket',
   'index-complete-none'              => 'Aucun ticket fermé',
   'index-active-check'               => 'Merci de vérifier les tickets ouverts si vous ne trouvez pas votre ticket.',
   'index-active-none'                => 'Aucun ticket ouvert,',
-  'index-create-new-ticket'          => 'créé un nouveau ticket',
+  'index-create-new-ticket'          => 'Créer un nouveau ticket',
   'index-complete-check'             => 'Merci de vérifier les tickets fermés si vous ne trouvez pas votre ticket.',
 
   'create-ticket-title'              => 'Titre du nouveau ticket',
-  'create-new-ticket'                => 'Créé un nouveau ticket',
+  'create-new-ticket'                => 'Créer un nouveau ticket',
   'create-ticket-brief-issue'        => 'Résumé de votre demande',
   'create-ticket-describe-issue'     => 'Description de votre demande avec les détails',
 

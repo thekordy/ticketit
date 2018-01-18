@@ -196,7 +196,7 @@ class Ticket extends Model
     public function autoSelectAgent()
     {
         $cat_id = $this->category_id;
-        $agents = Category::find($cat_id)->agents()->with(['agentTotalTickets' => function ($query) {
+        $agents = Category::find($cat_id)->agents()->with(['agentOpenTickets' => function ($query) {
             $query->addSelect(['id', 'agent_id']);
         }])->get();
         $count = 0;
@@ -206,10 +206,10 @@ class Ticket extends Model
         $selected_agent_id = $first_admin->id;
         foreach ($agents as $agent) {
             if ($count == 0) {
-                $lowest_tickets = $agent->agentTotalTickets->count();
+                $lowest_tickets = $agent->agentOpenTickets->count();
                 $selected_agent_id = $agent->id;
             } else {
-                $tickets_count = $agent->agentTotalTickets->count();
+                $tickets_count = $agent->agentOpenTickets->count();
                 if ($tickets_count < $lowest_tickets) {
                     $lowest_tickets = $tickets_count;
                     $selected_agent_id = $agent->id;

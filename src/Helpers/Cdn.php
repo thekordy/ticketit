@@ -10,8 +10,8 @@ namespace Kordy\Ticketit\Helpers;
  */
 class Cdn
 {
-    const CodeMirror = '5.31.0';
-    const Summernote = '0.8.8';
+    const CodeMirror = '5.33.0';
+    const Summernote = '0.8.9';
     const FontAwesome = '4.7.0';
 
     // https://datatables.net/download/

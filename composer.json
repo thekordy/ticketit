@@ -10,7 +10,8 @@
         "yajra/laravel-datatables-oracle": "^6.0|^8.0",
         "jenssegers/date": "^3.0",
         "mews/purifier": "^2.0",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "imanghafoori/laravel-widgetize" : "1.8.*"
 
     },
     "license": "MIT",

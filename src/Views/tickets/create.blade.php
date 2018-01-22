@@ -51,5 +51,5 @@
 @endsection
 
 @section('footer')
-    @include('ticketit::tickets.partials.summernote')
+    @widget('\Kordy\Ticketit\Views\widgets\SummerNote')
 @append

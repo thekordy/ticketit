@@ -50,10 +50,6 @@ class ToolsController extends Controller
     {
         $url = Request::fullUrl();
 
-        if (Str::is($match, $url)) {
-            return true;
-        }
-
-        return false;
+        return Str::is($match, $url);
     }
 }

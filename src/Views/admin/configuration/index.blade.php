@@ -37,23 +37,24 @@
         </ul>
     <br />
         <div class="tab-content">
+            <?php $admin_route = $setting->grab('admin_route'); ?>
             <div id="init-configs" class="tab-pane fade in active">
-                @include('ticketit::admin.configuration.tables.init_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['init'], 'admin_route' => $admin_route])
             </div>
             <div id="ticket-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.tables.ticket_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['tickets'], 'admin_route' => $admin_route])
             </div>
             <div id="email-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.tables.email_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['email'], 'admin_route' => $admin_route])
             </div>
             <div id="perms-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.tables.perms_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['perms'], 'admin_route' => $admin_route])
             </div>
             <div id="editor-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.tables.editor_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['editor'], 'admin_route' => $admin_route])
             </div>
             <div id="other-configs" class="tab-pane fade">
-                @include('ticketit::admin.configuration.tables.other_table')
+                @include('ticketit::admin.configuration.details_table', ['configs' => $configurations_by_sections['other'], 'admin_route' => $admin_route])
             </div>
         </div>
     @endif

@@ -27,14 +27,14 @@ class TicketitServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!Schema::hasTable('migrations')) {
+        if (! Schema::hasTable('migrations')) {
             // Database isn't installed yet.
             return;
         }
         $installer = new InstallController();
 
         // if a migration or new setting is missing scape to the installation
-        if (empty($installer->inactiveMigrations()) && !$installer->inactiveSettings()) {
+        if (empty($installer->inactiveMigrations()) && ! $installer->inactiveSettings()) {
             // Send the Agent User model to the view under $u
             // Send settings to views under $setting
 
@@ -74,72 +74,6 @@ class TicketitServiceProvider extends ServiceProvider
             view()->composer('ticketit::shared.assets', function ($view) {
                 $include_font_awesome = Setting::grab('include_font_awesome');
                 $view->with(compact('include_font_awesome'));
-            });
-
-            view()->composer('ticketit::tickets.partials.summernote', function ($view) {
-                $editor_locale = Setting::grab('summernote_locale');
-
-                if ($editor_locale == 'laravel') {
-                    $editor_locale = config('app.locale');
-                }
-
-                if (substr($editor_locale, 0, 2) == 'en') {
-                    $editor_locale = null;
-                } else {
-                    if (strlen($editor_locale) == 2) {
-                        switch ($editor_locale) {
-                            case 'ca':
-                                $editor_locale = 'ca-ES';
-                                break;
-                            case 'cs':
-                                $editor_locale = 'cs-CZ';
-                                break;
-                            case 'da':
-                                $editor_locale = 'da-DK';
-                                break;
-                            case 'fa':
-                                $editor_locale = 'fa-IR';
-                                break;
-                            case 'he':
-                                $editor_locale = 'he-IL';
-                                break;
-                            case 'ja':
-                                $editor_locale = 'ja-JP';
-                                break;
-                            case 'ko':
-                                $editor_locale = 'ko-KR';
-                                break;
-                            case 'nb':
-                                $editor_locale = 'nb-NO';
-                                break;
-                            case 'sl':
-                                $editor_locale = 'sl-SI';
-                                break;
-                            case 'sr':
-                                $editor_locale = 'sr-RS';
-                                break;
-                            case 'sv':
-                                $editor_locale = 'sv-SE';
-                                break;
-                            case 'uk':
-                                $editor_locale = 'uk-UA';
-                                break;
-                            case 'vi':
-                                $editor_locale = 'vi-VN';
-                                break;
-                            case 'zh':
-                                $editor_locale = 'zh-CN';
-                                break;
-                            default:
-                                $editor_locale = $editor_locale.'-'.strtoupper($editor_locale);
-                                break;
-                        }
-                    }
-                }
-
-                $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
-
-                $view->with(compact('editor_locale', 'editor_options'));
             });
 
             // Send notification when new comment is added
@@ -197,11 +131,7 @@ class TicketitServiceProvider extends ServiceProvider
             $admin_route = Setting::grab('admin_route');
             $admin_route_path = Setting::grab('admin_route_path');
             include Setting::grab('routes');
-        } elseif (Request::path() == 'tickets-install'
-                || Request::path() == 'tickets-upgrade'
-                || Request::path() == 'tickets'
-                || Request::path() == 'tickets-admin'
-                || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
+        } elseif (Request::path() == 'tickets-install' || Request::path() == 'tickets-upgrade' || Request::path() == 'tickets' || Request::path() == 'tickets-admin' || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
             $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
@@ -210,18 +140,18 @@ class TicketitServiceProvider extends ServiceProvider
 
             Route::get('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.index',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@index',
+                'as' => 'tickets.install.index',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@index',
             ]);
             Route::post('/tickets-install', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.setup',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@setup',
+                'as' => 'tickets.install.setup',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@setup',
             ]);
             Route::get('/tickets-upgrade', [
                 'middleware' => $authMiddleware,
-                'as'         => 'tickets.install.upgrade',
-                'uses'       => 'Kordy\Ticketit\Controllers\InstallController@upgrade',
+                'as' => 'tickets.install.upgrade',
+                'uses' => 'Kordy\Ticketit\Controllers\InstallController@upgrade',
             ]);
             Route::get('/tickets', function () {
                 return redirect()->route('tickets.install.index');
@@ -230,6 +160,9 @@ class TicketitServiceProvider extends ServiceProvider
                 return redirect()->route('tickets.install.index');
             });
         }
+
+        \Config::set('widgetize.enable_cache', true);
+        \Config::set('widgetize.debug_info', false);
     }
 
     /**
@@ -266,5 +199,7 @@ class TicketitServiceProvider extends ServiceProvider
             return new Htmlify();
         });
         $this->commands('command.kordy.ticketit.htmlify');
+
+        $this->app->register('Imanghafoori\Widgets\WidgetsServiceProvider');
     }
 }

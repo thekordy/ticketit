@@ -3,15 +3,15 @@
 
 @section('content')
     @include('ticketit::shared.header')
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2>{{ trans('ticketit::admin.administrator-create-title') }}</h2>
+    <div class="card">
+        <div class="card-header">
+            {{ trans('ticketit::admin.administrator-create-title') }}
         </div>
         @if ($users->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.administrator-create-no-users') }}</h3>
         @else
             {!! CollectiveForm::open(['route'=> $setting->grab('admin_route').'.administrator.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
-            <div class="panel-body">
+            <div class="card-block">
                 {{ trans('ticketit::admin.administrator-create-select-user') }}
             </div>
             <table class="table table-hover">

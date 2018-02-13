@@ -1,22 +1,18 @@
-@extends($master)
+@extends('ticketit::layouts.master')
 
-@section('page')
-    {{ trans('ticketit::admin.status-index-title') }}
+@section('page', trans('ticketit::admin.status-index-title'))
+
+@section('ticketit_header')
+{!! link_to_route(
+    $setting->grab('admin_route').'.status.create',
+    trans('ticketit::admin.btn-create-new-status'), null,
+    ['class' => 'btn btn-primary pull-right'])
+!!}
 @stop
 
-@section('content')
-    @include('ticketit::shared.header')
+@section('ticketit_content')
+   
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2>{{ trans('ticketit::admin.status-index-title') }}
-                {!! link_to_route(
-                                    $setting->grab('admin_route').'.status.create',
-                                    trans('ticketit::admin.btn-create-new-status'), null,
-                                    ['class' => 'btn btn-primary pull-right'])
-                !!}
-            </h2>
-        </div>
-
         @if ($statuses->isEmpty())
             <h3 class="text-center">{{ trans('ticketit::admin.status-index-no-statuses') }}
                 {!! link_to_route($setting->grab('admin_route').'.status.create', trans('ticketit::admin.status-index-create-new')) !!}
@@ -72,6 +68,7 @@
         @endif
     </div>
 @stop
+
 @section('footer')
     <script>
         $( ".deleteit" ).click(function( event ) {

@@ -1,6 +1,6 @@
 {
     "name": "kordy/ticketit",
-    "description": "A simple helpdesk tickets system for Laravel 5.1, 5.2, 5.3, 5.4 and 5.5 which integrates smoothly with Laravel default users and auth system",
+    "description": "A simple helpdesk tickets system for Laravel 5.1, 5.2, 5.3, 5.4, 5.5 and 5.6 which integrates smoothly with Laravel default users and auth system",
     "type": "laravel-package",
     "keywords": ["laravel","helpdesk", "ticket", "support"],
     "require": {
@@ -10,7 +10,7 @@
         "yajra/laravel-datatables-oracle": "^6.0|^8.0",
         "jenssegers/date": "^3.0",
         "mews/purifier": "^2.0",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5|^2.6"
 
     },
     "license": "MIT",

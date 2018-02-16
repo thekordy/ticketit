@@ -33,7 +33,7 @@ return [
   'btn-delete'                    => 'حذف',
   'btn-edit'                      => 'ویرایش',
   'btn-join'                      => 'پیوستن',
-  'btn-remove'                    => 'حذفت',
+  'btn-remove'                    => 'حذف',
   'btn-submit'                    => 'ارسال',
   'btn-save'                      => 'دخیره',
   'btn-update'                    => 'بروزرسانی',
@@ -51,12 +51,12 @@ return [
   'index-open-tickets'                  => 'تیکت های باز',
   'index-closed-tickets'                => 'تیکت های بسته شده',
   'index-performance-indicator'         => 'نمایشگر کارایی',
-  'index-periods'                       => 'بازه  زمانی',
+  'index-periods'                       => 'بازه زمانی',
   'index-3-months'                      => '3 ماه',
   'index-6-months'                      => '6 ماه',
   'index-12-months'                     => '12 ماه',
   'index-tickets-share-per-category'    => 'تیکت های موجود در هر دسته',
-  'index-tickets-share-per-agent'       => 'تیکت های مشترک شده به تفکیک نماینگان',
+  'index-tickets-share-per-agent'       => 'تیکت های مشترک شده به تفکیک نمایندگان',
   'index-categories'                    => 'دسته ها',
   'index-category'                      => 'دسته',
   'index-agents'                        => 'نمایندگان',
@@ -85,7 +85,7 @@ return [
   'agent-create-select-user'      => 'یک کاربر برای اضافه شدن به لیست نماینده گان انتخاب کنید',
 
 // tickets-admin/administrators/____
-  'administrator-index-title'                   => 'میدیرت مدیران',  //new
+  'administrator-index-title'                   => 'مدیریت مدیران',  //new
   'btn-create-new-administrator'                => 'ایجاد مدیر جدید',  //new
   'administrator-index-no-administrators'       => 'هیچ مدیری یافت نشد, ',  //new
   'administrator-index-create-new'              => 'اضافه کردن مدیران',  //new
@@ -98,7 +98,7 @@ return [
   'category-index-title'          => 'مدیریت دسته ها',
   'btn-create-new-category'       => 'دسته جدید',
   'category-index-no-categories'  => 'هیچ دسته ای یافت نشد, ',
-  'category-index-create-new'     => 'ایحاد دسته جدید',
+  'category-index-create-new'     => 'ایجاد دسته جدید',
   'category-index-js-delete'      => 'آیا نسب به حذف این دسته اطمینان دارید: ',
   'category-create-title'         => 'ایجاد دسته جدید',
   'category-create-name'          => 'نام دسته',
@@ -117,10 +117,10 @@ return [
   'priority-edit-title'           => 'ویرایش اولویت: :name',
 
 // tickets-admin/status/____
-  'status-index-title'            => 'مدیرت وضعیت ها',
+  'status-index-title'            => 'مدیریت وضعیت ها',
   'btn-create-new-status'         => 'ایجاد وضعیت جدید',
   'status-index-no-statuses'      => 'هیچ موردی یافت نشد,',
-  'status-index-create-new'       => 'ایحاد وضعیت های جدید',
+  'status-index-create-new'       => 'ایجاد وضعیت های جدید',
   'status-index-js-delete'        => 'آیا نسب به حذف این وضعیت اطمینان دارید: ',
   'status-create-title'           => 'ایجاد وضعیت جدید',
   'status-create-name'            => 'نام وضعیت',
@@ -134,7 +134,7 @@ return [
   'config-index-no-settings'      => 'هیچ موردی یافت نشد,',
   'config-index-initial'          => 'اولیه',
   'config-index-tickets'          => 'تیکت ها',
-  'config-index-notifications'    => 'نوتیفیکیشن',
+  'config-index-notifications'    => 'هشدار',
   'config-index-permissions'      => 'سطوح دسترسی',
   'config-index-editor'           => 'ویرایشگر', //Added: 2016.01.14
   'config-index-other'            => 'دیگر',
@@ -143,7 +143,8 @@ return [
   'config-edit-title'             => 'ویرایش : تنظیمات عمومی',
   'config-edit-subtitle'          => 'ویرایش تنظیمات',
   'config-edit-id'                => 'شناسه',
-  'config-edit-slug'              => 'کلمه سئو',
+  'config-edit-slug'              => 'کلمه شناسه',
+  'config-edit-slug'              => ' شناسه ',
   'config-edit-default'           => 'مقدار پیشفرض',
   'config-edit-value'             => 'مقدار من',
   'config-edit-language'          => 'زبان',

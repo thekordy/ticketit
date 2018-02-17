@@ -20,25 +20,25 @@ class Ticketit
         if (substr($editor_locale, 0, 2) == 'en') {
             return null;
         }
-            if (strlen($editor_locale) == 2) {
-                $map = [
-                    'ca' => 'ca-ES',
-                    'cs' => 'cs-CZ',
-                    'da' => 'da-DK',
-                    'fa' => 'fa-IR',
-                    'he' => 'he-IL',
-                    'ja' => 'ja-JP',
-                    'ko' => 'ko-KR',
-                    'nb' => 'nb-NO',
-                    'sl' => 'sl-SI',
-                    'sr' => 'sr-RS',
-                    'sv' => 'sv-SE',
-                    'uk' => 'uk-UA',
-                    'vi' => 'vi-VN',
-                    'zh' => 'zh-CN',
-                ];
-                $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
-            }
+        if (strlen($editor_locale) == 2) {
+            $map = [
+                'ca' => 'ca-ES',
+                'cs' => 'cs-CZ',
+                'da' => 'da-DK',
+                'fa' => 'fa-IR',
+                'he' => 'he-IL',
+                'ja' => 'ja-JP',
+                'ko' => 'ko-KR',
+                'nb' => 'nb-NO',
+                'sl' => 'sl-SI',
+                'sr' => 'sr-RS',
+                'sv' => 'sv-SE',
+                'uk' => 'uk-UA',
+                'vi' => 'vi-VN',
+                'zh' => 'zh-CN',
+            ];
+            $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
+        }
 
 
         return $editor_locale;

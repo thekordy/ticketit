@@ -17,6 +17,7 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Helpers\Ticketit as TicketitHelpers;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -77,36 +78,8 @@ class TicketitServiceProvider extends ServiceProvider
             });
 
             view()->composer('ticketit::tickets.partials.summernote', function ($view) {
-                $editor_locale = Setting::grab('summernote_locale');
 
-                if ($editor_locale == 'laravel') {
-                    $editor_locale = config('app.locale');
-                }
-
-                if (substr($editor_locale, 0, 2) == 'en') {
-                    $editor_locale = null;
-                } else {
-                    if (strlen($editor_locale) == 2) {
-                        $map = [
-                            'ca' => 'ca-ES',
-                            'cs' => 'cs-CZ',
-                            'da' => 'da-DK',
-                            'fa' => 'fa-IR',
-                            'he' => 'he-IL',
-                            'ja' => 'ja-JP',
-                            'ko' => 'ko-KR',
-                            'nb' => 'nb-NO',
-                            'sl' => 'sl-SI',
-                            'sr' => 'sr-RS',
-                            'sv' => 'sv-SE',
-                            'uk' => 'uk-UA',
-                            'vi' => 'vi-VN',
-                            'zh' => 'zh-CN',
-                        ];
-                        $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
-                    }
-                }
-
+                $editor_locale = TicketitHelpers::getEditorLocal();
                 $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
 
                 $view->with(compact('editor_locale', 'editor_options'));

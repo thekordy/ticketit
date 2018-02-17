@@ -18,7 +18,7 @@ class Ticketit
         }
 
         if (substr($editor_locale, 0, 2) == 'en') {
-            $editor_locale = null;
+            return null;
         } else {
             if (strlen($editor_locale) == 2) {
                 $map = [

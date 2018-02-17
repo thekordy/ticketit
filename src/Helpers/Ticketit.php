@@ -19,7 +19,7 @@ class Ticketit
 
         if (substr($editor_locale, 0, 2) == 'en') {
             return null;
-        } else {
+        }
             if (strlen($editor_locale) == 2) {
                 $map = [
                     'ca' => 'ca-ES',
@@ -39,7 +39,7 @@ class Ticketit
                 ];
                 $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
             }
-        }
+
 
         return $editor_locale;
     }

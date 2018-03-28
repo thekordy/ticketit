@@ -44,7 +44,7 @@ However if you'd like to include Ticketit in your existing project, skip to the 
 
 Step 1. Run this code via your terminal (1-2 minutes)
 ```shell
-composer require kordy/ticketit:0.*
+composer require 'kordy/ticketit:0.*'
 ```
 
 Step 2. After install, you have to add this line on your `config/app.php` in Service Providers section (1-2 minutes).

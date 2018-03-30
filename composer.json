@@ -28,5 +28,12 @@
         "psr-4": {
             "Kordy\\Ticketit\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kordy\\Ticketit\\TicketitServiceProvider"
+            ]
+        }
     }
 }

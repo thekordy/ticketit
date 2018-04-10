@@ -170,7 +170,7 @@ class TicketitServiceProvider extends ServiceProvider
             if (file_exists(Setting::grab('routes'))) {
                 include Setting::grab('routes');
             } else {
-                include(__DIR__.'/routes.php');
+                include __DIR__.'/routes.php';
             }
         } elseif (Request::path() == 'tickets-install'
                 || Request::path() == 'tickets-upgrade'

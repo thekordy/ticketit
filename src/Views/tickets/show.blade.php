@@ -6,6 +6,7 @@
         <br>
         <h2>{{ trans('ticketit::lang.comments') }}</h2>
         @include('ticketit::tickets.partials.comments')
+        {{-- pagination --}}
         {!! $comments->render() !!}
         @include('ticketit::tickets.partials.comment_form')
 @endsection

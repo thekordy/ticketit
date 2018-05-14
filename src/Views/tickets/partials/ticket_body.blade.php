@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-md-12">
-                <p> {!! $ticket->html !!} </p>
+                {!! $ticket->html !!}
             </div>
         </div>
         {!! CollectiveForm::open([

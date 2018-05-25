@@ -219,7 +219,7 @@ class TicketitServiceProvider extends ServiceProvider
          */
         $this->app->register(\Collective\Html\HtmlServiceProvider::class);
 
-        if (LaravelVersion::min('5.4')) {
+        if (LaravelVersion::min('5.5')) {
             $this->app->register(\Yajra\DataTables\DataTablesServiceProvider::class);
         } else {
             $this->app->register(\Yajra\Datatables\DatatablesServiceProvider::class);

@@ -7,7 +7,7 @@
         "laravel/framework": "^5.1",
         "laravelcollective/html": "^5.1",
         "illuminate/support": "^5.1",
-        "yajra/laravel-datatables-oracle": "^6.0|^8.0",
+        "yajra/laravel-datatables-oracle": "^6.0|^7.0|^8.0",
         "jenssegers/date": "^3.0",
         "mews/purifier": "^2.0",
         "doctrine/dbal": "^2.5|^2.6"

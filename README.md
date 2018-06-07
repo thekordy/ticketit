@@ -17,7 +17,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 ## Quick installation
 
-If you'd like to install Ticketit as a standalone app, use our [quick installer](https://github.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
+If you'd like to install Ticketit as a standalone app, use our [quick installer](https://gitlab.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
 
 However if you'd like to include Ticketit in your existing project, skip to the [next section](#installation-manual).
 

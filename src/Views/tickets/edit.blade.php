@@ -17,9 +17,7 @@
                         {!! CollectiveForm::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
                     </div>
                     <div class="form-group">
-                        {!! CollectiveForm::textarea('content', $ticket->html, [
-                            'class' => 'form-control summernote-editor', 'rows' => '5', 'required'
-                        ]) !!}
+                        <textarea class="form-control summernote-editor" rows="5" required name="content" cols="50">{!! htmlspecialchars($ticket->html) !!}</textarea>
                     </div>
                     {{--@endif--}}
 

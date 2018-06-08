@@ -17,7 +17,7 @@ It will integrate into your current Laravel project within minutes, and you can 
 
 ## Quick installation
 
-If you'd like to install Ticketit as a standalone app, use our [quick installer](https://github.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
+If you'd like to install Ticketit as a standalone app, use our [quick installer](https://gitlab.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
 
 However if you'd like to include Ticketit in your existing project, skip to the [next section](#installation-manual).
 
@@ -44,7 +44,7 @@ However if you'd like to include Ticketit in your existing project, skip to the 
 
 Step 1. Run this code via your terminal (1-2 minutes)
 ```shell
-composer require kordy/ticketit:0.*
+composer require 'kordy/ticketit:0.*'
 ```
 
 Step 2. After install, you have to add this line on your `config/app.php` in Service Providers section (1-2 minutes).

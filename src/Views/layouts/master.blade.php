@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="card">
-            <h5 class="card-header d-flex justify-content-between align-items-baseline">
+            <h5 class="card-header d-flex justify-content-between align-items-baseline flex-wrap">
                 <span>@yield('page')</span>
                 @yield('ticketit_header')
             </h5>

@@ -11,8 +11,6 @@
 @stop
 
 @section('ticketit_content')
-   
-
     @if ($statuses->isEmpty())
         <h3 class="text-center">{{ trans('ticketit::admin.status-index-no-statuses') }}
             {!! link_to_route($setting->grab('admin_route').'.status.create', trans('ticketit::admin.status-index-create-new')) !!}

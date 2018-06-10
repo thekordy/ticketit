@@ -1,16 +1,12 @@
-@extends($master)
+@extends('ticketit::layouts.master')
 @section('page', trans('ticketit::admin.category-edit-title', ['name' => ucwords($category->name)]))
 
-@section('content')
-    @include('ticketit::shared.header')
-    <div class="well bs-component">
-        {!! CollectiveForm::model($category, [
-                                    'route' => [$setting->grab('admin_route').'.category.update', $category->id],
-                                    'method' => 'PATCH',
-                                    'class' => 'form-horizontal'
-                                    ]) !!}
-        <legend>{{ trans('ticketit::admin.category-edit-title', ['name' => ucwords($category->name)]) }}</legend>
+@section('ticketit_content')
+    {!! CollectiveForm::model($category, [
+                                'route' => [$setting->grab('admin_route').'.category.update', $category->id],
+                                'method' => 'PATCH',
+                                'class' => ''
+                                ]) !!}
         @include('ticketit::admin.category.form', ['update', true])
-        {!! CollectiveForm::close() !!}
-    </div>
+    {!! CollectiveForm::close() !!}
 @stop

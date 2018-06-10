@@ -163,7 +163,7 @@
                         </span>
                             </a>
                         @endforeach
-                        {!! $categories->render() !!}
+                        {!! $categories->render("pagination::bootstrap-4") !!}
                     </div>
                     <div id="information-panel-agents" class="list-group tab-pane fade {{$active_tab == "agents" ? "in active" : ""}}">
                         <a href="#" class="list-group-item disabled">
@@ -194,7 +194,7 @@
                                 </span>
                             </a>
                         @endforeach
-                        {!! $agents->render() !!}
+                        {!! $agents->render("pagination::bootstrap-4") !!}
                     </div>
                     <div id="information-panel-users" class="list-group tab-pane fade {{$active_tab == "users" ? "in active" : ""}}">
                         <a href="#" class="list-group-item disabled">
@@ -225,7 +225,7 @@
                                 </span>
                             </a>
                         @endforeach
-                        {!! $users->render() !!}
+                        {!! $users->render("pagination::bootstrap-4") !!}
                     </div>
                 </div>
             </div>

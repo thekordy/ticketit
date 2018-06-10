@@ -25,5 +25,5 @@
         {!! CollectiveForm::submit(trans('ticketit::admin.btn-submit'), ['class' => 'btn btn-primary']) !!}
         {!! CollectiveForm::close() !!}
     @endif
-    {!! $users->render() !!}
+    {!! $users->render("pagination::bootstrap-4") !!}
 @stop

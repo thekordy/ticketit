@@ -19,7 +19,7 @@
         </h3>
     @else
         <div id="message"></div>
-        <table class="table table-hover">
+        <table class="table table-hover mb-0">
             <thead>
                 <tr>
                     <th>{{ trans('ticketit::admin.table-id') }}</th>

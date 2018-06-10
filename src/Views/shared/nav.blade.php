@@ -3,7 +3,7 @@
         <li role="presentation" class="nav-item">
             <a class="nav-link {!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}"
                 href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
-                <span class="badge badge-default">
+                <span class="badge badge-pill badge-secondary ">
                      <?php 
                         if ($u->isAdmin()) {
                             echo Kordy\Ticketit\Models\Ticket::active()->count();
@@ -19,7 +19,7 @@
         <li role="presentation" class="nav-item">
             <a class="nav-link {!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete')) ? "active" : "" !!}"
                  href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
-                <span class="badge badge-default">
+                <span class="badge badge-pill badge-secondary">
                     <?php 
                         if ($u->isAdmin()) {
                             echo Kordy\Ticketit\Models\Ticket::complete()->count();

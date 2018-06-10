@@ -7,7 +7,7 @@
     {!! CollectiveForm::custom('color', 'color', isset($status->color) ? $status->color : "#000000", ['class' => 'form-control']) !!}
 </div>
 
-{!! link_to_route($setting->grab('admin_route').'.status.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn btn-default']) !!}
+{!! link_to_route($setting->grab('admin_route').'.status.index', trans('ticketit::admin.btn-back'), null, ['class' => 'btn']) !!}
 @if(isset($status))
     {!! CollectiveForm::submit(trans('ticketit::admin.btn-update'), ['class' => 'btn btn-primary']) !!}
 @else

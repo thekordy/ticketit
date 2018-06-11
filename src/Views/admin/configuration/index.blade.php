@@ -1,43 +1,31 @@
-@extends($master)
+@extends('ticketit::layouts.master')
 
-@section('page')
-{{ trans('ticketit::admin.config-index-title') }}
+@section('page', trans('ticketit::admin.config-index-title'))
+
+@section('ticketit_header')
+{!! link_to_route(
+    $setting->grab('admin_route').'.configuration.create',
+    trans('ticketit::admin.btn-create-new-config'), null,
+    ['class' => 'btn btn-primary'])
+!!}
 @stop
 
-@section('content')
-@include('ticketit::shared.header')
-        <!-- configuration -->
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3>{{ trans('ticketit::admin.config-index-title') }}
-            <div class="panel-nav pull-right" style="margin-top: -7px;">
-                {!! link_to_route(
-                    $setting->grab('admin_route').'.configuration.index',
-                    trans('ticketit::admin.btn-back'), null,
-                    ['class' => 'btn btn-default'])
-                !!}
-                {!! link_to_route(
-                    $setting->grab('admin_route').'.configuration.create',
-                    trans('ticketit::admin.btn-create-new-config'), null,
-                    ['class' => 'btn btn-primary'])
-                !!}
-            </div>
-        </h3>
-    </div>
+@section('ticketit_content')
+<!-- configuration -->
     @if($configurations->isEmpty())
-        <div class="well text-center">{{ trans('ticketit::admin.config-index-no-settings') }}</div>
+        <div class="text-center">{{ trans('ticketit::admin.config-index-no-settings') }}</div>
     @else
         <ul class="nav nav-tabs nav-justified">
-            <li class="active"><a data-toggle="tab" href="#init-configs">{{ trans('ticketit::admin.config-index-initial') }}</a></li>
-            <li><a data-toggle="tab" href="#ticket-configs">{{ trans('ticketit::admin.config-index-tickets') }}</a></li>
-            <li><a data-toggle="tab" href="#email-configs">{{ trans('ticketit::admin.config-index-notifications') }}</a></li>
-            <li><a data-toggle="tab" href="#perms-configs">{{ trans('ticketit::admin.config-index-permissions') }}</a></li>
-            <li><a data-toggle="tab" href="#editor-configs">{{ trans('ticketit::admin.config-index-editor') }}</a></li>
-            <li><a data-toggle="tab" href="#other-configs">{{ trans('ticketit::admin.config-index-other') }}</a></li>
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#init-configs">{{ trans('ticketit::admin.config-index-initial') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#ticket-configs">{{ trans('ticketit::admin.config-index-tickets') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#email-configs">{{ trans('ticketit::admin.config-index-notifications') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#perms-configs">{{ trans('ticketit::admin.config-index-permissions') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#editor-configs">{{ trans('ticketit::admin.config-index-editor') }}</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#other-configs">{{ trans('ticketit::admin.config-index-other') }}</a></li>
         </ul>
-    <br />
+
         <div class="tab-content">
-            <div id="init-configs" class="tab-pane fade in active">
+            <div id="init-configs" class="tab-pane fade show active">
                 @include('ticketit::admin.configuration.tables.init_table')
             </div>
             <div id="ticket-configs" class="tab-pane fade">
@@ -57,8 +45,5 @@
             </div>
         </div>
     @endif
-    {{--@include('ticketit::admin.configuration.common.paginate', ['records' => $configurations])--}}
-</div>
 <!-- // Configuration -->
-
 @endsection

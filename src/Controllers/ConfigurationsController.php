@@ -75,6 +75,12 @@ class ConfigurationsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'slug'      => 'required',
+            'default'   => 'required',
+            'value'     => 'required',
+        ]);
+
         $input = $request->all();
 
         $configuration = new Configuration();

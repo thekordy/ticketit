@@ -11,10 +11,15 @@
         </div>
         <div class="card">
             <h5 class="card-header d-flex justify-content-between align-items-baseline flex-wrap">
-                <span>@yield('page')</span>
+                @if(View::hasSection('page_title'))
+                    <span>@yield('page_title')</span>
+                @else
+                    <span>@yield('page')</span>
+                @endif
+
                 @yield('ticketit_header')
             </h5>
-            <div class="card-body">
+            <div class="card-body @yield('ticketit_content_parent_class')">
                 @yield('ticketit_content')
             </div>
         </div>

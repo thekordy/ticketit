@@ -10,6 +10,8 @@
 !!}
 @stop
 
+@section('ticketit_content_parent_class', 'pl-0 pr-0 pb-0')
+
 @section('ticketit_content')
 <!-- configuration -->
     @if($configurations->isEmpty())

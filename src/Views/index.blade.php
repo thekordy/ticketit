@@ -1,12 +1,18 @@
-@extends($master)
+@extends('ticketit::layouts.master')
 
-@section('page')
-    {{ trans('ticketit::lang.index-title') }}
+@section('page', trans('ticketit::lang.index-title'))
+@section('page_title', trans('ticketit::lang.index-my-tickets'))
+
+
+@section('ticketit_header')
+{!! link_to_route($setting->grab('main_route').'.create', trans('ticketit::lang.btn-create-new-ticket'), null, ['class' => 'btn btn-primary']) !!}
 @stop
 
-@section('content')
-    @include('ticketit::shared.header')
-    @include('ticketit::tickets.index')
+@section('ticketit_content_parent_class', 'pl-0 pr-0')
+
+@section('ticketit_content')
+    <div id="message"></div>
+    @include('ticketit::tickets.partials.datatable')
 @stop
 
 @section('footer')

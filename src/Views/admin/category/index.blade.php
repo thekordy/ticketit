@@ -10,6 +10,8 @@
 !!}
 @stop
 
+@section('ticketit_content_parent_class', 'p-0')
+
 @section('ticketit_content')
     @if ($categories->isEmpty())
         <h3 class="text-center">{{ trans('ticketit::admin.category-index-no-categories') }}

@@ -10,6 +10,8 @@
 !!}
 @stop
 
+@section('ticketit_content_parent_class', 'p-0')
+
 @section('ticketit_content')
     @if ($statuses->isEmpty())
         <h3 class="text-center">{{ trans('ticketit::admin.status-index-no-statuses') }}

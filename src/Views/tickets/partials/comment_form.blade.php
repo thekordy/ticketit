@@ -1,23 +1,12 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        {!! CollectiveForm::open(['method' => 'POST', 'route' => $setting->grab('main_route').'-comment.store', 'class' => 'form-horizontal']) !!}
+{!! CollectiveForm::open(['method' => 'POST', 'route' => $setting->grab('main_route').'-comment.store', 'class' => '']) !!}
 
 
-            {!! CollectiveForm::hidden('ticket_id', $ticket->id ) !!}
+{!! CollectiveForm::hidden('ticket_id', $ticket->id ) !!}
 
-            <fieldset>
-                <legend>{!! trans('ticketit::lang.reply') !!}</legend>
-                <div class="form-group">
-                    <div class="col-lg-12">
-                        {!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => "3"]) !!}
-                    </div>
-                </div>
 
-                <div class="text-right col-md-12">
-                    {!! CollectiveForm::submit( trans('ticketit::lang.btn-submit'), ['class' => 'btn btn-primary']) !!}
-                </div>
+{!! CollectiveForm::textarea('content', null, ['class' => 'form-control summernote-editor', 'rows' => "3"]) !!}
 
-            </fieldset>
-        {!! CollectiveForm::close() !!}
-    </div>
-</div>
+{!! CollectiveForm::submit( trans('ticketit::lang.reply'), ['class' => 'btn btn-outline-primary pull-right mt-3 mb-3']) !!}
+
+{!! CollectiveForm::close() !!}
+    

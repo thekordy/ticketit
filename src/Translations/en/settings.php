@@ -140,4 +140,9 @@ ENDHTML
 			</p>
 ENDHTML
 
+    , 'bootstrap_version' => <<<'ENDHTML'
+			<p>Laravel 5.6+ defaults to CSS library Bootstrap version 4. Here, you can set what version should Ticketit use. Allowed values are <code>3</code> and <code>4</code>.
+			</p>
+ENDHTML
+
 ];

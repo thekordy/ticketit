@@ -8,7 +8,7 @@
             <div class="card bg-light">
                 <div class="card-body row d-flex align-items-center">
                     <div class="col-3" style="font-size: 5em;">
-                        <i class="fa fa-th"></i>
+                        <i class="fas fa-th"></i>
                     </div>
                     <div class="col-9 text-right">
                         <h1>{{ $tickets_count }}</h1>
@@ -20,7 +20,7 @@
             <div class="card bg-danger">
                 <div class="card-body row d-flex align-items-center">
                     <div class="col-3" style="font-size: 5em;">
-                        <i class="fa fa-wrench"></i>
+                        <i class="fas fa-wrench"></i>
                     </div>
                     <div class="col-9 text-right">
                         <h1>{{ $open_tickets_count }}</h1>
@@ -32,7 +32,7 @@
             <div class="card bg-success">
                 <div class="card-body row d-flex align-items-center">
                     <div class="col-3" style="font-size: 5em;">
-                        <i class="fa fa-thumbs-up"></i>
+                        <i class="fas fa-thumbs-up"></i>
                     </div>
                     <div class="col-9 text-right">
                         <h1>{{ $closed_tickets_count }}</h1>
@@ -46,7 +46,7 @@
             <div class="col-lg-8 mt-3">
                 <div class="card ">
                     <div class="card-header d-flex justify-content-between align-items-baseline flex-wrap">
-                        <div><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans('ticketit::admin.index-performance-indicator') }}</div>
+                        <div><i class="fas fa-chart-bar fa-fw"></i> {{ trans('ticketit::admin.index-performance-indicator') }}</div>
                         <div class="btn-group">
                             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
                                 {{ trans('ticketit::admin.index-periods') }}
@@ -93,19 +93,19 @@
                     <ul class="nav nav-pills nav-justified">
                         <li class="nav-item">
                             <a class="nav-link {{$active_tab == "cat" ? "active" : ""}}" data-toggle="pill" href="#information-panel-categories">
-                                <i class="fa fa-folder"></i>
+                                <i class="fas fa-folder"></i>
                                 <small>{{ trans('ticketit::admin.index-categories') }}</small>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{$active_tab == "agents" ? "active"  : ""}}" data-toggle="pill" href="#information-panel-agents">
-                                <i class="fa fa-user-secret"></i>
+                                <i class="fas fa-user-secret"></i>
                                 <small>{{ trans('ticketit::admin.index-agents') }}</small>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{$active_tab == "users" ? "active" : ""}}" data-toggle="pill" href="#information-panel-users">
-                                <i class="fa fa-users"></i>
+                                <i class="fas fa-users"></i>
                                 <small>{{ trans('ticketit::admin.index-users') }}</small>
                             </a>
                         </li>

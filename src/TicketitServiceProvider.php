@@ -152,9 +152,14 @@ class TicketitServiceProvider extends ServiceProvider
 
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
 
-            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+            $viewsDirectory = __DIR__.'/Views/bootstrap3';
+            if (Setting::grab('bootstrap_version') == '4') {
+                $viewsDirectory = __DIR__.'/Views/bootstrap4';
+            }
 
-            $this->publishes([__DIR__.'/Views' => base_path('resources/views/vendor/ticketit')], 'views');
+            $this->loadViewsFrom($viewsDirectory, 'ticketit');
+
+            $this->publishes([$viewsDirectory => base_path('resources/views/vendor/ticketit')], 'views');
             $this->publishes([__DIR__.'/Translations' => base_path('resources/lang/vendor/ticketit')], 'lang');
             $this->publishes([__DIR__.'/Public' => public_path('vendor/ticketit')], 'public');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');

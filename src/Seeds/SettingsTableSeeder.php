@@ -96,6 +96,13 @@ class SettingsTableSeeder extends Seeder
              * Default: resources/views/master.blade.php
              */
             'master_template' => 'master',
+
+            /*
+             * Switches between bootstrap 3 and 4
+             * Default: 3
+             */
+            'bootstrap_version' => '3',
+
             /*
              * Template adherence: The email blade template to be extended
              * Default: ticketit::emails.templates.ticketit

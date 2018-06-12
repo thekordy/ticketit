@@ -153,7 +153,7 @@ class TicketitServiceProvider extends ServiceProvider
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
 
             $viewsDirectory = __DIR__.'/Views/bootstrap3';
-            if(Setting::grab('bootstrap_version') == "4"){
+            if (Setting::grab('bootstrap_version') == '4') {
                 $viewsDirectory = __DIR__.'/Views/bootstrap4';
             }
 

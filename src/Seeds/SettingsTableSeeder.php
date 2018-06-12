@@ -97,7 +97,7 @@ class SettingsTableSeeder extends Seeder
              */
             'master_template' => 'master',
 
-            /**
+            /*
              * Switches between bootstrap 3 and 4
              * Default: 3
              */

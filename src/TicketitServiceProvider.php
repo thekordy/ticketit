@@ -13,11 +13,11 @@ use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Controllers\ToolsController;
 use Kordy\Ticketit\Helpers\LaravelVersion;
+use Kordy\Ticketit\Helpers\Ticketit as TicketitHelpers;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
-use Kordy\Ticketit\Helpers\Ticketit as TicketitHelpers;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -78,7 +78,6 @@ class TicketitServiceProvider extends ServiceProvider
             });
 
             view()->composer('ticketit::tickets.partials.summernote', function ($view) {
-
                 $editor_locale = TicketitHelpers::getEditorLocal();
                 $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
 

@@ -18,7 +18,7 @@ class Ticketit
         }
 
         if (substr($editor_locale, 0, 2) == 'en') {
-            return null;
+            return;
         }
         if (strlen($editor_locale) !== 2) {
             return $editor_locale;
@@ -40,7 +40,6 @@ class Ticketit
             'zh' => 'zh-CN',
         ];
         $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
-
 
         return $editor_locale;
     }

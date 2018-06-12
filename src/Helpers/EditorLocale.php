@@ -18,7 +18,7 @@ class EditorLocale
         }
 
         if (substr($editor_locale, 0, 2) == 'en') {
-            return null;
+            return;
         }
         if (strlen($editor_locale) !== 2) {
             return $editor_locale;

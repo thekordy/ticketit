@@ -78,7 +78,6 @@ class TicketitServiceProvider extends ServiceProvider
             });
 
             view()->composer('ticketit::tickets.partials.summernote', function ($view) {
-
                 $editor_locale = EditorLocale::getEditorLocale();
                 $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
 

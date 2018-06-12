@@ -26,10 +26,10 @@ However if you'd like to include Ticketit in your existing project, skip to the 
 ### Requirements
 **First Make sure you have got this Laravel setup working:**
 
-1. [Laravel 5.1+](http://laravel.com/docs/5.4#installation)
-2. [Users table](http://laravel.com/docs/5.4/authentication)
-3. [Laravel email configuration](http://laravel.com/docs/5.4/mail#sending-mail)
-4. Bootstrap 3+
+1. [Laravel 5.1+](http://laravel.com/docs#installation)
+2. [Users table](http://laravel.com/docs/authentication)
+3. [Laravel email configuration](http://laravel.com/docs/mail#sending-mail)
+4. Bootstrap 3, or Bootstrap 4
 5. Jquery
 
 **Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
@@ -71,6 +71,10 @@ Default ticketit admin route: http://your-project-url/tickets-admin
 Make sure you have created at least one status, one prority, and one category before you start creating tickets.
 
 If you move your installation folder to another path (or server), you need to update the row with slug='routes' in table `ticketit_settings`. After that, don't forget to flush the entire cache.
+
+## Upgrading to v0.4
+
+After upgrading from `0.3.*` to `0.4`, visit url `http://your-project-url/tickets-upgrade`. This adds new rows to the config table automatically.
 
 ## Documentation
 [Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)

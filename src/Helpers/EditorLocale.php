@@ -4,12 +4,12 @@ namespace Kordy\Ticketit\Helpers;
 
 use Kordy\Ticketit\Models\Setting;
 
-class Ticketit
+class EditorLocale
 {
     /**
-     * @return mixed|null
+     * @return string|null
      */
-    public static function getEditorLocal()
+    public static function getEditorLocale()
     {
         $editor_locale = Setting::grab('summernote_locale');
 
@@ -40,7 +40,6 @@ class Ticketit
             'zh' => 'zh-CN',
         ];
         $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
-
 
         return $editor_locale;
     }

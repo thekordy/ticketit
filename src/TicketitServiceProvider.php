@@ -156,7 +156,7 @@ class TicketitServiceProvider extends ServiceProvider
                 || Request::path() == 'tickets-admin'
                 || (isset($_SERVER['ARTISAN_TICKETIT_INSTALLING']) && $_SERVER['ARTISAN_TICKETIT_INSTALLING'])) {
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
-            $this->loadViewsFrom(__DIR__.'/Views', 'ticketit');
+            $this->loadViewsFrom(__DIR__.'/Views/bootstrap3', 'ticketit');
             $this->publishes([__DIR__.'/Migrations' => base_path('database/migrations')], 'db');
 
             $authMiddleware = Helpers\LaravelVersion::authMiddleware();

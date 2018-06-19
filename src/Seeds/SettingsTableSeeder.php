@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Seeds;
 
 use Illuminate\Database\Seeder;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 use Kordy\Ticketit\Models\Setting;
 
 class SettingsTableSeeder extends Seeder
@@ -99,9 +100,9 @@ class SettingsTableSeeder extends Seeder
 
             /*
              * Switches between bootstrap 3 and 4
-             * Default: 3
+             * Default: 3 for <L5.6, 4 for >=L5.6
              */
-            'bootstrap_version' => '3',
+            'bootstrap_version' => LaravelVersion::min('5.6') ? '4' : '3',
 
             /*
              * Template adherence: The email blade template to be extended

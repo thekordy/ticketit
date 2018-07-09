@@ -90,3 +90,8 @@ http://ticketit.kordy.info/tickets
 Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.
 
 https://github.com/thekordy/ticketit/graphs/contributors
+
+## Download statistics
+
+[![statistics](https://packagist-statistics.dura.hu/kordy/ticketit/10days.svg)](https://packagist-statistics.dura.hu/kordy/ticketit/10days.svg)
+

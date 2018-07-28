@@ -99,7 +99,7 @@ return [
   'btn-create-new-category'       => 'Crea nuova Categoria',
   'category-index-no-categories'  => 'Non ci sono Categorie, ',
   'category-index-create-new'     => 'Crea nuova categoria',
-  'category-index-js-delete'      => 'Sei davvero sicuro di voler elimianre la categoria: ',
+  'category-index-js-delete'      => 'Sei davvero sicuro di voler eliminare la categoria: ',
   'category-create-title'         => 'Crea nuova Categoria',
   'category-create-name'          => 'Nome',
   'category-create-color'         => 'Colore',
@@ -121,7 +121,7 @@ return [
   'btn-create-new-status'         => 'Crea Nuovo Stato',
   'status-index-no-statuses'      => 'There are no statues,',
   'status-index-create-new'       => 'Crea nuovi Stati',
-  'status-index-js-delete'        => 'Sei sicuro di voler elimianre lo stato: ',
+  'status-index-js-delete'        => 'Sei sicuro di voler eliminare lo stato: ',
   'status-create-title'           => 'Crea Nuovo Stato',
   'status-create-name'            => 'Nome',
   'status-create-color'           => 'Colore',
@@ -131,30 +131,30 @@ return [
   'config-index-title'            => 'Gestione delle Impostazioni',
   'config-index-subtitle'         => 'Impostazioni',
   'btn-create-new-config'         => 'Aggiungi nuova impostazione',
-  'config-index-no-settings'      => 'There are no settings,',
+  'config-index-no-settings'      => 'Non ci sono impostazioni,',
   'config-index-initial'          => 'Iniziali',
   'config-index-tickets'          => 'Tickets',
   'config-index-notifications'    => 'Notifiche',
   'config-index-permissions'      => 'Permessi',
   'config-index-editor'           => 'Editor', //Added: 2016.01.14
   'config-index-other'            => 'Altri',
-  'config-create-title'           => 'Create: New Global Setting',
-  'config-create-subtitle'        => 'Create Setting',
-  'config-edit-title'             => 'Edit: Global Configuration',
-  'config-edit-subtitle'          => 'Edit Setting',
+  'config-create-title'           => 'Crea: Nuova Impostazione Globale',
+  'config-create-subtitle'        => 'Crea Impostazione',
+  'config-edit-title'             => 'Modifica: Configurazione Globale',
+  'config-edit-subtitle'          => 'Modifica Impostazione',
   'config-edit-id'                => 'ID',
   'config-edit-slug'              => 'Slug',
   'config-edit-default'           => 'Valore Predefinito',
   'config-edit-value'             => 'Mio Valore',
   'config-edit-language'          => 'Lingua',
-  'config-edit-unserialize'       => 'Get the array values, e cambia i valori',
-  'config-edit-serialize'         => 'Get the serialized string of the changed values (to be entered in the field)',
-  'config-edit-should-serialize'  => 'Serialilzza', //Added: 2016-01-16
-  'config-edit-eval-warning'      => 'Quando selezionato, il server run eval()!
-  									  Don\'t use this if eval() is disabled on your server or if you don\'t exactly know what you are doing!
-  									  Exact code executed:', //Added: 2016-01-16
-  'config-edit-reenter-password'  => 'Re-enter your password', //Added: 2016-01-16
-  'config-edit-auth-failed'       => 'Password non corrispondono', //Added: 2016-01-16
+  'config-edit-unserialize'       => 'Ottieni i valori di array, e cambia i valori',
+  'config-edit-serialize'         => 'Ottieni la stringa serializzata dei valori modificati (per essere inseriti nel campo)',
+  'config-edit-should-serialize'  => 'Serializza', //Added: 2016-01-16
+  'config-edit-eval-warning'      => 'Quando selezionato, il server utilizza eval()!
+  									  Non usarlo se eval() è disabilitato o se non sai quello che stai facendo!
+  									  Codice esatto eseguito:', //Added: 2016-01-16
+  'config-edit-reenter-password'  => 'Re-inserisci la tua password', //Added: 2016-01-16
+  'config-edit-auth-failed'       => 'Le password non corrispondono', //Added: 2016-01-16
   'config-edit-eval-error'        => 'Valore non Valido', //Added: 2016-01-16
   'config-edit-tools'             => 'Strumenti:',
 

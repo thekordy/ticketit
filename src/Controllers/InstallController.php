@@ -48,7 +48,7 @@ class InstallController extends Controller
         if (count($this->migrations_tables) == count($this->inactiveMigrations())
             || in_array('2015_10_08_123457_create_settings_table', $this->inactiveMigrations())
         ) {
-            $views_files_list = $this->viewsFilesList('../resources/views/') + ['another' => trans('ticketit::install.another-file')];
+            $views_files_list = $this->viewsFilesList(resource_path('views')) + ['another' => trans('ticketit::install.another-file')];
             $inactive_migrations = $this->inactiveMigrations();
             // if Laravel v5.2 or 5.3
             if (version_compare(app()->version(), '5.2.0', '>=')) {

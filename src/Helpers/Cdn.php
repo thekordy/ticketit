@@ -10,12 +10,12 @@ namespace Kordy\Ticketit\Helpers;
  */
 class Cdn
 {
-    const CodeMirror = '5.38.0';
+    const CodeMirror = '5.39.2';
     const Summernote = '0.8.10';
     const FontAwesome = '4.7.0';
-    const FontAwesome5 = '5.0.13';
+    const FontAwesome5 = '5.2.0';
 
     // https://datatables.net/download/
-    const DataTables = '1.10.16';
-    const DataTablesResponsive = '2.2.1';
+    const DataTables = '1.10.18';
+    const DataTablesResponsive = '2.2.2';
 }

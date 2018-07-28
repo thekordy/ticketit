@@ -95,11 +95,11 @@ return [
   */
 
 // AgentsController
-  'agents-are-added-to-agents'                      => 'Agents :names are added to agents',
-  'administrators-are-added-to-administrators'      => 'Administrators :names are added to administrators', //New
-  'agents-joined-categories-ok'                     => 'Joined categories successfully',
-  'agents-is-removed-from-team'                     => 'Removed agent\s :name from the agent team',
-  'administrators-is-removed-from-team'             => 'Removed administrator\s :name from the administrators team', // New
+  'agents-are-added-to-agents'                      => 'Agenti :names sono stati aggiunti al gruppo agenti',
+  'administrators-are-added-to-administrators'      => 'Amministratori :names sono stati aggiunti al gruppo amministratori', //New
+  'agents-joined-categories-ok'                     => 'Le categorie sono state unite con successo',
+  'agents-is-removed-from-team'                     => 'Rimosso agente\i  :name dal gruppo agenti',
+  'administrators-is-removed-from-team'             => 'Rimosso amministratore\i :name dal gruppo amministratori', // New
 
 // CategoriesController
   'category-name-has-been-created'   => 'La categoria :name è stata creata!',

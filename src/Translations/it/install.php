@@ -2,17 +2,17 @@
 
 return [
 
-    'initial-setup'                   => 'Ticketit Initial Setup',
-    'master-template-file'            => 'Master template file',
-    'master-template-other-path'      => 'Other path to the master template file',
+    'initial-setup'                   => 'Setup Iniziale Ticketit',
+    'master-template-file'            => 'File template originale',
+    'master-template-other-path'      => 'Altro percorso per il file di template originale',
     'master-template-other-path-ex'   => 'ex. views/layouts/app.blade.php',
-    'migrations-to-be-installed'      => 'These migrations will be installed:',
-    'all-tables-migrated'             => 'All needed tables are migrated',
-    'proceed'                         => 'Proceed',
-    'another-file'                    => 'another File',
-    'admin-select'                    => 'Select administrator', // New
-    'admin-select-help-block'         => 'Later you can select more users for administration', // New
-    'upgrade'                         => 'Ticketit version upgrade', // New v0.2.3
-    'settings-to-be-installed'        => 'These settings will be installed:', // New v0.2.3
-    'all-settings-installed'          => 'All needed settings are installed', // New v0.2.3
+    'migrations-to-be-installed'      => 'Queste migrazioni verranno installate:',
+    'all-tables-migrated'             => 'Tutte le tabelle richieste sono state migrate',
+    'proceed'                         => 'Procedi',
+    'another-file'                    => 'Altro File',
+    'admin-select'                    => 'Selezione Amministratore', // New
+    'admin-select-help-block'         => 'Successivamente potrai selezionare altri utenti come amministratori', // New
+    'upgrade'                         => 'Aggiornamento Versione Ticketit', // New v0.2.3
+    'settings-to-be-installed'        => 'Queste impostazioni verranno installate:', // New v0.2.3
+    'all-settings-installed'          => 'Tutte le impostazioni richieste sono state installate', // New v0.2.3
 ];

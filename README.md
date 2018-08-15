@@ -1,97 +1,42 @@
-# Ticketit
+# Ticketit app
 
-A simple helpdesk tickets system for Laravel 5.1+ (5.1, 5.2, 5.3, 5.4, 5.5 and 5.6) which integrates smoothly with Laravel default users and auth system. 
-It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 
+This is a Laravel 5.6 application with [Ticketit](https://github.com/thekordy/ticketit) pre-installed in it. This is meant to make installation of Ticketit as quick as possible and easier for those who are not familiar with Laravel.
 
-## Features:
-1. Three main users roles users, agents, and admins
-2. Users can create tickets, keep track of their tickets status, giving comments, and close their own tickets (access permissions are configurable)
-3. Auto assigning agents to tickets, the system searches for agents in specific department and auto select the agent with lowest queue
-4. Simple admin panel 
-5. Localization (Arabic, Brazilian Portuguese, Deutsch (German), English, Farsi, French, Hungarian, Italian, Persian, Russian, and Spanish language packs are included)
-6. Very simple installation and integration process
-7. Admin dashboard with statistics and performance tracking graphs
-8. Simple text editor for tickets descriptions and comments allows images upload
+Install this only if you'd like to install Ticketit as a standalone app. If you'd like to integrate Ticketit to your existing Laravel project, follow the maunual [installation guide](https://github.com/thekordy/ticketit#installation-manual) of the Ticketit repository.
 
-[Full features list (12+) and screen shots](https://github.com/thekordy/ticketit/wiki/v0.2.3-Features)
+## Installation
 
-## Quick installation
+Open a terminal at the desired installation destination and run:
 
-If you'd like to install Ticketit as a standalone app, use our [quick installer](https://gitlab.com/balping/ticketit-app). This is a Laravel application pre-configured to work with Ticketit. Using the quick installer minimises the efforts and knowledge about Laravel needed to install Ticketit.
-
-However if you'd like to include Ticketit in your existing project, skip to the [next section](#installation-manual).
-
-## Installation (manual):
-
-### Requirements
-**First Make sure you have got this Laravel setup working:**
-
-1. [Laravel 5.1+](http://laravel.com/docs#installation)
-2. [Users table](http://laravel.com/docs/authentication)
-3. [Laravel email configuration](http://laravel.com/docs/mail#sending-mail)
-4. Bootstrap 3, or Bootstrap 4
-5. Jquery
-
-**Dependents that are getting installed and configured automatically by Ticketit (no action required from you)**
-
-1. [LaravelCollective HTML](https://github.com/laravelcollective/html)
-2. [Laravel Datatables](https://github.com/yajra/laravel-datatables)
-3. [HTML Purifier](https://github.com/mewebstudio/Purifier)
-
-
-### Installation steps (4-8 minutes)
-
-
-Step 1. Run this code via your terminal (1-2 minutes)
-```shell
-composer require 'kordy/ticketit:0.*'
+```
+composer create-project --prefer-dist balping/ticketit-app ticketit
 ```
 
-Step 2. After install, you have to add this line on your `config/app.php` in Service Providers section (1-2 minutes).
-```php
-Kordy\Ticketit\TicketitServiceProvider::class,
+This pulls in all necessary libraries. Then cd into the installation directory and run the install script:
+
+```
+cd ticketit
+php artisan ticketit:install
 ```
 
-Step 3. [Check if App\User exists](https://github.com/thekordy/ticketit/wiki/Make-sure-that-App%5CUser-exists)
+This asks some questions (database parameters, admin account login details).
 
-Step 4. Make sure you have [authentication](https://laravel.com/docs/5.4/authentication#introduction) set up. In 5.2+, you can use `php artisan make:auth`
+The installation script will do pretty much everything for you to have Ticketit up and running. After installation is done, you might want to set up mail by editing the `.env` file and go through the settings in the admin panel.
 
-Step 5. [Setting up your master view for Ticketit integration (1-2 minutes)](https://github.com/thekordy/ticketit/wiki/Integrating-Ticketit-views-with-your-project-template)
+## Notes
 
-Step 6. Register at least one user into the system and log it in.
+Please send Ticketit-related bugreports to the [Ticketit repo](https://github.com/thekordy/ticketit/issues). Only installer-related problems should be reported here.
 
-Step 7. Go ahead to http://your-project-url/tickets-install to finalize the installation (1-2 minutes)
+If you move your installation folder to another path, you need to update the row with `slug='routes'` in table `ticketit_settings`.
 
-Default ticketit front route: http://your-project-url/tickets
+## Versions
 
-Default ticketit admin route: http://your-project-url/tickets-admin
+| Laravel | Ticketit app |
+|---------|--------------|
+| 5.4.\*  | 1.0.\*       |
+| 5.5.\*  | 1.1.\*       |
+| 5.6.\*  | 1.2.\*       |
 
-**Notes:**
+## Installation in 56 seconds
 
-Make sure you have created at least one status, one prority, and one category before you start creating tickets.
-
-If you move your installation folder to another path (or server), you need to update the row with slug='routes' in table `ticketit_settings`. After that, don't forget to flush the entire cache.
-
-## Upgrading to v0.4
-
-After upgrading from `0.3.*` to `0.4`, visit url `http://your-project-url/tickets-upgrade`. This adds new rows to the config table automatically.
-
-## Documentation
-[Ticketit Wiki](https://github.com/thekordy/ticketit/wiki)
-
-## Support:
-[Review features requests, give your feedback, suggest features, report issues](https://github.com/thekordy/ticketit/issues)
-
-## Live Demo
-http://ticketit.kordy.info/tickets
-
-## Project contributors (the project heros):
-
-Big thank you for all active people who took from their time to give their feedback and suggestions, they helped a lot to improve Ticketit for all of us.
-
-https://github.com/thekordy/ticketit/graphs/contributors
-
-## Download statistics
-
-[![statistics](https://packagist-statistics.dura.hu/kordy/ticketit/10days.svg)](https://packagist-statistics.dura.hu/kordy/ticketit/10days.svg)
-
+![screen](https://cloud.githubusercontent.com/assets/5840038/23286505/e5dc5080-fa2f-11e6-92ba-032816b64444.gif)

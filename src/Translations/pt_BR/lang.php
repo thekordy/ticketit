@@ -16,6 +16,7 @@ return [
     'table-status'                     => 'Status',
     'table-last-updated'               => 'Ultima Atualização',
     'table-priority'                   => 'Prioridade',
+    'table-place'                      => 'Local',
     'table-agent'                      => 'Agente',
     'table-category'                   => 'Categoria',
 
@@ -58,6 +59,7 @@ return [
     'no-replies'                       => 'Sem Resposta.',
     'owner'                            => 'Proprietário',
     'priority'                         => 'Prioridade',
+    'place'                            => 'Local',
     'reopen-ticket'                    => 'Reabrir Chamado',
     'reply'                            => 'Responder',
     'responsible'                      => 'Responsável',
@@ -109,6 +111,12 @@ return [
     'priority-name-has-been-modified'  => 'A prioridade :name foi modificada!',
     'priority-name-has-been-deleted'   => 'A prioridade :name foi excluida!',
     'priority-all-tickets-here'        => 'Todas prioridades dos chamados relacionadas aqui',
+    
+    // PlacesController
+    'place-name-has-been-created'   => 'O local :name foi criado!',
+    'place-name-has-been-modified'  => 'O local :name foi modificado!',
+    'place-name-has-been-deleted'   => 'O local :name foi excluido!',
+    'place-all-tickets-here'        => 'Todos os locais dos chamados relacionados aqui',
 
     // StatusesController
     'status-name-has-been-created'   => 'O status :name foi criado!',

@@ -5,6 +5,7 @@ namespace Kordy\Ticketit\Controllers;
 use App\Http\Controllers\Controller;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
+use Kordy\Ticketit\Models\Place;
 use Kordy\Ticketit\Models\Ticket;
 
 class DashboardController extends Controller
@@ -34,7 +35,7 @@ class DashboardController extends Controller
         foreach ($agents_share_obj as $agent_share) {
             $agents_share[$agent_share->name] = $agent_share->agentTotalTickets->count();
         }
-
+		
         // Per Agent
         $agents = Agent::agents(10);
 

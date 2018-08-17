@@ -10,8 +10,10 @@ return [
     'nav-dashboard'                 => 'Dashboard',
     'nav-categories'                => 'Categorias',
     'nav-priorities'                => 'Prioridades',
+	'nav-places'					=> 'Locais',
     'nav-statuses'                  => 'Status',
     'nav-configuration'             => 'Configuração',  // New
+    'nav-administrator'             => 'Administrador',
 
     'table-hash'                    => '#', // New
     'table-id'                      => 'ID',
@@ -20,6 +22,7 @@ return [
     'table-categories'              => 'Categorias',
     'table-join-category'           => 'Categorias Relacionadas',
     'table-remove-agent'            => 'Remover de Agentes',
+    'table-remove-administrator'    => 'Remover administrador', // New
 
     'table-slug'                    => 'Índice', // New
     'table-default'                 => 'Valor Inicial', // New
@@ -35,6 +38,7 @@ return [
     'btn-submit'                    => 'Enviar',
     'btn-save'                      => 'Salvar',  // New
     'btn-update'                    => 'Atualizar',
+    
     'colon'                         => ': ',
 
     /*
@@ -54,10 +58,13 @@ return [
     'index-12-months'                     => '12 meses',
     'index-tickets-share-per-category'    => 'Chamados Divididos por Categoria',
     'index-tickets-share-per-agent'       => 'Chamados Divididos por Agentes',
+    'index-tickets-share-per-place'       => 'Chamados Divididos por Locais', //new
     'index-categories'                    => 'Categorias',
     'index-category'                      => 'Categoria',
     'index-agents'                        => 'Agentes',
     'index-agent'                         => 'Agente',
+    'index-administrators'                => 'Administradores',  //new
+    'index-administrator'                 => 'Administrador',  //new
     'index-users'                         => 'Usuários',
     'index-user'                          => 'Usuário',
     'index-tickets'                       => 'Chamados',
@@ -79,6 +86,16 @@ return [
     'agent-create-no-users'         => 'Nenhum Usuário cadastrado, Crie uma conta de Usuário Primeiro.',
     'agent-create-select-user'      => 'Selecione uma conta de Usuário para criar um Agente',
 
+    // tickets-admin/administrators/____
+    'administrator-index-title'                   => 'Gerenciar Administradores',  //new
+    'btn-create-new-administrator'                => 'Criar novo administrador',  //new
+    'administrator-index-no-administrators'       => 'Não há administradores, ',  //new
+    'administrator-index-create-new'              => 'Adicionar Administradores',  //new
+    'administrator-create-title'                  => 'Adicionar Administrador',  //new
+    'administrator-create-add-administrators'     => 'Adicionar Administradores',  //new
+    'administrator-create-no-users'               => 'Não há conta de usuário, crie a conta de usuário primeiro.',  //new
+    'administrator-create-select-user'            => 'Selecione a conta de susário a ser adicionado como administrador',  //new
+    
     // tickets-admin/category/____
     'category-index-title'          => 'Gerenciar Categorias',
     'btn-create-new-category'       => 'Criar Nova Categoria',
@@ -100,6 +117,17 @@ return [
     'priority-create-name'          => 'Nome',
     'priority-create-color'         => 'Cor',
     'priority-edit-title'           => 'Editar Prioridade: :name',
+    
+    // tickets-admin/place/____
+    'place-index-title'             => 'Gerenciar Locais',
+    'btn-create-new-place'          => 'Criar Novo Local',
+    'place-index-no-places'         => 'Nenhum local cadastrado, ',
+    'place-index-create-new'        => 'criar novo local',
+    'place-index-js-delete'         => 'Você tem certeza que deseja excluir este local: ',
+    'place-create-title'            => 'Criar Novo Local',
+    'place-create-name'             => 'Nome',
+    'place-create-color'            => 'Cor',
+    'place-edit-title'              => 'Editar Local: :name',
 
     // tickets-admin/status/____
     'status-index-title'            => 'Gerenciar Status',
@@ -121,6 +149,7 @@ return [
     'config-index-tickets'          => 'Chamados', // New
     'config-index-notifications'    => 'Notificações', // New
     'config-index-permissions'      => 'Permissões', // New
+    'config-index-editor'           => 'Editor', //Added: 2016.01.14
     'config-index-other'            => 'Outras', // New
     'config-create-title'           => 'Criar: Nova Configuração Global', // New
     'config-create-subtitle'        => 'Criar Configuração', // New
@@ -131,4 +160,15 @@ return [
     'config-edit-default'           => 'Valor Inicial',
     'config-edit-value'             => 'Meu Valor',
     'config-edit-language'          => 'Lingua',
+    'config-edit-unserialize'       => 'Pega os valores do array, e muda os valores',
+    'config-edit-serialize'         => 'Pega a string serial dos valores (para ser adicionada ao campo)',
+  'config-edit-should-serialize'  => 'Serial', //Added: 2016-01-16
+  'config-edit-eval-warning'      => 'Quando marcado, o servidor executa eval()!
+  									  Não use isto se eval() estiver desabilitado no seu servidor ou se voc não sabe exatamente o que você êstá fazendo!
+  									  Código exato executado:', //Added: 2016-01-16
+  'config-edit-reenter-password'  => 'Re-digite sua senha', //Added: 2016-01-16
+  'config-edit-auth-failed'       => 'Senhas não com´binam', //Added: 2016-01-16
+  'config-edit-eval-error'        => 'Valor inválido', //Added: 2016-01-16
+  'config-edit-tools'             => 'Tools:',
+
 ];

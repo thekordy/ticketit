@@ -62,6 +62,7 @@ class TicketsController extends Controller
             ->join('users', 'users.id', '=', 'ticketit.user_id')
             ->join('ticketit_statuses', 'ticketit_statuses.id', '=', 'ticketit.status_id')
             ->join('ticketit_priorities', 'ticketit_priorities.id', '=', 'ticketit.priority_id')
+            ->join('ticketit_places', 'ticketit_places.id', '=', 'ticketit.place_id')
             ->join('ticketit_categories', 'ticketit_categories.id', '=', 'ticketit.category_id')
             ->select([
                 'ticketit.id',
@@ -69,10 +70,12 @@ class TicketsController extends Controller
                 'ticketit_statuses.name AS status',
                 'ticketit_statuses.color AS color_status',
                 'ticketit_priorities.color AS color_priority',
+                'ticketit_places.color AS color_place',
                 'ticketit_categories.color AS color_category',
                 'ticketit.id AS agent',
                 'ticketit.updated_at AS updated_at',
                 'ticketit_priorities.name AS priority',
+                'ticketit_places.name AS place',
                 'users.name AS owner',
                 'ticketit.agent_id',
                 'ticketit_categories.name AS category',
@@ -87,7 +90,7 @@ class TicketsController extends Controller
         // method rawColumns was introduced in laravel-datatables 7, which is only compatible with >L5.4
         // in previous laravel-datatables versions escaping columns wasn't defaut
         if (LaravelVersion::min('5.4')) {
-            $collection->rawColumns(['subject', 'status', 'priority', 'category', 'agent']);
+            $collection->rawColumns(['subject', 'status', 'priority', 'place', 'category', 'agent']);
         }
 
         return $collection->make(true);
@@ -115,6 +118,13 @@ class TicketsController extends Controller
             $priority = e($ticket->priority);
 
             return "<div style='color: $color'>$priority</div>";
+        });
+        
+        $collection->editColumn('place', function ($ticket) {
+            $color = $ticket->color_place;
+            $place = e($ticket->place);
+
+            return "<div style='color: $color'>$place</div>";
         });
 
         $collection->editColumn('category', function ($ticket) {
@@ -158,7 +168,7 @@ class TicketsController extends Controller
     }
 
     /**
-     * Returns priorities, categories and statuses lists in this order
+     * Returns priorities, places, categories and statuses lists in this order
      * Decouple it with list().
      *
      * @return array
@@ -167,6 +177,10 @@ class TicketsController extends Controller
     {
         $priorities = Cache::remember('ticketit::priorities', 60, function () {
             return Models\Priority::all();
+        });
+        
+        $places = Cache::remember('ticketit::places', 60, function () {
+            return Models\Place::all();
         });
 
         $categories = Cache::remember('ticketit::categories', 60, function () {
@@ -178,9 +192,9 @@ class TicketsController extends Controller
         });
 
         if (LaravelVersion::min('5.3.0')) {
-            return [$priorities->pluck('name', 'id'), $categories->pluck('name', 'id'), $statuses->pluck('name', 'id')];
+            return [$priorities->pluck('name', 'id'), $places->pluck('name','id'), $categories->pluck('name', 'id'), $statuses->pluck('name', 'id')];
         } else {
-            return [$priorities->lists('name', 'id'), $categories->lists('name', 'id'), $statuses->lists('name', 'id')];
+            return [$priorities->lists('name', 'id'), $places->lists('name','id'), $categories->lists('name', 'id'), $statuses->lists('name', 'id')];
         }
     }
 
@@ -191,9 +205,9 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        list($priorities, $categories) = $this->PCS();
+        list($priorities, $places, $categories) = $this->PCS();
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return view('ticketit::tickets.create', compact('priorities', 'places', 'categories'));
     }
 
     /**
@@ -209,6 +223,7 @@ class TicketsController extends Controller
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
+            'place_id'    => 'required|exists:ticketit_places,id',
             'category_id' => 'required|exists:ticketit_categories,id',
         ]);
 
@@ -219,6 +234,7 @@ class TicketsController extends Controller
         $ticket->setPurifiedContent($request->get('content'));
 
         $ticket->priority_id = $request->priority_id;
+        $ticket->place_id = $request->place_id;
         $ticket->category_id = $request->category_id;
 
         $ticket->status_id = Setting::grab('default_status_id');
@@ -243,7 +259,7 @@ class TicketsController extends Controller
     {
         $ticket = $this->tickets->findOrFail($id);
 
-        list($priority_lists, $category_lists, $status_lists) = $this->PCS();
+        list($priority_lists, $place_lists, $category_lists, $status_lists) = $this->PCS();
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
@@ -258,7 +274,7 @@ class TicketsController extends Controller
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
 
         return view('ticketit::tickets.show',
-            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
+            compact('ticket', 'status_lists', 'priority_lists', 'place_lists', 'category_lists', 'agent_lists', 'comments',
                 'close_perm', 'reopen_perm'));
     }
 
@@ -276,6 +292,7 @@ class TicketsController extends Controller
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
+            'place_id'    => 'required|exists:ticketit_places,id',
             'category_id' => 'required|exists:ticketit_categories,id',
             'status_id'   => 'required|exists:ticketit_statuses,id',
             'agent_id'    => 'required',
@@ -290,6 +307,7 @@ class TicketsController extends Controller
         $ticket->status_id = $request->status_id;
         $ticket->category_id = $request->category_id;
         $ticket->priority_id = $request->priority_id;
+        $ticket->place_id = $request->place_id;
 
         if ($request->input('agent_id') == 'auto') {
             $ticket->autoSelectAgent();

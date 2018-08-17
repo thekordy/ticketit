@@ -93,6 +93,19 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
                 'edit'    => "$admin_route.priority.edit",
             ],
         ]);
+        
+        //Ticket places admin routes (ex. http://url/tickets-admin/place)
+        Route::resource("$admin_route_path/place", 'Kordy\Ticketit\Controllers\PlacesController', [
+            'names' => [
+                'index'   => "$admin_route.place.index",    //new
+                'store'   => "$admin_route.place.store",    //new
+                'create'  => "$admin_route.place.create",   //new
+                'update'  => "$admin_route.place.update",   //new
+                'show'    => "$admin_route.place.show",     //new
+                'destroy' => "$admin_route.place.destroy",  //new
+                'edit'    => "$admin_route.place.edit",     //new
+            ],
+        ]);
 
         //Agents management routes (ex. http://url/tickets-admin/agent)
         Route::resource("$admin_route_path/agent", 'Kordy\Ticketit\Controllers\AgentsController', [

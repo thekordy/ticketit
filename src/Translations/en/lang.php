@@ -111,6 +111,12 @@ return [
   'priority-name-has-been-modified'  => 'The priority :name has been modified!',
   'priority-name-has-been-deleted'   => 'The priority :name has been deleted!',
   'priority-all-tickets-here'        => 'All priority related tickets here',
+    
+// PlacesController
+  'places-name-has-been-created'   => 'The place :name has been created!',
+  'places-name-has-been-modified'  => 'The place :name has been modified!',
+  'places-name-has-been-deleted'   => 'The place :name has been deleted!',
+  'places-all-tickets-here'        => 'All place related tickets here',
 
 // StatusesController
   'status-name-has-been-created'   => 'The status :name has been created!',
@@ -147,3 +153,4 @@ return [
   'you-are-not-permitted-to-access'     => 'You are not permitted to access this page!',
 
 ];
+

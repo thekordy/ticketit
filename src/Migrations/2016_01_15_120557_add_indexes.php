@@ -21,6 +21,7 @@ class AddIndexes extends Migration
             $table->index('subject');
             $table->index('status_id');
             $table->index('priority_id');
+            $table->index('place_id');
             $table->index('user_id');
             $table->index('agent_id');
             $table->index('category_id');
@@ -49,6 +50,7 @@ class AddIndexes extends Migration
             $table->dropIndex('ticketit_subject_index');
             $table->dropIndex('ticketit_status_id_index');
             $table->dropIndex('ticketit_priority_id_index');
+            $table->dropIndex('ticketit_place_id_index');
             $table->dropIndex('ticketit_user_id_index');
             $table->dropIndex('ticketit_agent_id_index');
             $table->dropIndex('ticketit_category_id_index');

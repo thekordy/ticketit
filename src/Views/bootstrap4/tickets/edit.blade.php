@@ -24,6 +24,11 @@
                 </div>
 
                 <div class="form-group">
+                    {!! CollectiveForm::label('place_id', trans('ticketit::lang.place') . trans('ticketit::lang.colon'), ['class' => '']) !!}
+                    {!! CollectiveForm::select('place_id', $place_lists, $ticket->place_id, ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
                     {!! CollectiveForm::label('agent_id', trans('ticketit::lang.agent') . trans('ticketit::lang.colon'), [
                         'class' => ''
                     ]) !!}

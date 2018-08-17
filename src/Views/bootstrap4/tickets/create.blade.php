@@ -36,6 +36,15 @@
             </div>
             {!! CollectiveForm::hidden('agent_id', 'auto') !!}
         </div>
+        <!-- New -->
+        <div class="form-row mt-5">
+            <div class="form-group col-lg-4 row">
+                {!! CollectiveForm::label('place', trans('ticketit::lang.place') . trans('ticketit::lang.colon'), ['class' => 'col-lg-6 col-form-label']) !!}
+                <div class="col-lg-6">
+                    {!! CollectiveForm::select('place_id', $places, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                </div>
+            </div>
+        </div>
         <br>
         <div class="form-group row">
             <div class="col-lg-10 offset-lg-2">

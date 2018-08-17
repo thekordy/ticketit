@@ -23,6 +23,12 @@ class CreateTicketitTables extends Migration
             $table->string('name');
             $table->string('color');
         });
+		
+		Schema::create('ticketit_places', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('color');
+        });
 
         Schema::create('ticketit_categories', function (Blueprint $table) {
             $table->increments('id');
@@ -41,6 +47,7 @@ class CreateTicketitTables extends Migration
             $table->longText('content');
             $table->integer('status_id')->unsigned();
             $table->integer('priority_id')->unsigned();
+            $table->integer('place_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('agent_id')->unsigned();
             $table->integer('category_id')->unsigned();
@@ -77,6 +84,7 @@ class CreateTicketitTables extends Migration
         Schema::drop('ticketit_categories_users');
         Schema::drop('ticketit_categories');
         Schema::drop('ticketit_priorities');
+        Schema::drop('ticketit_places');
         Schema::drop('ticketit_statuses');
     }
 }

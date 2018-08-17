@@ -9,7 +9,7 @@ use Kordy\Ticketit\Models\Setting;
 
 class TicketItComposer
 {
-    public static function settings($u)
+    public static function settings(&$u)
     {
         view()->composer('ticketit::*', function ($view) use (&$u) {
             if (auth()->check()) {

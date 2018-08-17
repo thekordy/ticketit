@@ -17,6 +17,12 @@
                     {{ $ticket->priority->name }}
                 </span>
             </p>
+            <p>
+                <strong>{{ trans('ticketit::lang.place') }}</strong>{{ trans('ticketit::lang.colon') }}
+                <span style="color: {{ $ticket->place->color }}">
+                    {{ $ticket->place->name }}
+                </span>
+            </p>
         </div>
         <div class="col-md-6">
             <p> <strong>{{ trans('ticketit::lang.responsible') }}</strong>{{ trans('ticketit::lang.colon') }}{{ $ticket->agent_id == $u->id ? $u->name : $ticket->agent->name }}</p>

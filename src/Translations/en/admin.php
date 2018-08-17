@@ -10,6 +10,7 @@ return [
   'nav-dashboard'                 => 'Dashboard',
   'nav-categories'                => 'Categories',
   'nav-priorities'                => 'Priorities',
+  'nav-places'					  => 'Places',
   'nav-statuses'                  => 'Statuses',
   'nav-configuration'             => 'Configuration',
   'nav-administrator'             => 'Administrator',  //new
@@ -57,6 +58,7 @@ return [
   'index-12-months'                     => '12 months',
   'index-tickets-share-per-category'    => 'Tickets share per category',
   'index-tickets-share-per-agent'       => 'Tickets share per agent',
+  'index-tickets-share-per-place'       => 'Tickets share per place', //new
   'index-categories'                    => 'Categories',
   'index-category'                      => 'Category',
   'index-agents'                        => 'Agents',
@@ -115,6 +117,17 @@ return [
   'priority-create-name'          => 'Name',
   'priority-create-color'         => 'Color',
   'priority-edit-title'           => 'Edit Priority: :name',
+    
+// tickets-admin/places/____
+  'place-index-title'             => 'Places Management',
+  'btn-create-new-place'          => 'Create new place',
+  'place-index-no-places'         => 'There are no places, ',
+  'place-index-create-new'        => 'create new place',
+  'place-index-js-delete'         => 'Are you sure you want to delete the place: ',
+  'place-create-title'            => 'Create New Place',
+  'place-create-name'             => 'Name',
+  'place-create-color'            => 'Color',
+  'place-edit-title'              => 'Edit Place: :name',
 
 // tickets-admin/status/____
   'status-index-title'            => 'Statuses Management',

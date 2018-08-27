@@ -49,10 +49,9 @@ class TicketitServiceProvider extends ServiceProvider
                 return $field;
             });
 
+            TicketItComposer::general();
             TicketItComposer::codeMirror();
-
             TicketItComposer::sharedAssets();
-
             TicketItComposer::summerNotes();
 
             // Send notification when new comment is added

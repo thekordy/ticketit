@@ -23,17 +23,25 @@ class TicketItComposer
         });
     }
 
-    public static function codeMirror()
+    public static function general()
     {
         // Passing to views the master view value from the setting file
         view()->composer('ticketit::*', function ($view) {
             $tools = new ToolsController();
             $master = Setting::grab('master_template');
             $email = Setting::grab('email.template');
+            $view->with(compact('master', 'email', 'tools'));
+        });
+    }
+
+    public static function codeMirror()
+    {
+        // Passing to views the master view value from the setting file
+        view()->composer('ticketit::*', function ($view) {
             $editor_enabled = Setting::grab('editor_enabled');
             $codemirror_enabled = Setting::grab('editor_html_highlighter');
             $codemirror_theme = Setting::grab('codemirror_theme');
-            $view->with(compact('master', 'email', 'tools', 'editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
+            $view->with(compact('editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
         });
     }
 

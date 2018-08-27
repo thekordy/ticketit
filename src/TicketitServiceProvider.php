@@ -10,12 +10,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
-use Kordy\Ticketit\Controllers\NotificationsController;
 use Kordy\Ticketit\Helpers\LaravelVersion;
-use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
-use Kordy\Ticketit\Models\Ticket;
 use Kordy\Ticketit\ViewComposers\TicketItComposer;
+use Kordy\Ticketit\ModelsObservers\CommentObserver;
+use Kordy\Ticketit\ModelsObservers\TicketObserver;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -55,42 +54,13 @@ class TicketitServiceProvider extends ServiceProvider
             TicketItComposer::summerNotes();
 
             // Send notification when new comment is added
-            Comment::creating(function ($comment) {
-                if (Setting::grab('comment_notification')) {
-                    $notification = new NotificationsController();
-                    $notification->newComment($comment);
-                }
-            });
+            app(CommentObserver::class)->creating();
 
+            $ticketObserver = app(TicketObserver::class);
             // Send notification when ticket status is modified
-            Ticket::updating(function ($modified_ticket) {
-                if (Setting::grab('status_notification')) {
-                    $original_ticket = Ticket::find($modified_ticket->id);
-                    if ($original_ticket->status_id != $modified_ticket->status_id || $original_ticket->completed_at != $modified_ticket->completed_at) {
-                        $notification = new NotificationsController();
-                        $notification->ticketStatusUpdated($modified_ticket, $original_ticket);
-                    }
-                }
-                if (Setting::grab('assigned_notification')) {
-                    $original_ticket = Ticket::find($modified_ticket->id);
-                    if ($original_ticket->agent->id != $modified_ticket->agent->id) {
-                        $notification = new NotificationsController();
-                        $notification->ticketAgentUpdated($modified_ticket, $original_ticket);
-                    }
-                }
-
-                return true;
-            });
-
+            $ticketObserver->updating();
             // Send notification when ticket status is modified
-            Ticket::created(function ($ticket) {
-                if (Setting::grab('assigned_notification')) {
-                    $notification = new NotificationsController();
-                    $notification->newTicketNotifyAgent($ticket);
-                }
-
-                return true;
-            });
+            $ticketObserver->created();
 
             $this->loadTranslationsFrom(__DIR__.'/Translations', 'ticketit');
 

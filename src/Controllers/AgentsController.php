@@ -26,12 +26,16 @@ class AgentsController extends Controller
 
     public function store(Request $request)
     {
-        $agents_list = $this->addAgents($request->input('agents'));
-        $agents_names = implode(',', $agents_list);
+        if($request->input('agents')){
+            $agents_list = $this->addAgents($request->input('agents'));
+            $agents_names = implode(',', $agents_list);
 
-        Session::flash('status', trans('ticketit::lang.agents-are-added-to-agents', ['names' => $agents_names]));
+            Session::flash('status', trans('ticketit::lang.agents-are-added-to-agents', ['names' => $agents_names]));
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
+            return redirect()->action('\Kordy\Ticketit\Controllers\AgentsController@index');
+        }
+
+        return redirect()->back()->with('error', trans('ticketit::admin.agent-create-select-user'));
     }
 
     public function update($id, Request $request)

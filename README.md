@@ -1,6 +1,11 @@
 # Ticketit app
 
+ticketit-with-places
 This is a Laravel 5.6 application with [Ticketit](https://github.com/thekordy/ticketit) pre-installed in it. This is meant to make installation of Ticketit as quick as possible and easier for those who are not familiar with Laravel.
+=======
+A simple helpdesk tickets system for Laravel 5.1+ (5.1, 5.2, 5.3, 5.4, 5.5, 5.6 and 5.7) which integrates smoothly with Laravel default users and auth system. 
+It will integrate into your current Laravel project within minutes, and you can offer your customers and your team a nice and simple support ticket system. 
+0.2
 
 Install this only if you'd like to install Ticketit as a standalone app. If you'd like to integrate Ticketit to your existing Laravel project, follow the maunual [installation guide](https://github.com/thekordy/ticketit#installation-manual) of the Ticketit repository.
 

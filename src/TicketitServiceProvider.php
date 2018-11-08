@@ -11,13 +11,11 @@ use Illuminate\Support\ServiceProvider;
 use Kordy\Ticketit\Console\Htmlify;
 use Kordy\Ticketit\Controllers\InstallController;
 use Kordy\Ticketit\Controllers\NotificationsController;
-use Kordy\Ticketit\Controllers\ToolsController;
-use Kordy\Ticketit\Helpers\EditorLocale;
 use Kordy\Ticketit\Helpers\LaravelVersion;
-use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Comment;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\ViewComposers\TicketItComposer;
 
 class TicketitServiceProvider extends ServiceProvider
 {
@@ -42,16 +40,7 @@ class TicketitServiceProvider extends ServiceProvider
             //cache $u
             $u = null;
 
-            view()->composer('ticketit::*', function ($view) use (&$u) {
-                if (auth()->check()) {
-                    if ($u === null) {
-                        $u = Agent::find(auth()->user()->id);
-                    }
-                    $view->with('u', $u);
-                }
-                $setting = new Setting();
-                $view->with('setting', $setting);
-            });
+            TicketItComposer::settings($u);
 
             // Adding HTML5 color picker to form elements
             CollectiveForm::macro('custom', function ($type, $name, $value = '#000000', $options = []) {
@@ -60,30 +49,10 @@ class TicketitServiceProvider extends ServiceProvider
                 return $field;
             });
 
-            // Passing to views the master view value from the setting file
-            view()->composer('ticketit::*', function ($view) {
-                $tools = new ToolsController();
-                $master = Setting::grab('master_template');
-                $email = Setting::grab('email.template');
-                $editor_enabled = Setting::grab('editor_enabled');
-                $codemirror_enabled = Setting::grab('editor_html_highlighter');
-                $codemirror_theme = Setting::grab('codemirror_theme');
-                $view->with(compact('master', 'email', 'tools', 'editor_enabled', 'codemirror_enabled', 'codemirror_theme'));
-            });
-
-            //inlude font awesome css or not
-            view()->composer('ticketit::shared.assets', function ($view) {
-                $include_font_awesome = Setting::grab('include_font_awesome');
-                $view->with(compact('include_font_awesome'));
-            });
-
-            view()->composer('ticketit::tickets.partials.summernote', function ($view) {
-
-                $editor_locale = EditorLocale::getEditorLocale();
-                $editor_options = file_get_contents(base_path(Setting::grab('summernote_options_json_file')));
-
-                $view->with(compact('editor_locale', 'editor_options'));
-            });
+            TicketItComposer::general();
+            TicketItComposer::codeMirror();
+            TicketItComposer::sharedAssets();
+            TicketItComposer::summerNotes();
 
             // Send notification when new comment is added
             Comment::creating(function ($comment) {

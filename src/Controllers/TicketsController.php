@@ -12,6 +12,7 @@ use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Category;
 use Kordy\Ticketit\Models\Setting;
 use Kordy\Ticketit\Models\Ticket;
+use Kordy\Ticketit\Models\User;
 
 class TicketsController extends Controller
 {
@@ -87,7 +88,7 @@ class TicketsController extends Controller
         // method rawColumns was introduced in laravel-datatables 7, which is only compatible with >L5.4
         // in previous laravel-datatables versions escaping columns wasn't defaut
         if (LaravelVersion::min('5.4')) {
-            $collection->rawColumns(['subject', 'status', 'priority', 'category', 'agent']);
+            $collection->rawColumns(['subject', 'status', 'priority', 'category', 'owner', 'agent']);
         }
 
         return $collection->make(true);
@@ -173,14 +174,18 @@ class TicketsController extends Controller
             return Models\Category::all();
         });
 
+        $users = Cache::remember('users', 60, function () {
+            return Models\User::all();
+        });
+
         $statuses = Cache::remember('ticketit::statuses', 60, function () {
             return Models\Status::all();
         });
 
         if (LaravelVersion::min('5.3.0')) {
-            return [$priorities->pluck('name', 'id'), $categories->pluck('name', 'id'), $statuses->pluck('name', 'id')];
+            return [$priorities->pluck('name', 'id'), $categories->pluck('name', 'id'), $users->pluck('name', 'id'), $statuses->pluck('name', 'id')];
         } else {
-            return [$priorities->lists('name', 'id'), $categories->lists('name', 'id'), $statuses->lists('name', 'id')];
+            return [$priorities->lists('name', 'id'), $categories->lists('name', 'id'), $users->lists('name', 'id'), $statuses->lists('name', 'id')];
         }
     }
 
@@ -191,9 +196,9 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        list($priorities, $categories) = $this->PCS();
+        list($priorities, $categories, $users) = $this->PCS();
 
-        return view('ticketit::tickets.create', compact('priorities', 'categories'));
+        return view('ticketit::tickets.create', compact('priorities', 'categories', 'users'));
     }
 
     /**
@@ -210,6 +215,7 @@ class TicketsController extends Controller
             'content'     => 'required|min:6',
             'priority_id' => 'required|exists:ticketit_priorities,id',
             'category_id' => 'required|exists:ticketit_categories,id',
+            'user_id'     =>  'required|exists:users,id',
         ]);
 
         $ticket = new Ticket();
@@ -221,8 +227,10 @@ class TicketsController extends Controller
         $ticket->priority_id = $request->priority_id;
         $ticket->category_id = $request->category_id;
 
+        $ticket->user_id = $request->user_id;
+        
         $ticket->status_id = Setting::grab('default_status_id');
-        $ticket->user_id = auth()->user()->id;
+        
         $ticket->autoSelectAgent();
 
         $ticket->save();
@@ -243,7 +251,7 @@ class TicketsController extends Controller
     {
         $ticket = $this->tickets->findOrFail($id);
 
-        list($priority_lists, $category_lists, $status_lists) = $this->PCS();
+        list($priority_lists, $category_lists, $users_lists, $status_lists) = $this->PCS();
 
         $close_perm = $this->permToClose($id);
         $reopen_perm = $this->permToReopen($id);
@@ -279,6 +287,7 @@ class TicketsController extends Controller
             'category_id' => 'required|exists:ticketit_categories,id',
             'status_id'   => 'required|exists:ticketit_statuses,id',
             'agent_id'    => 'required',
+            'user_id'    => 'required',
         ]);
 
         $ticket = $this->tickets->findOrFail($id);

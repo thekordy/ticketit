@@ -37,6 +37,12 @@
                         {!! CollectiveForm::select('category_id', $categories, null, ['class' => 'form-control', 'required' => 'required']) !!}
                     </div>
                 </div>
+                <div class="form-group col-lg-4">    
+                    {!! CollectiveForm::label('user_id', trans('ticketit::lang.owner') . trans('ticketit::lang.colon'), ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-6">
+                        {!! CollectiveForm::select('user_id', $users, null, ['placeholder' => 'Select...', 'class' => 'form-control', 'required' => 'required']) !!}
+                    </div>
+                </div>
                 {!! CollectiveForm::hidden('agent_id', 'auto') !!}
             </div>
             <br>

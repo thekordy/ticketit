@@ -3,6 +3,7 @@
 namespace Kordy\Ticketit\Helpers;
 
 use Kordy\Ticketit\Models\Setting;
+use Illuminate\Support\Arr;
 
 class EditorLocale
 {
@@ -39,7 +40,7 @@ class EditorLocale
             'vi' => 'vi-VN',
             'zh' => 'zh-CN',
         ];
-        $editor_locale = array_get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
+        $editor_locale = Arr::get($map, $editor_locale, $editor_locale.'-'.strtoupper($editor_locale));
 
         return $editor_locale;
     }

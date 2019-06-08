@@ -5,6 +5,7 @@ namespace Kordy\Ticketit\Models;
 use Cache;
 use Illuminate\Database\Eloquent\Model;
 use Kordy\Ticketit\Models\Setting as Table;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 
 class Setting extends Model
 {
@@ -48,8 +49,11 @@ class Setting extends Model
          */
         //       Cache::flush();
 
-        $setting = Cache::remember('ticketit::settings.'.$slug, 60, function () use ($slug) {
-            $settings = Cache::remember('ticketit::settings', 60, function () {
+        // seconds expected for L5.8<=, minutes before that
+        $time = LaravelVersion::min('5.8') ? 60*60 : 60;
+
+        $setting = Cache::remember('ticketit::settings.'.$slug, $time, function () use ($slug, $time) {
+            $settings = Cache::remember('ticketit::settings', $time, function () {
                 return Table::all();
             });
 

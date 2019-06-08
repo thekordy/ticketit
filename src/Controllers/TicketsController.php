@@ -165,15 +165,18 @@ class TicketsController extends Controller
      */
     protected function PCS()
     {
-        $priorities = Cache::remember('ticketit::priorities', 60, function () {
+        // seconds expected for L5.8<=, minutes before that
+        $time = LaravelVersion::min('5.8') ? 60*60 : 60;
+
+        $priorities = Cache::remember('ticketit::priorities', $time, function () {
             return Models\Priority::all();
         });
 
-        $categories = Cache::remember('ticketit::categories', 60, function () {
+        $categories = Cache::remember('ticketit::categories', $time, function () {
             return Models\Category::all();
         });
 
-        $statuses = Cache::remember('ticketit::statuses', 60, function () {
+        $statuses = Cache::remember('ticketit::statuses', $time, function () {
             return Models\Status::all();
         });
 

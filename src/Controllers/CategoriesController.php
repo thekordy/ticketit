@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Kordy\Ticketit\Models\Category;
+use Kordy\Ticketit\Helpers\LaravelVersion;
 
 class CategoriesController extends Controller
 {
@@ -16,7 +17,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = \Cache::remember('ticketit::categories', 60, function () {
+        // seconds expected for L5.8<=, minutes before that
+        $time = LaravelVersion::min('5.8') ? 60*60 : 60;
+        $categories = \Cache::remember('ticketit::categories', $time, function () {
             return Category::all();
         });
 

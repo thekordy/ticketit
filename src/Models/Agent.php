@@ -104,6 +104,8 @@ class Agent extends User
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
@@ -125,11 +127,9 @@ class Agent extends User
      */
     public static function isAssignedAgent($id)
     {
-        if (auth()->check() && Auth::user()->ticketit_agent) {
-            if (Auth::user()->id == Ticket::find($id)->agent->id) {
-                return true;
-            }
-        }
+        return auth()->check() &&
+        	Auth::user()->ticketit_agent &&
+            Auth::user()->id == Ticket::find($id)->agent->id;
     }
 
     /**
@@ -141,11 +141,9 @@ class Agent extends User
      */
     public static function isTicketOwner($id)
     {
-        if (auth()->check()) {
-            if (auth()->user()->id == Ticket::find($id)->user->id) {
-                return true;
-            }
-        }
+    	$ticket = Ticket::find($id);
+        return $ticket && auth()->check() &&
+            auth()->user()->id == $ticket->user->id;
     }
 
     /**

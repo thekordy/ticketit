@@ -9,7 +9,7 @@
         "illuminate/support": "^5.1|^6.0",
         "yajra/laravel-datatables-oracle": "^6.0|^8.0|^9.4",
         "jenssegers/date": "^3.0",
-        "mews/purifier": "^2.0",
+        "mews/purifier": "^2.0|^3.1",
         "doctrine/dbal": "^2.5|^2.6"
 
     },

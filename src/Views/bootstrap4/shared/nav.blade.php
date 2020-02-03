@@ -1,8 +1,8 @@
 <nav>
     <ul class="nav nav-pills">
         <li role="presentation" class="nav-item">
-            <a class="nav-link {!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}"
-                href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
+            <a class="nav-link {!! $tools->fullUrlIs(route(Kordy\Ticketit\Models\Setting::grab('main_route') . '.index')) ? "active" : "" !!}"
+                href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '.index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
                 <span class="badge badge-pill badge-secondary ">
                      <?php 
                         if ($u->isAdmin()) {
@@ -17,8 +17,8 @@
             </a>
         </li>
         <li role="presentation" class="nav-item">
-            <a class="nav-link {!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete')) ? "active" : "" !!}"
-                 href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
+            <a class="nav-link {!! $tools->fullUrlIs(route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-complete')) ? "active" : "" !!}"
+                 href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-complete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                 <span class="badge badge-pill badge-secondary">
                     <?php 
                         if ($u->isAdmin()) {

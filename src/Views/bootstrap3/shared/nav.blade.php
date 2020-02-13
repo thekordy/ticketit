@@ -1,8 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <ul class="nav nav-pills">
-            <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@index')) ? "active" : "" !!}">
-                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
+            <li role="presentation" class="{!! $tools->fullUrlIs(route(Kordy\Ticketit\Models\Setting::grab('main_route') . '.index')) ? "active" : "" !!}">
+                <a href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '.index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
                     <span class="badge">
                          <?php 
                             if ($u->isAdmin()) {
@@ -16,8 +16,8 @@
                     </span>
                 </a>
             </li>
-            <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete')) ? "active" : "" !!}">
-                <a href="{{ action('\Kordy\Ticketit\Controllers\TicketsController@indexComplete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
+            <li role="presentation" class="{!! $tools->fullUrlIs(route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-complete')) ? "active" : "" !!}">
+                <a href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-complete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                     <span class="badge">
                         <?php 
                             if ($u->isAdmin()) {

@@ -4,6 +4,7 @@ namespace Kordy\Ticketit\Middleware;
 
 use Closure;
 use Kordy\Ticketit\Models\Agent;
+use Kordy\Ticketit\Models\Setting;
 
 class IsAgentMiddleware
 {
@@ -21,7 +22,7 @@ class IsAgentMiddleware
             return $next($request);
         }
 
-        return redirect()->action('\Kordy\Ticketit\Controllers\TicketsController@index')
+        return redirect()->route(Setting::grab('main_route'). '.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-access'));
     }
 }

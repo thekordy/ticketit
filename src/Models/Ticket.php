@@ -3,222 +3,208 @@
 namespace Kordy\Ticketit\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Jenssegers\Date\Date;
+use Kordy\Ticketit\Contracts\Entities\TicketInterface;
 use Kordy\Ticketit\Traits\ContentEllipse;
+use Kordy\Ticketit\Traits\ModelCommon;
 use Kordy\Ticketit\Traits\Purifiable;
 
-class Ticket extends Model
+class Ticket extends Model implements TicketInterface
 {
-    use ContentEllipse;
-    use Purifiable;
+    use ModelCommon, ContentEllipse, Purifiable;
 
-    protected $table = 'ticketit';
     protected $dates = ['completed_at'];
 
-    /**
-     * List of completed tickets.
-     *
-     * @return bool
-     */
-    public function hasComments()
+	/**
+	 * @return string
+	 */
+	public function getTable()
     {
-        return (bool) count($this->comments);
+	    return config('ticketit.db.tickets');
     }
 
-    public function isComplete()
-    {
-        return (bool) $this->completed_at;
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setUserId(int $userId): TicketInterface
+	{
+		$this->user_id = $userId;
+		return $this;
+	}
 
-    /**
-     * List of completed tickets.
-     *
-     * @return Collection
-     */
-    public function scopeComplete($query)
-    {
-        return $query->whereNotNull('completed_at');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getUserId(): int
+	{
+		return $this->user_id;
+	}
 
-    /**
-     * List of active tickets.
-     *
-     * @return Collection
-     */
-    public function scopeActive($query)
-    {
-        return $query->whereNull('completed_at');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setUserType(string $userType): TicketInterface
+	{
+		$this->user_type = $userType;
+		return $this;
+	}
 
-    /**
-     * Get Ticket status.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function status()
-    {
-        return $this->belongsTo('Kordy\Ticketit\Models\Status', 'status_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getUserType(): string
+	{
+		return $this->user_type;
+	}
 
-    /**
-     * Get Ticket priority.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function priority()
-    {
-        return $this->belongsTo('Kordy\Ticketit\Models\Priority', 'priority_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setAgentId(?int $agentId): TicketInterface
+	{
+		$this->agent_id = $agentId;
+		return $this;
+	}
 
-    /**
-     * Get Ticket category.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
-    {
-        return $this->belongsTo('Kordy\Ticketit\Models\Category', 'category_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getAgentId(): ?int
+	{
+		return $this->agent_id;
+	}
 
-    /**
-     * Get Ticket owner.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo('App\User', 'user_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setSubject(string $subject): TicketInterface
+	{
+		$this->subject = $subject;
+		return $this;
+	}
 
-    /**
-     * Get Ticket agent.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function agent()
-    {
-        return $this->belongsTo('Kordy\Ticketit\Models\Agent', 'agent_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getSubject(): string
+	{
+		return $this->subject;
+	}
 
-    /**
-     * Get Ticket comments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
-    {
-        return $this->hasMany('Kordy\Ticketit\Models\Comment', 'ticket_id');
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setContent(string $content): TicketInterface
+	{
+		$this->content = $content;
+		return $this;
+	}
 
-//    /**
-    //     * Get Ticket audits
-    //     *
-    //     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    //     */
-    //    public function audits()
-    //    {
-    //        return $this->hasMany('Kordy\Ticketit\Models\Audit', 'ticket_id');
-    //    }
-    //
+	/**
+	 * @inheritDoc
+	 */
+	public function getContent(): string
+	{
+		return $this->content;
+	}
 
-    /**
-     * @see Illuminate/Database/Eloquent/Model::asDateTime
-     */
-    public function freshTimestamp()
-    {
-        return new Date();
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setHtml(?string $html): TicketInterface
+	{
+		$this->html = $html;
+		return $this;
+	}
 
-    /**
-     * @see Illuminate/Database/Eloquent/Model::asDateTime
-     */
-    protected function asDateTime($value)
-    {
-        if (is_numeric($value)) {
-            return Date::createFromTimestamp($value);
-        } elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value)) {
-            return Date::createFromFormat('Y-m-d', $value)->startOfDay();
-        } elseif (!$value instanceof \DateTimeInterface) {
-            $format = $this->getDateFormat();
+	/**
+	 * @inheritDoc
+	 */
+	public function getHtml(): ?string
+	{
+		return $this->html;
+	}
 
-            return Date::createFromFormat($format, $value);
-        }
+	/**
+	 * @inheritDoc
+	 */
+	public function setStatusId(int $statusId): TicketInterface
+	{
+		$this->status_id = $statusId;
+		return $this;
+	}
 
-        return Date::instance($value);
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getStatusId(): int
+	{
+		return $this->status_id;
+	}
 
-    /**
-     * Get all user tickets.
-     *
-     * @param $query
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function scopeUserTickets($query, $id)
-    {
-        return $query->where('user_id', $id);
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setPriorityId(int $priorityId): TicketInterface
+	{
+		$this->priority_id = $priorityId;
+		return $this;
+	}
 
-    /**
-     * Get all agent tickets.
-     *
-     * @param $query
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function scopeAgentTickets($query, $id)
-    {
-        return $query->where('agent_id', $id);
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getPriorityId(): int
+	{
+		return $this->priority_id;
+	}
 
-    /**
-     * Get all agent tickets.
-     *
-     * @param $query
-     * @param $id
-     *
-     * @return mixed
-     */
-    public function scopeAgentUserTickets($query, $id)
-    {
-        return $query->where(function ($subquery) use ($id) {
-            $subquery->where('agent_id', $id)->orWhere('user_id', $id);
-        });
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function setCategoryId(int $categoryId): TicketInterface
+	{
+		$this->category_id = $categoryId;
+		return $this;
+	}
 
-    /**
-     * Sets the agent with the lowest tickets assigned in specific category.
-     *
-     * @return Ticket
-     */
-    public function autoSelectAgent()
-    {
-        $cat_id = $this->category_id;
-        $agents = Category::find($cat_id)->agents()->with(['agentOpenTickets' => function ($query) {
-            $query->addSelect(['id', 'agent_id']);
-        }])->get();
-        $count = 0;
-        $lowest_tickets = 1000000;
-        // If no agent selected, select the admin
-        $first_admin = Agent::admins()->first();
-        $selected_agent_id = $first_admin->id;
-        foreach ($agents as $agent) {
-            if ($count == 0) {
-                $lowest_tickets = $agent->agentOpenTickets->count();
-                $selected_agent_id = $agent->id;
-            } else {
-                $tickets_count = $agent->agentOpenTickets->count();
-                if ($tickets_count < $lowest_tickets) {
-                    $lowest_tickets = $tickets_count;
-                    $selected_agent_id = $agent->id;
-                }
-            }
-            $count++;
-        }
-        $this->agent_id = $selected_agent_id;
+	/**
+	 * @inheritDoc
+	 */
+	public function getCategoryId(): int
+	{
+		return $this->category_id;
+	}
 
-        return $this;
-    }
+	/**
+	 * @inheritDoc
+	 */
+	public function getCreatedAt(): \Carbon\Carbon
+	{
+		return $this->created_at;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getUpdatedAt(): \Carbon\Carbon
+	{
+		return $this->updated_at;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setCompletedAt(?\DateTime $dateTime): TicketInterface
+	{
+		$this->completed_at = $dateTime;
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getCompletedAt(): ?\Carbon\Carbon
+	{
+		return $this->completed_at;
+	}
 }

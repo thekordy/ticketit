@@ -1,17 +1,15 @@
 {
     "name": "kordy/ticketit",
-    "description": "A simple helpdesk tickets system for Laravel 5.1 – 5.8 and 6.* which integrates smoothly with Laravel default users and auth system",
-    "type": "laravel-package",
+    "description": "A simple helpdesk tickets system for Laravel 6.* which integrates smoothly with Laravel default users and auth system",
+    "type": "library",
     "keywords": ["laravel","helpdesk", "ticket", "support"],
     "require": {
-        "laravel/framework": "^5.1|^6.0",
-        "laravelcollective/html": "^5.1|^6.0",
-        "illuminate/support": "^5.1|^6.0",
-        "yajra/laravel-datatables-oracle": "^6.0|^8.0|^9.4",
-        "jenssegers/date": "^3.0",
-        "mews/purifier": "^2.0|^3.1",
-        "doctrine/dbal": "^2.5|^2.6"
-
+        "ext-json": "*",
+        "php": ">=7.3",
+        "doctrine/dbal": "^2.10.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0"
     },
     "license": "MIT",
     "authors": [
@@ -26,7 +24,23 @@
     ],
     "autoload": {
         "psr-4": {
+            "Kordy\\TicketingSkeleton\\": "src/Contracts",
             "Kordy\\Ticketit\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kordy\\Ticketit\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kordy\\Ticketit\\TicketitServiceProvider"
+            ]
         }
     }
 }

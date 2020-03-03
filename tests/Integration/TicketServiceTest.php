@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Kordy\Ticketit\Contracts\Entities\TicketInterface;
 use Kordy\Ticketit\Contracts\Services\TicketOperationsInterface;
+use Kordy\Ticketit\Dto\TicketQuery;
 use Kordy\Ticketit\Exceptions\TicketNotFoundException;
 use Kordy\Ticketit\Models\Agent;
 use Kordy\Ticketit\Models\Ticket;
@@ -15,13 +16,13 @@ class TicketServiceTest extends TestCase
 	/**
 	 * @var TicketOperationsInterface
 	 */
-	private $ticketService;
+	private $ticketOperations;
 
 	public function setUp(): void
 	{
 		parent::setUp();
 
-		$this->ticketService = $this->app->make(TicketOperationsInterface::class);
+		$this->ticketOperations = $this->app->make(TicketOperationsInterface::class);
 
 		$this->loadLaravelMigrations();
 		$this->artisan('migrate')->run();
@@ -30,16 +31,16 @@ class TicketServiceTest extends TestCase
 
 	public function testCreateNewUserTicketWithAgentInformationProvided()
     {
-	    $userId = 1;
-	    $agentId = 2;
 	    /** @var TicketInterface $ticketData */
-	    $ticketData = factory(Ticket::class)->make();
+	    $ticketData = factory(Ticket::class)->make(
+	    	[
+	    		'user_id' => 1,
+			    'agent_id' => 2
+		    ]
+	    );
 
 	    /** @var TicketInterface $ticket */
-	    $ticket = $this->ticketService->createUserTicket($ticketData, $userId, $agentId);
-	    $ticketData->setUserId($userId);
-	    $ticketData->setUserType(TicketInterface::OWNER_TYPE_USER);
-	    $ticketData->setAgentId($agentId);
+	    $ticket = $this->ticketOperations->create($ticketData);
 
 	    $this->assertEquals($ticketData, $ticket);
 	    $this->assertInstanceOf(Carbon::class, $ticketData->getCreatedAt());
@@ -85,15 +86,15 @@ class TicketServiceTest extends TestCase
 	    ]);
 
     	// Create new ticket with no agent id, so an agent is automatically picked
-	    $userId = 1;
 	    /** @var TicketInterface $ticketData */
 	    $ticketData = factory(Ticket::class)->make([
 		    'category_id' => 1,
-	    	'agent_id' => null
+	    	'agent_id' => null,
+		    'user_id' => 1
 	    ]);
 
 	    /** @var TicketInterface $ticket */
-	    $ticket = $this->ticketService->createUserTicket($ticketData, $userId);
+	    $ticket = $this->ticketOperations->create($ticketData);
 
 	    $this->assertSame($agents->get(0)->id, $ticket->getAgentId());
     }
@@ -101,14 +102,90 @@ class TicketServiceTest extends TestCase
 	public function testReadANonExistentTicketByTicketIdThrowsNotFoundException()
     {
     	$this->expectException(TicketNotFoundException::class);
-	    $this->ticketService->getTicketById(1);
+	    $this->ticketOperations->findTicketById(1);
     }
 
 	public function testReadATicketByTicketId()
     {
 	    $ticketData = factory(Ticket::class)->create();
-	    $ticket =  $this->ticketService->getTicketById(1);
+	    $ticket =  $this->ticketOperations->findTicketById(1);
 
 	    $this->assertEquals($ticketData->toArray(), $ticket->toArray());
     }
+
+    // list all tickets
+	public function testListAllTickets()
+	{
+		factory(Ticket::class, 3)->create();
+
+		$this->assertCount(3, $this->ticketOperations->find());
+	}
+
+	// list open tickets by user and category ids
+	public function testListOpenTickets()
+	{
+		factory(Ticket::class, 2)->create([
+			'status_id' => 1,
+			'user_id' => 2,
+			'category_id' => 3,
+		]);
+		factory(Ticket::class, 3)->create(['status_id' => 2]);
+
+		$query = new TicketQuery();
+		$query->statusId(1) // todo change to a method $query->closed() and use setting default_closed_id
+			->userId(2)
+			->categoryId(3);
+
+		$this->assertCount(2, $this->ticketOperations->find($query));
+	}
+
+	public function testListTicketsWithPagination()
+	{
+		factory(Ticket::class, 5)->create();
+
+		$query = new TicketQuery();
+		$query->setOffset(1)
+			->setLimit(2);
+
+		$results = $this->ticketOperations->find($query);
+
+		$this->assertCount(2, $results);
+	}
+
+	public function testListTicketsWithSorting()
+	{
+		factory(Ticket::class, 5)->create();
+
+		$query = new TicketQuery();
+
+		$this->assertSame(1, $this->ticketOperations->find($query)[0]->getId());
+
+		$query->setOrderBy(['id', 'desc']);
+
+		$this->assertSame(5, $this->ticketOperations->find($query)[0]->getId());
+	}
+
+	public function testUpdateTicket()
+	{
+		factory(Ticket::class, 1)->create();
+
+		$newSubject = 'updated subject';
+		$this->ticketOperations->update(1, ['subject' => $newSubject]);
+
+		$this->assertDatabaseHas('ticketit', [
+			'id' => 1,
+			'subject' => $newSubject
+		]);
+	}
+
+	public function testDeleteTicket()
+	{
+		factory(Ticket::class, 1)->create();
+
+		$this->ticketOperations->delete(1);
+
+		$this->assertDatabaseMissing('ticketit', [
+			'id' => 1
+		]);
+	}
 }

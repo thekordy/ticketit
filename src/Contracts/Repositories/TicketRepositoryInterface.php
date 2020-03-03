@@ -2,6 +2,7 @@
 
 namespace Kordy\Ticketit\Contracts\Repositories;
 
+use Kordy\Ticketit\Contracts\Dto\TicketQueryInterface;
 use Kordy\Ticketit\Contracts\Entities\TicketInterface;
 use Kordy\Ticketit\Exceptions\TicketNotFoundException;
 use Kordy\Ticketit\Exceptions\TicketServiceException;
@@ -19,13 +20,28 @@ interface TicketRepositoryInterface
 	public function create(TicketInterface $ticketData): TicketInterface;
 
 	/**
-	 * Find a ticket by its id.
+	 * Update ticket data in DB.
 	 *
-	 * @param int $id
+	 * @param int   $id
+	 * @param array $data
 	 *
 	 * @return TicketInterface
-	 * @throws TicketNotFoundException
-	 * @throws TicketServiceException
 	 */
-	public function find(int $id): TicketInterface;
+	public function update(int $id, array $data): TicketInterface;
+
+	/**
+	 * Find all tickets providing search values in TicketInterface object.
+	 *
+	 * @param TicketQueryInterface|null $ticketsQuery
+	 *
+	 * @return TicketInterface[]
+	 */
+	public function find(TicketQueryInterface $ticketsQuery = null): array;
+
+	/**
+	 * @param int $id
+	 *
+	 * @return void
+	 */
+	public function delete(int $id);
 }

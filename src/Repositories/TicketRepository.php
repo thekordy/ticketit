@@ -5,10 +5,10 @@ namespace Kordy\Ticketit\Repositories;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
+use Kordy\Ticketit\Contracts\Dto\TicketQueryInterface;
 use Kordy\Ticketit\Contracts\Entities\TicketInterface;
 use Kordy\Ticketit\Contracts\Repositories\TicketRepositoryInterface;
-use Kordy\Ticketit\Exceptions\TicketNotFoundException;
-use Kordy\Ticketit\Exceptions\TicketServiceException;
+use Kordy\Ticketit\Dto\TicketQuery;
 
 class TicketRepository implements TicketRepositoryInterface
 {
@@ -25,30 +25,6 @@ class TicketRepository implements TicketRepositoryInterface
 	/**
 	 * @inheritDoc
 	 */
-	public function find(int $id): TicketInterface
-	{
-		$ticket = $this->getQueryBuilder()->find($id);
-
-		switch (true) {
-
-			case is_null($ticket):
-				throw new TicketNotFoundException("Could not find any ticket with id $id");
-
-			case $ticket instanceof TicketInterface:
-				return $ticket;
-
-			case is_object($ticket) || is_array($ticket):
-				$ticketData = is_array($ticket) ? $ticket : json_decode(json_encode($ticket), true);
-				return $this->ticketModel::fromArray($ticketData);
-
-			default:
-				throw new TicketServiceException('Unknown data type.');
-		}
-	}
-
-	/**
-	 * @inheritDoc
-	 */
 	public function create(TicketInterface $ticketData): TicketInterface
 	{
 		if ($ticketData instanceof Model) {
@@ -59,7 +35,62 @@ class TicketRepository implements TicketRepositoryInterface
 
 		$id = $this->getQueryBuilder()->insertGetId($ticketData->toArray());
 
-		return $this->find($id);
+		return $this->find((new TicketQuery())->id($id))[0];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function update(int $id, array $data): TicketInterface
+	{
+		$this->getQueryBuilder()->where('id', $id)
+			->update($data);
+
+		return $this->find((new TicketQuery())->id($id))[0];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function delete(int $id)
+	{
+		$this->getQueryBuilder()->where('id', $id)
+			->delete();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function find(TicketQueryInterface $ticketsQuery = null): array
+	{
+		$qb = $this->getQueryBuilder();
+
+		if ($ticketsQuery) {
+			foreach ($ticketsQuery->getSearchParameters() as $attribute) {
+				$qb->where($attribute['field'], $attribute['operator'], $attribute['value']);
+			}
+
+			if ($ticketsQuery->getOffset()) {
+				$qb->offset($ticketsQuery->getOffset());
+			}
+
+			if ($ticketsQuery->getLimit()) {
+				$qb->limit($ticketsQuery->getLimit());
+			}
+
+			if (!empty($order = $ticketsQuery->getOrderBy())) {
+				$qb->orderBy($order[0], $order[1]);
+			}
+		}
+
+		$results = $qb->get();
+		$tickets = [];
+
+		foreach ($results as $result) {
+			$tickets[] = $this->ticketModel::fromArray($this->convertObjectToArray($result));
+		}
+
+		return $tickets;
 	}
 
 	/**
@@ -69,4 +100,14 @@ class TicketRepository implements TicketRepositoryInterface
 	{
 		return DB::table($this->ticketModel->getTable());
 	}
+
+	/**
+	 * @param $ticket
+	 *
+	 * @return array
+	 */
+	private function convertObjectToArray(\stdClass $ticket): array
+	{
+		return json_decode(json_encode($ticket), true);
+}
 }

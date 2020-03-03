@@ -2,10 +2,13 @@
 
 namespace Kordy\Ticketit\Services;
 
+use Kordy\Ticketit\Contracts\Dto\TicketQueryInterface;
 use Kordy\Ticketit\Contracts\Entities\TicketInterface;
 use Kordy\Ticketit\Contracts\Repositories\AgentRepositoryInterface;
 use Kordy\Ticketit\Contracts\Repositories\TicketRepositoryInterface;
 use Kordy\Ticketit\Contracts\Services\TicketOperationsInterface;
+use Kordy\Ticketit\Dto\TicketQuery;
+use Kordy\Ticketit\Exceptions\TicketNotFoundException;
 use Kordy\Ticketit\Exceptions\TicketServiceException;
 
 class TicketOperationsService implements TicketOperationsInterface
@@ -38,29 +41,55 @@ class TicketOperationsService implements TicketOperationsInterface
 	 * @inheritDoc
 	 * @throws TicketServiceException
 	 */
-	public function createUserTicket(
-		TicketInterface $ticketData,
-	    int $userId,
-	    int $agentId = null
-	): TicketInterface
+	public function create(TicketInterface $ticketData): TicketInterface
 	{
-		$ticketData->setUserId($userId);
-		$ticketData->setUserType(TicketInterface::OWNER_TYPE_USER);
-
-		if (is_null($agentId) && is_null($ticketData->getAgentId())) {
+		if (is_null($agentId = $ticketData->getAgentId())) {
 			$agentId = $this->agentRepository->pickAgentForTicket($ticketData)->getId();
+			$ticketData->setAgentId($agentId);
 		}
-
-		$ticketData->setAgentId($agentId);
 
 		return $this->ticketRepository->create($ticketData);
 	}
 
 	/**
 	 * @inheritDoc
+	 * @throws TicketServiceException
 	 */
-	public function getTicketById(int $id): TicketInterface
+	public function update(int $id, array $data): TicketInterface
 	{
-		return $this->ticketRepository->find($id);
+		return $this->ticketRepository->update($id, $data);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function delete(int $id)
+	{
+		$this->ticketRepository->delete($id);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function findTicketById(int $id): TicketInterface
+	{
+		$query = new TicketQuery();
+		$query->id($id);
+
+		$ticket = $this->ticketRepository->find($query);
+
+		if (empty($ticket)) {
+			throw new TicketNotFoundException("Ticket id $id is not found.");
+		}
+
+		return $ticket[0];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function find(TicketQueryInterface $ticketQuery = null): array
+	{
+		return $this->ticketRepository->find($ticketQuery);
 	}
 }

@@ -13,7 +13,11 @@ trait ModelCommon
 
 		foreach ($data as $key => $value) {
 			$colNameCamelCase = str_replace('_', '', ucwords($key, '_'));
-			$model->{'set'.$colNameCamelCase}($value);
+			$methodName = 'set' . $colNameCamelCase;
+
+			if (method_exists($model, $methodName)) {
+				$model->{$methodName}($value);
+			}
 		}
 
 		return $model;

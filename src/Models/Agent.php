@@ -25,7 +25,8 @@ class Agent extends Model implements AgentInterface
 	 */
 	public function setName(string $name)
 	{
-		// TODO: Implement setName() method.
+		$this->name = $name;
+		return $this;
 	}
 
 	/**
@@ -33,7 +34,7 @@ class Agent extends Model implements AgentInterface
 	 */
 	public function getName(): string
 	{
-		// TODO: Implement getName() method.
+		return $this->name;
 	}
 
 	/**
@@ -41,7 +42,8 @@ class Agent extends Model implements AgentInterface
 	 */
 	public function setEmail(string $email)
 	{
-		// TODO: Implement setEmail() method.
+		$this->email = $email;
+		return $this;
 	}
 
 	/**
@@ -49,6 +51,6 @@ class Agent extends Model implements AgentInterface
 	 */
 	public function getEmail(): string
 	{
-		// TODO: Implement getEmail() method.
+		return $this->email;
 	}
 }

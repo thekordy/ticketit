@@ -120,9 +120,9 @@ class TicketitTableSeeder extends Seeder
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
 
                 if (version_compare(app()->version(), '5.2.0', '>=')) {
-                    $agents = $category->agents()->pluck('first_name', 'id')->toArray();
+                    $agents = $category->agents()->get()->pluck('name', 'id')->toArray();
                 } else { // if Laravel 5.1
-                    $agents = $category->agents()->lists('first_name', 'id')->toArray();
+                    $agents = $category->agents()->get()->lists('name', 'id')->toArray();
                 }
 
                 $agent_id = array_rand($agents);

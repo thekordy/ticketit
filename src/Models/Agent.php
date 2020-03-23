@@ -78,9 +78,9 @@ class Agent extends User
     public function scopeAgentsLists($query)
     {
         if (version_compare(app()->version(), '5.2.0', '>=')) {
-            return $query->where('ticketit_agent', '1')->pluck('first_name', 'id')->toArray();
+            return $query->where('ticketit_agent', '1')->get()->pluck('name', 'id')->toArray();
         } else { // if Laravel 5.1
-            return $query->where('ticketit_agent', '1')->lists('first_name', 'id')->toArray();
+            return $query->where('ticketit_agent', '1')->get()->lists('name', 'id')->toArray();
         }
     }
 

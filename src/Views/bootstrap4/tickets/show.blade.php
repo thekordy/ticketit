@@ -11,12 +11,12 @@
             {!! link_to_route($setting->grab('main_route').'.reopen', trans('ticketit::lang.reopen-ticket'), $ticket->id,
                                 ['class' => 'btn btn-success']) !!}
     @endif
-    @if($u->isAgent() || $u->isAdmin())
+    @if($u->isAgent() || $u->isTicketitAdmin())
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ticket-edit-modal">
             {{ trans('ticketit::lang.btn-edit')  }}
         </button>
     @endif
-    @if($u->isAdmin())
+    @if($u->isTicketitAdmin())
         @if($setting->grab('delete_modal_type') == 'builtin')
             {!! link_to_route(
                             $setting->grab('main_route').'.destroy', trans('ticketit::lang.btn-delete'), $ticket->id,

@@ -113,7 +113,7 @@ class Agent extends User
      *
      * @return bool
      */
-    public static function isAdmin()
+    public static function isTicketitAdmin()
     {
         return auth()->check() && auth()->user()->ticketit_admin;
     }
@@ -204,7 +204,7 @@ class Agent extends User
     {
         $user = self::find(auth()->user()->id);
 
-        if ($user->isAdmin()) {
+        if ($user->isTicketitAdmin()) {
             $tickets = $user->allTickets($complete);
         } elseif ($user->isAgent()) {
             $tickets = $user->agentTickets($complete);

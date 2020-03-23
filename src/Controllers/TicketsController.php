@@ -38,7 +38,7 @@ class TicketsController extends Controller
 
         $user = $this->agent->find(auth()->user()->id);
 
-        if ($user->isAdmin()) {
+        if ($user->isTicketitAdmin()) {
             if ($complete) {
                 $collection = Ticket::complete();
             } else {
@@ -412,7 +412,7 @@ class TicketsController extends Controller
     {
         $close_ticket_perm = Setting::grab('close_ticket_perm');
 
-        if ($this->agent->isAdmin() && $close_ticket_perm['admin'] == 'yes') {
+        if ($this->agent->isTicketitAdmin() && $close_ticket_perm['admin'] == 'yes') {
             return 'yes';
         }
         if ($this->agent->isAgent() && $close_ticket_perm['agent'] == 'yes') {
@@ -433,7 +433,7 @@ class TicketsController extends Controller
     public function permToReopen($id)
     {
         $reopen_ticket_perm = Setting::grab('reopen_ticket_perm');
-        if ($this->agent->isAdmin() && $reopen_ticket_perm['admin'] == 'yes') {
+        if ($this->agent->isTicketitAdmin() && $reopen_ticket_perm['admin'] == 'yes') {
             return 'yes';
         } elseif ($this->agent->isAgent() && $reopen_ticket_perm['agent'] == 'yes') {
             return 'yes';

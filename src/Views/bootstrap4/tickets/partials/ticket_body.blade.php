@@ -46,12 +46,12 @@
 {!! CollectiveForm::close() !!}
 
 
-@if($u->isAgent() || $u->isAdmin())
+@if($u->isAgent() || $u->isTicketitAdmin())
     @include('ticketit::tickets.edit')
 @endif
 
 {{-- // OR; Modal Window: 2/2 --}}
-@if($u->isAdmin())
+@if($u->isTicketitAdmin())
     @include('ticketit::tickets.partials.modal-delete-confirm')
 @endif
 {{-- // END Modal Window: 2/2 --}}

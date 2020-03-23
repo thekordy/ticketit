@@ -18,7 +18,7 @@ class IsAgentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Agent::isAgent() || Agent::isAdmin()) {
+        if (Agent::isAgent() || Agent::isTicketitAdmin()) {
             return $next($request);
         }
 

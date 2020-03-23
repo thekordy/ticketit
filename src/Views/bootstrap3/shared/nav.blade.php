@@ -5,7 +5,7 @@
                 <a href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '.index') }}">{{ trans('ticketit::lang.nav-active-tickets') }}
                     <span class="badge">
                          <?php 
-                            if ($u->isAdmin()) {
+                            if ($u->isTicketitAdmin()) {
                                 echo Kordy\Ticketit\Models\Ticket::active()->count();
                             } elseif ($u->isAgent()) {
                                 echo Kordy\Ticketit\Models\Ticket::active()->agentUserTickets($u->id)->count();
@@ -20,7 +20,7 @@
                 <a href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-complete') }}">{{ trans('ticketit::lang.nav-completed-tickets') }}
                     <span class="badge">
                         <?php 
-                            if ($u->isAdmin()) {
+                            if ($u->isTicketitAdmin()) {
                                 echo Kordy\Ticketit\Models\Ticket::complete()->count();
                             } elseif ($u->isAgent()) {
                                 echo Kordy\Ticketit\Models\Ticket::complete()->agentUserTickets($u->id)->count();
@@ -32,7 +32,7 @@
                 </a>
             </li>
 
-            @if($u->isAdmin())
+            @if($u->isTicketitAdmin())
                 <li role="presentation" class="{!! $tools->fullUrlIs(action('\Kordy\Ticketit\Controllers\DashboardController@index')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
                     <a href="{{ action('\Kordy\Ticketit\Controllers\DashboardController@index') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
                 </li>

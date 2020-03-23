@@ -18,7 +18,7 @@ class IsAdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Agent::isAdmin()) {
+        if (Agent::isTicketitAdmin()) {
             return $next($request);
         }
 

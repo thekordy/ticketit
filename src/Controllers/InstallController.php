@@ -61,7 +61,7 @@ class InstallController extends Controller
         }
 
         // other than that, Upgrade to a new version, installing new migrations and new settings slugs
-        if (Agent::isAdmin()) {
+        if (Agent::isTicketitAdmin()) {
             $inactive_migrations = $this->inactiveMigrations();
             $inactive_settings = $this->inactiveSettings();
 
@@ -99,7 +99,7 @@ class InstallController extends Controller
 
     public function upgrade()
     {
-        if (Agent::isAdmin()) {
+        if (Agent::isTicketitAdmin()) {
             $this->initialSettings();
 
             return redirect('/'.Setting::grab('main_route'));

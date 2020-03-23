@@ -6,7 +6,7 @@
             <td>{{ trans('ticketit::lang.table-status') }}</td>
             <td>{{ trans('ticketit::lang.table-last-updated') }}</td>
             <td>{{ trans('ticketit::lang.table-agent') }}</td>
-          @if( $u->isAgent() || $u->isAdmin() )
+          @if( $u->isAgent() || $u->isTicketitAdmin() )
             <td>{{ trans('ticketit::lang.table-priority') }}</td>
             <td>{{ trans('ticketit::lang.table-owner') }}</td>
             <td>{{ trans('ticketit::lang.table-category') }}</td>

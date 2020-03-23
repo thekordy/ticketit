@@ -12,7 +12,7 @@
             </div>
             <div class="modal-body">
                 <div class="col-sm-12">
-                    {{--@if($u->isAdmin())--}}
+                    {{--@if($u->isTicketitAdmin())--}}
                     <div class="form-group">
                         {!! CollectiveForm::text('subject', $ticket->subject, ['class' => 'form-control', 'required']) !!}
                     </div>

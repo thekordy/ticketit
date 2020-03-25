@@ -46,6 +46,8 @@ return [
   'btn-delete'                       => 'Удалить',
   'btn-edit'                         => 'Редактировать',
   'btn-mark-complete'                => 'Пометить выполненным',
+  'btn-mark-public'                  => 'Отметить как общедоступный',
+  'btn-mark-unpublic'                => 'Отметить как не публичную',
   'btn-submit'                       => 'Отправить',
 
   'agent'                            => 'Агент',
@@ -137,6 +139,8 @@ return [
   'the-ticket-has-been-modified'     => 'Тикет обновлен!',
   'the-ticket-has-been-deleted'      => 'Тикет :name удален!',
   'the-ticket-has-been-completed'    => 'Тикет :name выполнен!',
+  'the-ticket-has-been-set-public'    => 'Тикет :name установлено публично!',
+  'the-ticket-has-been-set-unpublic'    => 'Билет :name  не публично!',
   'the-ticket-has-been-reopened'     => 'Тикет :name повторно открыт!',
   'you-are-not-permitted-to-do-this' => 'Нет доступа к этому действию!',
 

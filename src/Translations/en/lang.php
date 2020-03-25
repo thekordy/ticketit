@@ -46,6 +46,8 @@ return [
   'btn-delete'                       => 'Delete',
   'btn-edit'                         => 'Edit',
   'btn-mark-complete'                => 'Mark Complete',
+  'btn-mark-public'                  => 'Mark Public',
+  'btn-mark-unpublic'                => 'Mark Not Public',
   'btn-submit'                       => 'Submit',
 
   'agent'                            => 'Agent',
@@ -137,6 +139,8 @@ return [
   'the-ticket-has-been-modified'     => 'The ticket has been modified!',
   'the-ticket-has-been-deleted'      => 'The ticket :name has been deleted!',
   'the-ticket-has-been-completed'    => 'The ticket :name has been completed!',
+  'the-ticket-has-been-set-public'   => 'The ticket :name has been set public!',
+  'the-ticket-has-been-set-unpublic' => 'The ticket :name has been set unpublic!',
   'the-ticket-has-been-reopened'     => 'The ticket :name has been reopened!',
   'you-are-not-permitted-to-do-this' => 'You are not permitted to do this action!',
 

@@ -47,6 +47,8 @@ return [
   'btn-delete'                       => 'Törlés',
   'btn-edit'                         => 'Szerkesztés',
   'btn-mark-complete'                => 'Megjelölés lezártként',
+  'btn-mark-public'                  => 'Megjelölés nyilvánosként',
+  'btn-mark-unpublic'                => 'Megjelölés nem nyilvános',
   'btn-submit'                       => 'Küldés',
 
   'agent'                            => 'Ügynök',
@@ -136,6 +138,8 @@ return [
   'the-ticket-has-been-modified'     => 'Kérelem módosítva!',
   'the-ticket-has-been-deleted'      => ':name kérelem törölve!',
   'the-ticket-has-been-completed'    => ':name kérelem lezárva!',
+  'the-ticket-has-been-set-public' => ':name kérelem nyilvános!',
+  'the-ticket-has-been-set-unpublic' => ':name kérelem nem nyilvános',
   'the-ticket-has-been-reopened'     => ':name kérelem újra meg lett nyitva!',
   'you-are-not-permitted-to-do-this' => 'Nincs jogosultsága a művelethez.',
 

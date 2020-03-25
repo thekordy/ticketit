@@ -46,6 +46,8 @@ return [
     'btn-delete'                       => 'Excluir',
     'btn-edit'                         => 'Editar',
     'btn-mark-complete'                => 'Concluido',
+    'btn-mark-public'                  => 'Definir público',
+    'btn-mark-unpublic'                => 'Definir não público',
     'btn-submit'                       => 'Enviar',
 
     'agent'                            => 'Agente',
@@ -142,6 +144,8 @@ return [
     'the-ticket-has-been-modified'     => 'O Chamado foi Modificado!',
     'the-ticket-has-been-deleted'      => 'O Chamado :name foi Excluido!',
     'the-ticket-has-been-completed'    => 'O Chamado :name foi Finalizado!',
+    'the-ticket-has-been-set-public'    => 'O Chamado :name é público!',
+    'the-ticket-has-been-set-unpublic'    => 'O Chamado :name não é público!',
     'the-ticket-has-been-reopened'     => 'O Chamado :name foi Re-aberto!',
     'you-are-not-permitted-to-do-this' => 'Você não tem permissão para esta Ação!',
 

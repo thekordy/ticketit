@@ -46,6 +46,8 @@ return [
   'btn-delete'                       => 'Verwijderen',
   'btn-edit'                         => 'Bewerken',
   'btn-mark-complete'                => 'Als afgerond markeren',
+  'btn-mark-public'                  => 'Markeer als openbaar',
+  'btn-mark-unpublic'                => 'Markeren als niet openbaar',
   'btn-submit'                       => 'Versturen',
 
   'agent'                            => 'Medewerker',
@@ -137,6 +139,8 @@ return [
   'the-ticket-has-been-modified'     => 'Het ticket is aangepast!',
   'the-ticket-has-been-deleted'      => 'Ticket :name is verwijderd!',
   'the-ticket-has-been-completed'    => 'Ticket :name is afgerond!',
+  'the-ticket-has-been-set-public'   => 'Ticket: name er offentlig!',
+  'the-ticket-has-been-set-unpublic' => 'Ticket: name er ikke offentlig!',
   'the-ticket-has-been-reopened'     => 'Ticket :name is heropend!',
   'you-are-not-permitted-to-do-this' => 'Jij hebt hier geen rechten toe!',
 

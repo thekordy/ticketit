@@ -47,6 +47,8 @@ return [
   'btn-delete'                       => 'Borrar',
   'btn-edit'                         => 'Editar',
   'btn-mark-complete'                => 'Marcar com Completo',
+  'btn-mark-public'                  => 'Marcar como pública',
+  'btn-mark-unpublic'                => 'Marcar como no pública',
   'btn-submit'                       => 'Enviar',
 
   'agent'                            => 'Agente',
@@ -138,6 +140,8 @@ return [
   'the-ticket-has-been-modified'     => 'El tiquete fue modificado!',
   'the-ticket-has-been-deleted'      => 'El tiquete :name fue borrado!',
   'the-ticket-has-been-completed'    => 'El tiquete :name fue completado!',
+  'the-ticket-has-been-set-public'   => 'El tiquete :name fue público!',
+  'the-ticket-has-been-set-unpublic' => 'El tiquete: nombre fue no público!',
   'the-ticket-has-been-reopened'     => 'El tiquete :name fue reabierto!',
   'you-are-not-permitted-to-do-this' => 'No tienes los permisos necesarios para realizar esta acción!',
 

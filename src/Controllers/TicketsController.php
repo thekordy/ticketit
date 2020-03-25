@@ -37,8 +37,9 @@ class TicketsController extends Controller
         }
 
         $user = $this->agent->find(auth()->user()->id);
-
-        if ($user->isTicketitAdmin()) {
+        if ($public) {
+            $collection = Ticket::public();
+        } else if ($user->isTicketitAdmin()) {
             if ($complete) {
                 $collection = Ticket::complete();
             } else {
@@ -51,9 +52,7 @@ class TicketsController extends Controller
                 $collection = Ticket::active()->agentUserTickets($user->id);
             }
         } else {
-            if ($public) {
-                $collection = Ticket::public();
-            }else if ($complete) {
+            if ($complete) {
                 $collection = Ticket::userTickets($user->id)->complete();
             } else {
                 $collection = Ticket::userTickets($user->id)->active();
@@ -99,7 +98,7 @@ class TicketsController extends Controller
     {
         $collection->editColumn('subject', function ($ticket) {
             return (string) link_to_route(
-                Setting::grab('main_route').'.show',
+                Setting::grab('main_route') . '.show',
                 $ticket->subject,
                 $ticket->id
             );
@@ -180,7 +179,7 @@ class TicketsController extends Controller
     protected function PCS()
     {
         // seconds expected for L5.8<=, minutes before that
-        $time = LaravelVersion::min('5.8') ? 60*60 : 60;
+        $time = LaravelVersion::min('5.8') ? 60 * 60 : 60;
 
         $priorities = Cache::remember('ticketit::priorities', $time, function () {
             return Models\Priority::all();
@@ -274,9 +273,19 @@ class TicketsController extends Controller
 
         $comments = $ticket->comments()->paginate(Setting::grab('paginate_items'));
 
-        return view('ticketit::tickets.show',
-            compact('ticket', 'status_lists', 'priority_lists', 'category_lists', 'agent_lists', 'comments',
-                'close_perm', 'reopen_perm'));
+        return view(
+            'ticketit::tickets.show',
+            compact(
+                'ticket',
+                'status_lists',
+                'priority_lists',
+                'category_lists',
+                'agent_lists',
+                'comments',
+                'close_perm',
+                'reopen_perm'
+            )
+        );
     }
 
     /**
@@ -318,7 +327,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-modified'));
 
-        return redirect()->route(Setting::grab('main_route').'.show', $id);
+        return redirect()->route(Setting::grab('main_route') . '.show', $id);
     }
 
     /**
@@ -336,7 +345,7 @@ class TicketsController extends Controller
 
         session()->flash('status', trans('ticketit::lang.the-ticket-has-been-deleted', ['name' => $subject]));
 
-        return redirect()->route(Setting::grab('main_route').'.index');
+        return redirect()->route(Setting::grab('main_route') . '.index');
     }
 
     /**
@@ -361,10 +370,58 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-completed', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route').'.index');
+            return redirect()->route(Setting::grab('main_route') . '.index');
         }
 
-        return redirect()->route(Setting::grab('main_route').'.index')
+        return redirect()->route(Setting::grab('main_route') . '.index')
+            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+    }
+    /**
+     * Mark ticket as public.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function public($id)
+    {
+        if ($this->agent->isTicketitAdmin()) {
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->is_public = true;
+
+            $subject = $ticket->subject;
+            $ticket->save();
+
+            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-set-public', ['name' => $subject]));
+
+            return redirect()->route(Setting::grab('main_route') . '.index');
+        }
+
+        return redirect()->route(Setting::grab('main_route') . '.index')
+            ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
+    }
+    /**
+     * Mark ticket as unpublic.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function unpublic($id)
+    {
+        if ($this->agent->isTicketitAdmin()) {
+            $ticket = $this->tickets->findOrFail($id);
+            $ticket->is_public = false;
+
+            $subject = $ticket->subject;
+            $ticket->save();
+
+            session()->flash('status', trans('ticketit::lang.the-ticket-has-been-set-unpublic', ['name' => $subject]));
+
+            return redirect()->route(Setting::grab('main_route') . '.index');
+        }
+
+        return redirect()->route(Setting::grab('main_route') . '.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
@@ -390,10 +447,10 @@ class TicketsController extends Controller
 
             session()->flash('status', trans('ticketit::lang.the-ticket-has-been-reopened', ['name' => $subject]));
 
-            return redirect()->route(Setting::grab('main_route').'.index');
+            return redirect()->route(Setting::grab('main_route') . '.index');
         }
 
-        return redirect()->route(Setting::grab('main_route').'.index')
+        return redirect()->route(Setting::grab('main_route') . '.index')
             ->with('warning', trans('ticketit::lang.you-are-not-permitted-to-do-this'));
     }
 
@@ -410,7 +467,7 @@ class TicketsController extends Controller
         $select = '<select class="form-control" id="agent_id" name="agent_id">';
         foreach ($agents as $id => $name) {
             $selected = ($id == $selected_Agent) ? 'selected' : '';
-            $select .= '<option value="'.$id.'" '.$selected.'>'.$name.'</option>';
+            $select .= '<option value="' . $id . '" ' . $selected . '>' . $name . '</option>';
         }
         $select .= '</select>';
 

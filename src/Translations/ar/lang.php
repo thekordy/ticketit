@@ -46,6 +46,8 @@ return [
     'btn-delete'        => 'حذف',
     'btn-edit'          => 'تعديل',
     'btn-mark-complete' => 'تحديد كمنتهي',
+    'btn-mark-public'   => 'تحديد كعام',
+    'btn-mark-unpublic' => 'تحديد كغير عام',
     'btn-submit'        => 'أرسل',
 
     'agent'                   => 'وكيل',
@@ -137,6 +139,8 @@ return [
     'the-ticket-has-been-modified'               => 'التذكرة المعدّلة!',
     'the-ticket-has-been-deleted'                => 'تم حذف التذكرة :name!',
     'the-ticket-has-been-completed'              => 'تم إنهاء التذكرة :name!',
+    'the-ticket-has-been-set-public'             => 'تم جعل التذكرة :name عامة!',
+    'the-ticket-has-been-set-unpublic'           => 'تم جعل التذكرة :name غير عامة!',
     'the-ticket-has-been-reopened'               => 'تم إعادة فتح التذكرة :name!',
     'you-are-not-permitted-to-do-this'           => 'ليس لديك صلاحية القيام بهذا الأمر!',
 

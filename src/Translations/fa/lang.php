@@ -46,6 +46,8 @@ return [
   'btn-delete'                       => 'حذف',
   'btn-edit'                         => 'ویرایش',
   'btn-mark-complete'                => 'کامل شده است',
+  'btn-mark-public'                  => 'عمومی است',
+  'btn-mark-unpublic'                => 'عمومی نیست',
   'btn-submit'                       => 'ارسال',
 
   'agent'                            => 'نماینده',
@@ -137,6 +139,8 @@ return [
   'the-ticket-has-been-modified'     => 'تیکت تغییر یافت!',
   'the-ticket-has-been-deleted'      => 'تیکت :name حذف شد!',
   'the-ticket-has-been-completed'    => 'تیکت :name کامل شد!',
+  'the-ticket-has-been-set-public'   => 'تيكت :name عمومی است!',
+  'the-ticket-has-been-set-unpublic' => 'تيكت :name عمومی نيست!',
   'the-ticket-has-been-reopened'     => 'تیکت :name پاسخ داده شد!',
   'you-are-not-permitted-to-do-this' => 'شما اجازه این کار را ندارید!',
 

@@ -46,6 +46,8 @@ return [
     'btn-delete'                       => 'Löschen',
     'btn-edit'                         => 'Bearbeiten',
     'btn-mark-complete'                => 'Als geschlossen markieren',
+    'btn-mark-public'                  => 'Als öffentlich markieren',
+    'btn-mark-unpublic'                => 'Als nicht öffentlich markieren',
     'btn-submit'                       => 'Absenden',
 
     'agent'                            => 'Agent',
@@ -135,6 +137,8 @@ return [
     'the-ticket-has-been-modified'     => 'Das Ticket wurde bearbeitet!',
     'the-ticket-has-been-deleted'      => 'Das Ticket :name wurde gelöscht!',
     'the-ticket-has-been-completed'    => 'Das Ticket :name wurde geschlossen!',
+    'the-ticket-has-been-set-public'   => 'Das Ticket :name wurde veröffentlicht!',
+    'the-ticket-has-been-set-unpublic' => 'Das Ticket :name wurde nicht veröffentlicht!',
     'the-ticket-has-been-reopened'     => 'Das Ticket :name wurde erneut geöffnet!',
     'you-are-not-permitted-to-do-this' => 'Du bist nicht berechtigt diese Aktion auszuführen!',
 

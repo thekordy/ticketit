@@ -24,7 +24,7 @@
 	        responsive: true,
             pageLength: {{ $setting->grab('paginate_items') }},
         	lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
-	        ajax: '{!! route($setting->grab('main_route').'.data', $complete, $public ?? false) !!}',
+	        ajax: '{!! route($setting->grab('main_route').'.data', [$complete, $public ?? false]) !!}',
 	        language: {
 				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
 				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",

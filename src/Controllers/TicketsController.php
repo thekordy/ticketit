@@ -28,7 +28,7 @@ class TicketsController extends Controller
         $this->agent = $agent;
     }
 
-    public function data($complete = false)
+    public function data($complete = false, $public = false)
     {
         if (LaravelVersion::min('5.4')) {
             $datatables = app(\Yajra\DataTables\DataTables::class);
@@ -51,7 +51,9 @@ class TicketsController extends Controller
                 $collection = Ticket::active()->agentUserTickets($user->id);
             }
         } else {
-            if ($complete) {
+            if ($public) {
+                $collection = Ticket::public();
+            }else if ($complete) {
                 $collection = Ticket::userTickets($user->id)->complete();
             } else {
                 $collection = Ticket::userTickets($user->id)->active();
@@ -73,7 +75,7 @@ class TicketsController extends Controller
                 'ticketit.id AS agent',
                 'ticketit.updated_at AS updated_at',
                 'ticketit_priorities.name AS priority',
-                'users.name AS owner',
+                'users.email AS owner',
                 'ticketit.agent_id',
                 'ticketit_categories.name AS category',
             ]);
@@ -155,6 +157,18 @@ class TicketsController extends Controller
         $complete = true;
 
         return view('ticketit::index', compact('complete'));
+    }
+    /**
+     * Display a listing of public tickets
+     *
+     * @return Response
+     */
+    public function indexPublic()
+    {
+        $complete = true;
+        $public = true;
+
+        return view('ticketit::index', compact('complete'))->with(compact('public'));
     }
 
     /**

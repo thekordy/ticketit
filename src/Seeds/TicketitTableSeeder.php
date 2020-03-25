@@ -56,8 +56,19 @@ class TicketitTableSeeder extends Seeder
 
         for ($a = 1; $a <= $this->agents_qty; $a++) {
             $agent_info = new \App\User();
-            $agent_info->name = $faker->name;
-            $agent_info->email = 'agent'.$agents_counter.$this->email_domain;
+            $agent_info->email = $faker->unique()->safeEmail;
+            $agent_info->email_verified_at = now();
+            $agent_info->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
+            $agent_info->remember_token = \Str::random(10);
+            $agent_info->first_name = $faker->firstName;
+            $agent_info->last_name = $faker->lastName;
+            $agent_info->country = $faker->countryCode;
+            $agent_info->birthdate = $faker->dateTime();
+            $agent_info->referal_code = \App\User::generateReferal();
+            $agent_info->used_referal_code = null;
+            $agent_info->mobile_no = $faker->e164PhoneNumber;
+            $agent_info->api_token = $faker->sha1;
+
             $agent_info->ticketit_agent = 1;
             $agent_info->password = Hash::make($this->default_agent_password);
             $agent_info->save();
@@ -102,7 +113,7 @@ class TicketitTableSeeder extends Seeder
         for ($u = 1; $u <= $this->users_qty; $u++) {
             $user_info = new \App\User();
             $user_info->name = $faker->name;
-            $user_info->email = 'user'.$users_counter.$this->email_domain;
+            $user_info->email = 'user' . $users_counter . $this->email_domain;
             $user_info->ticketit_agent = 0;
             $user_info->password = Hash::make($this->default_user_password);
             $user_info->save();
@@ -128,8 +139,10 @@ class TicketitTableSeeder extends Seeder
                 $agent_id = array_rand($agents);
                 $random_create = rand(1, $this->tickets_date_period);
 
-                $random_complete = rand($this->tickets_min_close_period,
-                                        $this->tickets_max_close_period);
+                $random_complete = rand(
+                    $this->tickets_min_close_period,
+                    $this->tickets_max_close_period
+                );
 
                 $ticket = new \Kordy\Ticketit\Models\Ticket();
                 $ticket->subject = $faker->text(50);
@@ -152,16 +165,22 @@ class TicketitTableSeeder extends Seeder
                 }
                 $ticket->save();
 
-                $comments_qty = rand($this->comments_per_ticket_min,
-                                    $this->comments_per_ticket_max);
+                $comments_qty = rand(
+                    $this->comments_per_ticket_min,
+                    $this->comments_per_ticket_max
+                );
 
                 for ($c = 1; $c <= $comments_qty; $c++) {
                     if (is_null($ticket->completed_at)) {
                         $random_comment_date = $faker->dateTimeBetween(
-                        '-'.$random_create.' days', 'now');
+                            '-' . $random_create . ' days',
+                            'now'
+                        );
                     } else {
                         $random_comment_date = $faker->dateTimeBetween(
-                        '-'.$random_create.' days', '-'.($random_create - $random_complete).' days');
+                            '-' . $random_create . ' days',
+                            '-' . ($random_create - $random_complete) . ' days'
+                        );
                     }
 
                     $comment = new \Kordy\Ticketit\Models\Comment();

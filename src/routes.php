@@ -6,6 +6,8 @@ Route::group(['middleware' => \Kordy\Ticketit\Helpers\LaravelVersion::authMiddle
     //Ticket public route
     Route::get("$main_route_path/complete", 'Kordy\Ticketit\Controllers\TicketsController@indexComplete')
             ->name("$main_route-complete");
+    Route::get("$main_route_path/public", 'Kordy\Ticketit\Controllers\TicketsController@indexPublic')
+            ->name("$main_route-public");
     Route::get("$main_route_path/data/{id?}", 'Kordy\Ticketit\Controllers\TicketsController@data')
             ->name("$main_route.data");
 

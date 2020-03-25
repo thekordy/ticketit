@@ -32,6 +32,14 @@
                 </span>
             </a>
         </li>
+        <li role="presentation" class="nav-item">
+            <a class="nav-link {!! $tools->fullUrlIs(route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-public')) ? "active" : "" !!}"
+                 href="{{ route(Kordy\Ticketit\Models\Setting::grab('main_route') . '-public') }}">{{ trans('ticketit::lang.nav-public-tickets') }}
+                <span class="badge badge-pill badge-secondary">
+                    {{ Kordy\Ticketit\Models\Ticket::public()->count() }}
+                </span>
+            </a>
+        </li>
 
         @if($u->isTicketitAdmin())
             <li role="presentation" class="nav-item">

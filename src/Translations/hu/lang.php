@@ -8,6 +8,7 @@ return [
 
   'nav-active-tickets'               => 'Aktív kérelmek',
   'nav-completed-tickets'            => 'Lezárt kérelmek',
+  'nav-public-tickets'               => 'Nyilvános kérelmek',
 
   // Tables
   'table-id'                         => 'ID',

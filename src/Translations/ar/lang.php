@@ -8,6 +8,7 @@ return [
 
     'nav-active-tickets'    => 'التذاكر النشطة',
     'nav-completed-tickets' => 'التذاكر المغلقة',
+    'nav-public-tickets' => 'التذاكر العامة',
 
     // Tables
     'table-id'              => '#',

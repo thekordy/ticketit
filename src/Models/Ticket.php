@@ -41,6 +41,16 @@ class Ticket extends Model
     }
 
     /**
+     * List of completed tickets.
+     *
+     * @return Collection
+     */
+    public function scopePublic($query)
+    {
+        return $query->where('is_public',true);
+    }
+
+    /**
      * List of active tickets.
      *
      * @return Collection

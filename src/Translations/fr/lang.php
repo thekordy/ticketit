@@ -8,6 +8,7 @@ return [
 
   'nav-active-tickets'               => 'Tickets Ouverts',
   'nav-completed-tickets'            => 'Tickets Fermés',
+  'nav-public-tickets'               => 'Tickets publics',
 
   // Tables
   'table-id'                         => '#',

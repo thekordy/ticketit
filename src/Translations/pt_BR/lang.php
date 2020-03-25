@@ -8,6 +8,7 @@ return [
 
     'nav-active-tickets'               => 'Chamados Ativos',
     'nav-completed-tickets'            => 'Chamados Finalizados',
+  'nav-public-tickets'                 => 'Chamados Públicos',
 
     // Tables
     'table-id'                         => '#',

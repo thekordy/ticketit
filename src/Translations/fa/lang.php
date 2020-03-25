@@ -8,6 +8,7 @@ return [
 
   'nav-active-tickets'               => 'تیکت های فعال',
   'nav-completed-tickets'            => 'تیکت های تکمیل شده',
+  'nav-public-tickets'               => 'تيكت های عمومی',
 
   // Tables
   'table-id'                         => '#',

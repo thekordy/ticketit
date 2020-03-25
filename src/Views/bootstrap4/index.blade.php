@@ -24,7 +24,7 @@
 	        responsive: true,
             pageLength: {{ $setting->grab('paginate_items') }},
         	lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
-	        ajax: '{!! route($setting->grab('main_route').'.data', $complete) !!}',
+	        ajax: '{!! route($setting->grab('main_route').'.data', $complete, $public ?? false) !!}',
 	        language: {
 				decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
 				emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
@@ -57,7 +57,7 @@
             	{ data: 'agent', name: 'users.name' },
 	            @if( $u->isAgent() || $u->isTicketitAdmin() )
 		            { data: 'priority', name: 'ticketit_priorities.name' },
-	            	{ data: 'owner', name: 'users.name' },
+	            	{ data: 'owner', name: 'users.email' },
 		            { data: 'category', name: 'ticketit_categories.name' }
 	            @endif
 	        ]

@@ -8,6 +8,7 @@ return [
 
   'nav-active-tickets'               => 'Lopende tickets',
   'nav-completed-tickets'            => 'Afgeronde tickets',
+  'nav-public-tickets'               => 'Openbare tickets',
 
   // Tables
   'table-id'                         => '#',

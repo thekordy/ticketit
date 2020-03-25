@@ -8,6 +8,8 @@ return [
 
   'nav-active-tickets'               => 'Tiquetes Activos',
   'nav-completed-tickets'            => 'Tiquetes Completos',
+  'nav-public-tickets'            => 'Tiquetes Públicos',
+
 
   // Tables
   'table-id'                         => '#',

@@ -44,6 +44,7 @@ class CreateTicketitTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('agent_id')->unsigned();
             $table->integer('category_id')->unsigned();
+            $table->boolean('is_public')->default(false);
             $table->timestamps();
         });
 

@@ -1,3 +1,8 @@
+# This project is archived!
+That means no more expected updates or patches. It's a good idea to start looking for other alternatives.
+
+Thanks for everyone contributed to this project for over 6 years.
+
 # Ticketit
 
 A simple helpdesk tickets system for Laravel 5.1+ (5.1 – 5.8 and 6.* - 7.* - 8.*) which integrates smoothly with Laravel default users and auth system. 
